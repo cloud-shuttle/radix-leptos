@@ -1,0 +1,30 @@
+[package]
+name = "radix-leptos-primitives"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+description = "Primitive components for Radix-Leptos"
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+radix-leptos-core = { path = "../radix-leptos-core" }
+leptos.workspace = true
+web-sys.workspace = true
+# leptos-use.workspace = true
+wasm-bindgen.workspace = true
+js-sys.workspace = true
+thiserror.workspace = true
+
+[dev-dependencies]
+wasm-bindgen-test.workspace = true
+console_error_panic_hook.workspace = true
+
+[features]
+default = []
+ssr = ["leptos/ssr", "radix-leptos-core/ssr"]
+hydrate = ["leptos/hydrate", "radix-leptos-core/hydrate"]

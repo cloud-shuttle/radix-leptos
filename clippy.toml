@@ -1,0 +1,21 @@
+# Clippy configuration for Radix-Leptos
+
+# Allow certain lints that are common in UI libraries
+allowed = [
+    "clippy::too_many_arguments",  # Common in component props
+    "clippy::module_inception",    # Allow mod.rs files with same name as directory
+]
+
+# Deny certain lints for code quality
+denied = [
+    "clippy::unwrap_used",         # Prefer expect with messages
+    "clippy::expect_used",         # Consider returning Results instead
+    "clippy::panic",               # Avoid panics in library code
+    "clippy::todo",                # No TODOs in final code
+    "clippy::unimplemented",       # No unimplemented code
+]
+
+# Set thresholds
+cognitive-complexity-threshold = 30
+type-complexity-threshold = 60
+too-many-lines-threshold = 200

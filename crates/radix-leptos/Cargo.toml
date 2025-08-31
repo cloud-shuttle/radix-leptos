@@ -1,0 +1,25 @@
+[package]
+name = "radix-leptos"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+description = "Accessible, unstyled UI primitives for Leptos"
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+radix-leptos-core = { path = "../radix-leptos-core" }
+radix-leptos-primitives = { path = "../radix-leptos-primitives" }
+leptos.workspace = true
+
+[dev-dependencies]
+wasm-bindgen-test.workspace = true
+
+[features]
+default = []
+ssr = ["leptos/ssr", "radix-leptos-core/ssr", "radix-leptos-primitives/ssr"]
+hydrate = ["leptos/hydrate", "radix-leptos-core/hydrate", "radix-leptos-primitives/hydrate"]

@@ -1,0 +1,14 @@
+[package]
+name = "radix-leptos-examples"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+leptos = { version = "0.8", features = ["ssr", "csr"] }
+radix-leptos-primitives = { path = "../crates/radix-leptos-primitives" }
+wasm-bindgen = "0.2"
+web-sys = "0.3"
+
+[lib]
+crate-type = ["cdylib"]
+name = "radix_leptos_examples"

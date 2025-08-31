@@ -1,0 +1,55 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  create-release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install stable toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Run tests
+        run: cargo test --all-features --workspace
+
+      - name: Build documentation
+        run: cargo doc --all-features --workspace --no-deps
+
+      - name: Create release
+        uses: taiki-e/create-gh-release-action@v1
+        with:
+          title: $tag
+          changelog: CHANGELOG.md
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  publish-crates:
+    name: Publish to crates.io
+    needs: create-release
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        crate:
+          - radix-leptos-core
+          - radix-leptos-primitives
+          - radix-leptos
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+
+      - name: Install stable toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Publish ${{ matrix.crate }}
+        run: |
+          cd crates/${{ matrix.crate }}
+          cargo publish --token ${{ secrets.CRATES_TOKEN }}
+        continue-on-error: ${{ matrix.crate == 'radix-leptos-core' }}

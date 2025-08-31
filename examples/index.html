@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radix-Leptos Component Testing</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            margin: 5px;
+            transition: all 0.2s ease;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        .dialog-content {
+            background: white;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            max-width: 500px;
+            margin: 20px auto;
+            border: 1px solid #e9ecef;
+        }
+        .dialog-title {
+            margin-top: 0;
+            color: #333;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .dialog-description {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+        .separator {
+            margin: 20px 0;
+            border: none;
+            height: 1px;
+            background-color: #dee2e6;
+        }
+        .vertical-separator {
+            width: 1px;
+            background-color: #dee2e6;
+            margin: 0 10px;
+            min-height: 20px;
+        }
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+        }
+        .section h2 {
+            margin-top: 0;
+            color: #495057;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .test-area {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #dee2e6;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-weight: 500;
+        }
+        .status.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Radix-Leptos Component Testing</h1>
+        <p>This page tests all working components in Radix-Leptos to ensure they function correctly.</p>
+        
+        <div class="status info">
+            <strong>Status:</strong> Loading components...
+        </div>
+        
+        <div id="app" class="loading">
+            <p>Initializing Radix-Leptos components...</p>
+        </div>
+    </div>
+    
+    <script type="module">
+        import init from './pkg/radix_leptos_examples.js';
+        
+        async function run() {
+            try {
+                const wasm = await init();
+                console.log('WASM loaded successfully:', wasm);
+                
+                // Test the test_function to verify wasm_bindgen is working
+                if (typeof wasm.test_function === 'function') {
+                    try {
+                        const result = wasm.test_function();
+                        console.log('test_function result:', result);
+                    } catch (error) {
+                        console.error('Error calling test_function:', error);
+                    }
+                }
+                
+                // Try to call the start_app function if it exists
+                if (typeof wasm.start_app === 'function') {
+                    console.log('Calling start_app function...');
+                    try {
+                        wasm.start_app();
+                        console.log('start_app function called successfully');
+                    } catch (error) {
+                        console.error('Error calling start_app:', error);
+                        const appDiv = document.getElementById('app');
+                        appDiv.innerHTML = '<p>Error calling start_app function: ' + error.message + '</p>';
+                    }
+                } else {
+                    console.log('Available exports:', Object.keys(wasm));
+                    // If start_app doesn't exist, try to mount manually
+                    const appDiv = document.getElementById('app');
+                    appDiv.innerHTML = '<p>WASM loaded but start_app function not found. Check console for available exports.</p>';
+                }
+                
+                // Update status
+                const statusDiv = document.querySelector('.status');
+                statusDiv.className = 'status success';
+                statusDiv.innerHTML = '<strong>Status:</strong> Components loaded successfully! ✅';
+                
+                // Remove loading message and clear content
+                const appDiv = document.getElementById('app');
+                appDiv.className = '';
+                appDiv.innerHTML = ''; // Clear the loading message
+            } catch (error) {
+                console.error('Failed to load components:', error);
+                const statusDiv = document.querySelector('.status');
+                statusDiv.className = 'status error';
+                statusDiv.innerHTML = '<strong>Error:</strong> Failed to load components. Check console for details.';
+            }
+        }
+        
+        run();
+    </script>
+</body>
+</html>
