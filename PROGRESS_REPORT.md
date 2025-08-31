@@ -108,11 +108,17 @@
 4. **Tooltip Component** - Hover-triggered information display
 5. **Select Component** - Dropdown selection with search
 
-### **Phase 4: Complex Components (Next 2-3 weeks)**
-1. **Combobox Component** - Searchable dropdown
-2. **DatePicker Component** - Date selection with calendar
+### **Phase 4: Complex Components (v0.2.0 - 12 weeks)**
+**Status**: Planning Phase ✅  
+**Timeline**: January-March 2025  
+**Components**: 4 advanced UI components  
+
+1. **Combobox Component** - Searchable dropdown with keyboard navigation
+2. **DatePicker Component** - Date selection with calendar grid
 3. **Slider Component** - Range input with drag interaction
 4. **Progress Component** - Loading and progress indicators
+
+**Detailed Plan**: See [PHASE4_DEVELOPMENT_PLAN.md](PHASE4_DEVELOPMENT_PLAN.md)
 
 ### **Phase 5: Layout & Navigation (Next 3-4 weeks)**
 1. **Navigation Menu Component** - Hierarchical navigation
