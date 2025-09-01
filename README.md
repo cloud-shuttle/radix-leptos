@@ -133,6 +133,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [ ] Animation library
 - [ ] Component playground
 
+**📋 [View Full Development Roadmap](ROADMAP.md)**
+
 ---
 
 **Ready for production use with 538KB optimized bundle! 🎉**
