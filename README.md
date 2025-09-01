@@ -103,10 +103,12 @@ radix-leptos = { version = "0.1.0", features = ["core"] }
 
 ## 📚 Documentation
 
-- [API Documentation](https://docs.rs/radix-leptos)
-- [Component Examples](examples/)
-- [Testing Guide](TESTING_GUIDE.md)
-- [Performance Guide](OPTIMIZATION_RESULTS.md)
+- [📚 Complete Documentation](docs/) - All guides, APIs, and resources
+- [🚀 Development Roadmap](docs/ROADMAP.md) - Future features and timeline
+- [🧪 Testing Guide](docs/guides/TESTING_GUIDE.md) - How to test components
+- [📊 Performance Guide](docs/guides/OPTIMIZATION_RESULTS.md) - Bundle optimization details
+- [🚀 Production Deployment](docs/guides/PRODUCTION_DEPLOYMENT_GUIDE.md) - Deployment guide
+- [API Documentation](https://docs.rs/radix-leptos) - Official crates.io docs
 
 ## 🤝 Contributing
 

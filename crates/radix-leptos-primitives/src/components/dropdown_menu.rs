@@ -39,7 +39,7 @@ pub fn DropdownMenu(
     #[prop(optional)] style: Option<String>,
     children: Children,
 ) -> impl IntoView {
-    let (is_open, set_is_open) = signal(false);
+    let (_is_open, set_is_open) = signal(false);
     let trigger_ref = NodeRef::<html::Div>::new();
     let content_ref = NodeRef::<html::Div>::new();
 

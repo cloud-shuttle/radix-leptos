@@ -1,6 +1,6 @@
 use leptos::*;
 use leptos::prelude::*;
-use leptos::logging::log;
+// Removed unused import
 use radix_leptos_primitives::components::toast::*;
 
 #[component]

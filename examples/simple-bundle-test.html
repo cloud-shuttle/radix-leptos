@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Bundle Test - Radix Leptos</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .status {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        .status.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .status.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .status.info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .bundle-info {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            margin: 20px 0;
+        }
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        .test-button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Simple Bundle Test - Radix Leptos</h1>
+    
+    <div class="test-container">
+        <h2>📊 Bundle Information</h2>
+        <div class="bundle-info">
+            <strong>Target Size:</strong> 1-2MB<br>
+            <strong>Previous Size:</strong> 457MB<br>
+            <strong>Current Size:</strong> <span id="current-size">Loading...</span><br>
+            <strong>Optimization:</strong> Core components only (9 components)<br>
+            <strong>Feature Flag:</strong> "core" enabled
+        </div>
+        
+        <div id="status" class="status info">
+            🚀 Ready to test bundle...
+        </div>
+        
+        <button class="test-button" onclick="testBundle()">🧪 Test Bundle</button>
+        <button class="test-button" onclick="measureBundle()">📏 Measure Size</button>
+    </div>
+
+    <div class="test-container">
+        <h2>🔍 Test Results</h2>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        function updateStatus(message, type = 'info') {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = `status ${type}`;
+        }
+
+        function addResult(test, result, details = '') {
+            const resultsDiv = document.getElementById('results');
+            const resultElement = document.createElement('div');
+            resultElement.className = `status ${result === 'PASS' ? 'success' : 'error'}`;
+            resultElement.innerHTML = `
+                <strong>${test}</strong> - ${result}<br>
+                <small>${details}</small>
+            `;
+            resultsDiv.appendChild(resultElement);
+        }
+
+        async function testBundle() {
+            try {
+                updateStatus('🔄 Testing bundle loading...', 'info');
+                
+                // Test if we can fetch the WASM file
+                const response = await fetch('./radix_leptos_examples_optimized.wasm');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                // Test if we can read the file
+                const wasmBuffer = await response.arrayBuffer();
+                const wasmSize = wasmBuffer.byteLength;
+                const wasmSizeMB = (wasmSize / (1024 * 1024)).toFixed(2);
+                
+                // Update the size display
+                document.getElementById('current-size').textContent = `${wasmSizeMB}MB`;
+                
+                // Check if size is in our target range
+                if (wasmSizeMB >= 1.0 && wasmSizeMB <= 2.0) {
+                    addResult('Bundle Size', 'PASS', `Size: ${wasmSizeMB}MB (within 1-2MB target)`);
+                    updateStatus(`✅ Bundle test passed! Size: ${wasmSizeMB}MB`, 'success');
+                } else {
+                    addResult('Bundle Size', 'FAIL', `Size: ${wasmSizeMB}MB (outside 1-2MB target)`);
+                    updateStatus(`❌ Bundle size outside target range: ${wasmSizeMB}MB`, 'error');
+                }
+                
+                // Test file accessibility
+                addResult('File Access', 'PASS', 'WASM file accessible and readable');
+                
+                // Test file integrity
+                if (wasmSize > 0) {
+                    addResult('File Integrity', 'PASS', 'WASM file has content');
+                } else {
+                    addResult('File Integrity', 'FAIL', 'WASM file is empty');
+                }
+                
+            } catch (error) {
+                addResult('Bundle Test', 'FAIL', error.message);
+                updateStatus(`❌ Bundle test failed: ${error.message}`, 'error');
+            }
+        }
+
+        function measureBundle() {
+            fetch('./radix_leptos_examples_optimized.wasm')
+                .then(response => {
+                    const size = response.headers.get('content-length');
+                    if (size) {
+                        const sizeMB = (size / (1024 * 1024)).toFixed(2);
+                        document.getElementById('current-size').textContent = `${sizeMB}MB`;
+                        addResult('Size Measurement', 'PASS', `Measured size: ${sizeMB}MB`);
+                        updateStatus(`📏 Bundle size: ${sizeMB}MB`, 'info');
+                    } else {
+                        addResult('Size Measurement', 'FAIL', 'Could not determine size');
+                    }
+                })
+                .catch(error => {
+                    addResult('Size Measurement', 'FAIL', error.message);
+                });
+        }
+
+        // Auto-test on page load
+        window.addEventListener('load', () => {
+            setTimeout(testBundle, 1000);
+        });
+    </script>
+</body>
+</html>

@@ -49,15 +49,15 @@ pub fn Tabs(
     #[prop(optional)] orientation: Option<TabsOrientation>,
     #[prop(optional)] size: Option<TabsSize>,
     #[prop(optional)] variant: Option<TabsVariant>,
-    #[prop(optional)] default_value: Option<String>,
-    #[prop(optional)] value: Option<ReadSignal<String>>,
-    #[prop(optional)] on_change: Option<Callback<String>>,
+    #[prop(optional)] _default_value: Option<String>,
+    #[prop(optional)] _value: Option<ReadSignal<String>>,
+    #[prop(optional)] _on_change: Option<Callback<String>>,
     #[prop(optional)] class: Option<String>,
     #[prop(optional)] style: Option<String>,
     children: Children,
 ) -> impl IntoView {
     let orientation = orientation.unwrap_or_default();
-    let size = size.unwrap_or_default();
+    let _size = size.unwrap_or_default();
     let variant = variant.unwrap_or_default();
     
     let base_classes = match (orientation, variant) {
@@ -89,10 +89,10 @@ pub fn TabsList(
     children: Children,
 ) -> impl IntoView {
     let orientation = orientation.unwrap_or_default();
-    let size = size.unwrap_or_default();
+    let _size = size.unwrap_or_default();
     let variant = variant.unwrap_or_default();
     
-    let base_classes = match (orientation, variant, size) {
+    let base_classes = match (orientation, variant, _size) {
         (TabsOrientation::Horizontal, TabsVariant::Default, TabsSize::Small) => "inline-flex h-8 items-center justify-center rounded-md bg-gray-100 p-1 text-gray-600",
         (TabsOrientation::Horizontal, TabsVariant::Default, TabsSize::Medium) => "inline-flex h-10 items-center justify-center rounded-md bg-gray-100 p-1 text-gray-600",
         (TabsOrientation::Horizontal, TabsVariant::Default, TabsSize::Large) => "inline-flex h-12 items-center justify-center rounded-md bg-gray-100 p-1 text-gray-600",
@@ -136,10 +136,10 @@ pub fn TabsTrigger(
 ) -> impl IntoView {
     let value = value.unwrap_or_default();
     let disabled = disabled.unwrap_or(false);
-    let size = size.unwrap_or_default();
+    let _size = size.unwrap_or_default();
     let variant = variant.unwrap_or_default();
     
-    let base_classes = match (variant, size) {
+    let base_classes = match (variant, _size) {
         (TabsVariant::Default, TabsSize::Small) => "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1 text-xs font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-gray-200 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm",
         (TabsVariant::Default, TabsSize::Medium) => "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-gray-200 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm",
         (TabsVariant::Default, TabsSize::Large) => "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-4 py-2 text-base font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-gray-200 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm",

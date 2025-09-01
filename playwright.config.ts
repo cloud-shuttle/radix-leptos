@@ -12,7 +12,7 @@ export default defineConfig({
     timeout: 15000,
   },
   use: {
-    baseURL: 'http://localhost:8080',
+    baseURL: 'http://localhost:8081',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
@@ -24,14 +24,14 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
-    // Temporarily disabled other browsers for stability
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+    },
   ],
-  // webServer disabled - using manual development server
-  // webServer: {
-  //   command: 'python3 -m http.server 8080',
-  //   url: 'http://localhost:8080',
-  //   reuseExistingServer: !process.env.CI,
-  //   timeout: 180 * 1000,
-  // },
   preserveOutput: 'failures-only',
 });

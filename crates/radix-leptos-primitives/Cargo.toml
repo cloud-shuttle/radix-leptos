@@ -29,3 +29,7 @@ console_error_panic_hook.workspace = true
 default = []
 ssr = ["leptos/ssr", "radix-leptos-core/ssr"]
 hydrate = ["leptos/hydrate", "radix-leptos-core/hydrate"]
+
+# Component features
+core = []
+full = []

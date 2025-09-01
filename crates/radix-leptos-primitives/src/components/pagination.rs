@@ -165,7 +165,7 @@ pub fn Pagination(
     let pagination_id = generate_id("pagination");
     
     // Reactive state
-    let (current_page_signal, set_current_page_signal) = signal(current_page);
+    let (current_page_signal, _set_current_page_signal) = signal(current_page);
     let total_items_calculated = total_items.unwrap_or_else(|| total_pages * page_size);
     
     // Create context

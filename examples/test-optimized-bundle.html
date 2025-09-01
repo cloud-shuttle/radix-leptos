@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Optimized Bundle - Radix Leptos</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .status {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        .status.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .status.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .status.info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        .test-button:hover { background: #0056b3; }
+        .test-button:disabled { background: #6c757d; cursor: not-allowed; }
+        .bundle-info {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            margin: 20px 0;
+        }
+        .component-test {
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            background: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Testing Optimized Radix-Leptos Bundle</h1>
+    
+    <div class="test-container">
+        <h2>📊 Bundle Information</h2>
+        <div class="bundle-info">
+            <strong>Target Size:</strong> 1-2MB<br>
+            <strong>Previous Size:</strong> 457MB<br>
+            <strong>Optimization:</strong> Core components only (9 components)<br>
+            <strong>Feature Flag:</strong> "core" enabled
+        </div>
+        
+        <div id="status" class="status info">
+            🚀 Ready to test optimized bundle...
+        </div>
+        
+        <div>
+            <button class="test-button" onclick="testBundle()">🧪 Test Bundle Loading</button>
+            <button class="test-button" onclick="testPagination()">📄 Test Pagination</button>
+            <button class="test-button" onclick="measureBundleSize()">📏 Measure Bundle Size</button>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h2>🔍 Test Results</h2>
+        <div id="test-results"></div>
+    </div>
+
+    <div class="test-container">
+        <h2>📄 Pagination Component Test</h2>
+        <div id="pagination-test" class="component-test">
+            <p>Click "Test Pagination" to load and test the pagination components.</p>
+        </div>
+    </div>
+
+    <!-- Load the WASM loader first -->
+    <script src="./wasm-loader.js"></script>
+
+    <script type="module">
+        let wasmModule = null;
+        let testResults = [];
+
+        function updateStatus(message, type = 'info') {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = `status ${type}`;
+        }
+
+        function addTestResult(test, result, details = '') {
+            const timestamp = new Date().toLocaleTimeString();
+            testResults.push({ test, result, details, timestamp });
+            
+            const resultsDiv = document.getElementById('test-results');
+            const resultElement = document.createElement('div');
+            resultElement.className = `status ${result === 'PASS' ? 'success' : 'error'}`;
+            resultElement.innerHTML = `
+                <strong>${test}</strong> - ${result} (${timestamp})<br>
+                <small>${details}</small>
+            `;
+            resultsDiv.appendChild(resultElement);
+        }
+
+        async function testBundle() {
+            try {
+                updateStatus('🔄 Loading optimized WASM bundle...', 'info');
+                
+                // Load the optimized bundle
+                const response = await fetch('./radix_leptos_examples_optimized.wasm');
+                if (!response.ok) {
+                    throw new Error(`Failed to load WASM: ${response.status} ${response.statusText}`);
+                }
+                
+                const wasmBuffer = await response.arrayBuffer();
+                const wasmSize = wasmBuffer.byteLength;
+                const wasmSizeMB = (wasmSize / (1024 * 1024)).toFixed(2);
+                
+                addTestResult('Bundle Loading', 'PASS', `WASM loaded successfully (${wasmSizeMB}MB)`);
+                updateStatus(`✅ Bundle loaded successfully! Size: ${wasmSizeMB}MB`, 'success');
+                
+                // Test the test function
+                if (typeof window.test_function === 'function') {
+                    const result = window.test_function();
+                    addTestResult('Test Function', 'PASS', `Function returned: "${result}"`);
+                } else {
+                    addTestResult('Test Function', 'FAIL', 'test_function not available');
+                }
+                
+            } catch (error) {
+                addTestResult('Bundle Loading', 'FAIL', error.message);
+                updateStatus(`❌ Bundle loading failed: ${error.message}`, 'error');
+            }
+        }
+
+        async function testPagination() {
+            try {
+                updateStatus('🔄 Testing pagination components...', 'info');
+                
+                if (typeof window.start_pagination_examples === 'function') {
+                    window.start_pagination_examples();
+                    addTestResult('Pagination Mount', 'PASS', 'Pagination examples mounted successfully');
+                    updateStatus('✅ Pagination components working!', 'success');
+                } else {
+                    addTestResult('Pagination Mount', 'FAIL', 'start_pagination_examples function not available');
+                    updateStatus('❌ Pagination function not found', 'error');
+                }
+                
+            } catch (error) {
+                addTestResult('Pagination Test', 'FAIL', error.message);
+                updateStatus(`❌ Pagination test failed: ${error.message}`, 'error');
+            }
+        }
+
+        function measureBundleSize() {
+            const wasmFile = './radix_leptos_examples_optimized.wasm';
+            
+            fetch(wasmFile)
+                .then(response => {
+                    const size = response.headers.get('content-length');
+                    if (size) {
+                        const sizeMB = (size / (1024 * 1024)).toFixed(2);
+                        addTestResult('Bundle Size', 'PASS', `Current size: ${sizeMB}MB`);
+                        updateStatus(`📏 Bundle size: ${sizeMB}MB`, 'info');
+                    } else {
+                        addTestResult('Bundle Size', 'FAIL', 'Could not determine size');
+                    }
+                })
+                .catch(error => {
+                    addTestResult('Bundle Size', 'FAIL', error.message);
+                });
+        }
+
+        // Make functions globally available
+        window.testBundle = testBundle;
+        window.testPagination = testPagination;
+        window.measureBundleSize = measureBundleSize;
+    </script>
+</body>
+</html>

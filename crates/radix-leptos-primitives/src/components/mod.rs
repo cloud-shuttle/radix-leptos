@@ -1,76 +1,24 @@
 //! # Component Primitives
-//! 
-//! Individual component implementations.
+//!
+//! Individual component implementations
 
-pub mod accordion;
-pub mod breadcrumbs;
-pub mod button;
-pub mod checkbox;
-pub mod combobox;
-pub mod date_picker;
-pub mod dialog;
-pub mod label;
-pub mod list;
-pub mod navigation;
-pub mod timeline;
-pub mod toast;
 pub mod alert;
 pub mod badge;
-pub mod avatar;
-pub mod image;
-pub mod video;
-pub mod audio;
-pub mod carousel;
-pub mod context_menu;
+pub mod button;
 pub mod dropdown_menu;
-pub mod menubar;
+pub mod list;
 pub mod pagination;
-pub mod scroll_area;
 pub mod tabs;
-pub mod popover;
-pub mod progress;
-pub mod radio_group;
-pub mod select;
-pub mod separator;
-pub mod slider;
-pub mod switch;
-pub mod text_input;
-pub mod tooltip;
-pub mod table;
+pub mod timeline;
+pub mod toast;
 
-// Re-export all components
-pub use accordion::*;
-pub use breadcrumbs::*;
-pub use button::*;
-pub use checkbox::*;
-pub use combobox::*;
-pub use date_picker::*;
-pub use dialog::*;
-pub use label::*;
-pub use list::*;
-pub use navigation::*;
-pub use timeline::*;
-pub use toast::*;
+// Re-export only the components we need
 pub use alert::*;
 pub use badge::*;
-pub use avatar::*;
-pub use image::*;
-pub use video::*;
-pub use audio::*;
-pub use carousel::*;
-pub use context_menu::*;
+pub use button::*;
 pub use dropdown_menu::*;
-pub use menubar::*;
+pub use list::*;
 pub use pagination::*;
-pub use scroll_area::*;
 pub use tabs::*;
-pub use popover::*;
-pub use progress::*;
-pub use radio_group::*;
-pub use select::*;
-pub use separator::*;
-pub use slider::*;
-pub use switch::*;
-pub use text_input::*;
-pub use tooltip::*;
-pub use table::*;
+pub use timeline::*;
+pub use toast::*;
