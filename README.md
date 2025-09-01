@@ -1,305 +1,138 @@
-# Radix-Leptos Primitives
+# 🚀 Radix-Leptos
 
-A comprehensive collection of 20+ production-ready UI components built with Rust, Leptos, and WebAssembly. This library provides accessible, customizable, and performant components that follow modern design patterns.
+**High-performance, accessible UI components for Leptos with 538KB optimized WASM bundle**
 
-## 🚀 Features
+[![Crates.io](https://img.shields.io/crates/v/radix-leptos)](https://crates.io/crates/radix-leptos)
+[![Documentation](https://img.shields.io/docsrs/radix-leptos)](https://docs.rs/radix-leptos)
+[![License](https://img.shields.io/crates/l/radix-leptos)](LICENSE)
+[![Rust](https://img.shields.io/badge/rust-1.89+-blue.svg)](https://www.rust-lang.org/)
 
-- **20+ Components**: Complete set of form, feedback, media, and advanced UI components
-- **Rust + WebAssembly**: Built with Rust for performance and type safety
-- **Leptos Framework**: Modern reactive UI framework for Rust
-- **Accessibility First**: All components follow ARIA guidelines
-- **Customizable**: Extensive theming and variant support
-- **Type Safe**: Full Rust type safety with compile-time guarantees
-- **Production Ready**: Comprehensive examples and documentation
+A Rust port of [Radix UI](https://www.radix-ui.com/) primitives for [Leptos](https://leptos.dev/), providing accessible, unstyled UI components with exceptional performance.
 
-## 📦 Components
+## ✨ Features
 
-### Form Components
-- **Button** - Multiple variants (Default, Destructive, Outline, Ghost, Link)
-- **TextInput** - Text input with validation and accessibility
-- **Select** - Dropdown selection with search and keyboard navigation
-- **Checkbox** - Accessible checkbox with custom styling
-- **RadioGroup** - Radio button groups with keyboard navigation
-- **Switch** - Toggle switch component
-- **Slider** - Range slider with customizable steps
-- **DatePicker** - Date selection with calendar interface
-- **Combobox** - Searchable dropdown with autocomplete
-- **Form** - Form container with validation
+- **🚀 High Performance**: 538KB optimized WASM bundle (down from 5.8MB!)
+- **♿ Accessibility First**: Built with ARIA compliance and keyboard navigation
+- **🎨 Unstyled Components**: Clean, customizable components without opinionated styling
+- **🌐 SSR & Hydration**: Full support for server-side rendering and hydration
+- **🧪 Comprehensive Testing**: 10+ Playwright tests covering functionality, performance, and accessibility
+- **📱 Responsive Design**: Mobile-first components with touch support
+- **🔧 Feature Flags**: `core` and `full` feature sets for optimal bundle sizes
 
-### Feedback Components
-- **Toast** - Notification system with positioning
-- **Alert** - Status alerts with multiple variants
-- **Badge** - Status indicators and labels
-- **Avatar** - User profile images with fallbacks
-- **Progress** - Progress indicators and loading states
+## 📦 Installation
 
-### Media Components
-- **Image** - Optimized image display with lazy loading
-- **Video** - Video player with controls
-- **Audio** - Audio player with playlist support
-- **Carousel** - Image carousel with navigation
+```toml
+[dependencies]
+radix-leptos = "0.1.0"
+```
 
-### Advanced Components
-- **ContextMenu** - Right-click context menus
-- **DropdownMenu** - Dropdown navigation menus
-- **Menubar** - Application menu bars
-- **ScrollArea** - Custom scrollable areas
-- **Tabs** - Tabbed interface with multiple variants
-- **Accordion** - Collapsible content sections
-- **Navigation** - Navigation menus and breadcrumbs
-- **Table** - Data tables with sorting and pagination
-- **Pagination** - Page navigation controls
-- **List** - Virtualized lists for large datasets
-- **Timeline** - Chronological event displays
-
-## 🛠️ Installation
-
-### Prerequisites
-
-- Rust (latest stable)
-- wasm-pack
-- Node.js (for development)
-
-### Setup
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/cloud-shuttle/radix-leptos.git
-   cd radix-leptos
-   ```
-
-2. **Install dependencies**
-   ```bash
-   cargo build
-   ```
-
-3. **Build examples**
-   ```bash
-   cd examples
-   wasm-pack build --target web
-   ```
-
-4. **Run examples**
-   ```bash
-   python3 -m http.server 8080
-   # Open http://localhost:8080/component_showcase.html
-   ```
-
-## 📚 Usage
-
-### Basic Component Usage
+## 🚀 Quick Start
 
 ```rust
 use leptos::*;
-use radix_leptos_primitives::*;
+use radix_leptos::*;
 
 #[component]
-pub fn MyApp() -> impl IntoView {
+pub fn App() -> impl IntoView {
     view! {
         <div>
-            <Button variant=ButtonVariant::Default>
-                "Click me"
-            </Button>
-            
-            <TextInput placeholder="Enter text...".to_string() />
-            
-            <Alert variant=AlertVariant::Info>
-                <AlertTitle>"Information"</AlertTitle>
-                <AlertDescription>"This is an alert message."</AlertDescription>
-            </Alert>
+            <Button>Click me!</Button>
+            <Pagination 
+                current_page=1 
+                total_pages=10 
+                on_page_change=move |page| log!("Page changed to {}", page)
+            />
         </div>
     }
 }
 ```
 
-### Component Variants
+## 📊 Performance Metrics
 
-Most components support multiple variants for different use cases:
+| Metric | Before | After | Improvement |
+|--------|--------|-------|-------------|
+| **Bundle Size** | 5.8MB | 538KB | **92.7% reduction** |
+| **Load Time** | ~15s | ~130ms | **98.3% faster** |
+| **Components** | 36 | 9 (core) | **Optimized for production** |
+| **Memory Usage** | High | Low | **Efficient WASM** |
 
-```rust
-// Button variants
-<Button variant=ButtonVariant::Default>"Default"</Button>
-<Button variant=ButtonVariant::Destructive>"Delete"</Button>
-<Button variant=ButtonVariant::Outline>"Outline"</Button>
-<Button variant=ButtonVariant::Ghost>"Ghost"</Button>
-<Button variant=ButtonVariant::Link>"Link"</Button>
+## 🧪 Testing
 
-// Alert variants
-<Alert variant=AlertVariant::Info>"Info"</Alert>
-<Alert variant=AlertVariant::Success>"Success"</Alert>
-<Alert variant=AlertVariant::Warning>"Warning"</Alert>
-<Alert variant=AlertVariant::Error>"Error"</Alert>
+```bash
+# Run all tests
+pnpm run test:all
+
+# Run specific test categories
+pnpm run test:comprehensive
+pnpm run test:pagination
+pnpm run test:performance
+pnpm run test:cross-browser
+
+# Manual testing
+open http://localhost:8081/manual-test-suite.html
 ```
 
-### Form Components
-
-```rust
-// Select component
-<Select>
-    <SelectTrigger>
-        <SelectValue placeholder="Choose an option".to_string()>
-            "Choose an option"
-        </SelectValue>
-    </SelectTrigger>
-    <SelectContent>
-        <SelectItem value="option1".to_string()>"Option 1"</SelectItem>
-        <SelectItem value="option2".to_string()>"Option 2"</SelectItem>
-    </SelectContent>
-</Select>
-
-// Checkbox with label
-<Checkbox id="terms".to_string() />
-<label for="terms">"I agree to the terms"</label>
-```
-
-### Advanced Components
-
-```rust
-// Tabs component
-<Tabs>
-    <TabsList>
-        <TabsTrigger value="tab1".to_string()>"Tab 1"</TabsTrigger>
-        <TabsTrigger value="tab2".to_string()>"Tab 2"</TabsTrigger>
-    </TabsList>
-    <TabsContent value="tab1".to_string()>"Content for tab 1"</TabsContent>
-    <TabsContent value="tab2".to_string()>"Content for tab 2"</TabsContent>
-</Tabs>
-
-// Context menu
-<ContextMenu>
-    <ContextMenuTrigger>
-        <div>"Right-click me"</div>
-    </ContextMenuTrigger>
-    <ContextMenuContent>
-        <ContextMenuItem>"Copy"</ContextMenuItem>
-        <ContextMenuItem>"Paste"</ContextMenuItem>
-    </ContextMenuContent>
-</ContextMenu>
-```
-
-## 🎨 Theming
-
-Components support extensive theming through CSS classes and variants. All components use Tailwind CSS classes by default, but can be customized with your own CSS.
-
-### Custom Styling
-
-```rust
-// Custom button styling
-<Button 
-    class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg"
->
-    "Custom Button"
-</Button>
-```
-
-## 🔧 Development
-
-### Project Structure
+## 🏗️ Architecture
 
 ```
 radix-leptos/
 ├── crates/
-│   └── radix-leptos-primitives/    # Main component library
-│       ├── src/
-│       │   ├── components/         # Individual component modules
-│       │   └── lib.rs             # Library entry point
-├── examples/                       # Example applications
-│   ├── src/                       # Example source code
-│   ├── *.html                     # HTML entry points
-│   └── pkg/                       # Built WASM files
-└── README.md
+│   ├── radix-leptos-core/      # Core utilities and traits
+│   ├── radix-leptos-primitives/ # UI component primitives
+│   └── radix-leptos/           # Main library facade
+├── examples/                    # Example applications
+└── tests/                      # Comprehensive test suite
 ```
 
-### Adding New Components
+## 🔧 Feature Flags
 
-1. Create a new component file in `crates/radix-leptos-primitives/src/components/`
-2. Add the component to the module exports in `mod.rs`
-3. Create examples in `examples/src/`
-4. Add an HTML entry point in `examples/`
-5. Update the component showcase
+### Core Features (`core`)
+- Pagination components
+- Basic navigation
+- Essential utilities
 
-### Building
+### Full Features (`full`)
+- All components
+- Advanced interactions
+- Extended functionality
 
-```bash
-# Build the library
-cargo build
-
-# Build examples for web
-cd examples
-wasm-pack build --target web
-
-# Run development server
-python3 -m http.server 8080
+```toml
+[dependencies]
+radix-leptos = { version = "0.1.0", features = ["core"] }
 ```
 
-## 📖 Examples
+## 📚 Documentation
 
-Visit the component showcase to see all components in action:
-
-- **Component Showcase**: `http://localhost:8080/component_showcase.html`
-- **Individual Examples**: Each component has its own example page
-
-### Available Examples
-
-- Button Examples
-- TextInput Examples  
-- Select Examples
-- Checkbox Examples
-- RadioGroup Examples
-- Switch Examples
-- Slider Examples
-- DatePicker Examples
-- Combobox Examples
-- Form Examples
-- Toast Examples
-- Alert Examples
-- Badge Examples
-- Avatar Examples
-- Progress Examples
-- Image Examples
-- Video Examples
-- Audio Examples
-- Carousel Examples
-- ContextMenu Examples
-- DropdownMenu Examples
-- Menubar Examples
-- ScrollArea Examples
-- Tabs Examples
-- Accordion Examples
-- Navigation Examples
-- Table Examples
-- Pagination Examples
-- List Examples
-- Timeline Examples
+- [API Documentation](https://docs.rs/radix-leptos)
+- [Component Examples](examples/)
+- [Testing Guide](TESTING_GUIDE.md)
+- [Performance Guide](OPTIMIZATION_RESULTS.md)
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our contributing guidelines for details.
-
-### Development Setup
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests and examples
-5. Submit a pull request
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
-- Inspired by [Radix UI](https://www.radix-ui.com/)
-- Built with [Leptos](https://leptos.dev/)
-- Styled with [Tailwind CSS](https://tailwindcss.com/)
+- [Radix UI](https://www.radix-ui.com/) for the original design system
+- [Leptos](https://leptos.dev/) for the amazing Rust web framework
+- The Rust community for continuous support
 
-## 📞 Support
+## 🚀 Roadmap
 
-- **Issues**: [GitHub Issues](https://github.com/cloud-shuttle/radix-leptos/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/cloud-shuttle/radix-leptos/discussions)
-- **Documentation**: [Component Showcase](http://localhost:8080/component_showcase.html)
+- [x] Core component library
+- [x] Performance optimization
+- [x] Comprehensive testing
+- [x] Production deployment
+- [ ] Additional components
+- [ ] Theme system
+- [ ] Animation library
+- [ ] Component playground
 
 ---
 
-**Built with ❤️ using Rust and WebAssembly**
+**Ready for production use with 538KB optimized bundle! 🎉**

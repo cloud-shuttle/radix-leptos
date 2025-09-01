@@ -80,8 +80,8 @@
 // Re-export all components from primitives
 pub use radix_leptos_primitives::*;
 
-// Re-export core utilities for advanced usage
-pub use radix_leptos_core::*;
+// Re-export core utilities for advanced usage (excluding portal to avoid conflicts)
+pub use radix_leptos_core::{utils, primitives::visually_hidden};
 
 // Re-export commonly used Leptos items
 pub use leptos::*;

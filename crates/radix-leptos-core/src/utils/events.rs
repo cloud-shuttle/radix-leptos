@@ -1,5 +1,5 @@
-use web_sys::{Event, EventTarget, MouseEvent, KeyboardEvent, FocusEvent};
-use wasm_bindgen::{JsCast, JsValue};
+use web_sys::{Event, KeyboardEvent};
+use wasm_bindgen::JsCast;
 
 /// Utility functions for event handling and composition
 

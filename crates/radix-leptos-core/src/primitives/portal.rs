@@ -1,7 +1,5 @@
 use leptos::*;
 use leptos::prelude::*;
-use wasm_bindgen::JsCast;
-use web_sys::{Element, HtmlElement};
 
 /// Portal component for rendering content in different DOM locations
 /// 

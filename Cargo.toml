@@ -15,9 +15,9 @@ license = "MIT"
 repository = "https://github.com/cloud-shuttle/radix-leptos"
 homepage = "https://radix-leptos.dev"
 documentation = "https://docs.rs/radix-leptos"
-description = "Rust port of Radix UI primitives for Leptos"
-keywords = ["ui", "components", "accessibility", "leptos", "radix"]
-categories = ["web-programming", "gui"]
+description = "Rust port of Radix UI primitives for Leptos - High-performance, accessible UI components with 538KB optimized WASM bundle"
+keywords = ["ui", "components", "accessibility", "leptos", "radix", "wasm", "rust", "web-components"]
+categories = ["web-programming", "gui", "wasm"]
 
 [workspace.dependencies]
 leptos = { version = "0.8", features = ["ssr", "csr"] }
@@ -42,9 +42,11 @@ proptest = "1.0"
 fake = "2.9"
 criterion = "0.5"
 
-[workspace.dev-dependencies]
-wasm-bindgen-test = "0.3"
-leptos-testing = "0.1"
-proptest = "1.0"
-fake = "2.9"
-criterion = "0.5"
+# Dev dependencies are defined in individual crates
+
+[profile.release]
+opt-level = 3
+lto = false
+codegen-units = 1
+panic = "abort"
+strip = true

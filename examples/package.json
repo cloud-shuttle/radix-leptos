@@ -1,24 +1,29 @@
 {
   "name": "examples",
   "version": "1.0.0",
-  "description": "",
+  "description": "Radix-Leptos UI Component Library with Comprehensive Testing",
   "main": "index.js",
-  "scripts": {
-    "test": "playwright test",
-    "test:ui": "playwright test --ui",
-    "test:headed": "playwright test --headed",
-    "test:debug": "playwright test --debug",
-    "test:carousel": "playwright test -g 'Carousel Examples'",
-    "test:tabs": "playwright test -g 'Tabs Examples'",
-    "test:all": "playwright test --reporter=html",
-    "report": "playwright show-report"
-  },
-  "keywords": [],
+                "scripts": {
+                "test": "playwright test --reporter=list",
+                "test:ui": "playwright test --ui",
+                "test:headed": "playwright test --headed",
+                "test:debug": "playwright test --debug",
+                "test:comprehensive": "playwright test radix-leptos-comprehensive.spec.ts --reporter=list",
+                "test:pagination": "playwright test pagination-components.spec.ts --reporter=list",
+                "test:performance": "playwright test performance-stress.spec.ts --reporter=list",
+                "test:cross-browser": "playwright test cross-browser.spec.ts --reporter=list",
+                "test:all": "playwright test --reporter=list",
+                "test:report": "playwright show-report",
+                "test:run-comprehensive": "./tests/run-comprehensive-tests.sh",
+                "test:install": "playwright install",
+                "test:codegen": "playwright codegen http://localhost:8081/production-test.html"
+              },
+  "keywords": ["radix", "leptos", "ui", "components", "wasm", "rust", "testing", "playwright"],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.15.0",
   "devDependencies": {
-    "playwright": "^1.55.0",
-    "puppeteer": "^24.17.1"
+    "@playwright/test": "^1.55.0",
+    "playwright": "^1.55.0"
   }
 }

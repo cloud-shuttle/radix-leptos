@@ -1,5 +1,4 @@
 use web_sys::{Document, Element};
-use wasm_bindgen::JsCast;
 
 /// Get the owner document of an element, falling back to the current document
 pub fn get_owner_document(element: Option<&Element>) -> Document {

@@ -35,7 +35,7 @@ pub fn VisuallyHidden(
     class: Option<String>,
     /// HTML element to render (defaults to span)
     #[prop(optional, default = "span".to_string(), into)]
-    as_: String,
+    _as_: String,
     /// Content that should be hidden visually
     children: Children,
 ) -> impl IntoView {
