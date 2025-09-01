@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScrollArea Component Examples</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar styles for better appearance */
+        .scrollbar-thin {
+            scrollbar-width: thin;
+        }
+        
+        .scrollbar {
+            scrollbar-width: auto;
+        }
+        
+        .scrollbar-thick {
+            scrollbar-width: thick;
+        }
+        
+        .scrollbar-track-gray-100::-webkit-scrollbar-track {
+            background-color: #f3f4f6;
+            border-radius: 8px;
+        }
+        
+        .scrollbar-thumb-gray-300::-webkit-scrollbar-thumb {
+            background-color: #d1d5db;
+            border-radius: 8px;
+        }
+        
+        .scrollbar-thumb-gray-300::-webkit-scrollbar-thumb:hover {
+            background-color: #9ca3af;
+        }
+        
+        /* Webkit scrollbar styles */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f3f4f6;
+            border-radius: 8px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 8px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+        
+        /* Custom scrollbar for thick variant */
+        .scrollbar-thick::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+        
+        /* Custom scrollbar for thin variant */
+        .scrollbar-thin::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        
+        /* Smooth scrolling */
+        .scroll-smooth {
+            scroll-behavior: smooth;
+        }
+        
+        /* Custom animations */
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Code editor styling */
+        .code-editor {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            line-height: 1.5;
+        }
+        
+        /* Table styling */
+        .data-table {
+            border-collapse: collapse;
+        }
+        
+        .data-table th,
+        .data-table td {
+            border: 1px solid #e5e7eb;
+            padding: 0.5rem 1rem;
+        }
+        
+        .data-table th {
+            background-color: #f9fafb;
+            font-weight: 600;
+            text-align: left;
+        }
+        
+        .data-table tr:hover {
+            background-color: #f9fafb;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .scroll-area-mobile {
+                height: 200px;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .scroll-area-desktop {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div id="app">
+        <div class="flex items-center justify-center min-h-screen bg-gray-100">
+            <div class="text-center">
+                <h1 class="text-2xl font-bold text-gray-800 mb-4">Loading ScrollArea Examples...</h1>
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import the WASM module (correct glue path)
+        import init, { start_scroll_area_examples } from './pkg/radix_leptos_examples.js';
+
+        async function run() {
+            try {
+                // Initialize the WASM module
+                await init();
+                
+                // Start the scroll area examples
+                start_scroll_area_examples();
+                
+                console.log('ScrollArea examples started successfully!');
+            } catch (error) {
+                console.error('Failed to start scroll area examples:', error);
+                
+                // Show error message to user
+                const app = document.getElementById('app');
+                app.innerHTML = `
+                    <div class="flex items-center justify-center min-h-screen bg-gray-100">
+                        <div class="text-center">
+                            <h1 class="text-2xl font-bold text-red-600 mb-4">Failed to Load ScrollArea Examples</h1>
+                            <p class="text-gray-600 mb-4">Please check the console for more details.</p>
+                            <button onclick="location.reload()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                Reload Page
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Run the application
+        run();
+    </script>
+</body>
+</html>

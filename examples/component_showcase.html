@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radix-Leptos Primitives - Component Showcase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for better component showcase */
+        .showcase-container {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        
+        /* Component card hover effects */
+        .component-card {
+            transition: all 0.3s ease;
+        }
+        
+        .component-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        /* Navigation highlight */
+        .nav-link {
+            transition: all 0.2s ease;
+        }
+        
+        .nav-link:hover {
+            background-color: #f1f5f9;
+            border-radius: 0.5rem;
+        }
+        
+        .nav-link.active {
+            background-color: #3b82f6;
+            color: white;
+            border-radius: 0.5rem;
+        }
+        
+        /* Loading animation */
+        .loading-spinner {
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        /* Component section transitions */
+        .component-section {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body class="showcase-container bg-gray-50">
+    <!-- Loading Screen -->
+    <div id="loading" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
+        <div class="text-center">
+            <div class="loading-spinner rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <h2 class="text-xl font-semibold text-gray-800">Loading Component Showcase...</h2>
+            <p class="text-gray-600 mt-2">Preparing 20+ beautiful components</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="app" class="hidden">
+        <!-- Header -->
+        <header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-40">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center">
+                        <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </button>
+                        <h1 class="text-xl font-bold text-gray-900 ml-2 md:ml-0">Radix-Leptos Primitives</h1>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-sm text-gray-600">20+ Components</span>
+                        <a href="https://github.com/cloud-shuttle/radix-leptos" target="_blank" class="text-blue-600 hover:text-blue-800">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex">
+            <!-- Sidebar Navigation -->
+            <nav id="sidebar" class="w-64 bg-white shadow-sm border-r border-gray-200 h-screen overflow-y-auto sticky top-16">
+                <div class="p-4">
+                    <div class="space-y-2">
+                        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Component Categories</h3>
+                        
+                        <!-- Form Components -->
+                        <div class="space-y-1">
+                            <h4 class="text-sm font-medium text-gray-900 mb-2">📋 Form Components</h4>
+                            <a href="#button" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">Button</a>
+                            <a href="#checkbox" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">Checkbox</a>
+                            <a href="#switch" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">Switch</a>
+                            <a href="#radio-group" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">RadioGroup</a>
+                            <a href="#text-input" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">TextInput</a>
+                            <a href="#select" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">Select</a>
+                            <a href="#combobox" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">Combobox</a>
+                            <a href="#slider" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">Slider</a>
+                            <a href="#date-picker" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">DatePicker</a>
+                            <a href="#progress" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">Progress</a>
+                        </div>
+
+                        <!-- Feedback Components -->
+                        <div class="space-y-1 mt-6">
+                            <h4 class="text-sm font-medium text-gray-900 mb-2">🎨 Feedback Components</h4>
+                            <a href="#toast" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">Toast</a>
+                            <a href="#alert" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">Alert</a>
+                            <a href="#badge" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">Badge</a>
+                            <a href="#avatar" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">Avatar</a>
+                        </div>
+
+                        <!-- Media Components -->
+                        <div class="space-y-1 mt-6">
+                            <h4 class="text-sm font-medium text-gray-900 mb-2">📺 Media Components</h4>
+                            <a href="#image" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">Image</a>
+                            <a href="#video" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">Video</a>
+                            <a href="#audio" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">Audio</a>
+                            <a href="#carousel" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">Carousel</a>
+                        </div>
+
+                        <!-- Navigation Components -->
+                        <div class="space-y-1 mt-6">
+                            <h4 class="text-sm font-medium text-gray-900 mb-2">🧭 Navigation Components</h4>
+                            <a href="#pagination" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">Pagination</a>
+                            <a href="#list" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">List</a>
+                            <a href="#timeline" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">Timeline</a>
+                        </div>
+
+                        <!-- Advanced Components -->
+                        <div class="space-y-1 mt-6">
+                            <h4 class="text-sm font-medium text-gray-900 mb-2">🔧 Advanced Components</h4>
+                            <a href="#accordion" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">Accordion</a>
+                            <a href="#tabs" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">Tabs</a>
+                            <a href="#popover" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">Popover</a>
+                            <a href="#tooltip" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">Tooltip</a>
+                            <a href="#dialog" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">Dialog</a>
+                            <a href="#context-menu" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">ContextMenu</a>
+                            <a href="#dropdown-menu" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">DropdownMenu</a>
+                            <a href="#menubar" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">Menubar</a>
+                            <a href="#scroll-area" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">ScrollArea</a>
+                            <a href="#table" class="nav-link block px-3 py-2 text-sm text-gray-700 hover:text-gray-900">Table</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main Content Area -->
+            <main class="flex-1 overflow-y-auto">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                    <!-- Hero Section -->
+                    <div class="text-center mb-12">
+                        <h1 class="text-4xl font-bold text-gray-900 mb-4">Component Showcase</h1>
+                        <p class="text-xl text-gray-600 mb-8">Explore 20+ beautiful, accessible UI components built with Rust and WebAssembly</p>
+                        <div class="flex justify-center space-x-4">
+                            <div class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium">
+                                ♿ WCAG 2.1 AA Compliant
+                            </div>
+                            <div class="bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium">
+                                ⚡ WebAssembly Powered
+                            </div>
+                            <div class="bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-medium">
+                                🎨 Tailwind CSS Ready
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Component Sections -->
+                    <div id="component-sections" class="space-y-16">
+                        <!-- This will be populated by the WASM component -->
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import the WASM module
+        import init, { start_component_showcase } from './pkg/radix_leptos_examples.js';
+
+        async function run() {
+            try {
+                // Initialize the WASM module
+                await init();
+                
+                // Start the component showcase
+                start_component_showcase();
+                
+                // Hide loading screen and show app
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('app').classList.remove('hidden');
+                
+                console.log('Component showcase started successfully!');
+                
+                // Initialize navigation
+                initializeNavigation();
+                
+            } catch (error) {
+                console.error('Failed to start component showcase:', error);
+                
+                // Show error message
+                document.getElementById('loading').innerHTML = `
+                    <div class="text-center">
+                        <h2 class="text-xl font-semibold text-red-600 mb-4">Failed to Load Component Showcase</h2>
+                        <p class="text-gray-600 mb-4">Please check the console for more details.</p>
+                        <button onclick="location.reload()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            Reload Page
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        function initializeNavigation() {
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const sidebar = document.getElementById('sidebar');
+            
+            mobileMenuButton.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
+
+            // Smooth scrolling for navigation links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                        
+                        // Close mobile menu
+                        sidebar.classList.remove('open');
+                    }
+                });
+            });
+
+            // Active navigation highlighting
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '-20% 0px -80% 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all component sections
+            const sections = document.querySelectorAll('[id^="component-"]');
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        }
+
+        // Run the application
+        run();
+    </script>
+</body>
+</html>

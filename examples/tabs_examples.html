@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabs Component Examples</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for better tabs appearance */
+        .tabs-container {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        /* Focus styles */
+        .focus\:outline-none:focus {
+            outline: none;
+        }
+        
+        .focus\:ring-2:focus {
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+        }
+        
+        .focus\:ring-ring:focus {
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+        }
+        
+        .focus\:ring-offset-2:focus {
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5), 0 0 0 4px rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Data state styles */
+        [data-state="active"] {
+            background-color: #ffffff;
+            color: #111827;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        }
+        
+        [data-state="active"].border-primary {
+            border-color: #3b82f6;
+        }
+        
+        /* Transition styles */
+        .transition-all {
+            transition: all 0.2s ease-in-out;
+        }
+        
+        /* Disabled styles */
+        .disabled\:pointer-events-none:disabled {
+            pointer-events: none;
+        }
+        
+        .disabled\:opacity-50:disabled {
+            opacity: 0.5;
+        }
+        
+        /* Custom animations */
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Tab content transitions */
+        .tab-content-enter {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        
+        .tab-content-enter-active {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        
+        .tab-content-exit {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .tab-content-exit-active {
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .tabs-mobile {
+                flex-direction: column;
+            }
+            
+            .tabs-list-mobile {
+                width: 100%;
+                flex-direction: row;
+            }
+        }
+        
+        /* Custom tab variants */
+        .tabs-pills [data-state="active"] {
+            background-color: #ffffff;
+            color: #111827;
+            border-radius: 0.5rem;
+        }
+        
+        .tabs-underlined [data-state="active"] {
+            border-bottom-color: #3b82f6;
+            color: #111827;
+        }
+        
+        /* Vertical tabs specific styles */
+        .tabs-vertical .tabs-list {
+            flex-direction: column;
+            width: auto;
+        }
+        
+        .tabs-vertical .tabs-trigger {
+            justify-content: flex-start;
+            text-align: left;
+        }
+    </style>
+</head>
+<body class="tabs-container">
+    <div id="app">
+        <div class="flex items-center justify-center min-h-screen bg-gray-100">
+            <div class="text-center">
+                <h1 class="text-2xl font-bold text-gray-800 mb-4">Loading Tabs Examples...</h1>
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import the WASM module
+        import init, { start_tabs_examples } from './pkg/radix_leptos_examples.js';
+
+        async function run() {
+            try {
+                // Initialize the WASM module
+                await init();
+                
+                // Start the tabs examples
+                start_tabs_examples();
+                
+                console.log('Tabs examples started successfully!');
+            } catch (error) {
+                console.error('Failed to start tabs examples:', error);
+                
+                // Show error message to user
+                const app = document.getElementById('app');
+                app.innerHTML = `
+                    <div class="flex items-center justify-center min-h-screen bg-gray-100">
+                        <div class="text-center">
+                            <h1 class="text-2xl font-bold text-red-600 mb-4">Failed to Load Tabs Examples</h1>
+                            <p class="text-gray-600 mb-4">Please check the console for more details.</p>
+                            <button onclick="location.reload()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                Reload Page
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Run the application
+        run();
+    </script>
+</body>
+</html>

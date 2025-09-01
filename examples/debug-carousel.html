@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carousel Debug</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .debug-info {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .carousel-debug {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .loading {
+            color: #666;
+            font-style: italic;
+        }
+        .error {
+            color: #d32f2f;
+            background: #ffebee;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .success {
+            color: #2e7d32;
+            background: #e8f5e8;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="debug-info">
+        <h1>Carousel Component Debug</h1>
+        <p>This page will help us debug the carousel component issues.</p>
+        <div id="status">Initializing...</div>
+    </div>
+    
+    <div class="carousel-debug">
+        <h2>Carousel Test Area</h2>
+        <div id="carousel-container">
+            <div class="loading">Loading carousel...</div>
+        </div>
+    </div>
+
+    <script type="module">
+        const statusDiv = document.getElementById('status');
+        const carouselContainer = document.getElementById('carousel-container');
+        
+        function updateStatus(message, type = 'info') {
+            statusDiv.innerHTML = `<div class="${type}">${message}</div>`;
+            console.log(`[${type.toUpperCase()}] ${message}`);
+        }
+        
+        try {
+            updateStatus('Starting carousel debug...', 'success');
+            
+            // Import the WASM module
+            import('./pkg/radix_leptos_examples.js').then(async (module) => {
+                updateStatus('WASM module imported successfully', 'success');
+                
+                try {
+                    // Initialize WASM
+                    await module.default();
+                    updateStatus('WASM initialized successfully', 'success');
+                    
+                    // Start carousel examples
+                    module.start_carousel_examples();
+                    updateStatus('Carousel examples started', 'success');
+                    
+                    // Wait a bit and then analyze the DOM
+                    setTimeout(() => {
+                        analyzeCarousel();
+                    }, 2000);
+                    
+                } catch (error) {
+                    updateStatus(`WASM initialization failed: ${error.message}`, 'error');
+                    console.error('WASM Error:', error);
+                }
+                
+            }).catch(error => {
+                updateStatus(`Module import failed: ${error.message}`, 'error');
+                console.error('Import Error:', error);
+            });
+            
+        } catch (error) {
+            updateStatus(`Script execution failed: ${error.message}`, 'error');
+            console.error('Script Error:', error);
+        }
+        
+        function analyzeCarousel() {
+            updateStatus('Analyzing carousel DOM...', 'info');
+            
+            // Check for carousel elements
+            const carouselElements = document.querySelectorAll('[class*="carousel"]');
+            const buttons = document.querySelectorAll('button');
+            const images = document.querySelectorAll('img');
+            
+            const analysis = {
+                carouselElements: carouselElements.length,
+                buttons: buttons.length,
+                images: images.length,
+                bodyText: document.body.textContent.substring(0, 200)
+            };
+            
+            updateStatus(`Analysis complete: ${JSON.stringify(analysis, null, 2)}`, 'success');
+            
+            // Check if carousel is actually rendered
+            if (carouselElements.length === 0) {
+                updateStatus('No carousel elements found in DOM', 'error');
+            } else {
+                updateStatus(`Found ${carouselElements.length} carousel elements`, 'success');
+            }
+            
+            // List all buttons
+            if (buttons.length > 0) {
+                const buttonTexts = Array.from(buttons).map(btn => btn.textContent || btn.ariaLabel || 'No text');
+                updateStatus(`Buttons found: ${buttonTexts.join(', ')}`, 'info');
+            }
+        }
+    </script>
+</body>
+</html>

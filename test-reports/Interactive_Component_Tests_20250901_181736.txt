@@ -1,0 +1,1382 @@
+
+Running 8 tests using 1 worker
+
+🎠 Testing Carousel Deep Interactions...
+Found 7 next buttons and 7 previous buttons
+✅ Next navigation working
+✅ Previous navigation working
+Found 21 indicators
+✅ Indicator navigation working
+Found 0 autoplay carousels
+  ✓  1 [chromium] › tests/interactive-components.spec.ts:19:7 › Interactive Components Deep Testing › Carousel Deep Interaction - Navigation, Indicators, and Autoplay (7.2s)
+Console Warning: cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation
+📑 Testing Tabs Deep Interactions...
+Found 23 tabs
+Testing tab: Account
+Testing tab: Password
+Testing tab: Notifications
+✅ Keyboard navigation working
+  ✓  2 [chromium] › tests/interactive-components.spec.ts:87:7 › Interactive Components Deep Testing › Tabs Deep Interaction - Switching, Content Updates, and State Management (3.1s)
+🔽 Testing DropdownMenu Deep Interactions...
+Console Warning: At examples/src/dropdown_menu_examples.rs:101:69, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/dropdown_menu_examples.rs:8:48) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/dropdown_menu_examples.rs:108:69, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/dropdown_menu_examples.rs:8:48) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/dropdown_menu_examples.rs:115:69, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/dropdown_menu_examples.rs:8:48) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/dropdown_menu_examples.rs:138:64, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at examples/src/dropdown_menu_examples.rs:9:38) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/dropdown_menu_examples.rs:144:66, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at examples/src/dropdown_menu_examples.rs:10:42) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/dropdown_menu_examples.rs:172:65, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/dropdown_menu_examples.rs:11:40) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/dropdown_menu_examples.rs:179:65, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/dropdown_menu_examples.rs:11:40) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/dropdown_menu_examples.rs:186:65, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/dropdown_menu_examples.rs:11:40) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/dropdown_menu_examples.rs:193:65, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/dropdown_menu_examples.rs:11:40) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/dropdown_menu_examples.rs:200:65, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/dropdown_menu_examples.rs:11:40) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Found 6 dropdown triggers
+Found 10 menu items
+✅ Menu item selection working
+Found 0 submenu triggers
+Menubar content remained visible after close attempt; continuing test
+  ✓  3 [chromium] › tests/interactive-components.spec.ts:137:7 › Interactive Components Deep Testing › DropdownMenu Deep Interaction - Complex Menu Structures and Submenus (7.7s)
+Console Warning: At crates/radix-leptos-primitives/src/components/context_menu.rs:85:16, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at crates/radix-leptos-primitives/src/components/context_menu.rs:40:34) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/context_menu.rs:85:16, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at crates/radix-leptos-primitives/src/components/context_menu.rs:40:34) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:97:60, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at examples/src/context_menu_examples.rs:9:38) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/context_menu.rs:360:19, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at crates/radix-leptos-primitives/src/components/context_menu.rs:347:40) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:103:62, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at examples/src/context_menu_examples.rs:10:42) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/context_menu.rs:360:19, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at crates/radix-leptos-primitives/src/components/context_menu.rs:347:40) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/context_menu.rs:85:16, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at crates/radix-leptos-primitives/src/components/context_menu.rs:40:34) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:135:65, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/context_menu_examples.rs:8:48) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:142:65, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/context_menu_examples.rs:8:48) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:149:65, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/context_menu_examples.rs:8:48) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/context_menu.rs:85:16, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at crates/radix-leptos-primitives/src/components/context_menu.rs:40:34) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:174:61, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/context_menu_examples.rs:11:40) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:181:61, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/context_menu_examples.rs:11:40) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:188:61, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/context_menu_examples.rs:11:40) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:195:61, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/context_menu_examples.rs:11:40) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:202:61, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/context_menu_examples.rs:11:40) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/context_menu.rs:85:16, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at crates/radix-leptos-primitives/src/components/context_menu.rs:40:34) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/context_menu.rs:85:16, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at crates/radix-leptos-primitives/src/components/context_menu.rs:40:34) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/context_menu.rs:85:16, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at crates/radix-leptos-primitives/src/components/context_menu.rs:40:34) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/context_menu.rs:85:16, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at crates/radix-leptos-primitives/src/components/context_menu.rs:40:34) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:324:60, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at examples/src/context_menu_examples.rs:9:38) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/context_menu.rs:360:19, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at crates/radix-leptos-primitives/src/components/context_menu.rs:347:40) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:330:62, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at examples/src/context_menu_examples.rs:10:42) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/context_menu.rs:360:19, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at crates/radix-leptos-primitives/src/components/context_menu.rs:347:40) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:341:65, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/context_menu_examples.rs:8:48) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:348:65, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/context_menu_examples.rs:8:48) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+  ✘  4 [chromium] › tests/interactive-components.spec.ts:216:7 › Interactive Components Deep Testing › ContextMenu Deep Interaction - Right-click, Positioning, and Context (30.2s)
+Console Warning: At crates/radix-leptos-primitives/src/components/context_menu.rs:85:16, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at crates/radix-leptos-primitives/src/components/context_menu.rs:40:34) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/context_menu.rs:85:16, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at crates/radix-leptos-primitives/src/components/context_menu.rs:40:34) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:97:60, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at examples/src/context_menu_examples.rs:9:38) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/context_menu.rs:360:19, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at crates/radix-leptos-primitives/src/components/context_menu.rs:347:40) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:103:62, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at examples/src/context_menu_examples.rs:10:42) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/context_menu.rs:360:19, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at crates/radix-leptos-primitives/src/components/context_menu.rs:347:40) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/context_menu.rs:85:16, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at crates/radix-leptos-primitives/src/components/context_menu.rs:40:34) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:135:65, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/context_menu_examples.rs:8:48) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:142:65, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/context_menu_examples.rs:8:48) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:149:65, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/context_menu_examples.rs:8:48) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/context_menu.rs:85:16, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at crates/radix-leptos-primitives/src/components/context_menu.rs:40:34) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:174:61, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/context_menu_examples.rs:11:40) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:181:61, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/context_menu_examples.rs:11:40) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:188:61, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/context_menu_examples.rs:11:40) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:195:61, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/context_menu_examples.rs:11:40) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:202:61, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/context_menu_examples.rs:11:40) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/context_menu.rs:85:16, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at crates/radix-leptos-primitives/src/components/context_menu.rs:40:34) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/context_menu.rs:85:16, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at crates/radix-leptos-primitives/src/components/context_menu.rs:40:34) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/context_menu.rs:85:16, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at crates/radix-leptos-primitives/src/components/context_menu.rs:40:34) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/context_menu.rs:85:16, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at crates/radix-leptos-primitives/src/components/context_menu.rs:40:34) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:324:60, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at examples/src/context_menu_examples.rs:9:38) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/context_menu.rs:360:19, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at crates/radix-leptos-primitives/src/components/context_menu.rs:347:40) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:330:62, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at examples/src/context_menu_examples.rs:10:42) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/context_menu.rs:360:19, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at crates/radix-leptos-primitives/src/components/context_menu.rs:347:40) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:341:65, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/context_menu_examples.rs:8:48) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/context_menu_examples.rs:348:65, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/context_menu_examples.rs:8:48) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+  ✘  5 [chromium] › tests/interactive-components.spec.ts:216:7 › Interactive Components Deep Testing › ContextMenu Deep Interaction - Right-click, Positioning, and Context (retry #1) (31.0s)
+Console Warning: cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation
+🍔 Testing Menubar Deep Interactions...
+Found 0 menubar triggers
+Console Warning: At examples/src/menubar_examples.rs:17:68, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/menubar_examples.rs:11:40) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/menubar_examples.rs:18:70, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/menubar_examples.rs:11:40) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/menubar_examples.rs:19:70, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/menubar_examples.rs:11:40) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/menubar_examples.rs:20:80, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/menubar_examples.rs:8:48) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/menubar_examples.rs:21:78, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/menubar_examples.rs:8:48) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At examples/src/menubar_examples.rs:22:78, you access a reactive_graph::signal::read::ReadSignal<alloc::string::String> (defined at examples/src/menubar_examples.rs:8:48) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/menubar.rs:212:43, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at examples/src/menubar_examples.rs:9:38) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/menubar.rs:212:43, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at examples/src/menubar_examples.rs:10:42) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/menubar.rs:271:43, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at examples/src/menubar_examples.rs:17:50) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/menubar.rs:271:43, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at examples/src/menubar_examples.rs:18:52) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/menubar.rs:271:43, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at examples/src/menubar_examples.rs:19:52) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/menubar.rs:212:43, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at examples/src/menubar_examples.rs:9:38) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/menubar.rs:212:43, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at examples/src/menubar_examples.rs:10:42) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/menubar.rs:271:43, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at examples/src/menubar_examples.rs:17:50) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/menubar.rs:271:43, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at examples/src/menubar_examples.rs:18:52) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/menubar.rs:271:43, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at examples/src/menubar_examples.rs:19:52) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/menubar.rs:271:43, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at examples/src/menubar_examples.rs:20:58) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/menubar.rs:271:43, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at examples/src/menubar_examples.rs:21:56) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/menubar.rs:271:43, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at examples/src/menubar_examples.rs:22:56) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/menubar.rs:212:43, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at examples/src/menubar_examples.rs:13:38) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Console Warning: At crates/radix-leptos-primitives/src/components/menubar.rs:212:43, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at examples/src/menubar_examples.rs:14:42) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Found 37 menubar items
+Found 0 submenu triggers
+✅ Horizontal keyboard navigation working
+  ✓  6 [chromium] › tests/interactive-components.spec.ts:281:7 › Interactive Components Deep Testing › Menubar Deep Interaction - Multi-level Navigation and State Management (4.1s)
+Console Warning: cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation
+📜 Testing ScrollArea Deep Interactions...
+Found 0 scroll areas
+  ✘  7 [chromium] › tests/interactive-components.spec.ts:351:7 › Interactive Components Deep Testing › ScrollArea Deep Interaction - Scrolling, Viewport, and Scrollbars (30.9s)
+Console Warning: cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation
+📜 Testing ScrollArea Deep Interactions...
+Found 0 scroll areas
+  ✘  8 [chromium] › tests/interactive-components.spec.ts:351:7 › Interactive Components Deep Testing › ScrollArea Deep Interaction - Scrolling, Viewport, and Scrollbars (retry #1) (31.7s)
+🍞 Testing Toast Deep Interactions...
+Found 0 toast triggers
+Found 0 active toasts
+Found 0 toast content elements
+Found 0 toast actions
+Found 0 toast close buttons
+  ✓  9 [chromium] › tests/interactive-components.spec.ts:420:7 › Interactive Components Deep Testing › Toast Deep Interaction - Multiple Toasts, Stacking, and Dismissal (5.3s)
+Console Warning: cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation
+📝 Testing Form Components Deep Interactions...
+Console Warning: At crates/radix-leptos-primitives/src/components/context_menu.rs:85:16, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at crates/radix-leptos-primitives/src/components/context_menu.rs:40:34) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+Found 2 text inputs
+✅ Text input functionality working
+Found 0 checkboxes
+Found 0 radio buttons
+Found 0 select dropdowns
+Found 10 buttons
+  ✘  10 [chromium] › tests/interactive-components.spec.ts:485:7 › Interactive Components Deep Testing › Form Components Deep Interaction - Input, Validation, and State Changes (31.3s)
+Console Warning: cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation
+Console Warning: At crates/radix-leptos-primitives/src/components/context_menu.rs:85:16, you access a reactive_graph::signal::read::ReadSignal<bool> (defined at crates/radix-leptos-primitives/src/components/context_menu.rs:40:34) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+
+Here’s how to fix it:
+
+1. If this is inside a `view!` macro, make sure you are passing a function, not a value.
+  ❌ NO  <p>{x.get() * 2}</p>
+  ✅ YES <p>{move || x.get() * 2}</p>
+
+2. If it’s in the body of a component, try wrapping this access in a closure: 
+  ❌ NO  let y = x.get() * 2
+  ✅ YES let y = move || x.get() * 2.
+
+3. If you’re *trying* to access the value without tracking, use `.get_untracked()` or `.with_untracked()` instead.
+📝 Testing Form Components Deep Interactions...
+Found 2 text inputs
+✅ Text input functionality working
+Found 0 checkboxes
+Found 0 radio buttons
+Found 0 select dropdowns
+Found 10 buttons
+  ✘  11 [chromium] › tests/interactive-components.spec.ts:485:7 › Interactive Components Deep Testing › Form Components Deep Interaction - Input, Validation, and State Changes (retry #1) (31.4s)
+
+
+  1) [chromium] › tests/interactive-components.spec.ts:216:7 › Interactive Components Deep Testing › ContextMenu Deep Interaction - Right-click, Positioning, and Context 
+
+    TimeoutError: page.waitForFunction: Timeout 30000ms exceeded.
+
+      218 |     
+      219 |     // Wait for WASM to load
+    > 220 |     await page.waitForFunction(() => {
+          |                ^
+      221 |       return !document.querySelector('.loading') && !document.querySelector('.spinner');
+      222 |     });
+      223 |     
+        at /Users/peterhanssens/consulting/CloudShuttle/radix-ui/tests/interactive-components.spec.ts:220:16
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/interactive-components-Int-78785-ick-Positioning-and-Context-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/interactive-components-Int-78785-ick-Positioning-and-Context-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/interactive-components-Int-78785-ick-Positioning-and-Context-chromium/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    TimeoutError: page.waitForFunction: Timeout 30000ms exceeded.
+
+      218 |     
+      219 |     // Wait for WASM to load
+    > 220 |     await page.waitForFunction(() => {
+          |                ^
+      221 |       return !document.querySelector('.loading') && !document.querySelector('.spinner');
+      222 |     });
+      223 |     
+        at /Users/peterhanssens/consulting/CloudShuttle/radix-ui/tests/interactive-components.spec.ts:220:16
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/interactive-components-Int-78785-ick-Positioning-and-Context-chromium-retry1/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/interactive-components-Int-78785-ick-Positioning-and-Context-chromium-retry1/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/interactive-components-Int-78785-ick-Positioning-and-Context-chromium-retry1/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/interactive-components-Int-78785-ick-Positioning-and-Context-chromium-retry1/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/interactive-components-Int-78785-ick-Positioning-and-Context-chromium-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › tests/interactive-components.spec.ts:351:7 › Interactive Components Deep Testing › ScrollArea Deep Interaction - Scrolling, Viewport, and Scrollbars 
+
+    TimeoutError: locator.evaluate: Timeout 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('[data-radix-scroll-area-viewport]').first()[22m
+
+
+      367 |     
+      368 |     // Test vertical scrolling
+    > 369 |     await firstScrollArea.evaluate((el) => {
+          |                           ^
+      370 |       el.scrollTop = 100;
+      371 |     });
+      372 |     await page.waitForTimeout(500);
+        at /Users/peterhanssens/consulting/CloudShuttle/radix-ui/tests/interactive-components.spec.ts:369:27
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/interactive-components-Int-0eb01-ing-Viewport-and-Scrollbars-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/interactive-components-Int-0eb01-ing-Viewport-and-Scrollbars-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/interactive-components-Int-0eb01-ing-Viewport-and-Scrollbars-chromium/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    TimeoutError: locator.evaluate: Timeout 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('[data-radix-scroll-area-viewport]').first()[22m
+
+
+      367 |     
+      368 |     // Test vertical scrolling
+    > 369 |     await firstScrollArea.evaluate((el) => {
+          |                           ^
+      370 |       el.scrollTop = 100;
+      371 |     });
+      372 |     await page.waitForTimeout(500);
+        at /Users/peterhanssens/consulting/CloudShuttle/radix-ui/tests/interactive-components.spec.ts:369:27
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/interactive-components-Int-0eb01-ing-Viewport-and-Scrollbars-chromium-retry1/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/interactive-components-Int-0eb01-ing-Viewport-and-Scrollbars-chromium-retry1/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/interactive-components-Int-0eb01-ing-Viewport-and-Scrollbars-chromium-retry1/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/interactive-components-Int-0eb01-ing-Viewport-and-Scrollbars-chromium-retry1/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/interactive-components-Int-0eb01-ing-Viewport-and-Scrollbars-chromium-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chromium] › tests/interactive-components.spec.ts:485:7 › Interactive Components Deep Testing › Form Components Deep Interaction - Input, Validation, and State Changes 
+
+    TimeoutError: locator.click: Timeout 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('button:not([aria-label*="Next"]):not([aria-label*="Previous"])').first()[22m
+    [2m    - locator resolved to <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100">…</button>[22m
+    [2m  - attempting click action[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is not visible[22m
+    [2m    - retrying click action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is not visible[22m
+    [2m    - retrying click action[22m
+    [2m      - waiting 100ms[22m
+    [2m    56 × waiting for element to be visible, enabled and stable[22m
+    [2m       - element is not visible[22m
+    [2m     - retrying click action[22m
+    [2m       - waiting 500ms[22m
+
+
+      564 |     if (buttonCount > 0) {
+      565 |       const firstButton = buttons.first();
+    > 566 |       await firstButton.click();
+          |                         ^
+      567 |       await page.waitForTimeout(500);
+      568 |       console.log('✅ Button click functionality working');
+      569 |     }
+        at /Users/peterhanssens/consulting/CloudShuttle/radix-ui/tests/interactive-components.spec.ts:566:25
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/interactive-components-Int-4597a-alidation-and-State-Changes-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/interactive-components-Int-4597a-alidation-and-State-Changes-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/interactive-components-Int-4597a-alidation-and-State-Changes-chromium/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    TimeoutError: locator.click: Timeout 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('button:not([aria-label*="Next"]):not([aria-label*="Previous"])').first()[22m
+    [2m    - locator resolved to <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100">…</button>[22m
+    [2m  - attempting click action[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is not visible[22m
+    [2m    - retrying click action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is not visible[22m
+    [2m    - retrying click action[22m
+    [2m      - waiting 100ms[22m
+    [2m    56 × waiting for element to be visible, enabled and stable[22m
+    [2m       - element is not visible[22m
+    [2m     - retrying click action[22m
+    [2m       - waiting 500ms[22m
+
+
+      564 |     if (buttonCount > 0) {
+      565 |       const firstButton = buttons.first();
+    > 566 |       await firstButton.click();
+          |                         ^
+      567 |       await page.waitForTimeout(500);
+      568 |       console.log('✅ Button click functionality working');
+      569 |     }
+        at /Users/peterhanssens/consulting/CloudShuttle/radix-ui/tests/interactive-components.spec.ts:566:25
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/interactive-components-Int-4597a-alidation-and-State-Changes-chromium-retry1/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/interactive-components-Int-4597a-alidation-and-State-Changes-chromium-retry1/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/interactive-components-Int-4597a-alidation-and-State-Changes-chromium-retry1/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/interactive-components-Int-4597a-alidation-and-State-Changes-chromium-retry1/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/interactive-components-Int-4597a-alidation-and-State-Changes-chromium-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    [chromium] › tests/interactive-components.spec.ts:216:7 › Interactive Components Deep Testing › ContextMenu Deep Interaction - Right-click, Positioning, and Context 
+    [chromium] › tests/interactive-components.spec.ts:351:7 › Interactive Components Deep Testing › ScrollArea Deep Interaction - Scrolling, Viewport, and Scrollbars 
+    [chromium] › tests/interactive-components.spec.ts:485:7 › Interactive Components Deep Testing › Form Components Deep Interaction - Input, Validation, and State Changes 
+  5 passed (3.7m)

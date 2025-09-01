@@ -1,181 +1,186 @@
-use leptos::*;
 use leptos::prelude::*;
 
-/// Tabs orientation enum
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Clone, Debug, PartialEq)]
 pub enum TabsOrientation {
     Horizontal,
     Vertical,
 }
 
-impl TabsOrientation {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            TabsOrientation::Horizontal => "horizontal",
-            TabsOrientation::Vertical => "vertical",
-        }
+impl Default for TabsOrientation {
+    fn default() -> Self {
+        TabsOrientation::Horizontal
     }
 }
 
-/// Generate a simple unique ID for components
-fn generate_id(prefix: &str) -> String {
-    static COUNTER: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
-    let id = COUNTER.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
-    format!("{}-{}", prefix, id)
+#[derive(Clone, Debug, PartialEq)]
+pub enum TabsSize {
+    Small,
+    Medium,
+    Large,
 }
 
-/// Merge CSS classes
-fn merge_classes(existing: Option<&str>, additional: Option<&str>) -> Option<String> {
-    match (existing, additional) {
-        (Some(a), Some(b)) => Some(format!("{} {}", a, b)),
-        (Some(a), None) => Some(a.to_string()),
-        (None, Some(b)) => Some(b.to_string()),
-        (None, None) => None,
+impl Default for TabsSize {
+    fn default() -> Self {
+        TabsSize::Medium
     }
 }
 
-/// Tabs component with proper accessibility and state management
+#[derive(Clone, Debug, PartialEq)]
+pub enum TabsVariant {
+    Default,
+    Pills,
+    Underlined,
+}
+
+impl Default for TabsVariant {
+    fn default() -> Self {
+        TabsVariant::Default
+    }
+}
+
+fn merge_classes(base: &str, custom: Option<String>) -> String {
+    let class_value = custom.unwrap_or_default();
+    let final_class = format!("{} {}", base, class_value);
+    final_class.trim().to_string()
+}
+
 #[component]
 pub fn Tabs(
-    /// Current selected tab value
-    #[prop(optional)]
-    value: Option<String>,
-    /// Default selected tab value
-    #[prop(optional)]
-    default_value: Option<String>,
-    /// Whether the tabs are disabled
-    #[prop(optional, default = false)]
-    disabled: bool,
-    /// Tabs orientation
-    #[prop(optional, default = TabsOrientation::Horizontal)]
-    orientation: TabsOrientation,
-    /// CSS classes
-    #[prop(optional)]
-    class: Option<String>,
-    /// CSS styles
-    #[prop(optional)]
-    style: Option<String>,
-    /// Change event handler
-    #[prop(optional)]
-    on_change: Option<Callback<String>>,
-    /// Child content (tab list and tab panels)
+    #[prop(optional)] orientation: Option<TabsOrientation>,
+    #[prop(optional)] size: Option<TabsSize>,
+    #[prop(optional)] variant: Option<TabsVariant>,
+    #[prop(optional)] default_value: Option<String>,
+    #[prop(optional)] value: Option<ReadSignal<String>>,
+    #[prop(optional)] on_change: Option<Callback<String>>,
+    #[prop(optional)] class: Option<String>,
+    #[prop(optional)] style: Option<String>,
     children: Children,
 ) -> impl IntoView {
-    let tabs_id = generate_id("tabs");
+    let orientation = orientation.unwrap_or_default();
+    let size = size.unwrap_or_default();
+    let variant = variant.unwrap_or_default();
     
-    // Build base classes
-    let base_classes = "radix-tabs";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
-        .unwrap_or_else(|| base_classes.to_string());
+    let base_classes = match (orientation, variant) {
+        (TabsOrientation::Horizontal, TabsVariant::Default) => "flex flex-col",
+        (TabsOrientation::Horizontal, TabsVariant::Pills) => "flex flex-col",
+        (TabsOrientation::Horizontal, TabsVariant::Underlined) => "flex flex-col",
+        (TabsOrientation::Vertical, TabsVariant::Default) => "flex flex-row",
+        (TabsOrientation::Vertical, TabsVariant::Pills) => "flex flex-row",
+        (TabsOrientation::Vertical, TabsVariant::Underlined) => "flex flex-row",
+    };
     
+    let final_class = merge_classes(base_classes, class);
+    let style_attr = style.unwrap_or_default();
+
     view! {
-        <div
-            id=tabs_id
-            class=combined_class
-            style=style.unwrap_or_default()
-            data-orientation=orientation.as_str()
-            data-value=value.unwrap_or_default()
-            role="tablist"
-            aria-orientation=orientation.as_str()
-            aria-disabled=disabled
-        >
+        <div class={final_class} style={style_attr}>
             {children()}
         </div>
     }
 }
 
-/// TabsList component for tab navigation
 #[component]
 pub fn TabsList(
-    /// Whether the tabs list is disabled
-    #[prop(optional, default = false)]
-    disabled: bool,
-    /// CSS classes
-    #[prop(optional)]
-    class: Option<String>,
-    /// CSS styles
-    #[prop(optional)]
-    style: Option<String>,
-    /// Child content (tab triggers)
+    #[prop(optional)] orientation: Option<TabsOrientation>,
+    #[prop(optional)] size: Option<TabsSize>,
+    #[prop(optional)] variant: Option<TabsVariant>,
+    #[prop(optional)] class: Option<String>,
+    #[prop(optional)] style: Option<String>,
     children: Children,
 ) -> impl IntoView {
-    let list_id = generate_id("tabs-list");
+    let orientation = orientation.unwrap_or_default();
+    let size = size.unwrap_or_default();
+    let variant = variant.unwrap_or_default();
     
-    // Build base classes
-    let base_classes = "radix-tabs-list";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
-        .unwrap_or_else(|| base_classes.to_string());
+    let base_classes = match (orientation, variant, size) {
+        (TabsOrientation::Horizontal, TabsVariant::Default, TabsSize::Small) => "inline-flex h-8 items-center justify-center rounded-md bg-gray-100 p-1 text-gray-600",
+        (TabsOrientation::Horizontal, TabsVariant::Default, TabsSize::Medium) => "inline-flex h-10 items-center justify-center rounded-md bg-gray-100 p-1 text-gray-600",
+        (TabsOrientation::Horizontal, TabsVariant::Default, TabsSize::Large) => "inline-flex h-12 items-center justify-center rounded-md bg-gray-100 p-1 text-gray-600",
+        (TabsOrientation::Horizontal, TabsVariant::Pills, TabsSize::Small) => "inline-flex h-8 items-center justify-center rounded-lg bg-gray-100 p-1 text-gray-600",
+        (TabsOrientation::Horizontal, TabsVariant::Pills, TabsSize::Medium) => "inline-flex h-10 items-center justify-center rounded-lg bg-gray-100 p-1 text-gray-600",
+        (TabsOrientation::Horizontal, TabsVariant::Pills, TabsSize::Large) => "inline-flex h-12 items-center justify-center rounded-lg bg-gray-100 p-1 text-gray-600",
+        (TabsOrientation::Horizontal, TabsVariant::Underlined, TabsSize::Small) => "inline-flex h-8 items-center justify-center border-b border-gray-300 text-gray-600",
+        (TabsOrientation::Horizontal, TabsVariant::Underlined, TabsSize::Medium) => "inline-flex h-10 items-center justify-center border-b border-gray-300 text-gray-600",
+        (TabsOrientation::Horizontal, TabsVariant::Underlined, TabsSize::Large) => "inline-flex h-12 items-center justify-center border-b border-gray-300 text-gray-600",
+        (TabsOrientation::Vertical, TabsVariant::Default, TabsSize::Small) => "inline-flex w-8 flex-col items-center justify-center rounded-md bg-gray-100 p-1 text-gray-600",
+        (TabsOrientation::Vertical, TabsVariant::Default, TabsSize::Medium) => "inline-flex w-10 flex-col items-center justify-center rounded-md bg-gray-100 p-1 text-gray-600",
+        (TabsOrientation::Vertical, TabsVariant::Default, TabsSize::Large) => "inline-flex w-12 flex-col items-center justify-center rounded-md bg-gray-100 p-1 text-gray-600",
+        (TabsOrientation::Vertical, TabsVariant::Pills, TabsSize::Small) => "inline-flex w-8 flex-col items-center justify-center rounded-lg bg-gray-100 p-1 text-gray-600",
+        (TabsOrientation::Vertical, TabsVariant::Pills, TabsSize::Medium) => "inline-flex w-10 flex-col items-center justify-center rounded-lg bg-gray-100 p-1 text-gray-600",
+        (TabsOrientation::Vertical, TabsVariant::Pills, TabsSize::Large) => "inline-flex w-12 flex-col items-center justify-center rounded-lg bg-gray-100 p-1 text-gray-600",
+        (TabsOrientation::Vertical, TabsVariant::Underlined, TabsSize::Small) => "inline-flex w-8 flex-col items-center justify-center border-r border-gray-300 text-gray-600",
+        (TabsOrientation::Vertical, TabsVariant::Underlined, TabsSize::Medium) => "inline-flex w-10 flex-col items-center justify-center border-r border-gray-300 text-gray-600",
+        (TabsOrientation::Vertical, TabsVariant::Underlined, TabsSize::Large) => "inline-flex w-12 flex-col items-center justify-center border-r border-gray-300 text-gray-600",
+    };
     
+    let final_class = merge_classes(base_classes, class);
+    let style_attr = style.unwrap_or_default();
+
     view! {
-        <div
-            id=list_id
-            class=combined_class
-            style=style.unwrap_or_default()
-            role="tablist"
-            aria-disabled=disabled
-        >
+        <div class={final_class} style={style_attr} role="tablist">
             {children()}
         </div>
     }
 }
 
-/// TabsTrigger component for individual tab buttons
 #[component]
 pub fn TabsTrigger(
-    /// Unique value for this tab
-    value: String,
-    /// Whether this tab is disabled
-    #[prop(optional, default = false)]
-    disabled: bool,
-    /// CSS classes
-    #[prop(optional)]
-    class: Option<String>,
-    /// CSS styles
-    #[prop(optional)]
-    style: Option<String>,
-    /// Click event handler
-    #[prop(optional)]
-    on_click: Option<Callback<web_sys::MouseEvent>>,
-    /// Child content (tab label)
+    #[prop(optional)] value: Option<String>,
+    #[prop(optional)] disabled: Option<bool>,
+    #[prop(optional)] size: Option<TabsSize>,
+    #[prop(optional)] variant: Option<TabsVariant>,
+    #[prop(optional)] class: Option<String>,
+    #[prop(optional)] style: Option<String>,
+    #[prop(optional)] on_click: Option<Callback<String>>,
     children: Children,
 ) -> impl IntoView {
-    let trigger_id = generate_id("tabs-trigger");
+    let value = value.unwrap_or_default();
+    let disabled = disabled.unwrap_or(false);
+    let size = size.unwrap_or_default();
+    let variant = variant.unwrap_or_default();
     
-    // Build base classes
-    let base_classes = "radix-tabs-trigger";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
-        .unwrap_or_else(|| base_classes.to_string());
+    let base_classes = match (variant, size) {
+        (TabsVariant::Default, TabsSize::Small) => "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1 text-xs font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-gray-200 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm",
+        (TabsVariant::Default, TabsSize::Medium) => "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-gray-200 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm",
+        (TabsVariant::Default, TabsSize::Large) => "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-4 py-2 text-base font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-gray-200 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm",
+        (TabsVariant::Pills, TabsSize::Small) => "inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-xs font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-gray-200 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm",
+        (TabsVariant::Pills, TabsSize::Medium) => "inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1.5 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-gray-200 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm",
+        (TabsVariant::Pills, TabsSize::Large) => "inline-flex items-center justify-center whitespace-nowrap rounded-md px-4 py-2 text-base font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-gray-200 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm",
+        (TabsVariant::Underlined, TabsSize::Small) => "inline-flex items-center justify-center whitespace-nowrap border-b-2 border-transparent px-3 py-1 text-xs font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:border-gray-300 data-[state=active]:border-blue-500 data-[state=active]:text-gray-900",
+        (TabsVariant::Underlined, TabsSize::Medium) => "inline-flex items-center justify-center whitespace-nowrap border-b-2 border-transparent px-3 py-1.5 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:border-gray-300 data-[state=active]:border-blue-500 data-[state=active]:text-gray-900",
+        (TabsVariant::Underlined, TabsSize::Large) => "inline-flex items-center justify-center whitespace-nowrap border-b-2 border-transparent px-4 py-2 text-base font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:border-gray-300 data-[state=active]:border-blue-500 data-[state=active]:text-gray-900",
+    };
     
-    // Handle keyboard events
-    let handle_keydown = {
-        let disabled = disabled;
-        let on_click = on_click.clone();
-        
-        move |e: web_sys::KeyboardEvent| {
-            if !disabled && (e.key() == "Enter" || e.key() == " ") {
-                e.prevent_default();
-                if let Some(on_click) = on_click {
-                    // Create a synthetic mouse event
-                    if let Ok(mouse_event) = web_sys::MouseEvent::new("click") {
-                        on_click.run(mouse_event);
-                    }
-                }
+    let final_class = merge_classes(base_classes, class);
+    let style_attr = style.unwrap_or_default();
+
+    let value_clone = value.clone();
+    let handle_click = move |_| {
+        if !disabled {
+            if let Some(callback) = on_click {
+                callback.run(value_clone.clone());
             }
         }
     };
-    
+
+    let value_clone = value.clone();
+    let handle_keydown = move |event: web_sys::KeyboardEvent| {
+        if !disabled && (event.key() == "Enter" || event.key() == " ") {
+            event.prevent_default();
+            if let Some(callback) = on_click {
+                callback.run(value_clone.clone());
+            }
+        }
+    };
+
     view! {
         <button
-            id=trigger_id
-            class=combined_class
-            style=style.unwrap_or_default()
-            disabled=disabled
-            type="button"
+            class={final_class}
+            style={style_attr}
+            disabled={disabled}
+            data-value={value}
             role="tab"
-            aria-selected="false"
-            aria-disabled=disabled
-            data-value=value
-            data-state="inactive"
+            on:click=handle_click
             on:keydown=handle_keydown
         >
             {children()}
@@ -183,39 +188,24 @@ pub fn TabsTrigger(
     }
 }
 
-/// TabsContent component for tab panel content
 #[component]
 pub fn TabsContent(
-    /// Unique value for this tab panel
-    value: String,
-    /// Whether this content is disabled
-    #[prop(optional, default = false)]
-    disabled: bool,
-    /// CSS classes
-    #[prop(optional)]
-    class: Option<String>,
-    /// CSS styles
-    #[prop(optional)]
-    style: Option<String>,
-    /// Child content (tab panel content)
+    #[prop(optional)] value: Option<String>,
+    #[prop(optional)] class: Option<String>,
+    #[prop(optional)] style: Option<String>,
     children: Children,
 ) -> impl IntoView {
-    let content_id = generate_id("tabs-content");
-    
-    // Build base classes
-    let base_classes = "radix-tabs-content";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
-        .unwrap_or_else(|| base_classes.to_string());
-    
+    let value = value.unwrap_or_default();
+    let base_classes = "mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
+    let final_class = merge_classes(base_classes, class);
+    let style_attr = style.unwrap_or_default();
+
     view! {
         <div
-            id=content_id
-            class=combined_class
-            style=style.unwrap_or_default()
+            class={final_class}
+            style={style_attr}
+            data-value={value}
             role="tabpanel"
-            aria-disabled=disabled
-            data-value=value
-            data-state="inactive"
             tabindex="0"
         >
             {children()}

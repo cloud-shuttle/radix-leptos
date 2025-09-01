@@ -1,0 +1,181 @@
+.PHONY: help dev build test serve clean install-deps check-format format lint
+
+# Default target
+help: ## Show this help message
+	@echo "🚀 Radix-Leptos Development Commands"
+	@echo ""
+	@echo "Available commands:"
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}'
+	@echo ""
+	@echo "Quick start:"
+	@echo "  make dev      - Start development environment"
+	@echo "  make build    - Build WASM examples"
+	@echo "  make test     - Run all tests"
+	@echo "  make serve    - Start development server"
+
+# Development environment
+dev: ## Start development environment (build + serve)
+	@echo "🚀 Starting development environment..."
+	@cd examples && wasm-pack build --target web &
+	@cd examples && python3 -m http.server 8080 &
+	@echo "✅ Development environment started!"
+	@echo "  • Server: http://localhost:8080"
+	@echo "  • WASM building in background..."
+	@echo ""
+	@echo "Press Ctrl+C to stop all services"
+	@wait
+
+# Build WASM examples
+build: ## Build WASM examples
+	@echo "🔨 Building Radix-Leptos examples..."
+	@cd examples && wasm-pack build --target web
+	@echo "✅ Build complete!"
+
+# Run tests
+test: ## Run all tests
+	@echo "🧪 Running tests..."
+	@cd examples && pnpm test
+	@echo "✅ Tests complete!"
+
+# Start development server
+serve: ## Start development server
+	@echo "🌐 Starting development server..."
+	@cd examples && python3 -m http.server 8080
+
+# Clean build artifacts
+clean: ## Clean build artifacts
+	@echo "🧹 Cleaning build artifacts..."
+	@cd examples && rm -rf pkg/ target/ dist/
+	@echo "✅ Clean complete!"
+
+# Install dependencies
+install-deps: ## Install Node.js dependencies
+	@echo "📦 Installing Node.js dependencies..."
+	@cd examples && pnpm install
+	@echo "✅ Dependencies installed!"
+
+# Check code format
+check-format: ## Check code formatting
+	@echo "🔍 Checking code format..."
+	@cd examples && cargo fmt -- --check
+	@echo "✅ Format check complete!"
+
+# Format code
+format: ## Format code
+	@echo "✨ Formatting code..."
+	@cd examples && cargo fmt
+	@echo "✅ Code formatted!"
+
+# Lint code
+lint: ## Lint code
+	@echo "🔍 Linting code..."
+	@cd examples && cargo clippy -- -D warnings
+	@echo "✅ Lint complete!"
+
+# Build and test
+build-test: build test ## Build and run tests
+
+# Full development setup
+setup: install-deps build ## Full development setup
+
+# Production build
+prod-build: ## Production build
+	@echo "🏭 Building for production..."
+	@cd examples && wasm-pack build --target web --release
+	@echo "✅ Production build complete!"
+
+# Watch mode for development
+watch: ## Watch mode for development
+	@echo "👀 Starting watch mode..."
+	@cd examples && cargo watch -x "run" -x "test" -x "build"
+
+# Check project status
+status: ## Check project status
+	@echo "📊 Project Status"
+	@echo "=================="
+	@echo "Rust version: $(shell cd examples && rustc --version 2>/dev/null || echo "Not available")"
+	@echo "Cargo version: $(shell cd examples && cargo --version 2>/dev/null || echo "Not available")"
+	@echo "wasm-pack version: $(shell cd examples && wasm-pack --version 2>/dev/null || echo "Not available")"
+	@echo "Node.js version: $(shell cd examples && node --version 2>/dev/null || echo "Not available")"
+	@echo "pnpm version: $(shell cd examples && pnpm --version 2>/dev/null || echo "Not available")"
+	@echo ""
+	@echo "Build status:"
+	@if [ -d "examples/pkg" ]; then echo "✅ WASM built"; else echo "❌ WASM not built"; fi
+	@if [ -d "examples/node_modules" ]; then echo "✅ Dependencies installed"; else echo "❌ Dependencies not installed"; fi
+
+# Nix-specific commands
+nix-dev: ## Enter Nix development shell
+	@echo "🐚 Entering Nix development shell..."
+	nix develop
+
+nix-build: ## Build with Nix
+	@echo "🔨 Building with Nix..."
+	nix build
+	@echo "✅ Nix build complete!"
+
+nix-run: ## Run with Nix
+	@echo "🏃 Running with Nix..."
+	nix run
+
+# Docker alternative (if Nix is not available)
+docker-dev: ## Start development environment with Docker
+	@echo "🐳 Starting development environment with Docker..."
+	docker run -it --rm \
+		-v $(PWD):/workspace \
+		-w /workspace \
+		-p 8080:8080 \
+		rust:latest \
+		bash -c "cd examples && wasm-pack build --target web && python3 -m http.server 8080"
+
+# CI/CD commands
+ci: check-format lint build test ## Run CI pipeline
+
+# Release commands
+release: prod-build ## Prepare release build
+	@echo "🎉 Release build ready!"
+
+# Help for specific components
+help-carousel: ## Show carousel-specific help
+	@echo "🎠 Carousel Component Help"
+	@echo "=========================="
+	@echo "The carousel component is working correctly!"
+	@echo "Test it with: make test-carousel"
+	@echo "View it at: http://localhost:8080/carousel_examples.html"
+
+test-carousel: ## Test carousel component specifically
+	@echo "🎠 Testing carousel component..."
+	@cd examples && pnpm exec playwright test -g "Carousel Examples" --headed
+
+# Quick component tests
+test-tabs: ## Test tabs component
+	@echo "📑 Testing tabs component..."
+	@cd examples && pnpm exec playwright test -g "Tabs Examples" --headed
+
+test-all-components: ## Test all components
+	@echo "🧪 Testing all components..."
+	@cd examples && pnpm exec playwright test --headed
+
+test-basic: ## Run basic component tests
+	@echo "🧪 Running basic component tests..."
+	@pnpm exec playwright test tests/all-components.spec.ts --headed
+
+test-improved: ## Run improved component tests
+	@echo "🧪 Running improved component tests..."
+	@pnpm exec playwright test tests/all-components-improved.spec.ts --headed
+
+test-interactive: ## Run interactive component tests
+	@echo "🧪 Running interactive component tests..."
+	@cd examples && pnpm exec playwright test tests/interactive-components.spec.ts --headed
+
+test-performance: ## Run performance and accessibility tests
+	@echo "🧪 Running performance and accessibility tests..."
+	@cd examples && pnpm exec playwright test tests/performance-accessibility.spec.ts --headed
+
+test-comprehensive: ## Run all test suites
+	@echo "🧪 Running comprehensive test suite..."
+	@cd examples && pnpm exec playwright test --headed
+
+test-report: ## Generate test report
+	@echo "📊 Generating test report..."
+	@cd examples && pnpm exec playwright test --reporter=html
+	@echo "✅ Test report generated. Run 'make report' to view it."

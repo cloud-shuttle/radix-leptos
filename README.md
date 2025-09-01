@@ -1,200 +1,305 @@
-# Radix-Leptos
+# Radix-Leptos Primitives
 
-A comprehensive collection of accessible UI components built with [Leptos](https://leptos.dev/) and Rust, inspired by [Radix UI](https://www.radix-ui.com/).
+A comprehensive collection of 20+ production-ready UI components built with Rust, Leptos, and WebAssembly. This library provides accessible, customizable, and performant components that follow modern design patterns.
 
 ## 🚀 Features
 
-- **15+ Accessible Components** - Built with WCAG 2.1 AA compliance
-- **Modern Rust Stack** - Built with Leptos 0.8+ and WebAssembly
-- **Type-Safe** - Full Rust type safety and compile-time guarantees
-- **Customizable** - Flexible styling and theming options
-- **Production Ready** - Comprehensive testing and documentation
+- **20+ Components**: Complete set of form, feedback, media, and advanced UI components
+- **Rust + WebAssembly**: Built with Rust for performance and type safety
+- **Leptos Framework**: Modern reactive UI framework for Rust
+- **Accessibility First**: All components follow ARIA guidelines
+- **Customizable**: Extensive theming and variant support
+- **Type Safe**: Full Rust type safety with compile-time guarantees
+- **Production Ready**: Comprehensive examples and documentation
 
-## 📦 Installation
+## 📦 Components
 
-Add the following to your `Cargo.toml`:
+### Form Components
+- **Button** - Multiple variants (Default, Destructive, Outline, Ghost, Link)
+- **TextInput** - Text input with validation and accessibility
+- **Select** - Dropdown selection with search and keyboard navigation
+- **Checkbox** - Accessible checkbox with custom styling
+- **RadioGroup** - Radio button groups with keyboard navigation
+- **Switch** - Toggle switch component
+- **Slider** - Range slider with customizable steps
+- **DatePicker** - Date selection with calendar interface
+- **Combobox** - Searchable dropdown with autocomplete
+- **Form** - Form container with validation
 
-```toml
-[dependencies]
-radix-leptos-primitives = "0.1.0"
-leptos = { version = "0.8", features = ["csr", "ssr"] }
-```
+### Feedback Components
+- **Toast** - Notification system with positioning
+- **Alert** - Status alerts with multiple variants
+- **Badge** - Status indicators and labels
+- **Avatar** - User profile images with fallbacks
+- **Progress** - Progress indicators and loading states
 
-## 🎯 Quick Start
+### Media Components
+- **Image** - Optimized image display with lazy loading
+- **Video** - Video player with controls
+- **Audio** - Audio player with playlist support
+- **Carousel** - Image carousel with navigation
+
+### Advanced Components
+- **ContextMenu** - Right-click context menus
+- **DropdownMenu** - Dropdown navigation menus
+- **Menubar** - Application menu bars
+- **ScrollArea** - Custom scrollable areas
+- **Tabs** - Tabbed interface with multiple variants
+- **Accordion** - Collapsible content sections
+- **Navigation** - Navigation menus and breadcrumbs
+- **Table** - Data tables with sorting and pagination
+- **Pagination** - Page navigation controls
+- **List** - Virtualized lists for large datasets
+- **Timeline** - Chronological event displays
+
+## 🛠️ Installation
+
+### Prerequisites
+
+- Rust (latest stable)
+- wasm-pack
+- Node.js (for development)
+
+### Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/cloud-shuttle/radix-leptos.git
+   cd radix-leptos
+   ```
+
+2. **Install dependencies**
+   ```bash
+   cargo build
+   ```
+
+3. **Build examples**
+   ```bash
+   cd examples
+   wasm-pack build --target web
+   ```
+
+4. **Run examples**
+   ```bash
+   python3 -m http.server 8080
+   # Open http://localhost:8080/component_showcase.html
+   ```
+
+## 📚 Usage
+
+### Basic Component Usage
 
 ```rust
 use leptos::*;
 use radix_leptos_primitives::*;
 
 #[component]
-pub fn App() -> impl IntoView {
+pub fn MyApp() -> impl IntoView {
     view! {
         <div>
-            <Button on_click=Callback::new(|_| println!("Clicked!"))>
-                "Click me!"
+            <Button variant=ButtonVariant::Default>
+                "Click me"
             </Button>
             
-            <Checkbox 
-                checked=true 
-                on_change=Callback::new(|state| println!("Checkbox: {:?}", state))
-            />
+            <TextInput placeholder="Enter text...".to_string() />
             
-            <Dialog>
-                <DialogTrigger>
-                    <Button>"Open Dialog"</Button>
-                </DialogTrigger>
-                <DialogContent>
-                    <DialogTitle>"Hello World"</DialogTitle>
-                    <DialogDescription>
-                        "This is a dialog built with Radix-Leptos!"
-                    </DialogDescription>
-                </DialogContent>
-            </Dialog>
+            <Alert variant=AlertVariant::Info>
+                <AlertTitle>"Information"</AlertTitle>
+                <AlertDescription>"This is an alert message."</AlertDescription>
+            </Alert>
         </div>
     }
 }
 ```
 
-## 🧩 Available Components
+### Component Variants
 
-### Phase 1: Core Components
-- **Button** - Accessible button with multiple variants
-- **Label** - Form labels with proper accessibility
-- **Separator** - Visual dividers with orientation options
-- **Dialog** - Modal dialogs with focus management
-
-### Phase 2: Form Components
-- **Checkbox** - Accessible checkbox with indeterminate state
-- **Switch** - Toggle switches with proper ARIA attributes
-- **RadioGroup** - Radio button groups with keyboard navigation
-- **TextInput** - Text input fields with validation support
-
-### Phase 3: Advanced Components
-- **Accordion** - Collapsible content sections
-- **Tabs** - Tabbed interfaces with keyboard navigation
-- **Popover** - Floating content overlays
-- **Tooltip** - Contextual help tooltips
-- **Select** - Dropdown selection components
-
-## 🎨 Styling
-
-Components come with sensible defaults but are fully customizable. You can:
-
-1. **Use CSS classes** - All components accept a `class` prop
-2. **Apply custom styles** - Use the `style` attribute
-3. **Theme with CSS variables** - Override default design tokens
+Most components support multiple variants for different use cases:
 
 ```rust
+// Button variants
+<Button variant=ButtonVariant::Default>"Default"</Button>
+<Button variant=ButtonVariant::Destructive>"Delete"</Button>
+<Button variant=ButtonVariant::Outline>"Outline"</Button>
+<Button variant=ButtonVariant::Ghost>"Ghost"</Button>
+<Button variant=ButtonVariant::Link>"Link"</Button>
+
+// Alert variants
+<Alert variant=AlertVariant::Info>"Info"</Alert>
+<Alert variant=AlertVariant::Success>"Success"</Alert>
+<Alert variant=AlertVariant::Warning>"Warning"</Alert>
+<Alert variant=AlertVariant::Error>"Error"</Alert>
+```
+
+### Form Components
+
+```rust
+// Select component
+<Select>
+    <SelectTrigger>
+        <SelectValue placeholder="Choose an option".to_string()>
+            "Choose an option"
+        </SelectValue>
+    </SelectTrigger>
+    <SelectContent>
+        <SelectItem value="option1".to_string()>"Option 1"</SelectItem>
+        <SelectItem value="option2".to_string()>"Option 2"</SelectItem>
+    </SelectContent>
+</Select>
+
+// Checkbox with label
+<Checkbox id="terms".to_string() />
+<label for="terms">"I agree to the terms"</label>
+```
+
+### Advanced Components
+
+```rust
+// Tabs component
+<Tabs>
+    <TabsList>
+        <TabsTrigger value="tab1".to_string()>"Tab 1"</TabsTrigger>
+        <TabsTrigger value="tab2".to_string()>"Tab 2"</TabsTrigger>
+    </TabsList>
+    <TabsContent value="tab1".to_string()>"Content for tab 1"</TabsContent>
+    <TabsContent value="tab2".to_string()>"Content for tab 2"</TabsContent>
+</Tabs>
+
+// Context menu
+<ContextMenu>
+    <ContextMenuTrigger>
+        <div>"Right-click me"</div>
+    </ContextMenuTrigger>
+    <ContextMenuContent>
+        <ContextMenuItem>"Copy"</ContextMenuItem>
+        <ContextMenuItem>"Paste"</ContextMenuItem>
+    </ContextMenuContent>
+</ContextMenu>
+```
+
+## 🎨 Theming
+
+Components support extensive theming through CSS classes and variants. All components use Tailwind CSS classes by default, but can be customized with your own CSS.
+
+### Custom Styling
+
+```rust
+// Custom button styling
 <Button 
-    class="my-custom-button"
-    style="background: linear-gradient(45deg, #ff6b6b, #4ecdc4);"
+    class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg"
 >
-    "Custom Styled Button"
+    "Custom Button"
 </Button>
 ```
 
-## ♿ Accessibility
-
-All components follow WCAG 2.1 AA guidelines and include:
-
-- **Proper ARIA attributes** - Screen reader support
-- **Keyboard navigation** - Full keyboard accessibility
-- **Focus management** - Logical tab order and focus indicators
-- **Semantic HTML** - Proper HTML structure and semantics
-
-## 🧪 Testing
-
-Run the interactive test suite:
-
-```bash
-# Build the examples
-cd examples
-./build.sh
-
-# Serve the test suite
-python3 -m http.server 8000
-# Visit http://localhost:8000
-```
-
-## 📚 Documentation
-
-- **[Component API Reference](COMPONENTS.md)** - Detailed component documentation
-- **[Progress Report](PROGRESS_REPORT.md)** - Development status and roadmap
-- **[Validation Report](VALIDATION_REPORT.md)** - Testing and validation results
-
 ## 🔧 Development
 
-### Prerequisites
+### Project Structure
 
-- Rust 1.70+
-- wasm-pack
-- Node.js (for examples)
+```
+radix-leptos/
+├── crates/
+│   └── radix-leptos-primitives/    # Main component library
+│       ├── src/
+│       │   ├── components/         # Individual component modules
+│       │   └── lib.rs             # Library entry point
+├── examples/                       # Example applications
+│   ├── src/                       # Example source code
+│   ├── *.html                     # HTML entry points
+│   └── pkg/                       # Built WASM files
+└── README.md
+```
+
+### Adding New Components
+
+1. Create a new component file in `crates/radix-leptos-primitives/src/components/`
+2. Add the component to the module exports in `mod.rs`
+3. Create examples in `examples/src/`
+4. Add an HTML entry point in `examples/`
+5. Update the component showcase
 
 ### Building
 
 ```bash
-# Build all crates
+# Build the library
 cargo build
 
-# Build examples
+# Build examples for web
 cd examples
-./build.sh
+wasm-pack build --target web
+
+# Run development server
+python3 -m http.server 8080
 ```
 
-### Testing
+## 📖 Examples
 
-```bash
-# Run unit tests
-cargo test
+Visit the component showcase to see all components in action:
 
-# Run examples in browser
-cd examples
-./build.sh
-python3 -m http.server 8000
-```
+- **Component Showcase**: `http://localhost:8080/component_showcase.html`
+- **Individual Examples**: Each component has its own example page
+
+### Available Examples
+
+- Button Examples
+- TextInput Examples  
+- Select Examples
+- Checkbox Examples
+- RadioGroup Examples
+- Switch Examples
+- Slider Examples
+- DatePicker Examples
+- Combobox Examples
+- Form Examples
+- Toast Examples
+- Alert Examples
+- Badge Examples
+- Avatar Examples
+- Progress Examples
+- Image Examples
+- Video Examples
+- Audio Examples
+- Carousel Examples
+- ContextMenu Examples
+- DropdownMenu Examples
+- Menubar Examples
+- ScrollArea Examples
+- Tabs Examples
+- Accordion Examples
+- Navigation Examples
+- Table Examples
+- Pagination Examples
+- List Examples
+- Timeline Examples
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+We welcome contributions! Please see our contributing guidelines for details.
 
 ### Development Setup
 
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Add tests
+4. Add tests and examples
 5. Submit a pull request
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 🙏 Acknowledgments
 
-- [Radix UI](https://www.radix-ui.com/) - Design inspiration and accessibility patterns
-- [Leptos](https://leptos.dev/) - The amazing Rust web framework
-- [Rust Community](https://www.rust-lang.org/community) - For the incredible ecosystem
-
-## 🗺️ Roadmap
-
-### Phase 4: Complex Components (Coming Soon)
-- **Combobox** - Searchable dropdown with keyboard navigation
-- **DatePicker** - Calendar-based date selection
-- **Slider** - Range input with drag support
-- **Progress** - Progress indicators and loading states
-
-### Future Enhancements
-- **Animation Support** - Smooth transitions and micro-interactions
-- **Theme System** - Comprehensive theming solution
-- **Performance Optimizations** - Bundle size and runtime optimizations
-- **Server-Side Rendering** - Enhanced SSR support
+- Inspired by [Radix UI](https://www.radix-ui.com/)
+- Built with [Leptos](https://leptos.dev/)
+- Styled with [Tailwind CSS](https://tailwindcss.com/)
 
 ## 📞 Support
 
 - **Issues**: [GitHub Issues](https://github.com/cloud-shuttle/radix-leptos/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/cloud-shuttle/radix-leptos/discussions)
-- **Documentation**: [Component API Reference](COMPONENTS.md)
+- **Documentation**: [Component Showcase](http://localhost:8080/component_showcase.html)
 
 ---
 
-**Built with ❤️ by the Cloud Shuttle team**
+**Built with ❤️ using Rust and WebAssembly**

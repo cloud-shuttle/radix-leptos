@@ -3,7 +3,7 @@ use radix_leptos_primitives::*;
 
 #[component]
 pub fn SimpleComponentsExample() -> impl IntoView {
-    let (count, set_count) = create_signal(0);
+    let (count, set_count) = signal(0);
     
     view! {
         <div style="padding: 20px; font-family: Arial, sans-serif;">

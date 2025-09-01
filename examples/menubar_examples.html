@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menubar Component Examples</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for better menubar appearance */
+        .menubar-container {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        /* Ensure proper z-index for dropdowns */
+        .z-50 {
+            z-index: 50;
+        }
+        
+        /* Smooth transitions */
+        .transition-all {
+            transition: all 0.2s ease-in-out;
+        }
+        
+        /* Focus styles */
+        .focus\:bg-accent:focus {
+            background-color: #f3f4f6;
+        }
+        
+        .focus\:text-accent-foreground:focus {
+            color: #1f2937;
+        }
+        
+        /* Data state styles */
+        [data-state="open"] {
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+        
+        /* Animation classes */
+        .animate-in {
+            animation: fadeIn 0.2s ease-out;
+        }
+        
+        .animate-out {
+            animation: fadeOut 0.2s ease-in;
+        }
+        
+        .fade-in-0 {
+            opacity: 1;
+        }
+        
+        .fade-out-0 {
+            opacity: 0;
+        }
+        
+        .zoom-in-95 {
+            transform: scale(0.95);
+        }
+        
+        .zoom-out-95 {
+            transform: scale(1.05);
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+        }
+        
+        /* Slide animations */
+        .slide-in-from-top-2 {
+            animation: slideInFromTop 0.2s ease-out;
+        }
+        
+        .slide-in-from-bottom-2 {
+            animation: slideInFromBottom 0.2s ease-out;
+        }
+        
+        .slide-in-from-left-2 {
+            animation: slideInFromLeft 0.2s ease-out;
+        }
+        
+        .slide-in-from-right-2 {
+            animation: slideInFromRight 0.2s ease-out;
+        }
+        
+        @keyframes slideInFromTop {
+            from {
+                transform: translateY(-8px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideInFromBottom {
+            from {
+                transform: translateY(8px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideInFromLeft {
+            from {
+                transform: translateX(-8px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideInFromRight {
+            from {
+                transform: translateX(8px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body class="menubar-container">
+    <div id="app">
+        <div class="flex items-center justify-center min-h-screen bg-gray-100">
+            <div class="text-center">
+                <h1 class="text-2xl font-bold text-gray-800 mb-4">Loading Menubar Examples...</h1>
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import the WASM module (correct glue path)
+        import init, { start_menubar_examples } from './pkg/radix_leptos_examples.js';
+
+        async function run() {
+            try {
+                // Initialize the WASM module
+                await init();
+                
+                // Start the menubar examples
+                start_menubar_examples();
+                
+                console.log('Menubar examples started successfully!');
+            } catch (error) {
+                console.error('Failed to start menubar examples:', error);
+                
+                // Show error message to user
+                const app = document.getElementById('app');
+                app.innerHTML = `
+                    <div class="flex items-center justify-center min-h-screen bg-gray-100">
+                        <div class="text-center">
+                            <h1 class="text-2xl font-bold text-red-600 mb-4">Failed to Load Menubar Examples</h1>
+                            <p class="text-gray-600 mb-4">Please check the console for more details.</p>
+                            <button onclick="location.reload()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                Reload Page
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Run the application
+        run();
+    </script>
+</body>
+</html>

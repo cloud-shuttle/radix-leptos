@@ -1,0 +1,14 @@
+{
+  "name": "radix-leptos-examples",
+  "version": "0.1.0",
+  "description": "Production build of Radix-Leptos components",
+  "main": "radix_leptos_examples.js",
+  "files": [
+    "radix_leptos_examples.js",
+    "radix_leptos_examples_bg.wasm",
+    "radix_leptos_examples.d.ts"
+  ],
+  "keywords": ["radix", "leptos", "rust", "wasm", "ui-components"],
+  "author": "Your Name",
+  "license": "MIT"
+}

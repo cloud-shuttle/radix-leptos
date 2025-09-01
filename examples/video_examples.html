@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Component Examples</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .video-examples {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .example-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            background: #fafafa;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        
+        p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .control-example {
+            text-align: center;
+        }
+        
+        .control-example h4 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .playback-example {
+            text-align: center;
+        }
+        
+        .playback-example h4 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .playback-example p {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .context-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .video-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .video-card-content {
+            padding: 20px;
+        }
+        
+        .video-card-content h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        
+        .video-card-content p {
+            margin: 0 0 15px 0;
+            color: #666;
+        }
+        
+        .video-gallery {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .video-gallery h3 {
+            margin: 0 0 15px 0;
+            color: #333;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+        }
+        
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        
+        /* Video component styles */
+        .radix-video {
+            position: relative;
+            overflow: hidden;
+            background: #000;
+            border-radius: 8px;
+        }
+        
+        .radix-video--interactive {
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .radix-video--interactive:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .radix-video--interactive:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Size variants */
+        .radix-video--size-small {
+            max-width: 300px;
+        }
+        
+        .radix-video--size-medium {
+            max-width: 500px;
+        }
+        
+        .radix-video--size-large {
+            max-width: 800px;
+        }
+        
+        .radix-video--size-full-width {
+            width: 100%;
+        }
+        
+        /* Aspect ratio variants */
+        .radix-video--aspect-square {
+            aspect-ratio: 1 / 1;
+        }
+        
+        .radix-video--aspect-landscape {
+            aspect-ratio: 16 / 9;
+        }
+        
+        .radix-video--aspect-portrait {
+            aspect-ratio: 9 / 16;
+        }
+        
+        .radix-video--aspect-wide {
+            aspect-ratio: 21 / 9;
+        }
+        
+        .radix-video--aspect-ultra-wide {
+            aspect-ratio: 32 / 9;
+        }
+        
+        .radix-video-element {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Video with custom controls styles */
+        .radix-video-custom {
+            position: relative;
+            overflow: hidden;
+            background: #000;
+            border-radius: 8px;
+        }
+        
+        .radix-video-custom--size-small {
+            max-width: 300px;
+        }
+        
+        .radix-video-custom--size-medium {
+            max-width: 500px;
+        }
+        
+        .radix-video-custom--size-large {
+            max-width: 800px;
+        }
+        
+        .radix-video-custom--size-full-width {
+            width: 100%;
+        }
+        
+        .radix-video-custom--aspect-square {
+            aspect-ratio: 1 / 1;
+        }
+        
+        .radix-video-custom--aspect-landscape {
+            aspect-ratio: 16 / 9;
+        }
+        
+        .radix-video-custom--aspect-portrait {
+            aspect-ratio: 9 / 16;
+        }
+        
+        .radix-video-custom--aspect-wide {
+            aspect-ratio: 21 / 9;
+        }
+        
+        .radix-video-custom--aspect-ultra-wide {
+            aspect-ratio: 32 / 9;
+        }
+        
+        .radix-video-custom-element {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .radix-video-custom-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            padding: 10px;
+            color: white;
+        }
+        
+        /* Video player styles */
+        .radix-video-player {
+            position: relative;
+            overflow: hidden;
+            background: #000;
+            border-radius: 8px;
+        }
+        
+        .radix-video-player--size-small {
+            max-width: 300px;
+        }
+        
+        .radix-video-player--size-medium {
+            max-width: 500px;
+        }
+        
+        .radix-video-player--size-large {
+            max-width: 800px;
+        }
+        
+        .radix-video-player--size-full-width {
+            width: 100%;
+        }
+        
+        .radix-video-player--aspect-square {
+            aspect-ratio: 1 / 1;
+        }
+        
+        .radix-video-player--aspect-landscape {
+            aspect-ratio: 16 / 9;
+        }
+        
+        .radix-video-player--aspect-portrait {
+            aspect-ratio: 9 / 16;
+        }
+        
+        .radix-video-player--aspect-wide {
+            aspect-ratio: 21 / 9;
+        }
+        
+        .radix-video-player--aspect-ultra-wide {
+            aspect-ratio: 32 / 9;
+        }
+        
+        .radix-video-player-element {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .radix-video-player-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+            color: white;
+        }
+        
+        .radix-video-player-header {
+            text-align: center;
+        }
+        
+        .radix-video-player-title {
+            margin: 0 0 8px 0;
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+        
+        .radix-video-player-description {
+            margin: 0;
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        /* Custom controls styles */
+        .custom-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .custom-play-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .custom-progress {
+            flex: 1;
+            height: 4px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .custom-progress-bar {
+            height: 100%;
+            background: #007bff;
+            width: 30%;
+        }
+        
+        .custom-volume-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        
+        .custom-controls-large {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .custom-controls-header {
+            text-align: center;
+        }
+        
+        .custom-controls-header h4 {
+            margin: 0 0 5px 0;
+            font-size: 1.2em;
+        }
+        
+        .custom-controls-header p {
+            margin: 0;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        .custom-controls-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .custom-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s ease;
+        }
+        
+        .custom-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        /* API documentation styles */
+        .api-docs {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid #007bff;
+            margin-bottom: 30px;
+        }
+        
+        .api-docs ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .api-docs li {
+            margin-bottom: 8px;
+            padding: 8px;
+            background: white;
+            border-radius: 4px;
+            border-left: 3px solid #28a745;
+        }
+        
+        .api-docs strong {
+            color: #007bff;
+        }
+        
+        .api-docs h3 {
+            color: #495057;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="video-examples-root"></div>
+    
+    <script type="module">
+        import init, { start_video_examples } from './pkg/radix_leptos_examples.js';
+        
+        async function run() {
+            try {
+                console.log('Starting video examples...');
+                await init();
+                console.log('WASM initialized successfully');
+                start_video_examples();
+                console.log('Video examples started');
+            } catch (error) {
+                console.error('Error loading video examples:', error);
+                document.getElementById('video-examples-root').innerHTML = `
+                    <div style="padding: 20px; color: red;">
+                        <h1>Error Loading Video Examples</h1>
+                        <p>There was an error loading the video examples: ${error.message}</p>
+                        <p>Please check the browser console for more details.</p>
+                    </div>
+                `;
+            }
+        }
+        
+        run();
+    </script>
+</body>
+</html>

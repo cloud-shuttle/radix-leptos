@@ -8,6 +8,7 @@ leptos = { version = "0.8", features = ["ssr", "csr"] }
 radix-leptos-primitives = { path = "../crates/radix-leptos-primitives" }
 wasm-bindgen = "0.2"
 web-sys = "0.3"
+chrono = { version = "0.4", features = ["serde"] }
 
 [lib]
 crate-type = ["cdylib"]

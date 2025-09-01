@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline Component Examples</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .timeline-examples {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .example-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            background: #fafafa;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        
+        h3 {
+            color: #34495e;
+        }
+        
+        p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .api-docs {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid #007bff;
+        }
+        
+        .api-docs ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .api-docs li {
+            margin-bottom: 8px;
+            padding: 8px;
+            background: white;
+            border-radius: 4px;
+            border-left: 3px solid #28a745;
+        }
+        
+        .api-docs strong {
+            color: #007bff;
+        }
+        
+        /* Timeline component styles */
+        .radix-timeline {
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 10px 0;
+            background: white;
+        }
+        
+        .radix-timeline-item {
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            background: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .radix-timeline-item:hover {
+            background: #e9ecef;
+            border-color: #007bff;
+        }
+        
+        .radix-timeline-item--focused {
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
+        
+        .radix-timeline-item--disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .radix-timeline-item-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .radix-timeline-item-icon {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #007bff;
+            color: white;
+            border-radius: 50%;
+            font-size: 18px;
+        }
+        
+        .radix-timeline-item-body {
+            flex: 1;
+        }
+        
+        .radix-timeline-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .radix-timeline-item-title {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .radix-timeline-item-date {
+            font-size: 12px;
+            color: #666;
+            background: #e9ecef;
+            padding: 2px 8px;
+            border-radius: 12px;
+        }
+        
+        .radix-timeline-item-description {
+            margin: 8px 0;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .radix-timeline-item-meta {
+            font-size: 12px;
+            color: #007bff;
+            background: #e3f2fd;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        
+        /* Status variants */
+        .radix-timeline-item--status-success .radix-timeline-item-icon {
+            background: #28a745;
+        }
+        
+        .radix-timeline-item--status-warning .radix-timeline-item-icon {
+            background: #ffc107;
+        }
+        
+        .radix-timeline-item--status-error .radix-timeline-item-icon {
+            background: #dc3545;
+        }
+        
+        .radix-timeline-item--status-info .radix-timeline-item-icon {
+            background: #17a2b8;
+        }
+        
+        /* Size variants */
+        .radix-timeline--size-small .radix-timeline-item {
+            padding: 10px;
+        }
+        
+        .radix-timeline--size-small .radix-timeline-item-icon {
+            width: 30px;
+            height: 30px;
+            font-size: 14px;
+        }
+        
+        .radix-timeline--size-large .radix-timeline-item {
+            padding: 20px;
+        }
+        
+        .radix-timeline--size-large .radix-timeline-item-icon {
+            width: 50px;
+            height: 50px;
+            font-size: 22px;
+        }
+        
+        /* Variant styles */
+        .radix-timeline--variant-bordered {
+            border: 2px solid #007bff;
+        }
+        
+        .radix-timeline--variant-compact .radix-timeline-item {
+            padding: 8px;
+            margin: 5px 0;
+        }
+        
+        /* Empty and loading states */
+        .radix-timeline-empty,
+        .radix-timeline-loading {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+        
+        .radix-timeline-empty-icon,
+        .radix-timeline-loading-spinner {
+            font-size: 48px;
+            margin-bottom: 16px;
+            display: block;
+        }
+        
+        .radix-timeline-empty-message,
+        .radix-timeline-loading-message {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div id="timeline-examples-root"></div>
+    
+    <script type="module">
+        import init, { start_timeline_examples } from './pkg/radix_leptos_examples.js';
+        
+        async function run() {
+            await init();
+            start_timeline_examples();
+        }
+        
+        run();
+    </script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+
+Running 8 tests using 1 worker
+
+🎠 Testing Carousel Deep Interactions...

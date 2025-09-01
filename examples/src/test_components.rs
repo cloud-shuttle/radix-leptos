@@ -21,6 +21,19 @@ pub fn ComponentTestSuite() -> impl IntoView {
     let select_value_display = select_value.clone();
     let select_value_summary = select_value.clone();
     
+    // Phase 4: Complex Components - Reactive signals
+    let (combobox_value, set_combobox_value) = signal("option1".to_string());
+    let (date_picker_value, set_date_picker_value) = signal("".to_string());
+    let (slider_value, set_slider_value) = signal(50.0);
+    let (range_slider_value, set_range_slider_value) = signal((25.0, 75.0));
+    let (progress_value, set_progress_value) = signal(65.0);
+    
+    // Phase 5: Layout & Navigation Components - Reactive signals
+    let (navigation_active_item, set_navigation_active_item) = signal("home".to_string());
+    let (navigation_collapsed, set_navigation_collapsed) = signal(false);
+    let (breadcrumb_current_item, set_breadcrumb_current_item) = signal("page3".to_string());
+    let (pagination_current_page, set_pagination_current_page) = signal(3);
+    
     // Test counters for interaction tracking
     let (button_clicks, set_button_clicks) = signal(0);
     let (form_submissions, set_form_submissions) = signal(0);
@@ -70,6 +83,80 @@ pub fn ComponentTestSuite() -> impl IntoView {
 
     let handle_select_change = Callback::new(move |_value: String| {
         web_sys::console::log_1(&"Select changed".into());
+    });
+
+    // Phase 4: Complex Components - Event handlers
+    let handle_combobox_change = Callback::new(move |value: String| {
+        set_combobox_value.set(value);
+        web_sys::console::log_1(&"Combobox changed".into());
+    });
+
+    let handle_date_picker_change = Callback::new(move |date: chrono::NaiveDate| {
+        set_date_picker_value.set(date.format("%Y-%m-%d").to_string());
+        web_sys::console::log_1(&"Date picker changed".into());
+    });
+
+    let handle_date_picker_open = Callback::new(move |_: ()| {
+        web_sys::console::log_1(&"Date picker opened".into());
+    });
+
+    let handle_date_picker_close = Callback::new(move |_: ()| {
+        web_sys::console::log_1(&"Date picker closed".into());
+    });
+
+    let handle_slider_change = Callback::new(move |value: f64| {
+        set_slider_value.set(value);
+        web_sys::console::log_1(&"Slider changed".into());
+    });
+
+    let handle_range_slider_change = Callback::new(move |values: (f64, f64)| {
+        set_range_slider_value.set(values);
+        web_sys::console::log_1(&"Range slider changed".into());
+    });
+
+        // Phase 5: Layout & Navigation Components - Event handlers
+    let handle_navigation_item_click = Callback::new(move |item: NavigationItem| {
+        set_navigation_active_item.set(item.id.clone());
+        web_sys::console::log_1(&format!("Navigation item clicked: {}", item.id).into());
+    });
+    
+    let handle_breadcrumb_item_click = Callback::new(move |item: BreadcrumbItem| {
+        set_breadcrumb_current_item.set(item.id.clone());
+        web_sys::console::log_1(&format!("Breadcrumb item clicked: {}", item.id).into());
+    });
+    
+    let handle_pagination_page_change = Callback::new(move |page: usize| {
+        set_pagination_current_page.set(page);
+        web_sys::console::log_1(&format!("Pagination page changed to: {}", page).into());
+    });
+
+    // Phase 6: Data Display Components - Reactive signals
+    let (table_sort_column, set_table_sort_column) = signal(Some("name".to_string()));
+    let (table_sort_direction, set_table_sort_direction) = signal(SortDirection::Ascending);
+    let (table_current_page, set_table_current_page) = signal(1);
+    let (table_selected_rows, set_table_selected_rows) = signal(Vec::<String>::new());
+
+    // Phase 6: Data Display Components - Event handlers
+    let handle_table_sort = Callback::new(move |(column, direction): (String, SortDirection)| {
+        set_table_sort_column.set(Some(column.clone()));
+        set_table_sort_direction.set(direction.clone());
+        web_sys::console::log_1(&format!("Table sorted by {}: {:?}", column, direction).into());
+    });
+    
+    let handle_table_row_select = Callback::new(move |row: TableData| {
+        let mut current_selected = table_selected_rows.get();
+        if current_selected.contains(&row.id) {
+            current_selected.retain(|id| id != &row.id);
+        } else {
+            current_selected.push(row.id.clone());
+        }
+        set_table_selected_rows.set(current_selected);
+        web_sys::console::log_1(&format!("Table row selected: {}", row.id).into());
+    });
+    
+    let handle_table_page_change = Callback::new(move |page: usize| {
+        set_table_current_page.set(page);
+        web_sys::console::log_1(&format!("Table page changed to: {}", page).into());
     });
 
     let handle_form_submit = Callback::new(move |_e: web_sys::SubmitEvent| {
@@ -466,7 +553,7 @@ pub fn ComponentTestSuite() -> impl IntoView {
                     <div class="tabs-test-grid">
                         <div class="tabs-section">
                             <h4>"Horizontal Tabs (Default)"</h4>
-                            <Tabs value=tabs_value.clone()>
+                            <Tabs>
                                 <TabsList>
                                     <TabsTrigger value="tab1".to_string()>
                                         "Account Settings"
@@ -685,6 +772,647 @@ pub fn ComponentTestSuite() -> impl IntoView {
                 </div>
             </section>
 
+            // Phase 4: Complex Components - Enhanced Testing
+            <section class="test-section">
+                <h2>"🚀 Phase 4: Complex Components - Enhanced Testing"</h2>
+                
+                // Combobox Component Testing
+                <div class="component-group">
+                    <h3>"🔍 Combobox Component - Full Functionality"</h3>
+                    <div class="combobox-test">
+                        <p>"Interactive searchable dropdown with keyboard navigation, filtering, and selection."</p>
+                        
+                        // Sample options for testing
+                        {move || {
+                            let options = vec![
+                                ComboboxOption::new("apple".to_string(), "🍎 Apple".to_string()),
+                                ComboboxOption::new("banana".to_string(), "🍌 Banana".to_string()),
+                                ComboboxOption::new("cherry".to_string(), "🍒 Cherry".to_string()),
+                                ComboboxOption::new("date".to_string(), "📅 Date".to_string()),
+                                ComboboxOption::new("elderberry".to_string(), "🫐 Elderberry".to_string()),
+                                ComboboxOption::new("fig".to_string(), "🌿 Fig".to_string()),
+                                ComboboxOption::new("grape".to_string(), "🍇 Grape".to_string()),
+                                ComboboxOption::new("honeydew".to_string(), "🍈 Honeydew".to_string()),
+                                ComboboxOption::new("kiwi".to_string(), "🥝 Kiwi".to_string()),
+                                ComboboxOption::new("lemon".to_string(), "🍋 Lemon".to_string()),
+                            ];
+                            
+                            let current_value = combobox_value.clone();
+                            
+                            view! {
+                                <div class="combobox-demo">
+                                    <h4>"Searchable Fruit Combobox"</h4>
+                                    <Combobox
+                                        options=options
+                                        value=current_value.get()
+                                        placeholder="Search fruits...".to_string()
+                                        on_change=handle_combobox_change.clone()
+                                        on_search=Callback::new(|query: String| {
+                                            web_sys::console::log_1(&format!("Search query: {}", query).into());
+                                        })
+                                    >
+                                        <ComboboxTrigger>
+                                            <ComboboxInput placeholder="Type to search...".to_string() />
+                                        </ComboboxTrigger>
+                                        <ComboboxContent>
+                                            <ComboboxOptions />
+                                        </ComboboxContent>
+                                    </Combobox>
+                                    <p class="combobox-status">"Selected: " {current_value}</p>
+                                </div>
+                            }
+                        }}
+                        
+                        <div class="combobox-instructions">
+                            <h4>"Test Instructions:"</h4>
+                            <ul>
+                                <li>"Click the input to open the dropdown"</li>
+                                <li>"Type to filter options (e.g., 'ap' for Apple)"</li>
+                                <li>"Use Arrow Up/Down to navigate"</li>
+                                <li>"Press Enter to select, Escape to close"</li>
+                                <li>"Click on any option to select it"</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                // DatePicker Test
+                <div class="component-group">
+                    <h3>"📅 DatePicker Component - Basic Functionality"</h3>
+                    <div class="date-picker-test">
+                        <p>"Interactive date picker with calendar navigation and selection."</p>
+                        <div class="date-picker-demo">
+                                                    <DatePicker
+                            on_change=handle_date_picker_change.clone()
+                        >
+                            <DatePickerTrigger>
+                                <DatePickerInput placeholder="Select a date...".to_string() />
+                            </DatePickerTrigger>
+                            <DatePickerCalendar>
+                                <DatePickerGrid>
+                                    <div>"Calendar grid content"</div>
+                                </DatePickerGrid>
+                            </DatePickerCalendar>
+                        </DatePicker>
+                        </div>
+                        <div class="date-picker-instructions">
+                            <h4>"Test Instructions:"</h4>
+                            <ul>
+                                <li>"Click the input to open the calendar"</li>
+                                <li>"Use navigation arrows to change months"</li>
+                                <li>"Type a date in YYYY-MM-DD format in the input field"</li>
+                                <li>"Press Enter or click a date to select it"</li>
+                            </ul>
+                        </div>
+                        <div class="date-picker-status">
+                            "Selected: " {date_picker_value.get()}
+                        </div>
+                    </div>
+                </div>
+
+                // Progress Component Testing
+                <div class="component-group">
+                    <h3>"📊 Progress Component - Basic Functionality"</h3>
+                    <div class="progress-test">
+                        <p>"Interactive progress bar with different variants and sizes."</p>
+                        
+                        // Basic Progress Bar
+                        <div class="progress-demo">
+                            <h4>"Basic Progress Bar"</h4>
+                            <Progress
+                                value=progress_value.get()
+                                max=100.0
+                                class="progress".to_string()
+                            >
+                                <ProgressTrack class="progress-track".to_string()>
+                                    <ProgressIndicator class="progress-indicator".to_string()>
+                                        <div>"Progress"</div>
+                                    </ProgressIndicator>
+                                </ProgressTrack>
+                                <ProgressValue format="percentage".to_string() />
+                            </Progress>
+                            <div class="progress-value">
+                                "Value: " {progress_value.get()} "/ 100"
+                            </div>
+                        </div>
+
+                        // Different Variants
+                        <div class="progress-demo">
+                            <h4>"Progress Variants"</h4>
+                            <div class="progress-variants">
+                                <Progress
+                                    value=25.0
+                                    variant=ProgressVariant::Default
+                                    class="progress variant-default".to_string()
+                                >
+                                    <ProgressTrack class="progress-track".to_string()>
+                                        <ProgressIndicator class="progress-indicator".to_string()>
+                                            <div>"Default"</div>
+                                        </ProgressIndicator>
+                                    </ProgressTrack>
+                                </Progress>
+                                
+                                <Progress
+                                    value=50.0
+                                    variant=ProgressVariant::Success
+                                    class="progress variant-success".to_string()
+                                >
+                                    <ProgressTrack class="progress-track".to_string()>
+                                        <ProgressIndicator class="progress-indicator".to_string()>
+                                            <div>"Success"</div>
+                                        </ProgressIndicator>
+                                    </ProgressTrack>
+                                </Progress>
+                                
+                                <Progress
+                                    value=75.0
+                                    variant=ProgressVariant::Warning
+                                    class="progress variant-warning".to_string()
+                                >
+                                    <ProgressTrack class="progress-track".to_string()>
+                                        <ProgressIndicator class="progress-indicator".to_string()>
+                                            <div>"Warning"</div>
+                                        </ProgressIndicator>
+                                    </ProgressTrack>
+                                </Progress>
+                                
+                                <Progress
+                                    value=90.0
+                                    variant=ProgressVariant::Error
+                                    class="progress variant-error".to_string()
+                                >
+                                    <ProgressTrack class="progress-track".to_string()>
+                                        <ProgressIndicator class="progress-indicator".to_string()>
+                                            <div>"Error"</div>
+                                        </ProgressIndicator>
+                                    </ProgressTrack>
+                                </Progress>
+                            </div>
+                        </div>
+
+                        // Different Sizes
+                        <div class="progress-demo">
+                            <h4>"Progress Sizes"</h4>
+                            <div class="progress-sizes">
+                                <Progress
+                                    value=60.0
+                                    size=ProgressSize::Small
+                                    class="progress size-small".to_string()
+                                >
+                                    <ProgressTrack class="progress-track".to_string()>
+                                        <ProgressIndicator class="progress-indicator".to_string()>
+                                            <div>"Small"</div>
+                                        </ProgressIndicator>
+                                    </ProgressTrack>
+                                </Progress>
+                                
+                                <Progress
+                                    value=60.0
+                                    size=ProgressSize::Medium
+                                    class="progress size-medium".to_string()
+                                >
+                                    <ProgressTrack class="progress-track".to_string()>
+                                        <ProgressIndicator class="progress-indicator".to_string()>
+                                            <div>"Medium"</div>
+                                        </ProgressIndicator>
+                                    </ProgressTrack>
+                                </Progress>
+                                
+                                <Progress
+                                    value=60.0
+                                    size=ProgressSize::Large
+                                    class="progress size-large".to_string()
+                                >
+                                    <ProgressTrack class="progress-track".to_string()>
+                                        <ProgressIndicator class="progress-indicator".to_string()>
+                                            <div>"Large"</div>
+                                        </ProgressIndicator>
+                                    </ProgressTrack>
+                                </Progress>
+                            </div>
+                        </div>
+
+                        // Animated Progress
+                        <div class="progress-demo">
+                            <h4>"Animated Progress"</h4>
+                            <Progress
+                                value=progress_value.get()
+                                animated=true
+                                striped=true
+                                class="progress animated".to_string()
+                            >
+                                <ProgressTrack class="progress-track".to_string()>
+                                    <ProgressIndicator class="progress-indicator".to_string()>
+                                        <div>"Animated"</div>
+                                    </ProgressIndicator>
+                                </ProgressTrack>
+                                <ProgressValue format="fraction".to_string() />
+                            </Progress>
+                        </div>
+
+                        <div class="progress-instructions">
+                            <h4>"Test Instructions:"</h4>
+                            <ul>
+                                <li>"Progress bars show different completion states"</li>
+                                <li>"Variants have different colors (default, success, warning, error)"</li>
+                                <li>"Sizes affect the height of the progress bar"</li>
+                                <li>"Animated progress shows striped animation"</li>
+                                <li>"Values are displayed in different formats"</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                // Slider Component Testing
+                <div class="component-group">
+                    <h3>"🎚️ Slider Component - Basic Functionality"</h3>
+                    <div class="slider-test">
+                        <p>"Interactive slider with click and keyboard navigation."</p>
+                        <div class="slider-demo">
+                            <Slider
+                                value=slider_value.get()
+                                on_change=handle_slider_change.clone()
+                                min=0.0
+                                max=100.0
+                                step=5.0
+                                class="slider".to_string()
+                            >
+                                <SliderTrack class="slider-track".to_string()>
+                                    <SliderRange class="slider-range".to_string()>
+                                        <div>"Range"</div>
+                                    </SliderRange>
+                                    <SliderThumb class="slider-thumb".to_string()>
+                                        <div class="thumb-content">
+                                            {slider_value.get()}
+                                        </div>
+                                    </SliderThumb>
+                                </SliderTrack>
+                            </Slider>
+                            <div class="slider-value">
+                                "Value: " {slider_value.get()}
+                            </div>
+                        </div>
+                        <div class="slider-instructions">
+                            <h4>"Test Instructions:"</h4>
+                            <ul>
+                                <li>"Click the thumb to increment by step"</li>
+                                <li>"Use Arrow Up/Down to change value by step"</li>
+                                <li>"Use Home/End to go to min/max"</li>
+                                <li>"Use Page Up/Down to change by 10x step"</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                // RangeSlider Component Testing
+                <div class="component-group">
+                    <h3>"🎚️ RangeSlider Component - Basic Functionality"</h3>
+                    <div class="range-slider-test">
+                        <p>"Interactive range slider with two thumbs and value display."</p>
+                        <div class="range-slider-demo">
+                            <RangeSlider
+                                value=range_slider_value.get()
+                                on_change=handle_range_slider_change.clone()
+                                min=0.0
+                                max=100.0
+                                step=5.0
+                                class="range-slider".to_string()
+                            >
+                                <SliderTrack class="slider-track".to_string()>
+                                    <SliderRange class="slider-range".to_string()>
+                                        <div>"Range"</div>
+                                    </SliderRange>
+                                    <RangeSliderThumb thumb_index=0 class="slider-thumb min-thumb".to_string()>
+                                        <div class="thumb-content">
+                                            {range_slider_value.get().0}
+                                        </div>
+                                    </RangeSliderThumb>
+                                    <RangeSliderThumb thumb_index=1 class="slider-thumb max-thumb".to_string()>
+                                        <div class="thumb-content">
+                                            {range_slider_value.get().1}
+                                        </div>
+                                    </RangeSliderThumb>
+                                </SliderTrack>
+                            </RangeSlider>
+                            <div class="range-slider-value">
+                                "Range: " {range_slider_value.get().0} " - " {range_slider_value.get().1}
+                            </div>
+                        </div>
+                        <div class="range-slider-instructions">
+                            <h4>"Test Instructions:"</h4>
+                            <ul>
+                                <li>"Click the thumbs to increment by step"</li>
+                                <li>"Use Arrow Up/Down to change value by step"</li>
+                                <li>"Thumbs should move independently"</li>
+                                <li>"Min thumb cannot exceed max thumb"</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                // Phase 4 Status
+                <div class="component-group">
+                    <h3>"📋 Phase 4 Implementation Status"</h3>
+                    <div class="phase4-status">
+                        <div class="status-item">
+                            <h4>"✅ Combobox"</h4>
+                            <p>"Complete with full functionality, search, keyboard navigation, and accessibility"</p>
+                        </div>
+                        <div class="status-item">
+                            <h4>"✅ DatePicker"</h4>
+                            <p>"Basic implementation with calendar navigation and selection"</p>
+                        </div>
+                        <div class="status-item">
+                            <h4>"✅ Slider"</h4>
+                            <p>"Complete with click and keyboard navigation, basic functionality implemented"</p>
+                        </div>
+                        <div class="status-item">
+                            <h4>"✅ Progress"</h4>
+                            <p>"Complete with variants, sizes, animations, and value formatting"</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            // Phase 5: Layout & Navigation Components - Enhanced Testing
+            <section class="test-section">
+                <h2>"🧭 Phase 5: Layout & Navigation Components - Enhanced Testing"</h2>
+                
+                <div class="component-group">
+                    <h3>"Navigation Component - Main Navigation"</h3>
+                    <div class="navigation-test">
+                        <Navigation 
+                            active_item=navigation_active_item.get()
+                            collapsed=navigation_collapsed.get()
+                            collapsible=true
+                            on_item_click=handle_navigation_item_click.clone()
+                        >
+                            <NavigationList>
+                                <NavigationItem item=NavigationItem::new("home".to_string(), "Home".to_string()).with_href("#home".to_string()).with_icon("🏠".to_string())>
+                                    <NavigationLink text="Home".to_string() icon="🏠".to_string() href="#home".to_string()>
+                                        "Home"
+                                    </NavigationLink>
+                                </NavigationItem>
+                                <NavigationItem item=NavigationItem::new("about".to_string(), "About".to_string()).with_href("#about".to_string()).with_icon("ℹ️".to_string())>
+                                    <NavigationLink text="About".to_string() icon="ℹ️".to_string() href="#about".to_string()>
+                                        "About"
+                                    </NavigationLink>
+                                </NavigationItem>
+                                <NavigationItem item=NavigationItem::new("contact".to_string(), "Contact".to_string()).with_href("#contact".to_string()).with_icon("📧".to_string())>
+                                    <NavigationLink text="Contact".to_string() icon="📧".to_string() href="#contact".to_string()>
+                                        "Contact"
+                                    </NavigationLink>
+                                </NavigationItem>
+                            </NavigationList>
+                            <NavigationToggle text="Menu".to_string() icon="☰".to_string()>
+                                "Toggle Navigation"
+                            </NavigationToggle>
+                        </Navigation>
+                        <div class="navigation-instructions">
+                            <h4>"Test Instructions:"</h4>
+                            <ul>
+                                <li>"Click navigation items to change active state"</li>
+                                <li>"Use Tab to navigate between items"</li>
+                                <li>"Click toggle button to collapse/expand"</li>
+                                <li>"Active item: " {navigation_active_item}</li>
+                                <li>"Collapsed: " {navigation_collapsed}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="component-group">
+                    <h3>"Breadcrumbs Component - Hierarchical Navigation"</h3>
+                    <div class="breadcrumbs-test">
+                        <Breadcrumbs 
+                            on_item_click=handle_breadcrumb_item_click.clone()
+                        >
+                            <BreadcrumbList>
+                                <BreadcrumbItem item=BreadcrumbItem::new("home".to_string(), "Home".to_string()).with_href("#home".to_string())>
+                                    <BreadcrumbLink text="Home".to_string() href="#home".to_string()>
+                                        "Home"
+                                    </BreadcrumbLink>
+                                </BreadcrumbItem>
+                                <BreadcrumbSeparator>
+                                    " / "
+                                </BreadcrumbSeparator>
+                                <BreadcrumbItem item=BreadcrumbItem::new("section".to_string(), "Section".to_string()).with_href("#section".to_string())>
+                                    <BreadcrumbLink text="Section".to_string() href="#section".to_string()>
+                                        "Section"
+                                    </BreadcrumbLink>
+                                </BreadcrumbItem>
+                                <BreadcrumbSeparator>
+                                    " / "
+                                </BreadcrumbSeparator>
+                                <BreadcrumbItem item=BreadcrumbItem::new("page3".to_string(), "Current Page".to_string()).with_current(true)>
+                                    "Current Page"
+                                </BreadcrumbItem>
+                            </BreadcrumbList>
+                        </Breadcrumbs>
+                        <div class="breadcrumbs-instructions">
+                            <h4>"Test Instructions:"</h4>
+                            <ul>
+                                <li>"Click breadcrumb items to navigate"</li>
+                                <li>"Current item is highlighted and non-clickable"</li>
+                                <li>"Current item: " {breadcrumb_current_item}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="component-group">
+                    <h3>"Pagination Component - Page Navigation"</h3>
+                    <div class="pagination-test">
+                        <Pagination 
+                            current_page=pagination_current_page.get()
+                            total_pages=10
+                            on_page_change=handle_pagination_page_change.clone()
+                        >
+                            <PaginationList>
+                                <PaginationFirst text="First".to_string() icon="⏮️".to_string()>
+                                    "First"
+                                </PaginationFirst>
+                                <PaginationPrevious text="Previous".to_string() icon="◀️".to_string()>
+                                    "Previous"
+                                </PaginationPrevious>
+                                <PaginationItem page=PaginationPage::new(1).with_current(pagination_current_page.get() == 1)>
+                                    "1"
+                                </PaginationItem>
+                                <PaginationItem page=PaginationPage::new(2).with_current(pagination_current_page.get() == 2)>
+                                    "2"
+                                </PaginationItem>
+                                <PaginationItem page=PaginationPage::new(3).with_current(pagination_current_page.get() == 3)>
+                                    "3"
+                                </PaginationItem>
+                                <PaginationEllipsis>
+                                    "…"
+                                </PaginationEllipsis>
+                                <PaginationItem page=PaginationPage::new(9).with_current(pagination_current_page.get() == 9)>
+                                    "9"
+                                </PaginationItem>
+                                <PaginationItem page=PaginationPage::new(10).with_current(pagination_current_page.get() == 10)>
+                                    "10"
+                                </PaginationItem>
+                                <PaginationNext text="Next".to_string() icon="▶️".to_string()>
+                                    "Next"
+                                </PaginationNext>
+                                <PaginationLast text="Last".to_string() icon="⏭️".to_string()>
+                                    "Last"
+                                </PaginationLast>
+                            </PaginationList>
+                        </Pagination>
+                        <div class="pagination-instructions">
+                            <h4>"Test Instructions:"</h4>
+                            <ul>
+                                <li>"Click page numbers to navigate"</li>
+                                <li>"Use First/Previous/Next/Last buttons"</li>
+                                <li>"Current page is highlighted"</li>
+                                <li>"Current page: " {pagination_current_page}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                // Phase 5 Status
+                <div class="component-group">
+                    <h3>"📋 Phase 5 Implementation Status"</h3>
+                    <div class="phase5-status">
+                        <div class="status-item">
+                            <h4>"✅ Navigation"</h4>
+                            <p>"Complete with collapsible support, active item tracking, and keyboard navigation"</p>
+                        </div>
+                        <div class="status-item">
+                            <h4>"✅ Breadcrumbs"</h4>
+                            <p>"Complete with hierarchical navigation, current item indication, and click handling"</p>
+                        </div>
+                        <div class="status-item">
+                            <h4>"✅ Pagination"</h4>
+                            <p>"Complete with first/last/prev/next buttons, page numbers, and ellipsis support"</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            // Phase 6: Data Display Components Section
+            <section class="test-section">
+                <h2>"📊 Phase 6: Data Display Components"</h2>
+                
+                <div class="component-group">
+                    <h3>"Table Component - Sortable Data Table"</h3>
+                    <div class="table-test">
+                        <Table 
+                            columns=vec![
+                                TableColumn::new("name".to_string(), "Name".to_string()).with_sortable(true),
+                                TableColumn::new("email".to_string(), "Email".to_string()).with_sortable(true),
+                                TableColumn::new("role".to_string(), "Role".to_string()).with_sortable(true),
+                                TableColumn::new("status".to_string(), "Status".to_string()).with_sortable(true),
+                            ]
+                            data=vec![
+                                TableData::new("1".to_string(), vec!["John Doe".to_string(), "john@example.com".to_string(), "Admin".to_string(), "Active".to_string()]),
+                                TableData::new("2".to_string(), vec!["Jane Smith".to_string(), "jane@example.com".to_string(), "User".to_string(), "Active".to_string()]),
+                                TableData::new("3".to_string(), vec!["Bob Johnson".to_string(), "bob@example.com".to_string(), "Editor".to_string(), "Inactive".to_string()]),
+                                TableData::new("4".to_string(), vec!["Alice Brown".to_string(), "alice@example.com".to_string(), "User".to_string(), "Active".to_string()]),
+                                TableData::new("5".to_string(), vec!["Charlie Wilson".to_string(), "charlie@example.com".to_string(), "Admin".to_string(), "Active".to_string()]),
+                            ]
+                            sort_column=table_sort_column.get().unwrap_or_default()
+                            sort_direction=table_sort_direction.get()
+                            current_page=table_current_page.get()
+                            page_size=3
+                            selectable=true
+                            multi_select=true
+                            on_sort=handle_table_sort.clone()
+                            on_row_select=handle_table_row_select.clone()
+                            on_page_change=handle_table_page_change.clone()
+                        >
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHeaderCell content="Name".to_string()>
+                                        <TableSortButton column_id="name".to_string() header_text="Name".to_string()>
+                                            "Name"
+                                        </TableSortButton>
+                                    </TableHeaderCell>
+                                    <TableHeaderCell content="Email".to_string()>
+                                        <TableSortButton column_id="email".to_string() header_text="Email".to_string()>
+                                            "Email"
+                                        </TableSortButton>
+                                    </TableHeaderCell>
+                                    <TableHeaderCell content="Role".to_string()>
+                                        <TableSortButton column_id="role".to_string() header_text="Role".to_string()>
+                                            "Role"
+                                        </TableSortButton>
+                                    </TableHeaderCell>
+                                    <TableHeaderCell content="Status".to_string()>
+                                        <TableSortButton column_id="status".to_string() header_text="Status".to_string()>
+                                            "Status"
+                                        </TableSortButton>
+                                    </TableHeaderCell>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                <TableRow row=TableData::new("1".to_string(), vec!["John Doe".to_string(), "john@example.com".to_string(), "Admin".to_string(), "Active".to_string()])>
+                                    <TableCell content="John Doe".to_string()>"John Doe"</TableCell>
+                                    <TableCell content="john@example.com".to_string()>"john@example.com"</TableCell>
+                                    <TableCell content="Admin".to_string()>"Admin"</TableCell>
+                                    <TableCell content="Active".to_string()>"Active"</TableCell>
+                                </TableRow>
+                                <TableRow row=TableData::new("2".to_string(), vec!["Jane Smith".to_string(), "jane@example.com".to_string(), "User".to_string(), "Active".to_string()])>
+                                    <TableCell content="Jane Smith".to_string()>"Jane Smith"</TableCell>
+                                    <TableCell content="jane@example.com".to_string()>"jane@example.com"</TableCell>
+                                    <TableCell content="User".to_string()>"User"</TableCell>
+                                    <TableCell content="Active".to_string()>"Active"</TableCell>
+                                </TableRow>
+                                <TableRow row=TableData::new("3".to_string(), vec!["Bob Johnson".to_string(), "bob@example.com".to_string(), "Editor".to_string(), "Inactive".to_string()])>
+                                    <TableCell content="Bob Johnson".to_string()>"Bob Johnson"</TableCell>
+                                    <TableCell content="bob@example.com".to_string()>"bob@example.com"</TableCell>
+                                    <TableCell content="Editor".to_string()>"Editor"</TableCell>
+                                    <TableCell content="Inactive".to_string()>"Inactive"</TableCell>
+                                </TableRow>
+                            </TableBody>
+                            <TablePagination>
+                                <TableInfo>
+                                    "Table pagination info"
+                                </TableInfo>
+                            </TablePagination>
+                        </Table>
+                        <div class="table-instructions">
+                            <h4>"Test Instructions:"</h4>
+                            <ul>
+                                <li>"Click column headers to sort data"</li>
+                                <li>"Click rows to select/deselect them"</li>
+                                <li>"Use pagination controls to navigate pages"</li>
+                                <li>"Sort column: " {table_sort_column.get().unwrap_or_default()}</li>
+                                <li>"Sort direction: " {format!("{:?}", table_sort_direction.get())}</li>
+                                <li>"Current page: " {table_current_page}</li>
+                                <li>"Selected rows: " {format!("{:?}", table_selected_rows.get())}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                // Phase 6 Status
+                <div class="component-group">
+                    <h3>"📋 Phase 6 Implementation Status"</h3>
+                    <div class="phase6-status">
+                        <div class="status-item">
+                            <h4>"✅ Table"</h4>
+                            <p>"Complete with sorting, pagination, row selection, and accessibility features"</p>
+                        </div>
+                        <div class="status-item">
+                            <h4>"🔄 List"</h4>
+                            <p>"In progress - Virtualized lists for large datasets"</p>
+                        </div>
+                        <div class="status-item">
+                            <h4>"⏳ Tree"</h4>
+                            <p>"Planned - Hierarchical data display with expand/collapse"</p>
+                        </div>
+                        <div class="status-item">
+                            <h4>"⏳ Timeline"</h4>
+                            <p>"Planned - Chronological data presentation"</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             // Accessibility Testing Section
             <section class="test-section">
                 <h2>"♿ Accessibility Testing"</h2>
@@ -749,6 +1477,38 @@ pub fn ComponentTestSuite() -> impl IntoView {
                     <div class="summary-item">
                         <h4>"Select Value"</h4>
                         <p>{select_value_summary}</p>
+                    </div>
+                    <div class="summary-item">
+                        <h4>"Navigation Active"</h4>
+                        <p>{navigation_active_item}</p>
+                    </div>
+                    <div class="summary-item">
+                        <h4>"Navigation Collapsed"</h4>
+                        <p>{navigation_collapsed}</p>
+                    </div>
+                    <div class="summary-item">
+                        <h4>"Breadcrumb Current"</h4>
+                        <p>{breadcrumb_current_item}</p>
+                    </div>
+                    <div class="summary-item">
+                        <h4>"Pagination Page"</h4>
+                        <p>{pagination_current_page}</p>
+                    </div>
+                    <div class="summary-item">
+                        <h4>"Table Sort Column"</h4>
+                        <p>{table_sort_column.get().unwrap_or_default()}</p>
+                    </div>
+                    <div class="summary-item">
+                        <h4>"Table Sort Direction"</h4>
+                        <p>{format!("{:?}", table_sort_direction.get())}</p>
+                    </div>
+                    <div class="summary-item">
+                        <h4>"Table Current Page"</h4>
+                        <p>{table_current_page}</p>
+                    </div>
+                    <div class="summary-item">
+                        <h4>"Table Selected Rows"</h4>
+                        <p>{format!("{:?}", table_selected_rows.get())}</p>
                     </div>
                 </div>
             </section>
