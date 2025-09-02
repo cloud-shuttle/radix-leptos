@@ -15,6 +15,32 @@ examples/pkg/
 examples/dist/
 examples/production-server/
 
+# Test reports and results (generated files)
+test-reports/
+test-results/
+playwright-report/
+*.test-report.*
+*.test-summary.*
+*.test-results.*
+
+# Generated WASM and JS files
+examples/*.wasm
+examples/*.js
+examples/*.html
+examples/wasm-loader.js
+examples/simple-bundle-test.html
+examples/component-test.html
+examples/working-wasm-test.html
+examples/test-optimized-bundle.html
+examples/production-test.html
+examples/user-testing-suite.html
+
+# Performance and optimization files
+OPTIMIZATION_RESULTS.md
+PERFORMANCE_SUMMARY.md
+RELEASE_CHECKLIST.md
+RELEASE_CONTENT.md
+
 # IDE
 .vscode/
 .idea/
@@ -71,3 +97,28 @@ jspm_packages/
 # Temporary files
 *.tmp
 *.temp
+
+# Environment and configuration
+.envrc
+.env.local
+.env.production
+
+# Cargo workspace
+.cargo/
+
+# Nix
+flake.lock
+
+# Package manager locks (keep only one)
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
+# Generated documentation
+docs/generated/
+docs/api/
+
+# Backup files
+*.bak
+*.backup
+*~
