@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.2] - 2025-09-02
+
+### Added
+- **Enhanced Crates.io Documentation**: Comprehensive README with examples and comparisons
+- **Performance Comparison Tables**: Clear metrics showing advantages over alternatives
+- **Component Usage Examples**: Real-world code patterns for buttons, pagination, etc.
+- **Feature Flag Documentation**: Detailed explanation of core vs full features
+- **Community Resource Links**: Comprehensive support and documentation links
+
+### Changed
+- **Repository Structure**: Cleaned up generated files and improved organization
+- **Documentation Quality**: Enhanced README for better crates.io display
+- **Installation Examples**: Added feature flag usage examples
+- **Performance Metrics**: Clearer presentation of optimization results
+
+### Fixed
+- **Repository Cleanliness**: Removed 50+ generated test report files
+- **Git Operations**: Enhanced .gitignore for better development workflow
+- **Documentation Links**: Updated all internal references and navigation
+
+---
+
 ## [0.1.1] - 2025-09-02
 
 ### Added

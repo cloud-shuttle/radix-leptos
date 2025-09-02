@@ -1,8 +1,36 @@
 # 🚀 Radix-Leptos Release Notes
 
-## v0.1.1 - Testing Infrastructure & Roadmap (September 2025)
+## v0.1.2 - Enhanced Documentation & Repository Cleanup (September 2025)
 
-### 🆕 What's New in v0.1.1
+### 🆕 What's New in v0.1.2
+
+**Professional documentation and repository organization improvements**
+
+#### 📚 **Enhanced Crates.io Documentation**
+- **Comprehensive README**: Professional, detailed documentation for crates.io
+- **Multiple Code Examples**: Quick start, button components, pagination usage
+- **Performance Comparison**: Clear tables showing advantages over alternatives
+- **Feature Breakdown**: Core vs Full component availability
+- **Installation Guide**: Feature flag examples for different use cases
+- **Community Resources**: Links to documentation, issues, and discussions
+
+#### 🧹 **Repository Cleanup**
+- **Generated Files Removed**: 50 test report files deleted (12,227 lines removed)
+- **Enhanced .gitignore**: Comprehensive patterns for all generated content
+- **Professional Structure**: Clean, organized repository without clutter
+- **Efficient Git Operations**: Faster commits and pushes
+- **Focused Development**: Repository focused on source code and documentation
+
+#### 🔧 **Documentation Improvements**
+- **Performance Metrics**: Clear tables with before/after comparisons
+- **Component Examples**: Real-world usage patterns and code snippets
+- **Feature Flags**: Detailed explanation of core vs full features
+- **Production Ready**: Clear checklist of production capabilities
+- **Community Support**: Comprehensive resource links
+
+---
+
+## v0.1.1 - Testing Infrastructure & Roadmap (September 2025)
 
 **Major infrastructure improvements and comprehensive development planning**
 

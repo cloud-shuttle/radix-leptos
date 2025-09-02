@@ -25,13 +25,13 @@ A Rust port of [Radix UI](https://www.radix-ui.com/) primitives for [Leptos](htt
 
 ```toml
 [dependencies]
-radix-leptos = "0.1.1"
+radix-leptos = "0.1.2"
 
 # For minimal bundle size (recommended for production)
-radix-leptos = { version = "0.1.1", features = ["core"] }
+radix-leptos = { version = "0.1.2", features = ["core"] }
 
 # For all components
-radix-leptos = { version = "0.1.1", features = ["full"] }
+radix-leptos = { version = "0.1.2", features = ["full"] }
 ```
 
 ## 🚀 Quick Start
@@ -249,4 +249,4 @@ Radix-Leptos is **production-ready** with:
 
 **Ready for production use with 538KB optimized bundle! 🎉**
 
-**Latest Version: v0.1.1** - Now with comprehensive testing infrastructure and development roadmap!
+**Latest Version: v0.1.2** - Now with enhanced documentation and professional repository structure!
