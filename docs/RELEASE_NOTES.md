@@ -1,4 +1,44 @@
-# 🚀 Radix-Leptos v0.1.0 Release Notes
+# 🚀 Radix-Leptos Release Notes
+
+## v0.1.1 - Testing Infrastructure & Roadmap (September 2025)
+
+### 🆕 What's New in v0.1.1
+
+**Major infrastructure improvements and comprehensive development planning**
+
+#### 🧪 **End User Testing Environment**
+- **Interactive Testing Suite**: Comprehensive HTML-based testing environment
+- **3-Phase Testing Strategy**: Systematic component validation approach
+- **User Feedback Collection**: Structured feedback forms for all components
+- **Testing Documentation**: Complete testing guides and user invitations
+
+#### 🗺️ **Development Roadmap**
+- **6-Phase Development Plan**: Clear roadmap from v0.2.0 to v1.0.0
+- **Immediate Next Steps**: 3-month development plan with specific milestones
+- **Success Metrics**: Measurable goals for each development phase
+- **Technical Strategy**: Architecture principles and implementation approach
+
+#### 🏗️ **Repository Organization**
+- **Professional Structure**: Clean, organized documentation and testing
+- **Centralized Docs**: All documentation in logical `docs/` directory
+- **Organized Testing**: Structured test organization with clear separation
+- **Asset Management**: Proper organization of images and resources
+
+#### 📚 **Documentation Improvements**
+- **Testing Guides**: Comprehensive end user testing documentation
+- **User Invitations**: Professional recruitment materials for testers
+- **Repository Structure**: Clear navigation and organization guide
+- **Performance Documentation**: Detailed optimization results and metrics
+
+### 🔧 **Technical Improvements**
+- **Testing Infrastructure**: Playwright test suite with comprehensive coverage
+- **Build Optimization**: Maintained 538KB bundle size optimization
+- **Code Quality**: Cleaned up warnings and improved maintainability
+- **Development Workflow**: Streamlined contribution and testing processes
+
+---
+
+## v0.1.0 - Initial Release (September 2025)
 
 **High-performance, accessible UI components for Leptos with 538KB optimized WASM bundle**
 
@@ -43,13 +83,13 @@ This is the **initial release** of Radix-Leptos, bringing high-performance, acce
 
 ```toml
 [dependencies]
-radix-leptos = "0.1.0"
+radix-leptos = "0.1.1"
 
 # For minimal bundle size
-radix-leptos = { version = "0.1.0", features = ["core"] }
+radix-leptos = { version = "0.1.1", features = ["core"] }
 
 # For all components
-radix-leptos = { version = "0.1.0", features = ["full"] }
+radix-leptos = { version = "0.1.1", features = ["full"] }
 ```
 
 ## 🚀 Quick Start

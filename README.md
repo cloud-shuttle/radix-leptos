@@ -23,7 +23,7 @@ A Rust port of [Radix UI](https://www.radix-ui.com/) primitives for [Leptos](htt
 
 ```toml
 [dependencies]
-radix-leptos = "0.1.0"
+radix-leptos = "0.1.1"
 ```
 
 ## 🚀 Quick Start
@@ -140,3 +140,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **Ready for production use with 538KB optimized bundle! 🎉**
+
+**Latest Version: v0.1.1** - Now with comprehensive testing infrastructure and development roadmap!

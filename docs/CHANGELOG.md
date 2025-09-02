@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.1] - 2025-09-02
+
+### Added
+- **End User Testing Environment**: Interactive HTML-based testing suite
+- **3-Phase Testing Strategy**: Systematic component validation approach
+- **Development Roadmap**: 6-phase development plan from v0.2.0 to v1.0.0
+- **Repository Organization**: Professional structure with centralized documentation
+- **Testing Documentation**: Comprehensive guides and user invitations
+- **Performance Documentation**: Detailed optimization results and metrics
+
+### Changed
+- **Repository Structure**: Reorganized all documentation and testing files
+- **Documentation**: Centralized all guides in `docs/` directory
+- **Testing**: Structured test organization with clear separation
+- **Code Quality**: Cleaned up warnings and improved maintainability
+
+### Fixed
+- **Build Warnings**: Resolved unused imports and ambiguous re-exports
+- **Documentation Links**: Updated all internal references and navigation
+- **Component Imports**: Fixed import issues in examples and tests
+
+---
+
+## [0.1.0] - 2025-09-01
+
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
