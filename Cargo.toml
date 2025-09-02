@@ -16,7 +16,7 @@ repository = "https://github.com/cloud-shuttle/radix-leptos"
 homepage = "https://radix-leptos.dev"
 documentation = "https://docs.rs/radix-leptos"
 description = "Rust port of Radix UI primitives for Leptos - High-performance, accessible UI components with 538KB optimized WASM bundle"
-keywords = ["ui", "components", "accessibility", "leptos", "radix", "wasm", "rust", "web-components"]
+keywords = ["ui", "components", "accessibility", "leptos", "radix"]
 categories = ["web-programming", "gui", "wasm"]
 
 [workspace.dependencies]
