@@ -25,6 +25,8 @@ uuid.workspace = true
 [dev-dependencies]
 wasm-bindgen-test.workspace = true
 console_error_panic_hook.workspace = true
+proptest.workspace = true
+fake.workspace = true
 
 [features]
 default = []

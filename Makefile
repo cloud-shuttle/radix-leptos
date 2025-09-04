@@ -179,3 +179,55 @@ test-report: ## Generate test report
 	@echo "📊 Generating test report..."
 	@cd examples && pnpm exec playwright test --reporter=html
 	@echo "✅ Test report generated. Run 'make report' to view it."
+
+# TDD-specific commands
+tdd-new-component: ## Start TDD for new component
+	@echo "🧪 Starting TDD for new component..."
+	@echo "1. Create test file first"
+	@echo "2. Write failing test"
+	@echo "3. Run: make test-watch"
+	@echo "4. Implement minimal code"
+	@echo "5. Refactor while keeping tests green"
+	@echo ""
+	@echo "📋 Use docs/TDD_TEMPLATE.md as reference"
+
+test-watch: ## Run tests in watch mode
+	@echo "👀 Running tests in watch mode..."
+	@cargo watch -x "test --workspace"
+
+test-unit: ## Run unit tests only
+	@echo "🧪 Running unit tests..."
+	@cargo test --workspace --lib
+
+test-integration: ## Run integration tests
+	@echo "🔗 Running integration tests..."
+	@cargo test --workspace --test '*'
+
+test-property: ## Run property-based tests
+	@echo "🎲 Running property-based tests..."
+	@cargo test --workspace --features proptest
+
+test-mutants: ## Run mutation testing
+	@echo "🧬 Running mutation tests..."
+	@cargo mutants
+
+test-coverage: ## Generate test coverage report
+	@echo "📊 Generating test coverage..."
+	@cargo tarpaulin --all-features --workspace --out Html
+	@echo "✅ Coverage report generated in tarpaulin-report.html"
+
+test-tdd-check: ## Check TDD compliance
+	@echo "🔍 Checking TDD compliance..."
+	@echo "Checking for placeholder assertions..."
+	@grep -r "assert.*placeholder\|TODO.*assert\|FIXME.*assert" crates/ || echo "✅ No placeholder assertions found"
+	@echo "Checking test coverage..."
+	@cargo test --workspace --lib | grep -E "test result.*ok" || echo "⚠️  Some tests may have failed"
+	@echo "✅ TDD compliance check complete"
+
+# Enhanced test commands
+test-all-tdd: test-unit test-integration test-property test-mutants test-coverage ## Run all TDD tests
+	@echo "🎉 All TDD tests completed!"
+
+test-quick: ## Quick test run for development
+	@echo "⚡ Running quick tests..."
+	@cargo test --workspace --lib --quiet

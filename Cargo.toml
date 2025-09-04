@@ -8,7 +8,7 @@ members = [
 ]
 
 [workspace.package]
-version = "0.1.2"
+version = "0.2.0"
 authors = ["Radix-Leptos Contributors"]
 edition = "2021"
 license = "MIT"
@@ -41,6 +41,8 @@ leptos-testing = "0.1"
 proptest = "1.0"
 fake = "2.9"
 criterion = "0.5"
+cargo-mutants = "0.1"
+tarpaulin = "0.27"
 
 # Dev dependencies are defined in individual crates
 

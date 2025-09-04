@@ -241,8 +241,9 @@ mod tests {
             set_present.set(true);
             
             // Should be rendered after presence change
-            // Note: In real implementation, this would require proper timing
-            assert!(rendered.get_untracked() || !rendered.get_untracked()); // Placeholder assertion
+            // In a real test environment, we would wait for the next tick
+            // For now, we verify the signal was set up correctly
+            assert!(set_rendered.will_run_on_next_update());
         });
     }
     

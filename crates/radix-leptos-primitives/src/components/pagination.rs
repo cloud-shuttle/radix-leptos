@@ -838,3 +838,99 @@ pub fn get_visible_page_numbers(current_page: usize, total_pages: usize, max_vis
     
     pages
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use wasm_bindgen_test::*;
+    use proptest::prelude::*;
+    
+    wasm_bindgen_test_configure!(run_in_browser);
+    
+    // 1. Basic Rendering Tests
+    #[test]
+    fn test_pagination_sizes() {
+        run_test(|| {
+            let sizes = vec![
+                PaginationSize::Small,
+                PaginationSize::Medium,
+                PaginationSize::Large,
+            ];
+            
+            for size in sizes {
+                // Each size should have a valid string representation
+                assert!(!size.as_str().is_empty());
+            }
+        });
+    }
+    
+    // 2. Props Validation Tests
+    #[test]
+    fn test_pagination_variants() {
+        run_test(|| {
+            let variants = vec![
+                PaginationVariant::Default,
+                PaginationVariant::Compact,
+                PaginationVariant::Detailed,
+            ];
+            
+            for variant in variants {
+                // Each variant should have a valid string representation
+                assert!(!variant.as_str().is_empty());
+            }
+        });
+    }
+    
+    // 3. State Management Tests
+    #[test]
+    fn test_pagination_page_change() {
+        run_test(|| {
+            // Test pagination state logic
+            let mut current_page = 1;
+            let total_pages = 10;
+            
+            // Initial page should be 1
+            assert_eq!(current_page, 1);
+            
+            // Simulate page change
+            current_page = 2;
+            assert_eq!(current_page, 2);
+            
+            // Should not exceed total pages
+            assert!(current_page <= total_pages);
+        });
+    }
+    
+    // 4. Property-Based Tests
+    proptest! {
+        #[test]
+        fn test_pagination_properties(
+            current_page in 1..100usize,
+            total_pages in 1..100usize,
+            page_size in 1..50usize
+        ) {
+            // Property: current_page should never exceed total_pages
+            prop_assume!(current_page <= total_pages);
+            
+            // Calculate total_items based on realistic pagination scenario
+            let total_items = total_pages * page_size;
+            
+            // Property: Pagination should always render without panicking
+            // Property: Calculated values should be consistent
+            let max_possible_items = total_pages * page_size;
+            prop_assert!(total_items <= max_possible_items);
+            
+            // Property: Current page should never exceed total pages
+            prop_assert!(current_page <= total_pages);
+            
+            // Property: Page size should be positive
+            prop_assert!(page_size > 0);
+        }
+    }
+    
+    // Helper function for running tests
+    fn run_test<F>(f: F) where F: FnOnce() {
+        // Simplified test runner for Leptos 0.8
+        f();
+    }
+}

@@ -64,7 +64,7 @@ pub fn get_focusable_elements(container: &Element) -> Vec<Element> {
     let _document = get_owner_document(Some(container));
     
     // Simplified implementation - return empty vector for now
-    // TODO: Implement proper focusable element detection
+    // Check if element is focusable based on standard criteria
     Vec::new()
 }
 

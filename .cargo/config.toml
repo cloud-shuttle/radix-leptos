@@ -1,2 +1,0 @@
-[target.wasm32-unknown-unknown]
-rustflags = ["-C", "panic=abort", "-C", "codegen-units=1", "-C", "opt-level=3", "-C", "strip=symbols"]

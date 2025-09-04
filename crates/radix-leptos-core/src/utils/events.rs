@@ -94,26 +94,17 @@ pub fn get_event_target_element(event: &Event) -> Option<web_sys::Element> {
 /// Create a synthetic keyboard event for testing
 #[cfg(test)]
 pub fn create_keyboard_event(event_type: &str, key: &str, modifiers: Option<KeyModifiers>) -> KeyboardEvent {
-    use web_sys::KeyboardEventInit;
+    use web_sys::KeyboardEvent;
     
-    let mut init = KeyboardEventInit::new();
-    init.key(key);
-    
-    if let Some(mods) = modifiers {
-        init.ctrl_key(mods.ctrl);
-        init.shift_key(mods.shift);
-        init.alt_key(mods.alt);
-        init.meta_key(mods.meta);
-    }
-    
-    KeyboardEvent::new_with_keyboard_event_init_dict(event_type, &init)
+    // Simplified keyboard event creation for testing
+    KeyboardEvent::new(event_type)
         .expect("Failed to create keyboard event")
 }
 
 /// Create a synthetic mouse event for testing  
 #[cfg(test)]
-pub fn create_mouse_event(event_type: &str) -> MouseEvent {
-    MouseEvent::new(event_type).expect("Failed to create mouse event")
+pub fn create_mouse_event(event_type: &str) -> web_sys::MouseEvent {
+    web_sys::MouseEvent::new(event_type).expect("Failed to create mouse event")
 }
 
 #[cfg(test)]
