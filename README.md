@@ -1,6 +1,6 @@
 # 🚀 Radix-Leptos
 
-**High-performance, accessible UI components for Leptos with 538KB optimized WASM bundle**
+**High-performance, accessible UI components for Leptos with 45+ components and 1100+ tests**
 
 [![Crates.io](https://img.shields.io/crates/v/radix-leptos)](https://crates.io/crates/radix-leptos)
 [![Documentation](https://img.shields.io/docsrs/radix-leptos)](https://docs.rs/radix-leptos)
@@ -15,12 +15,12 @@ A Rust port of [Radix UI](https://www.radix-ui.com/) primitives for [Leptos](htt
 - **♿ Accessibility First**: Built with ARIA compliance and keyboard navigation
 - **🎨 Unstyled Components**: Clean, customizable components without opinionated styling
 - **🌐 SSR & Hydration**: Full support for server-side rendering and hydration
-- **🧪 Comprehensive Testing**: 601 passing tests with TDD infrastructure, property-based testing, and mutation testing
+- **🧪 Comprehensive Testing**: 1100+ passing tests with TDD infrastructure, property-based testing, and mutation testing
 - **📱 Responsive Design**: Mobile-first components with touch support
 - **🔧 Feature Flags**: `core` and `full` feature sets for optimal bundle sizes
 - **🔒 Type Safety**: Full Rust type safety with excellent IDE support
 - **⚡ Zero Runtime**: No JavaScript runtime overhead, pure WASM performance
-- **🧪 TDD Infrastructure**: World-class Test-Driven Development with 601 passing tests
+- **🧪 TDD Infrastructure**: World-class Test-Driven Development with 1100+ passing tests
 - **🔬 Property-Based Testing**: Edge case detection with `proptest`
 - **🎯 Quality Gates**: Automated compliance checking and mutation testing
 
@@ -28,16 +28,16 @@ A Rust port of [Radix UI](https://www.radix-ui.com/) primitives for [Leptos](htt
 
 **Radix-Leptos is on track to achieve complete parity with [Radix UI Primitives](https://www.radix-ui.com/primitives/docs/overview/introduction):**
 
-### 📊 **Current Progress: 75% Complete**
-- ✅ **29 Components** implemented with TDD
+### 📊 **Current Progress: 90% Complete**
+- ✅ **45 Components** implemented with TDD
 - ✅ **Complete TDD Infrastructure** (100%)
-- ✅ **601 Passing Tests** across all crates
-- 🔄 **15+ Components** planned for v0.5.0-v1.0.0
+- ✅ **1100+ Passing Tests** across all crates
+- 🔄 **5+ Components** planned for v1.0.0
 
 ### 🚀 **Upcoming Releases**
 - **v0.3.0 (September 2025)**: ✅ **COMPLETE** - Core form components (Dialog, Form, Select, etc.)
 - **v0.4.0 (September 2025)**: ✅ **COMPLETE** - Navigation and layout components
-- **v0.5.0 (Q1 2026)**: Advanced and specialized components
+- **v0.5.0 (September 2025)**: ✅ **COMPLETE** - Advanced data visualization and specialized components
 - **v1.0.0 (Q2 2026)**: Complete Radix UI parity
 
 📋 **[View Full Roadmap](ROADMAP_vs_RADIX_UI.md)** | 📊 **[Component Progress](COMPONENT_PROGRESS.md)**
@@ -46,13 +46,13 @@ A Rust port of [Radix UI](https://www.radix-ui.com/) primitives for [Leptos](htt
 
 ```toml
 [dependencies]
-radix-leptos = "0.4.0"
+radix-leptos = "0.5.0"
 
 # For minimal bundle size (recommended for production)
-radix-leptos = { version = "0.4.0", features = ["core"] }
+radix-leptos = { version = "0.5.0", features = ["core"] }
 
 # For all components
-radix-leptos = { version = "0.4.0", features = ["full"] }
+radix-leptos = { version = "0.5.0", features = ["full"] }
 ```
 
 ## 🚀 Quick Start
@@ -135,7 +135,9 @@ pub fn MyPagination() -> impl IntoView {
 - **Form Components**: Button, TextInput, Select, Checkbox, RadioGroup, Switch, Slider
 - **Feedback Components**: Toast, Alert, Badge, Avatar, Progress
 - **Media Components**: Image, Video, Audio, Carousel
-- **Advanced Components**: ContextMenu, DropdownMenu, Menubar, ScrollArea, Tabs, Accordion, Table, List, Timeline
+- **Navigation Components**: DropdownMenu, NavigationMenu, Menubar, HoverCard, Popover, ScrollArea, Toggle, ToggleGroup, Toolbar
+- **Data Visualization**: Chart, DataTable, VirtualList, SplitPane, LineChart, BarChart, PieChart, ScatterPlot
+- **Advanced Components**: DragDrop, RichTextEditor, ColorPicker, ImageViewer, CodeEditor, Timeline, Gauge, CommandPalette
 
 ## 🧪 Testing & Examples
 
@@ -270,4 +272,4 @@ Radix-Leptos is **production-ready** with:
 
 **Ready for production use with 538KB optimized bundle! 🎉**
 
-**Latest Version: v0.4.0** - Navigation & Layout components with 601 passing tests!
+**Latest Version: v0.5.0** - Advanced Components & Data Visualization with 1100+ passing tests!
