@@ -18,6 +18,14 @@ pub mod progress;
 // pub mod data_table;  // Temporarily disabled due to view! macro type issues
 // pub mod date_picker;  // Temporarily disabled due to view! macro type issues
 pub mod dropdown_menu;
+pub mod navigation_menu;
+pub mod menubar;
+pub mod hover_card;
+pub mod popover;
+pub mod scroll_area;
+pub mod toggle;
+pub mod toggle_group;
+pub mod toolbar;
 pub mod touch_button;
 pub mod swipe_gestures;
 pub mod pull_to_refresh;
@@ -45,6 +53,14 @@ pub use progress::*;
 // pub use data_table::*;  // Temporarily disabled
 // pub use date_picker::*;  // Temporarily disabled
 pub use dropdown_menu::*;
+pub use navigation_menu::*;
+pub use menubar::*;
+pub use hover_card::*;
+pub use popover::*;
+pub use scroll_area::*;
+pub use toggle::*;
+pub use toggle_group::*;
+pub use toolbar::*;
 pub use touch_button::*;
 pub use swipe_gestures::*;
 pub use pull_to_refresh::*;

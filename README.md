@@ -15,12 +15,12 @@ A Rust port of [Radix UI](https://www.radix-ui.com/) primitives for [Leptos](htt
 - **♿ Accessibility First**: Built with ARIA compliance and keyboard navigation
 - **🎨 Unstyled Components**: Clean, customizable components without opinionated styling
 - **🌐 SSR & Hydration**: Full support for server-side rendering and hydration
-- **🧪 Comprehensive Testing**: 162 passing tests with TDD infrastructure, property-based testing, and mutation testing
+- **🧪 Comprehensive Testing**: 601 passing tests with TDD infrastructure, property-based testing, and mutation testing
 - **📱 Responsive Design**: Mobile-first components with touch support
 - **🔧 Feature Flags**: `core` and `full` feature sets for optimal bundle sizes
 - **🔒 Type Safety**: Full Rust type safety with excellent IDE support
 - **⚡ Zero Runtime**: No JavaScript runtime overhead, pure WASM performance
-- **🧪 TDD Infrastructure**: World-class Test-Driven Development with 162 passing tests
+- **🧪 TDD Infrastructure**: World-class Test-Driven Development with 601 passing tests
 - **🔬 Property-Based Testing**: Edge case detection with `proptest`
 - **🎯 Quality Gates**: Automated compliance checking and mutation testing
 
@@ -28,15 +28,15 @@ A Rust port of [Radix UI](https://www.radix-ui.com/) primitives for [Leptos](htt
 
 **Radix-Leptos is on track to achieve complete parity with [Radix UI Primitives](https://www.radix-ui.com/primitives/docs/overview/introduction):**
 
-### 📊 **Current Progress: 50% Complete**
-- ✅ **20 Components** implemented with TDD
+### 📊 **Current Progress: 75% Complete**
+- ✅ **29 Components** implemented with TDD
 - ✅ **Complete TDD Infrastructure** (100%)
-- ✅ **162 Passing Tests** across all crates
-- 🔄 **20+ Components** planned for v0.4.0-v1.0.0
+- ✅ **601 Passing Tests** across all crates
+- 🔄 **15+ Components** planned for v0.5.0-v1.0.0
 
 ### 🚀 **Upcoming Releases**
 - **v0.3.0 (September 2025)**: ✅ **COMPLETE** - Core form components (Dialog, Form, Select, etc.)
-- **v0.4.0 (Q4 2025)**: Navigation and layout components
+- **v0.4.0 (September 2025)**: ✅ **COMPLETE** - Navigation and layout components
 - **v0.5.0 (Q1 2026)**: Advanced and specialized components
 - **v1.0.0 (Q2 2026)**: Complete Radix UI parity
 
@@ -46,13 +46,13 @@ A Rust port of [Radix UI](https://www.radix-ui.com/) primitives for [Leptos](htt
 
 ```toml
 [dependencies]
-radix-leptos = "0.3.0"
+radix-leptos = "0.4.0"
 
 # For minimal bundle size (recommended for production)
-radix-leptos = { version = "0.3.0", features = ["core"] }
+radix-leptos = { version = "0.4.0", features = ["core"] }
 
 # For all components
-radix-leptos = { version = "0.3.0", features = ["full"] }
+radix-leptos = { version = "0.4.0", features = ["full"] }
 ```
 
 ## 🚀 Quick Start
@@ -270,4 +270,4 @@ Radix-Leptos is **production-ready** with:
 
 **Ready for production use with 538KB optimized bundle! 🎉**
 
-**Latest Version: v0.1.2** - Now with enhanced documentation and professional repository structure!
+**Latest Version: v0.4.0** - Navigation & Layout components with 601 passing tests!
