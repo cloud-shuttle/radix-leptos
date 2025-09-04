@@ -68,7 +68,7 @@ impl Default for ScatterSeries {
 }
 
 /// Scatter Point structure
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Default)]
 pub struct ScatterPoint {
     pub x: f64,
     pub y: f64,

@@ -203,9 +203,9 @@ pub fn PieChartLabel(
             {slice.label}
             {if show_percentage {
                 view! { <span class="percentage">" (" {slice.percentage} "%)"</span> }
-            } else {
-                view! { <></> }
-            }}
+                } else {
+        view! { <></> }.into_any()
+    }}
         </div>
     }
 }

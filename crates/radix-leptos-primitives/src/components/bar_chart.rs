@@ -70,7 +70,7 @@ impl Default for BarSeries {
 }
 
 /// Bar Data structure
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Default)]
 pub struct BarData {
     pub category: String,
     pub value: f64,

@@ -72,7 +72,7 @@ impl Default for LineSeries {
 }
 
 /// Line Point structure
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Default)]
 pub struct LinePoint {
     pub x: f64,
     pub y: f64,

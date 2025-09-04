@@ -120,7 +120,7 @@ pub struct DropEvent {
 }
 
 /// Position structure
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Default)]
 pub struct Position {
     pub x: f64,
     pub y: f64,
