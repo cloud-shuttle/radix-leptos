@@ -196,7 +196,7 @@ pub fn PieChartLabel(
             style=style
             role="text"
             aria-label=format!("Label for {}", slice.label)
-            data-label=slice.label
+            data-label=slice.label.clone()
             data-percentage=slice.percentage
             data-position=position.to_string()
         >
