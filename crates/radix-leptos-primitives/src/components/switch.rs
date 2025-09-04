@@ -1,37 +1,37 @@
 use leptos::*;
 use leptos::prelude::*;
 
-/// Checkbox component with proper accessibility and styling variants
+/// Switch component with proper accessibility and styling variants
 #[derive(Debug, Clone, Copy, PartialEq)]
-pub enum CheckboxVariant {
+pub enum SwitchVariant {
     Default,
     Destructive,
     Ghost,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq)]
-pub enum CheckboxSize {
+pub enum SwitchSize {
     Default,
     Sm,
     Lg,
 }
 
-impl CheckboxVariant {
+impl SwitchVariant {
     pub fn as_str(&self) -> &'static str {
         match self {
-            CheckboxVariant::Default => "default",
-            CheckboxVariant::Destructive => "destructive",
-            CheckboxVariant::Ghost => "ghost",
+            SwitchVariant::Default => "default",
+            SwitchVariant::Destructive => "destructive",
+            SwitchVariant::Ghost => "ghost",
         }
     }
 }
 
-impl CheckboxSize {
+impl SwitchSize {
     pub fn as_str(&self) -> &'static str {
         match self {
-            CheckboxSize::Default => "default",
-            CheckboxSize::Sm => "sm",
-            CheckboxSize::Lg => "lg",
+            SwitchSize::Default => "default",
+            SwitchSize::Sm => "sm",
+            SwitchSize::Lg => "lg",
         }
     }
 }
@@ -53,24 +53,21 @@ fn merge_classes(existing: Option<&str>, additional: Option<&str>) -> Option<Str
     }
 }
 
-/// Checkbox root component
+/// Switch root component
 #[component]
-pub fn Checkbox(
-    /// Whether the checkbox is checked
+pub fn Switch(
+    /// Whether the switch is on
     #[prop(optional, default = false)]
     checked: bool,
-    /// Whether the checkbox is indeterminate
-    #[prop(optional, default = false)]
-    indeterminate: bool,
-    /// Whether the checkbox is disabled
+    /// Whether the switch is disabled
     #[prop(optional, default = false)]
     disabled: bool,
-    /// Checkbox styling variant
-    #[prop(optional, default = CheckboxVariant::Default)]
-    variant: CheckboxVariant,
-    /// Checkbox size
-    #[prop(optional, default = CheckboxSize::Default)]
-    size: CheckboxSize,
+    /// Switch styling variant
+    #[prop(optional, default = SwitchVariant::Default)]
+    variant: SwitchVariant,
+    /// Switch size
+    #[prop(optional, default = SwitchSize::Default)]
+    size: SwitchSize,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -80,21 +77,18 @@ pub fn Checkbox(
     /// Checked change event handler
     #[prop(optional)]
     on_checked_change: Option<Callback<bool>>,
-    /// Indeterminate change event handler
-    #[prop(optional)]
-    on_indeterminate_change: Option<Callback<bool>>,
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let checkbox_id = generate_id("checkbox");
-    let label_id = generate_id("checkbox-label");
+    let switch_id = generate_id("switch");
+    let thumb_id = generate_id("switch-thumb");
     
     // Build data attributes for styling
     let data_variant = variant.as_str();
     let data_size = size.as_str();
     
     // Merge classes with data attributes for CSS targeting
-    let base_classes = "radix-checkbox";
+    let base_classes = "radix-switch";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
     
@@ -130,26 +124,54 @@ pub fn Checkbox(
             data-variant=data_variant
             data-size=data_size
             data-checked=checked
-            data-indeterminate=indeterminate
             data-disabled=disabled
+            role="switch"
+            aria-checked=checked
+            aria-disabled=disabled
+            tabindex=if disabled { "-1" } else { "0" }
             on:keydown=handle_keydown
+            on:click=handle_click
         >
             <input
-                id=checkbox_id.clone()
+                id=switch_id.clone()
                 type="checkbox"
                 checked=checked
                 disabled=disabled
                 tabindex="-1"
                 aria-hidden="true"
             />
-            <label 
-                id=label_id
-                for=checkbox_id.clone()
-                class="radix-checkbox-label"
-                on:click=handle_click
-            >
-                {children()}
-            </label>
+            <div class="radix-switch-track">
+                <div 
+                    id=thumb_id
+                    class="radix-switch-thumb"
+                    data-state=if checked { "checked" } else { "unchecked" }
+                >
+                </div>
+            </div>
+            {children()}
+        </div>
+    }
+}
+
+/// Switch Thumb component
+#[component]
+pub fn SwitchThumb(
+    /// CSS classes
+    #[prop(optional)]
+    class: Option<String>,
+    /// CSS styles
+    #[prop(optional)]
+    style: Option<String>,
+) -> impl IntoView {
+    let base_classes = "radix-switch-thumb";
+    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+        .unwrap_or_else(|| base_classes.to_string());
+    
+    view! {
+        <div 
+            class=combined_class
+            style=style
+        >
         </div>
     }
 }
@@ -161,12 +183,12 @@ mod tests {
     
     // 1. Basic Rendering Tests
     #[test]
-    fn test_checkbox_variants() {
+    fn test_switch_variants() {
         run_test(|| {
             let variants = vec![
-                CheckboxVariant::Default,
-                CheckboxVariant::Destructive,
-                CheckboxVariant::Ghost,
+                SwitchVariant::Default,
+                SwitchVariant::Destructive,
+                SwitchVariant::Ghost,
             ];
             
             for variant in variants {
@@ -176,12 +198,12 @@ mod tests {
     }
     
     #[test]
-    fn test_checkbox_sizes() {
+    fn test_switch_sizes() {
         run_test(|| {
             let sizes = vec![
-                CheckboxSize::Default,
-                CheckboxSize::Sm,
-                CheckboxSize::Lg,
+                SwitchSize::Default,
+                SwitchSize::Sm,
+                SwitchSize::Lg,
             ];
             
             for size in sizes {
@@ -192,94 +214,78 @@ mod tests {
     
     // 2. Props Validation Tests
     #[test]
-    fn test_checkbox_checked_state() {
+    fn test_switch_on_state() {
         run_test(|| {
             let checked = true;
-            let indeterminate = false;
             let disabled = false;
-            let variant = CheckboxVariant::Default;
-            let size = CheckboxSize::Default;
+            let variant = SwitchVariant::Default;
+            let size = SwitchSize::Default;
             
             assert!(checked);
-            assert!(!indeterminate);
             assert!(!disabled);
-            assert_eq!(variant, CheckboxVariant::Default);
-            assert_eq!(size, CheckboxSize::Default);
+            assert_eq!(variant, SwitchVariant::Default);
+            assert_eq!(size, SwitchSize::Default);
         });
     }
     
     #[test]
-    fn test_checkbox_unchecked_state() {
+    fn test_switch_off_state() {
         run_test(|| {
             let checked = false;
-            let indeterminate = false;
             let disabled = false;
-            let variant = CheckboxVariant::Destructive;
-            let size = CheckboxSize::Lg;
+            let variant = SwitchVariant::Destructive;
+            let size = SwitchSize::Lg;
             
             assert!(!checked);
-            assert!(!indeterminate);
             assert!(!disabled);
-            assert_eq!(variant, CheckboxVariant::Destructive);
-            assert_eq!(size, CheckboxSize::Lg);
+            assert_eq!(variant, SwitchVariant::Destructive);
+            assert_eq!(size, SwitchSize::Lg);
         });
     }
     
     #[test]
-    fn test_checkbox_indeterminate_state() {
+    fn test_switch_disabled_state() {
         run_test(|| {
             let checked = false;
-            let indeterminate = true;
-            let disabled = false;
-            let variant = CheckboxVariant::Ghost;
-            let size = CheckboxSize::Sm;
+            let disabled = true;
+            let variant = SwitchVariant::Ghost;
+            let size = SwitchSize::Sm;
             
             assert!(!checked);
-            assert!(indeterminate);
-            assert!(!disabled);
-            assert_eq!(variant, CheckboxVariant::Ghost);
-            assert_eq!(size, CheckboxSize::Sm);
+            assert!(disabled);
+            assert_eq!(variant, SwitchVariant::Ghost);
+            assert_eq!(size, SwitchSize::Sm);
         });
     }
     
     // 3. State Management Tests
     #[test]
-    fn test_checkbox_state_changes() {
+    fn test_switch_state_changes() {
         run_test(|| {
             let mut checked = false;
-            let mut indeterminate = false;
             let disabled = false;
             
+            // Initial state
             assert!(!checked);
-            assert!(!indeterminate);
             assert!(!disabled);
             
+            // Turn on switch
             checked = true;
-            indeterminate = false;
             
             assert!(checked);
-            assert!(!indeterminate);
             assert!(!disabled);
             
+            // Turn off switch
             checked = false;
-            indeterminate = false;
             
             assert!(!checked);
-            assert!(!indeterminate);
-            assert!(!disabled);
-            
-            checked = false;
-            indeterminate = true;
-            
-            assert!(!checked);
-            assert!(indeterminate);
             assert!(!disabled);
         });
     }
     
     // 4. Event Handling Tests
     #[test]
-    fn test_checkbox_keyboard_navigation() {
+    fn test_switch_keyboard_navigation() {
         run_test(|| {
             let space_pressed = true;
             let enter_pressed = false;
@@ -302,7 +308,7 @@ mod tests {
     }
     
     #[test]
-    fn test_checkbox_click_handling() {
+    fn test_switch_click_handling() {
         run_test(|| {
             let clicked = true;
             let disabled = false;
@@ -320,78 +326,80 @@ mod tests {
     
     // 5. Accessibility Tests
     #[test]
-    fn test_checkbox_accessibility() {
+    fn test_switch_accessibility() {
         run_test(|| {
-            let role = "checkbox";
+            let role = "switch";
             let aria_checked = "false";
             let aria_disabled = "false";
-            let tabindex = "-1";
+            let tabindex = "0";
             
-            assert_eq!(role, "checkbox");
+            assert_eq!(role, "switch");
             assert_eq!(aria_checked, "false");
             assert_eq!(aria_disabled, "false");
-            assert_eq!(tabindex, "-1");
+            assert_eq!(tabindex, "0");
         });
     }
     
     // 6. Edge Case Tests
     #[test]
-    fn test_checkbox_edge_cases() {
+    fn test_switch_edge_cases() {
         run_test(|| {
             let checked = true;
-            let indeterminate = true;
-            let disabled = false;
+            let disabled = true;
             
             assert!(checked);
-            assert!(indeterminate);
-            assert!(!disabled);
+            assert!(disabled);
         });
     }
     
     #[test]
-    fn test_checkbox_disabled_state() {
+    fn test_switch_toggle_behavior() {
         run_test(|| {
-            let disabled = true;
-            let checked = false;
-            let indeterminate = false;
+            let mut checked = false;
+            let disabled = false;
             
-            assert!(disabled);
             assert!(!checked);
-            assert!(!indeterminate);
+            assert!(!disabled);
+            
+            // Toggle on
+            checked = !checked;
+            
+            assert!(checked);
+            assert!(!disabled);
+            
+            // Toggle off
+            checked = !checked;
+            
+            assert!(!checked);
+            assert!(!disabled);
         });
     }
     
     // 7. Property-Based Tests
     proptest! {
         #[test]
-        fn test_checkbox_properties(
+        fn test_switch_properties(
             variant in prop::sample::select(vec![
-                CheckboxVariant::Default,
-                CheckboxVariant::Destructive,
-                CheckboxVariant::Ghost,
+                SwitchVariant::Default,
+                SwitchVariant::Destructive,
+                SwitchVariant::Ghost,
             ]),
             size in prop::sample::select(vec![
-                CheckboxSize::Default,
-                CheckboxSize::Sm,
-                CheckboxSize::Lg,
+                SwitchSize::Default,
+                SwitchSize::Sm,
+                SwitchSize::Lg,
             ]),
             checked in prop::bool::ANY,
-            indeterminate in prop::bool::ANY,
             disabled in prop::bool::ANY
         ) {
             assert!(!variant.as_str().is_empty());
             assert!(!size.as_str().is_empty());
             
             assert!(checked == true || checked == false);
-            assert!(indeterminate == true || indeterminate == false);
             assert!(disabled == true || disabled == false);
             
             if disabled {
-                // Disabled checkbox should not be interactive
-            }
-            
-            if indeterminate && checked {
-                // Indeterminate would take precedence
+                // Disabled switch should not be interactive
             }
         }
     }

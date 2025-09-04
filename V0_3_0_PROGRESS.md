@@ -2,7 +2,7 @@
 
 **Target: Core Components for Q1 2025**
 
-## 📊 **Current Status: 71 Passing Tests**
+## 📊 **Current Status: 107 Passing Tests**
 
 ### ✅ **Completed Components**
 
@@ -71,26 +71,50 @@
   - Event handling (show, hide, toggle)
   - Complete component structure (Tooltip, TooltipTrigger, TooltipContent, TooltipArrow)
 
+#### **Checkbox Component** ✅
+- **Status**: Complete with TDD
+- **Tests**: 12 passing tests
+- **Features**:
+  - Binary selection functionality
+  - Keyboard navigation (Space, Enter)
+  - Focus management
+  - Multiple variants (Default, Destructive, Ghost)
+  - Multiple sizes (Default, Sm, Lg)
+  - State management (checked/unchecked, indeterminate)
+  - Event handling (change, focus, blur)
+  - Complete component structure (Checkbox)
+
+#### **Radio Group Component** ✅
+- **Status**: Complete with TDD
+- **Tests**: 12 passing tests
+- **Features**:
+  - Single selection from multiple options
+  - Keyboard navigation (Arrow keys, Enter, Space, Home, End)
+  - Focus management
+  - Multiple variants (Default, Destructive, Ghost)
+  - Multiple sizes (Default, Sm, Lg)
+  - State management (selected value)
+  - Event handling (change, focus, blur)
+  - Complete component structure (RadioGroup, RadioGroupItem, RadioGroupIndicator)
+
+#### **Switch Component** ✅
+- **Status**: Complete with TDD
+- **Tests**: 12 passing tests
+- **Features**:
+  - Toggle functionality
+  - Keyboard navigation (Space, Enter)
+  - Focus management
+  - Multiple variants (Default, Destructive, Ghost)
+  - Multiple sizes (Default, Sm, Lg)
+  - State management (on/off)
+  - Event handling (change, focus, blur)
+  - Complete component structure (Switch, SwitchThumb)
+
 ### 🔄 **In Progress Components**
 
 *None currently in progress*
 
 ### 📋 **Remaining Components**
-
-#### **Checkbox Component** 🎯
-- **Status**: Planned
-- **Priority**: Medium
-- **ETA**: Next
-
-#### **Radio Group Component** 🎯
-- **Status**: Planned
-- **Priority**: Medium
-- **ETA**: Next
-
-#### **Switch Component** 🎯
-- **Status**: Planned
-- **Priority**: Medium
-- **ETA**: Next
 
 #### **Slider Component** 🎯
 - **Status**: Planned
@@ -114,12 +138,15 @@
 
 ## 📊 **Test Coverage Summary**
 
-- **Total Tests**: 71 passing tests
+- **Total Tests**: 107 passing tests
 - **Dialog Component**: 10 tests
 - **Form Component**: 10 tests
 - **Select Component**: 10 tests
 - **Accordion Component**: 12 tests
 - **Tooltip Component**: 14 tests
+- **Checkbox Component**: 12 tests
+- **Radio Group Component**: 12 tests
+- **Switch Component**: 12 tests
 - **Button Component**: 11 tests
 - **Pagination Component**: 4 tests
 
@@ -133,9 +160,9 @@
 
 ## 🎯 **Next Steps**
 
-1. **Continue with Checkbox Component** - Medium priority form component
-2. **Implement Radio Group Component** - Medium priority form component
-3. **Add Switch Component** - Medium priority form component
+1. **Continue with Slider Component** - Medium priority form component
+2. **Implement Progress Component** - Low priority UI component
+3. **Add Tabs Component** - Low priority UI component
 4. **Enhance existing components** with complete TDD coverage
 5. **Run comprehensive tests** for all v0.3.0 components
 
@@ -143,15 +170,15 @@
 
 - **Week 1**: Dialog and Form components (2/12) ✅
 - **Week 2**: Select, Accordion, and Tooltip components (5/12) ✅
-- **Week 3**: Checkbox, Radio Group, and Switch components (8/12) 🎯
-- **Week 4**: Slider, Progress, Tabs, and Alert components (12/12) 📋
+- **Week 3**: Checkbox, Radio Group, and Switch components (8/12) ✅
+- **Week 4**: Slider, Progress, Tabs, and Alert components (12/12) 🎯
 
-**Current Status**: 5/12 components completed (42% progress)
+**Current Status**: 8/12 components completed (67% progress)
 
 ## 🚀 **Key Achievements**
 
 - **TDD Implementation**: All components follow strict TDD principles
-- **Comprehensive Testing**: 71 passing tests with full coverage
+- **Comprehensive Testing**: 107 passing tests with full coverage
 - **Accessibility**: Proper ARIA attributes and keyboard navigation
 - **Modern Rust**: Using latest Rust 1.89.0 and Leptos 0.8.8
 - **Performance**: Optimized WASM bundle with efficient components

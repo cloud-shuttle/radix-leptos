@@ -11,6 +11,8 @@ pub mod form;
 pub mod select;
 pub mod accordion;
 pub mod tooltip;
+pub mod radio_group;
+pub mod switch;
 // pub mod data_table;  // Temporarily disabled due to view! macro type issues
 // pub mod date_picker;  // Temporarily disabled due to view! macro type issues
 pub mod dropdown_menu;
@@ -28,12 +30,14 @@ pub mod toast;
 pub use alert::*;
 pub use badge::*;
 pub use button::*;
-// pub use checkbox::*;  // Temporarily disabled until component is fully integrated
+pub use checkbox::*;
 pub use dialog::*;
 pub use form::*;
 pub use select::*;
 pub use accordion::*;
 pub use tooltip::*;
+pub use radio_group::*;
+pub use switch::*;
 // pub use data_table::*;  // Temporarily disabled
 // pub use date_picker::*;  // Temporarily disabled
 pub use dropdown_menu::*;
