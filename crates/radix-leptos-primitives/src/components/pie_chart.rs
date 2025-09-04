@@ -200,7 +200,7 @@ pub fn PieChartLabel(
             data-percentage=slice.percentage
             data-position=position.to_string()
         >
-            {slice.label}
+            {slice.label.clone()}
             {if show_percentage {
                 view! { <span class="percentage">" (" {slice.percentage} "%)"</span> }.into_any()
                 } else {
