@@ -12,7 +12,7 @@ keywords.workspace = true
 categories.workspace = true
 
 [dependencies]
-radix-leptos-core = { version = "0.2.0", path = "../radix-leptos-core" }
+radix-leptos-core = { version = "0.3.0", path = "../radix-leptos-core" }
 leptos.workspace = true
 web-sys.workspace = true
 # leptos-use.workspace = true

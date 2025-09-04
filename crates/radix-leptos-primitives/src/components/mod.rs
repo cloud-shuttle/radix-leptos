@@ -13,6 +13,8 @@ pub mod accordion;
 pub mod tooltip;
 pub mod radio_group;
 pub mod switch;
+pub mod slider;
+pub mod progress;
 // pub mod data_table;  // Temporarily disabled due to view! macro type issues
 // pub mod date_picker;  // Temporarily disabled due to view! macro type issues
 pub mod dropdown_menu;
@@ -38,6 +40,8 @@ pub use accordion::*;
 pub use tooltip::*;
 pub use radio_group::*;
 pub use switch::*;
+pub use slider::*;
+pub use progress::*;
 // pub use data_table::*;  // Temporarily disabled
 // pub use date_picker::*;  // Temporarily disabled
 pub use dropdown_menu::*;

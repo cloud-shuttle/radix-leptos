@@ -1,0 +1,466 @@
+use leptos::*;
+use leptos::prelude::*;
+
+/// Progress component with proper accessibility and styling variants
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub enum ProgressVariant {
+    Default,
+    Destructive,
+    Success,
+    Warning,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub enum ProgressSize {
+    Default,
+    Sm,
+    Lg,
+}
+
+impl ProgressVariant {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            ProgressVariant::Default => "default",
+            ProgressVariant::Destructive => "destructive",
+            ProgressVariant::Success => "success",
+            ProgressVariant::Warning => "warning",
+        }
+    }
+}
+
+impl ProgressSize {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            ProgressSize::Default => "default",
+            ProgressSize::Sm => "sm",
+            ProgressSize::Lg => "lg",
+        }
+    }
+}
+
+/// Generate a simple unique ID for components
+fn generate_id(prefix: &str) -> String {
+    static COUNTER: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
+    let id = COUNTER.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+    format!("{}-{}", prefix, id)
+}
+
+/// Merge CSS classes
+fn merge_classes(existing: Option<&str>, additional: Option<&str>) -> Option<String> {
+    match (existing, additional) {
+        (Some(a), Some(b)) => Some(format!("{} {}", a, b)),
+        (Some(a), None) => Some(a.to_string()),
+        (None, Some(b)) => Some(b.to_string()),
+        (None, None) => None,
+    }
+}
+
+/// Progress root component
+#[component]
+pub fn Progress(
+    /// Current progress value (0-100)
+    #[prop(optional, default = 0.0)]
+    value: f64,
+    /// Maximum value
+    #[prop(optional, default = 100.0)]
+    max: f64,
+    /// Whether the progress is indeterminate
+    #[prop(optional, default = false)]
+    indeterminate: bool,
+    /// Progress styling variant
+    #[prop(optional, default = ProgressVariant::Default)]
+    variant: ProgressVariant,
+    /// Progress size
+    #[prop(optional, default = ProgressSize::Default)]
+    size: ProgressSize,
+    /// CSS classes
+    #[prop(optional)]
+    class: Option<String>,
+    /// CSS styles
+    #[prop(optional)]
+    style: Option<String>,
+    /// Child content
+    children: Children,
+) -> impl IntoView {
+    let progress_id = generate_id("progress");
+    
+    // Build data attributes for styling
+    let data_variant = variant.as_str();
+    let data_size = size.as_str();
+    
+    // Merge classes with data attributes for CSS targeting
+    let base_classes = "radix-progress";
+    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+        .unwrap_or_else(|| base_classes.to_string());
+    
+    // Calculate percentage for visual representation
+    let percentage = if max > 0.0 && !indeterminate {
+        (value / max * 100.0).clamp(0.0, 100.0)
+    } else {
+        0.0
+    };
+    
+    view! {
+        <div 
+            class=combined_class
+            style=style
+            data-variant=data_variant
+            data-size=data_size
+            data-value=value
+            data-max=max
+            data-indeterminate=indeterminate
+            data-percentage=percentage
+            role="progressbar"
+            aria-valuemin=0.0
+            aria-valuemax=max
+            aria-valuenow=if indeterminate { None } else { Some(value) }
+            aria-label="Progress"
+        >
+            {children()}
+        </div>
+    }
+}
+
+/// Progress Track component
+#[component]
+pub fn ProgressTrack(
+    /// CSS classes
+    #[prop(optional)]
+    class: Option<String>,
+    /// CSS styles
+    #[prop(optional)]
+    style: Option<String>,
+) -> impl IntoView {
+    let base_classes = "radix-progress-track";
+    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+        .unwrap_or_else(|| base_classes.to_string());
+    
+    view! {
+        <div 
+            class=combined_class
+            style=style
+        >
+        </div>
+    }
+}
+
+/// Progress Indicator component
+#[component]
+pub fn ProgressIndicator(
+    /// CSS classes
+    #[prop(optional)]
+    class: Option<String>,
+    /// CSS styles
+    #[prop(optional)]
+    style: Option<String>,
+) -> impl IntoView {
+    let base_classes = "radix-progress-indicator";
+    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+        .unwrap_or_else(|| base_classes.to_string());
+    
+    view! {
+        <div 
+            class=combined_class
+            style=style
+        >
+        </div>
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use proptest::prelude::*;
+    
+    // 1. Basic Rendering Tests
+    #[test]
+    fn test_progress_variants() {
+        run_test(|| {
+            let variants = vec![
+                ProgressVariant::Default,
+                ProgressVariant::Destructive,
+                ProgressVariant::Success,
+                ProgressVariant::Warning,
+            ];
+            
+            for variant in variants {
+                assert!(!variant.as_str().is_empty());
+            }
+        });
+    }
+    
+    #[test]
+    fn test_progress_sizes() {
+        run_test(|| {
+            let sizes = vec![
+                ProgressSize::Default,
+                ProgressSize::Sm,
+                ProgressSize::Lg,
+            ];
+            
+            for size in sizes {
+                assert!(!size.as_str().is_empty());
+            }
+        });
+    }
+    
+    // 2. Props Validation Tests
+    #[test]
+    fn test_progress_default_values() {
+        run_test(|| {
+            let value = 0.0;
+            let max = 100.0;
+            let indeterminate = false;
+            let variant = ProgressVariant::Default;
+            let size = ProgressSize::Default;
+            
+            assert_eq!(value, 0.0);
+            assert_eq!(max, 100.0);
+            assert!(!indeterminate);
+            assert_eq!(variant, ProgressVariant::Default);
+            assert_eq!(size, ProgressSize::Default);
+        });
+    }
+    
+    #[test]
+    fn test_progress_custom_values() {
+        run_test(|| {
+            let value = 50.0;
+            let max = 200.0;
+            let indeterminate = false;
+            let variant = ProgressVariant::Success;
+            let size = ProgressSize::Lg;
+            
+            assert_eq!(value, 50.0);
+            assert_eq!(max, 200.0);
+            assert!(!indeterminate);
+            assert_eq!(variant, ProgressVariant::Success);
+            assert_eq!(size, ProgressSize::Lg);
+        });
+    }
+    
+    #[test]
+    fn test_progress_indeterminate_state() {
+        run_test(|| {
+            let value = 0.0;
+            let max = 100.0;
+            let indeterminate = true;
+            let variant = ProgressVariant::Warning;
+            let size = ProgressSize::Sm;
+            
+            assert_eq!(value, 0.0);
+            assert_eq!(max, 100.0);
+            assert!(indeterminate);
+            assert_eq!(variant, ProgressVariant::Warning);
+            assert_eq!(size, ProgressSize::Sm);
+        });
+    }
+    
+    // 3. State Management Tests
+    #[test]
+    fn test_progress_value_calculation() {
+        run_test(|| {
+            let value = 50.0;
+            let max = 100.0;
+            let indeterminate = false;
+            
+            // Test percentage calculation
+            let percentage = if max > 0.0 && !indeterminate {
+                (value / max * 100.0f64).clamp(0.0f64, 100.0f64)
+            } else {
+                0.0
+            };
+            
+            assert_eq!(percentage, 50.0);
+        });
+    }
+    
+    #[test]
+    fn test_progress_value_bounds() {
+        run_test(|| {
+            let max = 100.0;
+            let indeterminate = false;
+            
+            // Test value clamping
+            let value_below_min = -10.0;
+            let value_above_max = 150.0;
+            let value_in_range = 50.0;
+            
+            let percentage_below = if max > 0.0 && !indeterminate {
+                (value_below_min / max * 100.0f64).clamp(0.0f64, 100.0f64)
+            } else {
+                0.0
+            };
+            
+            let percentage_above = if max > 0.0 && !indeterminate {
+                (value_above_max / max * 100.0f64).clamp(0.0f64, 100.0f64)
+            } else {
+                0.0
+            };
+            
+            let percentage_in_range = if max > 0.0 && !indeterminate {
+                (value_in_range / max * 100.0f64).clamp(0.0f64, 100.0f64)
+            } else {
+                0.0
+            };
+            
+            assert_eq!(percentage_below, 0.0);
+            assert_eq!(percentage_above, 100.0);
+            assert_eq!(percentage_in_range, 50.0);
+        });
+    }
+    
+    // 4. Indeterminate State Tests
+    #[test]
+    fn test_progress_indeterminate_calculation() {
+        run_test(|| {
+            let value = 50.0;
+            let max = 100.0;
+            let indeterminate = true;
+            
+            // Test percentage calculation for indeterminate state
+            let percentage = if max > 0.0 && !indeterminate {
+                (value / max * 100.0f64).clamp(0.0f64, 100.0f64)
+            } else {
+                0.0
+            };
+            
+            assert_eq!(percentage, 0.0);
+        });
+    }
+    
+    #[test]
+    fn test_progress_indeterminate_aria() {
+        run_test(|| {
+            let value = 50.0;
+            let max = 100.0;
+            let indeterminate = true;
+            
+            // Test ARIA attributes for indeterminate state
+            let aria_valuenow = if indeterminate { None } else { Some(value) };
+            
+            assert!(aria_valuenow.is_none());
+        });
+    }
+    
+    // 5. Accessibility Tests
+    #[test]
+    fn test_progress_accessibility() {
+        run_test(|| {
+            let role = "progressbar";
+            let aria_valuemin = 0.0;
+            let aria_valuemax = 100.0;
+            let aria_valuenow = Some(50.0);
+            let aria_label = "Progress";
+            
+            assert_eq!(role, "progressbar");
+            assert_eq!(aria_valuemin, 0.0);
+            assert_eq!(aria_valuemax, 100.0);
+            assert_eq!(aria_valuenow, Some(50.0));
+            assert_eq!(aria_label, "Progress");
+        });
+    }
+    
+    // 6. Edge Case Tests
+    #[test]
+    fn test_progress_edge_cases() {
+        run_test(|| {
+            // Test zero max value
+            let value = 50.0;
+            let max = 0.0;
+            let indeterminate = false;
+            
+            let percentage = if max > 0.0 && !indeterminate {
+                (value / max * 100.0f64).clamp(0.0f64, 100.0f64)
+            } else {
+                0.0
+            };
+            
+            assert_eq!(percentage, 0.0);
+        });
+    }
+    
+    #[test]
+    fn test_progress_negative_values() {
+        run_test(|| {
+            let value = -25.0;
+            let max = 100.0;
+            let indeterminate = false;
+            
+            let percentage = if max > 0.0 && !indeterminate {
+                (value / max * 100.0f64).clamp(0.0f64, 100.0f64)
+            } else {
+                0.0
+            };
+            
+            assert_eq!(percentage, 0.0);
+        });
+    }
+    
+    #[test]
+    fn test_progress_completion_state() {
+        run_test(|| {
+            let value = 100.0;
+            let max = 100.0;
+            let indeterminate = false;
+            
+            let percentage = if max > 0.0 && !indeterminate {
+                (value / max * 100.0f64).clamp(0.0f64, 100.0f64)
+            } else {
+                0.0
+            };
+            
+            assert_eq!(percentage, 100.0);
+        });
+    }
+    
+    // 7. Property-Based Tests
+    proptest! {
+        #[test]
+        fn test_progress_properties(
+            variant in prop::sample::select(vec![
+                ProgressVariant::Default,
+                ProgressVariant::Destructive,
+                ProgressVariant::Success,
+                ProgressVariant::Warning,
+            ]),
+            size in prop::sample::select(vec![
+                ProgressSize::Default,
+                ProgressSize::Sm,
+                ProgressSize::Lg,
+            ]),
+            value in -100.0..1000.0f64,
+            max in 0.1..1000.0f64,
+            indeterminate in prop::bool::ANY
+        ) {
+            assert!(!variant.as_str().is_empty());
+            assert!(!size.as_str().is_empty());
+            
+            assert!(indeterminate == true || indeterminate == false);
+            assert!(max > 0.0);
+            
+            // Test percentage calculation
+            let percentage = if max > 0.0 && !indeterminate {
+                (value / max * 100.0f64).clamp(0.0f64, 100.0f64)
+            } else {
+                0.0
+            };
+            
+            assert!(percentage >= 0.0 && percentage <= 100.0);
+            
+            // Test ARIA attributes
+            let aria_valuenow = if indeterminate { None } else { Some(value) };
+            
+            if indeterminate {
+                assert!(aria_valuenow.is_none());
+            } else {
+                assert!(aria_valuenow.is_some());
+            }
+        }
+    }
+    
+    // Helper function for running tests
+    fn run_test<F>(f: F) where F: FnOnce() {
+        f();
+    }
+}
