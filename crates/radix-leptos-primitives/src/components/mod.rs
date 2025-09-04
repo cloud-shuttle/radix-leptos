@@ -6,6 +6,8 @@ pub mod alert;
 pub mod badge;
 pub mod button;
 pub mod checkbox;
+pub mod dialog;
+pub mod form;
 // pub mod data_table;  // Temporarily disabled due to view! macro type issues
 // pub mod date_picker;  // Temporarily disabled due to view! macro type issues
 pub mod dropdown_menu;
@@ -24,6 +26,8 @@ pub use alert::*;
 pub use badge::*;
 pub use button::*;
 // pub use checkbox::*;  // Temporarily disabled until component is fully integrated
+pub use dialog::*;
+pub use form::*;
 // pub use data_table::*;  // Temporarily disabled
 // pub use date_picker::*;  // Temporarily disabled
 pub use dropdown_menu::*;
