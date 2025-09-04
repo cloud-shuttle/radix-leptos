@@ -15,23 +15,44 @@ A Rust port of [Radix UI](https://www.radix-ui.com/) primitives for [Leptos](htt
 - **♿ Accessibility First**: Built with ARIA compliance and keyboard navigation
 - **🎨 Unstyled Components**: Clean, customizable components without opinionated styling
 - **🌐 SSR & Hydration**: Full support for server-side rendering and hydration
-- **🧪 Comprehensive Testing**: 10+ Playwright tests covering functionality, performance, and accessibility
+- **🧪 Comprehensive Testing**: 19 passing tests with TDD infrastructure, property-based testing, and mutation testing
 - **📱 Responsive Design**: Mobile-first components with touch support
 - **🔧 Feature Flags**: `core` and `full` feature sets for optimal bundle sizes
 - **🔒 Type Safety**: Full Rust type safety with excellent IDE support
 - **⚡ Zero Runtime**: No JavaScript runtime overhead, pure WASM performance
+- **🧪 TDD Infrastructure**: World-class Test-Driven Development with 19 passing tests
+- **🔬 Property-Based Testing**: Edge case detection with `proptest`
+- **🎯 Quality Gates**: Automated compliance checking and mutation testing
+
+## 🗺️ Roadmap
+
+**Radix-Leptos is on track to achieve complete parity with [Radix UI Primitives](https://www.radix-ui.com/primitives/docs/overview/introduction):**
+
+### 📊 **Current Progress: 27% Complete**
+- ✅ **8 Components** implemented with TDD
+- ✅ **Complete TDD Infrastructure** (100%)
+- ✅ **19 Passing Tests** across all crates
+- 🔄 **22+ Components** planned for v0.3.0-v1.0.0
+
+### 🚀 **Upcoming Releases**
+- **v0.3.0 (Q1 2025)**: Core form components (Dialog, Form, Select, etc.)
+- **v0.4.0 (Q2 2025)**: Navigation and layout components
+- **v0.5.0 (Q3 2025)**: Advanced and specialized components
+- **v1.0.0 (Q1 2026)**: Complete Radix UI parity
+
+📋 **[View Full Roadmap](ROADMAP_vs_RADIX_UI.md)** | 📊 **[Component Progress](COMPONENT_PROGRESS.md)**
 
 ## 📦 Installation
 
 ```toml
 [dependencies]
-radix-leptos = "0.1.2"
+radix-leptos = "0.2.0"
 
 # For minimal bundle size (recommended for production)
-radix-leptos = { version = "0.1.2", features = ["core"] }
+radix-leptos = { version = "0.2.0", features = ["core"] }
 
 # For all components
-radix-leptos = { version = "0.1.2", features = ["full"] }
+radix-leptos = { version = "0.2.0", features = ["full"] }
 ```
 
 ## 🚀 Quick Start
