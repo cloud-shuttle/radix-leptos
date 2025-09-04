@@ -49,7 +49,6 @@ pub mod list;
 // pub mod multi_select;  // Temporarily disabled due to view! macro issues
 pub mod pagination;
 pub mod tabs;
-pub mod timeline;
 pub mod toast;
 
 // Re-export only the components we need
