@@ -345,7 +345,6 @@ mod tests {
     #[test] fn test_piechart_user_workflow() { assert!(true); }
     #[test] fn test_piechart_accessibility_workflow() { assert!(true); }
     #[test] fn test_piechart_with_other_components() { assert!(true); }
-    #[test] fn test_piechart_data_validation() { assert!(true); }
 
     // Performance Tests
     #[test] fn test_piechart_large_dataset() { assert!(true); }

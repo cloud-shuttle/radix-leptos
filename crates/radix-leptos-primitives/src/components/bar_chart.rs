@@ -341,7 +341,6 @@ mod tests {
     #[test] fn test_barchart_user_workflow() { assert!(true); }
     #[test] fn test_barchart_accessibility_workflow() { assert!(true); }
     #[test] fn test_barchart_with_other_components() { assert!(true); }
-    #[test] fn test_barchart_data_validation() { assert!(true); }
 
     // Performance Tests
     #[test] fn test_barchart_large_dataset() { assert!(true); }

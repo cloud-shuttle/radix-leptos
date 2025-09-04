@@ -355,7 +355,6 @@ mod tests {
     #[test] fn test_linechart_user_workflow() { assert!(true); }
     #[test] fn test_linechart_accessibility_workflow() { assert!(true); }
     #[test] fn test_linechart_with_other_components() { assert!(true); }
-    #[test] fn test_linechart_data_validation() { assert!(true); }
 
     // Performance Tests
     #[test] fn test_linechart_large_dataset() { assert!(true); }
