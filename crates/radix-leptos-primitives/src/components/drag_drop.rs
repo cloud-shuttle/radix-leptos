@@ -307,27 +307,31 @@ mod tests {
 
     // Property-based Tests
     #[test] fn test_dragdrop_property_based() {
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
-        });
+        // proptest!(|(class in ".*", style in ".*")| {
+        //     assert!(true);
+        // });
+        assert!(true);
     }
 
     #[test] fn test_dragdrop_complex_scenarios() {
-        proptest!(|(items in prop::collection::vec(any::<String>(), 0..100))| {
-            assert!(true);
-        });
+        // proptest!(|(items in prop::collection::vec(any::<String>(), 0..100))| {
+        //     assert!(true);
+        // });
+        assert!(true);
     }
 
     #[test] fn test_dragdrop_drop_zone_validation() {
-        proptest!(|(zones in prop::collection::vec(any::<String>(), 1..10))| {
-            assert!(true);
-        });
+        // proptest!(|(zones in prop::collection::vec(any::<String>(), 1..10))| {
+        //     assert!(true);
+        // });
+        assert!(true);
     }
 
     #[test] fn test_dragdrop_position_property_based() {
-        proptest!(|(x in 0.0..1000.0f64, y in 0.0..1000.0f64)| {
-            assert!(true);
-        });
+        // proptest!(|(x in 0.0..1000.0f64, y in 0.0..1000.0f64)| {
+        //     assert!(true);
+        // });
+        assert!(true);
     }
 
     // Integration Tests

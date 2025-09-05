@@ -7,23 +7,27 @@ pub mod prebuilt_themes;
 pub mod component_variants;
 pub mod layout_system;
 
-// Test modules - temporarily disabled due to compilation issues
-// #[cfg(test)]
-// mod css_variables_tests;
-// #[cfg(test)]
-// mod theme_provider_tests;
+// Test modules - temporarily commenting out problematic ones
+#[cfg(test)]
+mod css_variables_tests;
+#[cfg(test)]
+mod theme_provider_tests;
 // #[cfg(test)]
 // mod dark_mode_tests;
 // #[cfg(test)]
 // mod size_variants_tests;
-// #[cfg(test)]
-// mod theme_customization_tests;
+#[cfg(test)]
+mod theme_customization_tests;
 // #[cfg(test)]
 // mod prebuilt_themes_tests;
-// #[cfg(test)]
-// mod component_variants_tests;
+#[cfg(test)]
+mod component_variants_tests;
 // #[cfg(test)]
 // mod layout_system_tests;
+#[cfg(test)]
+mod integration_tests;
+#[cfg(test)]
+mod simple_tests;
 
 pub use css_variables::*;
 pub use theme_provider::*;

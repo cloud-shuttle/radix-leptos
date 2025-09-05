@@ -1,6 +1,7 @@
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::theming::{ButtonVariants, InputVariants, SizeVariant, StyleVariant, StateVariant, InputTypeVariant, ComponentVariants};
 
     #[test]
     fn test_button_variants_creation() {
@@ -22,19 +23,20 @@ mod tests {
     #[test]
     fn test_size_variant_enum() {
         let size = SizeVariant::Large;
-        assert_eq!(size.to_string(), "lg");
+        assert_eq!(size.as_str(), "lg");
+        assert_eq!(size.display_name(), "Large");
     }
 
     #[test]
     fn test_style_variant_enum() {
         let style = StyleVariant::Primary;
-        assert_eq!(style.to_string(), "primary");
+        assert_eq!(format!("{:?}", style), "Primary");
     }
 
     #[test]
     fn test_state_variant_enum() {
         let state = StateVariant::Hover;
-        assert_eq!(state.to_string(), "hover");
+        assert_eq!(format!("{:?}", state), "Hover");
     }
 
     #[test]

@@ -1,4 +1,3 @@
-use leptos::*;
 
 /// CSS variable system for theming
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]

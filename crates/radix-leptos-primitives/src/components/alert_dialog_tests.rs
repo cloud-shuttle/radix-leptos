@@ -2,6 +2,7 @@
 mod alert_dialog_tests {
     use super::*;
     use leptos::*;
+    use leptos::callback::Callback;
     use proptest::prelude::*;
     use crate::components::alert_dialog::*;
 

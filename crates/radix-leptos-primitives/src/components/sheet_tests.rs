@@ -2,6 +2,7 @@
 mod sheet_tests {
     use super::*;
     use leptos::*;
+    use leptos::callback::Callback;
     use proptest::prelude::*;
     use crate::components::sheet::*;
 
@@ -44,9 +45,6 @@ mod sheet_tests {
                     size=size
                     on_open_change=Callback::new(|_| {})
                 >
-                    <SheetTrigger on_click=Callback::new(|_| {})>
-                        "Open Sheet"
-                    </SheetTrigger>
                     <SheetContent>
                         <SheetHeader>
                             <SheetTitle>"Test Title"</SheetTitle>

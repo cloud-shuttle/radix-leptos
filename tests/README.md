@@ -23,7 +23,8 @@ tests/
 ├── unit/                                 # Unit tests for individual components
 │   ├── components/                      # Component-specific unit tests
 │   ├── core/                           # Core functionality tests
-│   └── utils/                          # Utility function tests
+│   ├── utils/                          # Utility function tests
+│   └── test_theming.rs                 # Standalone theming system tests
 ├── integration/                         # Integration tests for component interactions
 │   ├── component-interactions/         # Component combination tests
 │   ├── user-workflows/                 # End-to-end user scenarios

@@ -1,125 +1,77 @@
-# 📚 Radix-Leptos Documentation
+# Documentation Directory
 
-**Complete documentation for the Radix-Leptos UI component library**
+This directory contains all documentation for the radix-leptos project.
 
-## 🚀 **Getting Started**
+## Directory Structure
 
-- **[Main README](../README.md)** - Project overview and quick start
-- **[Installation Guide](guides/PRODUCTION_DEPLOYMENT_GUIDE.md)** - How to install and deploy
-- **[Quick Start](../examples/)** - Example applications and usage
+### `api-reference/`
+- **API_REFERENCE.md** - Complete API documentation for all components
+- **README.md** - API reference overview and usage
 
-## 📋 **Development & Planning**
+### `assets/`
+- **34 PNG files** - Visual assets, screenshots, and diagrams for documentation
 
-- **[Development Roadmap](ROADMAP.md)** - Future features and development phases
-- **[Development Workflow](guides/DEVELOPMENT_WORKFLOW.md)** - How to contribute and develop
-- **[Implementation Plan](implementation-plan.md)** - Technical implementation details
-- **[Design Principles](design.md)** - Design system and component philosophy
+### `developer-guide/`
+- **CONTRIBUTING.md** - Guidelines for contributing to the project
+- **README.md** - Developer guide overview
+- **TDD_GUIDE_v0.5.0.md** - Test-Driven Development guide (v0.5.0)
+- **TDD_GUIDE.md** - Current TDD guide
+- **TDD_IMPLEMENTATION_COMPLETE.md** - TDD implementation completion report
+- **TDD_IMPLEMENTATION_SUMMARY.md** - Summary of TDD implementation
+- **TDD_TEMPLATE.md** - Template for TDD development
 
-## 🧪 **Testing & Quality**
+### `guides/`
+- **16 markdown files** - Various implementation and usage guides
 
-- **[Testing Guide](guides/TESTING_GUIDE.md)** - How to test components
-- **[Test Strategy](test-strategy.md)** - Testing approach and methodology
-- **[Test Results](guides/TEST_RESULTS_SUMMARY.md)** - Latest test results and coverage
-- **[Validation Reports](guides/)** - Component validation and testing reports
+### `implementation/`
+- **TDD_IMPLEMENTATION_SUMMARY.md** - Summary of TDD implementation approach
 
-## 📊 **Performance & Optimization**
+### `releases/`
+- **RELEASE_CHECKLIST_v0.7.0.md** - Release checklist for v0.7.0
+- **RELEASE_NOTES_v0.7.0.md** - Release notes for v0.7.0
+- **RELEASE_SUMMARY_v0.7.0.md** - Release summary for v0.7.0
+- **RELEASE_SUMMARY_v0.8.0.md** - Release summary for v0.8.0
 
-- **[Optimization Results](guides/OPTIMIZATION_RESULTS.md)** - Bundle size optimization details
-- **[Performance Summary](guides/PERFORMANCE_SUMMARY.md)** - Current performance metrics
-- **[Bundle Analysis](guides/BUILD_STATUS.md)** - Build and bundle status
+### `roadmaps/`
+- **11 markdown files** - Project roadmaps and future plans
 
-## 🔧 **API & Components**
+### `user-guide/`
+- **COMPONENTS.md** - User guide for components
+- **README.md** - User guide overview
 
-- **[Component Reference](COMPONENTS.md)** - All available components
-- **[API Reference](API_REFERENCE.md)** - Complete API documentation
-- **[Contributing Guidelines](CONTRIBUTING.md)** - How to contribute to the project
+### Root Documentation Files
+- **COMPONENT_PROGRESS.md** - Progress tracking for component development
+- **design.md** - Design system documentation
+- **implementation-plan.md** - Overall implementation plan
+- **README.md** - Main documentation overview
+- **REPOSITORY_STRUCTURE.md** - Repository structure documentation
+- **test-strategy.md** - Testing strategy documentation
+- **VALIDATION_REPORT.md** - Validation and testing report
 
-## 📝 **Release Information**
+## Documentation Standards
 
-- **[Release Notes](RELEASE_NOTES.md)** - What's new in each version
-- **[Changelog](CHANGELOG.md)** - Complete version history
-- **[Release Checklist](guides/RELEASE_CHECKLIST.md)** - Release process and checklist
+### Writing Guidelines
+- Use clear, concise language
+- Include code examples where appropriate
+- Keep documentation up-to-date with code changes
+- Use consistent formatting and structure
 
-## 🛠️ **Advanced Topics**
+### File Naming
+- Use descriptive names with underscores
+- Include version numbers for version-specific docs
+- Use consistent capitalization
 
-- **[Nix Setup](guides/NIX_SETUP.md)** - Development environment setup
-- **[Production Deployment](guides/PRODUCTION_DEPLOYMENT_GUIDE.md)** - Production deployment guide
-- **[Progress Reports](guides/)** - Development progress tracking
+### Structure
+- Start with an overview/README in each directory
+- Include table of contents for long documents
+- Use consistent heading hierarchy
+- Include cross-references between related documents
 
-## 📁 **Documentation Structure**
+## Contributing to Documentation
 
-```
-docs/
-├── README.md                    # This file - documentation index
-├── user-guide/                  # End-user documentation
-│   ├── README.md               # User guide index
-│   └── COMPONENTS.md           # Component usage guide
-├── developer-guide/             # Contributor documentation
-│   ├── README.md               # Developer guide index
-│   ├── CONTRIBUTING.md         # Contribution guidelines
-│   ├── TDD_GUIDE.md            # Test-driven development
-│   └── TDD_TEMPLATE.md         # Development templates
-├── api-reference/               # API documentation
-│   ├── README.md               # API reference index
-│   └── API_REFERENCE.md        # Complete API docs
-├── releases/                    # Release documentation
-│   ├── README.md               # Release documentation index
-│   ├── CHANGELOG.md            # Version history
-│   ├── RELEASE_NOTES.md        # Release information
-│   └── RELEASE_CONTENT.md      # Release content planning
-├── roadmaps/                    # Project planning
-│   ├── README.md               # Roadmap index
-│   └── ROADMAP.md              # Development roadmap
-├── guides/                      # Detailed guides
-│   ├── PRODUCTION_DEPLOYMENT_GUIDE.md
-│   ├── DEVELOPMENT_WORKFLOW.md
-│   ├── TESTING_GUIDE.md
-│   ├── OPTIMIZATION_RESULTS.md
-│   ├── PERFORMANCE_SUMMARY.md
-│   ├── BUILD_STATUS.md
-│   ├── RELEASE_CHECKLIST.md
-│   ├── TEST_RESULTS_SUMMARY.md
-│   ├── VALIDATION_REPORT.md
-│   ├── PHASE3_VALIDATION_REPORT.md
-│   ├── PHASE4_DEVELOPMENT_PLAN.md
-│   ├── PROGRESS_REPORT.md
-│   ├── WEEK4_TEST_REPORT.md
-│   ├── WEEK6_TEST_REPORT.md
-│   ├── WEEK7_8_TEST_REPORT.md
-│   ├── NIX_SETUP.md
-│   └── CLAUDE.md
-├── design.md                    # Design system
-├── implementation-plan.md       # Technical implementation
-├── test-strategy.md             # Testing strategy
-└── assets/                      # Documentation images
-    ├── *.png                    # Component screenshots
-    └── *.jpg                    # Additional images
-```
-
-## 🔍 **Quick Navigation**
-
-### **For Users:**
-- Start with [Main README](../README.md)
-- Check [Installation Guide](guides/PRODUCTION_DEPLOYMENT_GUIDE.md)
-- Explore [Examples](../examples/)
-
-### **For Developers:**
-- Read [Development Workflow](guides/DEVELOPMENT_WORKFLOW.md)
-- Check [Contributing Guidelines](CONTRIBUTING.md)
-- Review [Testing Guide](guides/TESTING_GUIDE.md)
-
-### **For Contributors:**
-- Follow [Development Workflow](guides/DEVELOPMENT_WORKFLOW.md)
-- Read [Contributing Guidelines](CONTRIBUTING.md)
-- Check [Test Strategy](test-strategy.md)
-
-## 📞 **Need Help?**
-
-- **Issues**: [GitHub Issues](https://github.com/cloud-shuttle/radix-leptos/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/cloud-shuttle/radix-leptos/discussions)
-- **Documentation**: This documentation index
-
----
-
-**Last Updated**: September 2025  
-**Maintained by**: Cloud Shuttle Team
+When adding or updating documentation:
+1. Place files in the appropriate subdirectory
+2. Update this README with a description
+3. Follow the established naming conventions
+4. Include version information for release-specific docs
+5. Update cross-references as needed
