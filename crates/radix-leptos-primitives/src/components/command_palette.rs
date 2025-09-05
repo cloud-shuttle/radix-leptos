@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// CommandPalette component - Power user features
 #[component]
@@ -61,7 +59,7 @@ impl Default for Command {
             id: "command".to_string(),
             title: "Command".to_string(),
             description: None,
-            keywords: [],
+            keywords: Vec::new(),
             category: None,
             icon: None,
             shortcut: None,
@@ -86,10 +84,10 @@ pub struct CommandPaletteConfig {
     pub width: f64,
     pub height: f64,
     pub max_results: usize,
-    pub _show_shortcuts: bool,
-    pub _show_categories: bool,
-    pub _fuzzy_search: bool,
-    pub _case_sensitive: bool,
+    pub __show_shortcuts: bool,
+    pub __show_categories: bool,
+    pub __fuzzy_search: bool,
+    pub __case_sensitive: bool,
 }
 
 impl Default for CommandPaletteConfig {
@@ -184,16 +182,6 @@ pub fn CommandItem(
 
     let class = merge_classes([
         "command-item",
-        if selected { "selected" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="option"
-            aria-label=format!("Command: {}", command.title)
             data-command-id=command.id
             data-selected=selected
             tabindex="0"
@@ -245,7 +233,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
     use proptest::prelude::*;
 
@@ -257,7 +244,7 @@ mod tests {
     #[test] fn test_commandpalette_with_style() { 
     #[test] fn test_commandpalette_with_commands() { 
     #[test] fn test_commandpalette_with_config() { 
-    #[test] fn test_commandpalette_visible() { 
+    #[test] fn test_commandpalettevisible() { 
     #[test] fn test_commandpalette_hidden() { 
     #[test] fn test_commandpalette_placeholder() { 
     #[test] fn test_commandpalette_on_command_select() { 
@@ -292,7 +279,7 @@ mod tests {
     #[test] fn test_command_list_with_class() { 
     #[test] fn test_command_list_with_style() { 
     #[test] fn test_command_list_commands() { 
-    #[test] fn test_command_list_selected_index() { 
+    #[test] fn test_command_listselected_index() { 
     #[test] fn test_command_list_on_command_select() { 
 
     // Command Item tests
@@ -300,7 +287,7 @@ mod tests {
     #[test] fn test_command_item_with_class() { 
     #[test] fn test_command_item_with_style() { 
     #[test] fn test_command_item_command() { 
-    #[test] fn test_command_item_selected() { 
+    #[test] fn test_command_itemselected() { 
     #[test] fn test_command_item_on_click() { 
 
     // Command Group tests
@@ -318,25 +305,25 @@ mod tests {
 
     // Property-based Tests
     #[test] fn test_commandpalette_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             
         });
     }
 
     #[test] fn test_commandpalette_commands_validation() {
-        proptest!(|(___command_count in 0..100usize)| {
+        proptest!(|(______command_count in 0..100usize)| {
             
         });
     }
 
     #[test] fn test_commandpalette_config_validation() {
-        proptest!(|(__width in 200.0..1000.0f64, _height in 200.0..800.0f64)| {
+        proptest!(|(____width in 200.0..1000.0f64, __height in 200.0..800.0f64)| {
             
         });
     }
 
     #[test] fn test_commandpalette_search_property_based() {
-        proptest!(|(_query in ".*")| {
+        proptest!(|(__query in ".*")| {
             
         });
     }

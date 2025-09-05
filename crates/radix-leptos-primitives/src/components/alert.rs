@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Alert component with proper accessibility and styling variants
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -84,7 +82,7 @@ pub fn Alert(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let __alert_id = generate_id("alert");
+    let ___alert_id = generate_id("alert");
 
     // Build data attributes for styling
     let data_variant = variant.as_str();
@@ -141,8 +139,6 @@ pub fn Alert(
                         "×"
                     </button>
                 }.into_any()
-            } else {
-                view! { <></> }.into_any()
             }}
         </div>
     }
@@ -203,7 +199,6 @@ pub fn AlertDescription(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
 
     // 1. Basic Rendering Tests
@@ -301,7 +296,7 @@ mod tests {
     }
 
     #[test]
-    fn test_alert_dismissible_state() {
+    fn test_alertdismissible_state() {
         run_test(|| {
             let visible = true;
             let mut dismissible = false;
@@ -382,7 +377,7 @@ mod tests {
     }
 
     #[test]
-    fn test_alert_non_dismissible() {
+    fn test_alert_nondismissible() {
         run_test(|| {
             let variant = AlertVariant::Info;
             let size = AlertSize::Lg;
@@ -397,7 +392,7 @@ mod tests {
             // Non-dismissible alert should not respond to dismiss actions
             let dismiss_clicked = true;
             if dismiss_clicked && !dismissible {
-            } else {
+                // Alert should remain visible
             }
         });
     }
@@ -424,14 +419,14 @@ mod tests {
     proptest! {
         #[test]
         fn test_alert_properties(
-            variant in prop::sample::select([
+            variant in prop::sample::select(&[
                 AlertVariant::Default,
                 AlertVariant::Destructive,
                 AlertVariant::Warning,
                 AlertVariant::Success,
                 AlertVariant::Info,
             ]),
-            size in prop::sample::select([
+            size in prop::sample::select(&[
                 AlertSize::Default,
                 AlertSize::Sm,
                 AlertSize::Lg,

@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 use wasm_bindgen::JsCast;
 use web_sys::{KeyboardEvent, MouseEvent};
 
@@ -43,7 +41,7 @@ pub fn DropdownMenu(
     #[prop(optional)] style: Option<String>,
     children: Children,
 ) -> impl IntoView {
-    let (_is_open, set_is_open) = signal(false);
+    let (_isopen, set_isopen) = signal(false);
     let trigger_ref = NodeRef::<html::Div>::new();
     let content_ref = NodeRef::<html::Div>::new();
 
@@ -55,18 +53,18 @@ pub fn DropdownMenu(
             if !trigger_el.contains(Some(target_element))
                 && !content_el.contains(Some(target_element))
             {
-                set_is_open.set(false);
+                set_isopen.set(false);
             }
         }
     };
 
     let handle_keydown = move |e: KeyboardEvent| match e.key().as_str() {
         "Escape" => {
-            set_is_open.set(false);
+            set_isopen.set(false);
         }
         "Enter" | " " => {
             e.prevent_default();
-            set_is_open.update(|open| *open = !*open);
+            set_isopen.update(|open| *open = !*open);
         }
         _ => {}
     };
@@ -353,19 +351,19 @@ pub fn DropdownMenuCheckboxItem(
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] checked: Option<bool>,
     #[prop(optional)] disabled: Option<bool>,
-    #[prop(optional)] on_checked_change: Option<Callback<bool>>,
+    #[prop(optional)] onchecked_change: Option<Callback<bool>>,
     children: Children,
 ) -> impl IntoView {
-    let (is_checked, set_is_checked) = signal(checked.unwrap_or(false));
+    let (ischecked, set_ischecked) = signal(checked.unwrap_or(false));
 
     let handle_click = move |e: MouseEvent| {
         e.prevent_default();
         e.stop_propagation();
         if !disabled.unwrap_or(false) {
-            let new_checked = !is_checked.get();
-            set_is_checked.set(new_checked);
-            if let Some(callback) = on_checked_change {
-                callback.run(new_checked);
+            let newchecked = !ischecked.get();
+            set_ischecked.set(newchecked);
+            if let Some(callback) = onchecked_change {
+                callback.run(newchecked);
             }
         }
     };
@@ -375,10 +373,10 @@ pub fn DropdownMenuCheckboxItem(
             match e.key().as_str() {
                 "Enter" | " " => {
                     e.prevent_default();
-                    let new_checked = !is_checked.get();
-                    set_is_checked.set(new_checked);
-                    if let Some(callback) = on_checked_change {
-                        callback.run(new_checked);
+                    let newchecked = !ischecked.get();
+                    set_ischecked.set(newchecked);
+                    if let Some(callback) = onchecked_change {
+                        callback.run(newchecked);
                     }
                 }
                 "Escape" => {
@@ -418,7 +416,7 @@ pub fn DropdownMenuCheckboxItem(
             style=style
             role="menuitemcheckbox"
             tabindex="-1"
-            aria-checked=move || is_checked.get()
+            aria-checked=move || ischecked.get()
             on:click=handle_click
             on:keydown=handle_keydown
         >
@@ -426,18 +424,12 @@ pub fn DropdownMenuCheckboxItem(
                 <div class="flex h-4 w-4 items-center justify-center">
                     <div
                         class=move || {
-                            if is_checked.get() {
+                            if ischecked.get() {
                                 "h-2 w-2 bg-current"
-                            } else {
-                                "h-2 w-2"
-                            }
                         }
                         style=move || {
-                            if is_checked.get() {
+                            if ischecked.get() {
                                 "background-color: currentColor;"
-                            } else {
-                                "background-color: transparent;"
-                            }
                         }
                     />
                 </div>
@@ -457,7 +449,7 @@ pub fn DropdownMenuRadioItem(
     #[prop(optional)] on_value_change: Option<Callback<String>>,
     children: Children,
 ) -> impl IntoView {
-    let (is_checked, set_is_checked) = signal(checked.unwrap_or(false));
+    let (ischecked, set_ischecked) = signal(checked.unwrap_or(false));
     let value = value.unwrap_or_default();
 
     let handle_click = {
@@ -466,7 +458,7 @@ pub fn DropdownMenuRadioItem(
             e.prevent_default();
             e.stop_propagation();
             if !disabled.unwrap_or(false) {
-                set_is_checked.set(true);
+                set_ischecked.set(true);
                 if let Some(callback) = on_value_change {
                     let value_clone = value.clone();
                     callback.run(value_clone);
@@ -482,7 +474,7 @@ pub fn DropdownMenuRadioItem(
                 match e.key().as_str() {
                     "Enter" | " " => {
                         e.prevent_default();
-                        set_is_checked.set(true);
+                        set_ischecked.set(true);
                         if let Some(callback) = on_value_change {
                             let value_clone = value.clone();
                             callback.run(value_clone);
@@ -526,7 +518,7 @@ pub fn DropdownMenuRadioItem(
             style=style
             role="menuitemradio"
             tabindex="-1"
-            aria-checked=move || is_checked.get()
+            aria-checked=move || ischecked.get()
             on:click=handle_click
             on:keydown=handle_keydown
         >
@@ -534,18 +526,12 @@ pub fn DropdownMenuRadioItem(
                 <div class="flex h-4 w-4 items-center justify-center">
                     <div
                         class=move || {
-                            if is_checked.get() {
+                            if ischecked.get() {
                                 "h-2 w-2 rounded-full bg-current"
-                            } else {
-                                "h-2 w-2 rounded-full border border-current"
-                            }
                         }
                         style=move || {
-                            if is_checked.get() {
+                            if ischecked.get() {
                                 "background-color: currentColor;"
-                            } else {
-                                "background-color: transparent;"
-                            }
                         }
                     />
                 </div>
@@ -557,9 +543,6 @@ pub fn DropdownMenuRadioItem(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use std::cell::RefCell;
-    use std::rc::Rc;
     use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
@@ -585,7 +568,7 @@ mod tests {
     }
 
     #[test]
-    fn test_dropdown_menu_trigger_disabled() {
+    fn test_dropdown_menu_triggerdisabled() {
         // Test that the trigger component can be created disabled
     }
 
@@ -610,7 +593,7 @@ mod tests {
     }
 
     #[test]
-    fn test_dropdown_menu_item_disabled() {
+    fn test_dropdown_menu_itemdisabled() {
         // Test that the item component can be created disabled
     }
 
@@ -653,12 +636,12 @@ mod tests {
     }
 
     #[test]
-    fn test_dropdown_menu_checkbox_item_checked() {
+    fn test_dropdown_menu_checkbox_itemchecked() {
         // Test that the checkbox item component can be created checked
     }
 
     #[test]
-    fn test_dropdown_menu_checkbox_item_disabled() {
+    fn test_dropdown_menu_checkbox_itemdisabled() {
         // Test that the checkbox item component can be created disabled
     }
 
@@ -678,12 +661,12 @@ mod tests {
     }
 
     #[test]
-    fn test_dropdown_menu_radio_item_checked() {
+    fn test_dropdown_menu_radio_itemchecked() {
         // Test that the radio item component can be created checked
     }
 
     #[test]
-    fn test_dropdown_menu_radio_item_disabled() {
+    fn test_dropdown_menu_radio_itemdisabled() {
         // Test that the radio item component can be created disabled
     }
 
@@ -706,7 +689,7 @@ mod tests {
 
     #[test]
     fn test_merge_classes_empty() {
-        let result = merge_classes([]);
+        let result = merge_classes(Vec::new());
         assert_eq!(result, "");
     }
 
@@ -733,7 +716,7 @@ mod tests {
     fn test_dropdown_menu_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             // Test that the component can be created with various class and style values
 
         });
@@ -743,7 +726,7 @@ mod tests {
     fn test_dropdown_menu_trigger_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(__class in ".*", _style in ".*", _disabled: bool)| {
+        proptest!(|(____class in ".*", __style in ".*", _disabled: bool)| {
             // Test that the trigger component can be created with various properties
 
         });
@@ -753,7 +736,7 @@ mod tests {
     fn test_dropdown_menu_item_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(__class in ".*", _style in ".*", _disabled: bool)| {
+        proptest!(|(____class in ".*", __style in ".*", _disabled: bool)| {
             // Test that the item component can be created with various properties
 
         });
@@ -763,7 +746,7 @@ mod tests {
     fn test_dropdown_menu_checkbox_item_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(__class in ".*", _style in ".*", _checked: bool, _disabled: bool)| {
+        proptest!(|(____class in ".*", __style in ".*", _checked: bool, _disabled: bool)| {
             // Test that the checkbox item component can be created with various properties
 
         });
@@ -773,7 +756,7 @@ mod tests {
     fn test_dropdown_menu_radio_item_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(__class in ".*", _style in ".*", _value in ".*", _checked: bool, _disabled: bool)| {
+        proptest!(|(____class in ".*", __style in ".*", __value in ".*", _checked: bool, _disabled: bool)| {
             // Test that the radio item component can be created with various properties
 
         });

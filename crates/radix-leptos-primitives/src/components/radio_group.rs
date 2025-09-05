@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Radio Group component with proper accessibility and styling variants
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -80,7 +78,7 @@ pub fn RadioGroup(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let _radio_group_id = generate_id("radio-group");
+    let __radio_group_id = generate_id("radio-group");
 
     // Build data attributes for styling
     let data_variant = variant.as_str();
@@ -142,7 +140,7 @@ pub fn RadioGroupItem(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let _item_id = generate_id(&format!("radio-item-{}", value));
+    let __item_id = generate_id(&format!("radio-item-{}", value));
 
     let base_classes = "radix-radio-group-item";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
@@ -172,12 +170,6 @@ pub fn RadioGroupItem(
             data-value=value
             data-disabled=disabled
             role="radio"
-            tabindex=if disabled { "-1" } else { "0" }
-            aria-checked="false"
-            on:click=handle_click
-            on:keydown=handle_keydown
-        >
-            {children()}
         </div>
     }
 }
@@ -208,7 +200,6 @@ pub fn RadioGroupIndicator(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
 
     // 1. Basic Rendering Tests
@@ -244,7 +235,7 @@ mod tests {
 
     // 2. Props Validation Tests
     #[test]
-    fn test_radio_group_selected_state() {
+    fn test_radio_groupselected_state() {
         run_test(|| {
             let value = Some("option1".to_string());
             let disabled = false;
@@ -274,7 +265,7 @@ mod tests {
     }
 
     #[test]
-    fn test_radio_group_disabled_state() {
+    fn test_radio_groupdisabled_state() {
         run_test(|| {
             let value = Some("option1".to_string());
             let disabled = true;
@@ -364,15 +355,15 @@ mod tests {
         run_test(|| {
             let item_clicked = true;
             let item_value = "option1".to_string();
-            let item_disabled = false;
+            let itemdisabled = false;
             let current_value: Option<String> = None;
 
             assert!(item_clicked);
             assert_eq!(item_value, "option1");
-            assert!(!item_disabled);
+            assert!(!itemdisabled);
             assert!(current_value.is_none());
 
-            if item_clicked && !item_disabled {}
+            if item_clicked && !itemdisabled {}
         });
     }
 
@@ -382,12 +373,12 @@ mod tests {
         run_test(|| {
             let role = "radiogroup";
             let item_role = "radio";
-            let aria_checked = "false";
+            let ariachecked = "false";
             let tabindex = "0";
 
             assert_eq!(role, "radiogroup");
             assert_eq!(item_role, "radio");
-            assert_eq!(aria_checked, "false");
+            assert_eq!(ariachecked, "false");
             assert_eq!(tabindex, "0");
         });
     }
@@ -428,12 +419,12 @@ mod tests {
     proptest! {
         #[test]
         fn test_radio_group_properties(
-            variant in prop::sample::select([
+            variant in prop::sample::select(&[
                 RadioGroupVariant::Default,
                 RadioGroupVariant::Destructive,
                 RadioGroupVariant::Ghost,
             ]),
-            size in prop::sample::select([
+            size in prop::sample::select(&[
                 RadioGroupSize::Default,
                 RadioGroupSize::Sm,
                 RadioGroupSize::Lg,

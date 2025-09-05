@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Form component with proper accessibility and validation
 ///
@@ -17,7 +15,6 @@ use leptos::*;
 /// # Example
 ///
 /// ```rust
-/// use leptos::*;
 /// use radix_leptos_primitives::*;
 ///
 /// #[component]
@@ -209,7 +206,7 @@ pub fn FormField(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let _field_id = generate_id(&format!("field-{}", name));
+    let __field_id = generate_id(&format!("field-{}", name));
 
     let base_classes = "radix-form-field";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
@@ -359,7 +356,6 @@ pub fn FormSubmit(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
 
     // 1. Basic Rendering Tests
@@ -446,12 +442,12 @@ mod tests {
             // Test form field management
             let field_name = "email";
             let field_value = "test@example.com";
-            let is_required = true;
+            let isrequired = true;
 
             // Field should have proper attributes
             assert_eq!(field_name, "email");
             assert_eq!(field_value, "test@example.com");
-            assert!(is_required);
+            assert!(isrequired);
         });
     }
 
@@ -509,13 +505,13 @@ mod tests {
             // Test accessibility logic
             let form_id = "form-123";
             let field_name = "email";
-            let is_required = true;
+            let isrequired = true;
             let has_error = false;
 
             // Form should have proper accessibility attributes
             assert!(!form_id.is_empty());
             assert!(!field_name.is_empty());
-            assert!(is_required);
+            assert!(isrequired);
             assert!(!has_error);
         });
     }
@@ -539,18 +535,18 @@ mod tests {
     proptest! {
         #[test]
         fn test_form_properties(
-            variant in prop::sample::select([
+            variant in prop::sample::select(&[
                 FormVariant::Default,
                 FormVariant::Inline,
                 FormVariant::Stacked,
             ]),
-            size in prop::sample::select([
+            size in prop::sample::select(&[
                 FormSize::Default,
                 FormSize::Sm,
                 FormSize::Lg,
             ]),
             field_name in "[a-zA-Z][a-zA-Z0-9_]*",
-            field__value in ".*"
+            field___value in ".*"
         ) {
             // Property: Form should always render without panicking
             // Property: All variants should have valid string representations

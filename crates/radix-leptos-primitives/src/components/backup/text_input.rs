@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// Text input type enum
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -74,7 +72,7 @@ pub fn TextInput(
     _required: bool,
     /// Whether the input is read-only
     #[prop(optional, default = false)]
-    _readonly: bool,
+    __readonly: bool,
     /// Minimum length for validation
     #[prop(optional)]
     min_length: Option<usize>,
@@ -143,7 +141,7 @@ pub fn TextInputWithLabel(
     _required: bool,
     /// Whether the input is read-only
     #[prop(optional, default = false)]
-    _readonly: bool,
+    __readonly: bool,
     /// Name attribute for form submission
     #[prop(optional)]
     name: Option<String>,
@@ -156,7 +154,7 @@ pub fn TextInputWithLabel(
     /// Child content (label)
     children: Children,
 ) -> impl IntoView {
-    let _input_id = generate_id("text-input");
+    let __input_id = generate_id("text-input");
     
     view! {
         <div style="display: flex; flex-direction: column; gap: 4px;">

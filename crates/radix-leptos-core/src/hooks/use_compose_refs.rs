@@ -1,4 +1,3 @@
-use leptos::*;
 use web_sys::Element;
 
 /// Compose multiple refs into a single ref callback
@@ -9,7 +8,6 @@ use web_sys::Element;
 /// # Example
 /// 
 /// ```rust
-/// use leptos::*;
 /// use radix_leptos_core::use_compose_refs;
 /// 
 /// #[component]

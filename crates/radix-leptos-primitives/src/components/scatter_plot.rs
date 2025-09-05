@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// ScatterPlot component - Correlation analysis
 #[component]
@@ -23,24 +21,6 @@ pub fn ScatterPlot(
 
     let class = merge_classes([
         "scatter-plot",
-        if show_trend_line { "show-trend-line" } else { "" },
-        if show_grid { "show-grid" } else { "" },
-        if show_axes { "show-axes" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="img"
-            aria-label="Scatter plot visualization"
-            data-series-count=data.len()
-            data-show-trend-line=show_trend_line
-            data-show-grid=show_grid
-            data-show-axes=show_axes
-        >
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -59,7 +39,7 @@ impl Default for ScatterSeries {
     fn default() -> Self {
         Self {
             name: "Series".to_string(),
-            data: [],
+            data: Vec::new(),
             color: "#3b82f6".to_string(),
             point_size: 4.0,
             opacity: 1.0,
@@ -285,7 +265,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
     use proptest::prelude::*;
 
@@ -362,25 +341,25 @@ mod tests {
 
     // Property-based Tests
     #[test] fn test_scatterplot_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             
         });
     }
 
     #[test] fn test_scatterplot_data_validation() {
-        proptest!(|(___series_count in 0..10usize, _points_per_series in 0..1000usize)| {
+        proptest!(|(______series_count in 0..10usize, __points_per_series in 0..1000usize)| {
             
         });
     }
 
     #[test] fn test_scatterplot_config_validation() {
-        proptest!(|(__width in 100.0..2000.0f64, _height in 100.0..2000.0f64)| {
+        proptest!(|(____width in 100.0..2000.0f64, __height in 100.0..2000.0f64)| {
             
         });
     }
 
     #[test] fn test_scatterplot_trend_property_based() {
-        proptest!(|(__trend_type_index in 0..4usize)| {
+        proptest!(|(____trend_type_index in 0..4usize)| {
             
         });
     }

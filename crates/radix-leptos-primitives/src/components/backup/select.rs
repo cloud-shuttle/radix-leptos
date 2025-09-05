@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// Select position enum
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -64,7 +62,7 @@ pub fn Select(
     /// Child content (trigger, content, and items)
     children: Children,
 ) -> impl IntoView {
-    let _select_id = generate_id("select");
+    let __select_id = generate_id("select");
     
     // Build base classes
     let base_classes = "radix-select";
@@ -104,7 +102,7 @@ pub fn SelectTrigger(
     /// Child content (trigger content)
     children: Children,
 ) -> impl IntoView {
-    let _trigger_id = generate_id("select-trigger");
+    let __trigger_id = generate_id("select-trigger");
     
     // Build base classes
     let base_classes = "radix-select-trigger";
@@ -179,7 +177,7 @@ pub fn SelectValue(
     /// Child content (value display)
     children: Children,
 ) -> impl IntoView {
-    let _value_id = generate_id("select-value");
+    let __value_id = generate_id("select-value");
     
     // Build base classes
     let base_classes = "radix-select-value";
@@ -213,7 +211,7 @@ pub fn SelectContent(
     /// Child content (select items)
     children: Children,
 ) -> impl IntoView {
-    let _content_id = generate_id("select-content");
+    let __content_id = generate_id("select-content");
     
     // Build base classes
     let base_classes = "radix-select-content";
@@ -255,7 +253,7 @@ pub fn SelectItem(
     /// Child content (item content)
     children: Children,
 ) -> impl IntoView {
-    let _item_id = generate_id("select-item");
+    let __item_id = generate_id("select-item");
     
     // Build base classes
     let base_classes = "radix-select-item";
@@ -308,7 +306,7 @@ pub fn SelectSeparator(
     #[prop(optional)]
     style: Option<String>,
 ) -> impl IntoView {
-    let _separator_id = generate_id("select-separator");
+    let separator_id = generate_id("select-separator");
     
     // Build base classes
     let base_classes = "radix-select-separator";
@@ -337,7 +335,7 @@ pub fn SelectGroup(
     /// Child content (group items)
     children: Children,
 ) -> impl IntoView {
-    let _group_id = generate_id("select-group");
+    let __group_id = generate_id("select-group");
     
     // Build base classes
     let base_classes = "radix-select-group";
@@ -368,7 +366,7 @@ pub fn SelectLabel(
     /// Child content (label content)
     children: Children,
 ) -> impl IntoView {
-    let _label_id = generate_id("select-label");
+    let __label_id = generate_id("select-label");
     
     // Build base classes
     let base_classes = "radix-select-label";

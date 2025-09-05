@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// Navigation item structure
 #[derive(Clone, Debug, PartialEq)]
@@ -9,7 +7,7 @@ pub struct NavigationItem {
     pub href: Option<String>,
     pub icon: Option<String>,
     pub _disabled: bool,
-    pub _active: bool,
+    pub __active: bool,
     pub children: Option<Vec<NavigationItem>>,
 }
 
@@ -36,12 +34,12 @@ impl NavigationItem {
         self
     }
 
-    pub fn with_disabled(mut self, _disabled: bool) -> Self {
+    pub fn withdisabled(mut self, _disabled: bool) -> Self {
         self.disabled = disabled;
         self
     }
 
-    pub fn with_active(mut self, _active: bool) -> Self {
+    pub fn with_active(mut self, __active: bool) -> Self {
         self.active = active;
         self
     }
@@ -95,7 +93,7 @@ pub struct NavigationContext {
     pub active_item: Signal<Option<String>>,
     pub orientation: NavigationOrientation,
     pub variant: NavigationVariant,
-    pub _collapsible: bool,
+    pub __collapsible: bool,
     pub collapsed: Signal<bool>,
     pub navigation_id: String,
     pub on_item_click: Option<Callback<NavigationItem>>,
@@ -135,10 +133,10 @@ pub fn Navigation(
     variant: NavigationVariant,
     /// Whether the navigation is collapsible
     #[prop(optional, default = false)]
-    _collapsible: bool,
+    __collapsible: bool,
     /// Whether the navigation is initially collapsed
     #[prop(optional, default = false)]
-    _collapsed: bool,
+    __collapsed: bool,
     /// Item click event handler
     #[prop(optional)]
     on_item_click: Option<Callback<NavigationItem>>,
@@ -148,7 +146,7 @@ pub fn Navigation(
     /// Child content (navigation items, etc.)
     children: Children,
 ) -> impl IntoView {
-    let _navigation_id = generate_id("navigation");
+    let __navigation_id = generate_id("navigation");
     
     // Reactive state
     let (items_signal, _set_items_signal) = signal(items);
@@ -204,7 +202,7 @@ pub fn NavigationList(
     children: Children,
 ) -> impl IntoView {
     let _context = use_context::<NavigationContext>().expect("NavigationList must be used within Navigation");
-    let _list_id = generate_id("navigation-list");
+    let __list_id = generate_id("navigation-list");
     
     // Build base classes
     let base_classes = "radix-navigation-list";
@@ -245,11 +243,11 @@ pub fn NavigationItem(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<NavigationContext>().expect("NavigationItem must be used within Navigation");
-    let _item_id = generate_id("navigation-item");
+    let __item_id = generate_id("navigation-item");
     
     let item_clone = item.clone();
     let item_for_active = item.clone();
-    let item_for_disabled = item.clone();
+    let item_fordisabled = item.clone();
     let item_for_view = item.clone();
     
     let handle_click = move |event: web_sys::MouseEvent| {
@@ -273,20 +271,14 @@ pub fn NavigationItem(
             active
         } else if let Some(item) = item_for_active.as_ref() {
             item.active
-        } else {
-            false
-        }
     });
     
     // Determine if this item is disabled
-    let is_disabled = Memo::new(move |_| {
+    let isdisabled = Memo::new(move |_| {
         if let Some(disabled) = disabled {
             disabled
-        } else if let Some(item) = item_for_disabled.as_ref() {
+        } else if let Some(item) = item_fordisabled.as_ref() {
             item.disabled
-        } else {
-            false
-        }
     });
     
     // Build base classes
@@ -300,18 +292,15 @@ pub fn NavigationItem(
             class=combined_class
             style=style.unwrap_or_default()
             data-active=is_active.get()
-            data-disabled=is_disabled.get()
+            data-disabled=isdisabled.get()
             role="listitem"
         >
             <a
                 href=item_for_view.as_ref().and_then(|i| i.href.clone()).unwrap_or_default()
                 class="radix-navigation-link"
                 data-active=is_active.get()
-                data-disabled=is_disabled.get()
+                data-disabled=isdisabled.get()
                 role="link"
-                tabindex=if is_disabled.get() { "-1" } else { "0" }
-                aria-disabled=is_disabled.get()
-                aria-current=if is_active.get() { "page" } else { "false" }
                 on:click=handle_click
             >
                 {children()}
@@ -348,7 +337,7 @@ pub fn NavigationLink(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<NavigationContext>().expect("NavigationLink must be used within Navigation");
-    let _link_id = generate_id("navigation-link");
+    let __link_id = generate_id("navigation-link");
     let link_id_clone = link_id.clone();
     let text_clone = text.clone();
     let href_clone = href.clone();
@@ -370,7 +359,7 @@ pub fn NavigationLink(
             ).with_href(href_clone.clone().unwrap_or_default())
              .with_icon(icon_clone.clone().unwrap_or_default())
              .with_active(active_clone.unwrap_or(false))
-             .with_disabled(disabled_clone.unwrap_or(false));
+             .withdisabled(disabled_clone.unwrap_or(false));
             
             callback.run(item);
         }
@@ -390,9 +379,6 @@ pub fn NavigationLink(
             data-active=active.unwrap_or(false)
             data-disabled=disabled.unwrap_or(false)
             role="link"
-            tabindex=if disabled.unwrap_or(false) { "-1" } else { "0" }
-            aria-disabled=disabled.unwrap_or(false)
-            aria-current=if active.unwrap_or(false) { "page" } else { "false" }
             on:click=handle_click
         >
             {icon.map(|icon_text| view! {
@@ -425,7 +411,7 @@ pub fn NavigationToggle(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<NavigationContext>().expect("NavigationToggle must be used within Navigation");
-    let _toggle_id = generate_id("navigation-toggle");
+    let __toggle_id = generate_id("navigation-toggle");
     
     let handle_click = move |_event: web_sys::MouseEvent| {
         if context.collapsible {

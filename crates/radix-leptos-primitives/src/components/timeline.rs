@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Timeline component - Event visualization
 #[component]
@@ -24,8 +22,6 @@ pub fn Timeline(
     let class = merge_classes([
         "timeline",
         &orientation.to_class(),
-        if show_dates { "show-dates" } else { "" },
-        if show_icons { "show-icons" } else { "" },
         class.as_deref().unwrap_or(""),
     ]);
 
@@ -237,21 +233,6 @@ pub fn TimelineDot(
 
     let class = merge_classes([
         "timeline-dot",
-        if filled { "filled" } else { "outline" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="presentation"
-            aria-hidden="true"
-            data-size=size
-            data-color=color
-            data-filled=filled
-        >
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -267,7 +248,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
     use wasm_bindgen_test::*;
 
@@ -388,28 +368,28 @@ mod tests {
     // Property-based Tests
     #[test]
     fn test_timeline_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
 
         });
     }
 
     #[test]
     fn test_timeline_events_validation() {
-        proptest!(|(___event_count in 0..100usize)| {
+        proptest!(|(______event_count in 0..100usize)| {
 
         });
     }
 
     #[test]
     fn test_timeline_config_validation() {
-        proptest!(|(__width in 100.0..2000.0f64, _height in 100.0..2000.0f64)| {
+        proptest!(|(____width in 100.0..2000.0f64, __height in 100.0..2000.0f64)| {
 
         });
     }
 
     #[test]
     fn test_timeline_orientation_property_based() {
-        proptest!(|(__orientation_index in 0..2usize)| {
+        proptest!(|(____orientation_index in 0..2usize)| {
 
         });
     }

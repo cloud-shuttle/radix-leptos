@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// Video size variant
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
@@ -53,16 +51,16 @@ pub fn Video(
     aspect_ratio: VideoAspectRatio,
     /// Whether the video should autoplay
     #[prop(optional, default = false)]
-    _autoplay: bool,
+    __autoplay: bool,
     /// Whether the video should loop
     #[prop(optional, default = false)]
-    _loop_video: bool,
+    __loop_video: bool,
     /// Whether the video should be muted
     #[prop(optional, default = false)]
-    _muted: bool,
+    __muted: bool,
     /// Whether the video should show controls
     #[prop(optional, default = true)]
-    _show_controls: bool,
+    __show_controls: bool,
     /// Whether the video is interactive (clickable)
     #[prop(optional, default = false)]
     _interactive: bool,
@@ -160,13 +158,13 @@ pub fn VideoWithCustomControls(
     aspect_ratio: VideoAspectRatio,
     /// Whether the video should autoplay
     #[prop(optional, default = false)]
-    _autoplay: bool,
+    __autoplay: bool,
     /// Whether the video should loop
     #[prop(optional, default = false)]
-    _loop_video: bool,
+    __loop_video: bool,
     /// Whether the video should be muted
     #[prop(optional, default = false)]
-    _muted: bool,
+    __muted: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -241,13 +239,13 @@ pub fn VideoPlayer(
     aspect_ratio: VideoAspectRatio,
     /// Whether the video should autoplay
     #[prop(optional, default = false)]
-    _autoplay: bool,
+    __autoplay: bool,
     /// Whether the video should loop
     #[prop(optional, default = false)]
-    _loop_video: bool,
+    __loop_video: bool,
     /// Whether the video should be muted
     #[prop(optional, default = false)]
-    _muted: bool,
+    __muted: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,

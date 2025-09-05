@@ -1,4 +1,3 @@
-use leptos::*;
 use std::time::Duration;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
@@ -12,15 +11,14 @@ use web_sys::Element;
 /// # Example
 /// 
 /// ```rust
-/// use leptos::*;
 /// use radix_leptos_core::Presence;
 /// 
 /// #[component]
 /// fn AnimatedDialog() -> impl IntoView {
-///     let (open, set_open) = create_signal(false);
+///     let (open, setopen) = create_signal(false);
 ///     
 ///     view! {
-///         <button on:click=move |_| set_open.set(!open.get())>
+///         <button on:click=move |_| setopen.set(!open.get())>
 ///             "Toggle Dialog"
 ///         </button>
 ///         <Presence present=open>
@@ -38,16 +36,13 @@ pub fn Presence(
     present: Signal<bool>,
     /// Whether to force mount regardless of present state
     #[prop(optional, default = false)]
-    _force_mount: bool,
+    __force_mount: bool,
     /// Content to render with presence control
     children: Children,
 ) -> impl IntoView {
     let (mounted, set_mounted) = create_signal(present.get_untracked() || force_mount);
     let (state, set_state) = create_signal(if present.get_untracked() { 
         PresenceState::Open 
-    } else { 
-        PresenceState::Closed 
-    });
 
     // Create animation context
     let presence_context = PresenceContext {
@@ -121,12 +116,6 @@ pub fn use_presence() -> Option<PresenceContext> {
 pub fn use_presence_state() -> (ReadSignal<bool>, ReadSignal<PresenceState>) {
     if let Some(context) = use_presence() {
         (context.present, context.state)
-    } else {
-        // Fallback when not inside Presence
-        let present = create_signal(true).0;
-        let state = create_signal(PresenceState::Open).0;
-        (present, state)
-    }
 }
 
 /// Utility function to request animation frame
@@ -215,7 +204,6 @@ pub fn PresenceChild(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
     
     wasm_bindgen_test_configure!(run_in_browser);

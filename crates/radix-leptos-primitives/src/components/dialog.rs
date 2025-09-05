@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 use wasm_bindgen::JsCast;
 
 /// Dialog component with proper accessibility and styling variants
@@ -19,21 +17,20 @@ use wasm_bindgen::JsCast;
 /// # Example
 ///
 /// ```rust
-/// use leptos::*;
 /// use radix_leptos_primitives::*;
 ///
 /// #[component]
 /// fn MyComponent() -> impl IntoView {
-///     let (is_open, set_is_open) = create_signal(false);
+///     let (isopen, set_isopen) = create_signal(false);
 ///
 ///     view! {
-///         <Button on_click=move |_| set_is_open.set(true)>
+///         <Button on_click=move |_| set_isopen.set(true)>
 ///             "Open Dialog"
 ///         </Button>
 ///         
 ///         <Dialog
-///             open=is_open
-///             on_open_change=move |open| set_is_open.set(open)
+///             open=isopen
+///             onopen_change=move |open| set_isopen.set(open)
 ///         >
 ///             <DialogContent>
 ///                 <DialogHeader>
@@ -43,7 +40,7 @@ use wasm_bindgen::JsCast;
 ///                     </DialogDescription>
 ///                 </DialogHeader>
 ///                 <DialogFooter>
-///                     <Button on_click=move |_| set_is_open.set(false)>
+///                     <Button on_click=move |_| set_isopen.set(false)>
 ///                         "Close"
 ///                     </Button>
 ///                 </DialogFooter>
@@ -124,11 +121,11 @@ pub fn Dialog(
     style: Option<String>,
     /// Open change event handler
     #[prop(optional)]
-    on_open_change: Option<Callback<bool>>,
+    onopen_change: Option<Callback<bool>>,
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let __dialog_id = generate_id("dialog");
+    let ___dialog_id = generate_id("dialog");
     let title_id = generate_id("dialog-title");
     let description_id = generate_id("dialog-description");
 
@@ -144,8 +141,8 @@ pub fn Dialog(
     // Handle escape key
     let handle_keydown = move |e: web_sys::KeyboardEvent| {
         if e.key() == "Escape" {
-            if let Some(on_open_change) = on_open_change {
-                on_open_change.run(false);
+            if let Some(onopen_change) = onopen_change {
+                onopen_change.run(false);
             }
         }
     };
@@ -155,8 +152,8 @@ pub fn Dialog(
         if let Some(target) = e.target() {
             if let Ok(element) = target.dyn_into::<web_sys::Element>() {
                 if element.class_list().contains("radix-dialog-backdrop") {
-                    if let Some(on_open_change) = on_open_change {
-                        on_open_change.run(false);
+                    if let Some(onopen_change) = onopen_change {
+                        onopen_change.run(false);
                     }
                 }
             }
@@ -165,24 +162,6 @@ pub fn Dialog(
 
     view! {
         <div
-            class=if open { "radix-dialog-overlay" } else { "radix-dialog-overlay hidden" }
-            data-open=open
-            data-variant=data_variant
-            data-size=data_size
-            style=style
-            on:keydown=handle_keydown
-            on:click=handle_backdrop_click
-        >
-            <div class="radix-dialog-backdrop"></div>
-            <div
-                class=combined_class
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby=title_id
-                aria-describedby=description_id
-                tabindex="-1"
-            >
-                {children()}
             </div>
         </div>
     }
@@ -305,7 +284,6 @@ pub fn DialogFooter(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
 
     // 1. Basic Rendering Tests
@@ -341,7 +319,7 @@ mod tests {
 
     // 2. Props Validation Tests
     #[test]
-    fn test_dialog_open_state() {
+    fn test_dialogopen_state() {
         run_test(|| {
             // Test dialog open state logic
             let open = true;
@@ -479,11 +457,11 @@ mod tests {
     proptest! {
         #[test]
         fn test_dialog_properties(
-            variant in prop::sample::select([
+            variant in prop::sample::select(&[
                 DialogVariant::Default,
                 DialogVariant::Destructive,
             ]),
-            size in prop::sample::select([
+            size in prop::sample::select(&[
                 DialogSize::Default,
                 DialogSize::Sm,
                 DialogSize::Lg,

@@ -1,6 +1,5 @@
+use crate::theming::CSSVariables;
 use super::css_variables::CSSVariables;
-use leptos::prelude::*;
-use leptos::*;
 
 /// Theme provider component for managing global theme state
 #[component]
@@ -27,20 +26,17 @@ pub fn ThemeProvider(
     let dark_mode = dark_mode.unwrap_or(false);
     let system_theme = system_theme.unwrap_or(true);
 
-    let (current_theme, set_current_theme) = signal(theme.clone());
-    let (is_dark, set_is_dark) = signal(dark_mode);
+    let (current_theme, setcurrent_theme) = signal(theme.clone());
+    let (isdark, set_isdark) = signal(dark_mode);
     let (system_preference, set_system_preference) = signal(false);
 
     // Apply theme changes
     let apply_theme = move |new_theme: CSSVariables, _dark: bool| {
         let css_vars = if dark {
             CSSVariables::dark_theme()
-        } else {
-            new_theme
-        };
 
-        set_current_theme.set(css_vars.clone());
-        set_is_dark.set(dark);
+        setcurrent_theme.set(css_vars.clone());
+        set_isdark.set(dark);
 
         // Apply CSS variables to document root
         let css_string = css_vars.to_css_string();
@@ -49,39 +45,33 @@ pub fn ThemeProvider(
     };
 
     // Toggle dark mode
-    let toggle_dark_mode = move |_| {
-        let new_dark = !is_dark.get();
-        apply_theme(current_theme.get(), new_dark);
+    let toggledark_mode = move |_| {
+        let newdark = !isdark.get();
+        apply_theme(current_theme.get(), newdark);
     };
 
     // Set theme
     let set_theme = move |new_theme: CSSVariables| {
-        apply_theme(new_theme, is_dark.get());
+        apply_theme(new_theme, isdark.get());
     };
 
     // Set dark mode
-    let set_dark_mode = move |_dark: bool| {
+    let setdark_mode = move |_dark: bool| {
         apply_theme(current_theme.get(), dark);
     };
 
     // Provide theme context
     provide_context(ThemeContext {
         theme: current_theme,
-        is_dark,
+        isdark,
         system_preference,
-        toggle_dark_mode: Callback::new(move |_| toggle_dark_mode(())),
+        toggledark_mode: Callback::new(move |_| toggledark_mode(())),
         set_theme: Callback::new(move |theme| set_theme(theme)),
-        set_dark_mode: Callback::new(move |dark| set_dark_mode(dark)),
+        setdark_mode: Callback::new(move |dark| setdark_mode(dark)),
     });
 
     let class = format!(
         "theme-provider {} {}",
-        if is_dark.get() { "dark" } else { "light" },
-        class.unwrap_or_default()
-    );
-
-    let style = format!(
-        "{} {}",
         current_theme.get().to_css_string(),
         style.unwrap_or_default()
     );
@@ -97,11 +87,11 @@ pub fn ThemeProvider(
 #[derive(Clone)]
 pub struct ThemeContext {
     pub theme: ReadSignal<CSSVariables>,
-    pub is_dark: ReadSignal<bool>,
+    pub isdark: ReadSignal<bool>,
     pub system_preference: ReadSignal<bool>,
-    pub toggle_dark_mode: Callback<()>,
+    pub toggledark_mode: Callback<()>,
     pub set_theme: Callback<CSSVariables>,
-    pub set_dark_mode: Callback<bool>,
+    pub setdark_mode: Callback<bool>,
 }
 
 /// Hook for accessing theme context
@@ -110,18 +100,18 @@ pub fn use_theme() -> Option<ThemeContext> {
 }
 
 /// Hook for toggling dark mode
-pub fn use_toggle_dark_mode() -> Option<Callback<()>> {
-    use_theme().map(|ctx| ctx.toggle_dark_mode)
+pub fn use_toggledark_mode() -> Option<Callback<()>> {
+    use_theme().map(|ctx| ctx.toggledark_mode)
 }
 
 /// Hook for getting current theme
-pub fn use_current_theme() -> Option<ReadSignal<CSSVariables>> {
+pub fn usecurrent_theme() -> Option<ReadSignal<CSSVariables>> {
     use_theme().map(|ctx| ctx.theme)
 }
 
 /// Hook for getting dark mode state
-pub fn use_is_dark() -> Option<ReadSignal<bool>> {
-    use_theme().map(|ctx| ctx.is_dark)
+pub fn use_isdark() -> Option<ReadSignal<bool>> {
+    use_theme().map(|ctx| ctx.isdark)
 }
 
 /// Hook for setting theme
@@ -130,8 +120,8 @@ pub fn use_set_theme() -> Option<Callback<CSSVariables>> {
 }
 
 /// Hook for setting dark mode
-pub fn use_set_dark_mode() -> Option<Callback<bool>> {
-    use_theme().map(|ctx| ctx.set_dark_mode)
+pub fn use_setdark_mode() -> Option<Callback<bool>> {
+    use_theme().map(|ctx| ctx.setdark_mode)
 }
 
 /// Theme toggle button component
@@ -151,13 +141,13 @@ pub fn ThemeToggle(
     style: Option<String>,
 ) -> impl IntoView {
     let theme_context = use_theme();
-    let is_dark = theme_context
+    let isdark = theme_context
         .as_ref()
-        .map(|ctx| ctx.is_dark)
+        .map(|ctx| ctx.isdark)
         .unwrap_or_else(|| signal(false).0);
-    let toggle_dark_mode = theme_context
+    let toggledark_mode = theme_context
         .as_ref()
-        .map(|ctx| ctx.toggle_dark_mode)
+        .map(|ctx| ctx.toggledark_mode)
         .unwrap_or_else(|| Callback::new(|_| {}));
 
     let variant = variant.unwrap_or_else(|| "outline".to_string());
@@ -174,13 +164,7 @@ pub fn ThemeToggle(
         <button
             class=class
             style=style
-            on:click=move |_| toggle_dark_mode.run(())
-            aria-label=move || if is_dark.get() { "Switch to light mode" } else { "Switch to dark mode" }
-        >
-            {move || if is_dark.get() {
-                view! { <span>"☀️"</span> }.into_any()
-            } else {
-                view! { <span>"🌙"</span> }.into_any()
+            on:click=move |_| toggledark_mode.run(())
             }}
         </button>
     }
@@ -212,7 +196,7 @@ pub fn ThemeSelector(
         ]
     });
 
-    let (selected_theme, set_selected_theme) =
+    let (selected_theme, setselected_theme) =
         signal(current_theme.unwrap_or_else(|| "Light".to_string()));
 
     let theme_context = use_theme();
@@ -220,7 +204,7 @@ pub fn ThemeSelector(
 
     let themes_for_closure = themes.clone();
     let handle_theme_change = move |theme_name: String| {
-        set_selected_theme.set(theme_name.clone());
+        setselected_theme.set(theme_name.clone());
 
         if let Some(theme_vars) = themes_for_closure
             .iter()
@@ -261,8 +245,6 @@ pub fn ThemeSelector(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use leptos::prelude::*;
 
     #[test]
     fn test_theme_provider_creation() {
@@ -290,7 +272,7 @@ mod tests {
     }
 
     #[test]
-    fn test_theme_provider_dark_mode() {
+    fn test_theme_providerdark_mode() {
         // Test logic without runtime
         // Test component logic
         let theme_name = "test-theme";

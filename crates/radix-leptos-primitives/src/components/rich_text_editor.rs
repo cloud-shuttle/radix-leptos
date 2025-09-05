@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// RichTextEditor component - WYSIWYG content creation
 #[component]
@@ -22,24 +20,6 @@ pub fn RichTextEditor(
 
     let class = merge_classes([
         "rich-text-editor",
-        if readonly { "readonly" } else { "" },
-        if config.toolbar_visible { "toolbar-visible" } else { "" },
-        if config.markdown_mode { "markdown-mode" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="textbox"
-            aria-label="Rich text editor"
-            contenteditable=!readonly
-            data-placeholder=placeholder
-            data-toolbar-visible=config.toolbar_visible
-            data-markdown-mode=config.markdown_mode
-        >
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -47,19 +27,19 @@ pub fn RichTextEditor(
 /// Rich Text Configuration
 #[derive(Debug, Clone, PartialEq)]
 pub struct RichTextConfig {
-    pub _toolbar_visible: bool,
-    pub _markdown_mode: bool,
-    pub _auto_save: bool,
-    pub _word_wrap: bool,
-    pub _line_numbers: bool,
-    pub _spell_check: bool,
+    pub __toolbarvisible: bool,
+    pub __markdown_mode: bool,
+    pub __auto_save: bool,
+    pub __word_wrap: bool,
+    pub __line_numbers: bool,
+    pub __spell_check: bool,
     pub max_length: Option<usize>,
 }
 
 impl Default for RichTextConfig {
     fn default() -> Self {
         Self {
-            toolbar_visible: true,
+            toolbarvisible: true,
             markdown_mode: false,
             auto_save: false,
             word_wrap: true,
@@ -149,8 +129,6 @@ pub fn ToolbarButton(
 
     let class = merge_classes([
         "toolbar-button",
-        if active { "active" } else { "" },
-        if disabled { "disabled" } else { "" },
         class.as_deref().unwrap_or(""),
     ]);
 
@@ -181,18 +159,6 @@ pub fn EditorContent(
 
     let class = merge_classes([
         "editor-content",
-        if readonly { "readonly" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="textbox"
-            contenteditable=!readonly
-        >
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -241,7 +207,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
     use proptest::prelude::*;
 
@@ -267,7 +232,7 @@ mod tests {
     #[test] fn test_toolbar_creation() { 
     #[test] fn test_toolbar_with_class() { 
     #[test] fn test_toolbar_with_style() { 
-    #[test] fn test_toolbar_visible() { 
+    #[test] fn test_toolbarvisible() { 
     #[test] fn test_toolbar_hidden() { 
     #[test] fn test_toolbar_position() { 
 
@@ -283,7 +248,7 @@ mod tests {
     #[test] fn test_toolbar_button_with_style() { 
     #[test] fn test_toolbar_button_command() { 
     #[test] fn test_toolbar_button_active() { 
-    #[test] fn test_toolbar_button_disabled() { 
+    #[test] fn test_toolbar_buttondisabled() { 
     #[test] fn test_toolbar_button_on_click() { 
 
     // Editor Content tests
@@ -298,7 +263,7 @@ mod tests {
     #[test] fn test_markdown_preview_with_class() { 
     #[test] fn test_markdown_preview_with_style() { 
     #[test] fn test_markdown_preview_content() { 
-    #[test] fn test_markdown_preview_visible() { 
+    #[test] fn test_markdown_previewvisible() { 
     #[test] fn test_markdown_preview_hidden() { 
 
     // Helper function tests
@@ -309,25 +274,25 @@ mod tests {
 
     // Property-based Tests
     #[test] fn test_richtexteditor_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             
         });
     }
 
     #[test] fn test_richtexteditor_content_validation() {
-        proptest!(|(_content in ".*")| {
+        proptest!(|(__content in ".*")| {
             
         });
     }
 
     #[test] fn test_richtexteditor_config_property_based() {
-        proptest!(|(__toolbar_visible: bool, _markdown_mode: bool, _auto_save: bool)| {
+        proptest!(|(____toolbarvisible: bool, __markdown_mode: bool, __auto_save: bool)| {
             
         });
     }
 
     #[test] fn test_richtexteditor_toolbar_property_based() {
-        proptest!(|(__position_index in 0..3usize)| {
+        proptest!(|(____position_index in 0..3usize)| {
             
         });
     }

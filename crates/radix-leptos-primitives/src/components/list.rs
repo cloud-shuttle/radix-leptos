@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// List item information
 #[derive(Clone, Debug, PartialEq)]
@@ -22,17 +20,17 @@ impl<T: Send + Sync + 'static> ListItem<T> {
         }
     }
 
-    pub fn with_disabled(mut self, _disabled: bool) -> Self {
+    pub fn withdisabled(mut self, _disabled: bool) -> Self {
         self.disabled = disabled;
         self
     }
 
-    pub fn with_selected(mut self, _selected: bool) -> Self {
+    pub fn withselected(mut self, _selected: bool) -> Self {
         self.selected = selected;
         self
     }
 
-    pub fn with_focused(mut self, _focused: bool) -> Self {
+    pub fn withfocused(mut self, _focused: bool) -> Self {
         self.focused = focused;
         self
     }
@@ -148,9 +146,9 @@ pub fn List<T: Clone + Send + Sync + 'static>(
 
     // Reactive state
     let (items_signal, _set_items_signal) = signal(items.unwrap_or_default());
-    let (selected_items_signal, _set_selected_items_signal) =
+    let (selected_items_signal, _setselected_items_signal) =
         signal(selected_items.unwrap_or_default());
-    let (focused_item_signal, _set_focused_item_signal) = signal(focused_item);
+    let (focused_item_signal, _setfocused_item_signal) = signal(focused_item);
 
     // Create context
     let context = ListContext {
@@ -223,22 +221,16 @@ pub fn ListItem<T: Clone + Send + Sync + 'static>(
         if let Some(item) = item_clone.clone() {
             if !item.disabled {
                 // Handle selection
-                let mut current_selected = context.selected_items.get();
+                let mut currentselected = context.selected_items.get();
                 let item_id = item.id.clone();
 
                 if context.multi_select {
-                    if current_selected.contains(&item_id) {
-                        current_selected.retain(|id| id != &item_id);
-                    } else {
-                        current_selected.push(item_id);
-                    }
-                } else {
-                    current_selected = [item_id];
-                }
+                    if currentselected.contains(&item_id) {
+                        currentselected.retain(|id| id != &item_id);
 
                 // Call the selection change handler
                 if let Some(callback) = context.on_selection_change.clone() {
-                    callback.run(current_selected);
+                    callback.run(currentselected);
                 }
 
                 // Call the item click handler
@@ -258,41 +250,32 @@ pub fn ListItem<T: Clone + Send + Sync + 'static>(
         }
     };
 
-    let item_for_current = item.clone();
-    let item_for_disabled = item.clone();
-    let item_for_selected = item.clone();
+    let item_forcurrent = item.clone();
+    let item_fordisabled = item.clone();
+    let item_forselected = item.clone();
 
     // Determine if this item is current
-    let is_current = Memo::new(move |_| {
+    let iscurrent = Memo::new(move |_| {
         if let Some(focused) = focused {
             focused
-        } else if let Some(item) = item_for_current.as_ref() {
+        } else if let Some(item) = item_forcurrent.as_ref() {
             item.focused
-        } else {
-            false
-        }
     });
 
     // Determine if this item is disabled
-    let is_disabled = Memo::new(move |_| {
+    let isdisabled = Memo::new(move |_| {
         if let Some(disabled) = disabled {
             disabled
-        } else if let Some(item) = item_for_disabled.as_ref() {
+        } else if let Some(item) = item_fordisabled.as_ref() {
             item.disabled
-        } else {
-            false
-        }
     });
 
     // Determine if this item is selected
-    let is_selected = Memo::new(move |_| {
+    let isselected = Memo::new(move |_| {
         if let Some(selected) = selected {
             selected
-        } else if let Some(item) = item_for_selected.as_ref() {
+        } else if let Some(item) = item_forselected.as_ref() {
             item.selected
-        } else {
-            false
-        }
     });
 
     // Build base classes
@@ -305,14 +288,10 @@ pub fn ListItem<T: Clone + Send + Sync + 'static>(
             id=item_id
             class=combined_class
             style=style.unwrap_or_default()
-            data-disabled=is_disabled.get()
-            data-selected=is_selected.get()
-            data-current=is_current.get()
+            data-disabled=isdisabled.get()
+            data-selected=isselected.get()
+            data-current=iscurrent.get()
             role="option"
-            tabindex=if is_disabled.get() { "-1" } else { "0" }
-            aria-disabled=is_disabled.get()
-            aria-selected=is_selected.get()
-            aria-current=if is_current.get() { "true" } else { "false" }
             on:click=handle_click
             on:focus=handle_focus
         >
@@ -417,9 +396,6 @@ pub fn ListEmpty(
                 view! {
                     <span class="radix-list-empty-message">{msg}</span>
                 }
-            } else {
-                view! {
-                    <span class="radix-list-empty-message">{"No items found".to_string()}</span>
                 }
             }}
             {children()}
@@ -462,9 +438,6 @@ pub fn ListLoading(
                 view! {
                     <span class="radix-list-loading-message">{msg}</span>
                 }
-            } else {
-                view! {
-                    <span class="radix-list-loading-message">{"Loading...".to_string()}</span>
                 }
             }}
             {children()}
@@ -478,11 +451,11 @@ pub fn create_list_item<T: Send + Sync + 'static>(id: &str, data: T) -> ListItem
 }
 
 /// Helper function to create a disabled list item
-pub fn create_disabled_list_item<T: Send + Sync + 'static>(id: &str, data: T) -> ListItem<T> {
-    ListItem::new(id.to_string(), data).with_disabled(true)
+pub fn createdisabled_list_item<T: Send + Sync + 'static>(id: &str, data: T) -> ListItem<T> {
+    ListItem::new(id.to_string(), data).withdisabled(true)
 }
 
 /// Helper function to create a selected list item
-pub fn create_selected_list_item<T: Send + Sync + 'static>(id: &str, data: T) -> ListItem<T> {
-    ListItem::new(id.to_string(), data).with_selected(true)
+pub fn createselected_list_item<T: Send + Sync + 'static>(id: &str, data: T) -> ListItem<T> {
+    ListItem::new(id.to_string(), data).withselected(true)
 }

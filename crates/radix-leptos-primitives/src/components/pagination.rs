@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Pagination page information
 #[derive(Clone, Debug, PartialEq)]
@@ -25,12 +23,12 @@ impl PaginationPage {
         self
     }
 
-    pub fn with_disabled(mut self, _disabled: bool) -> Self {
+    pub fn withdisabled(mut self, _disabled: bool) -> Self {
         self.disabled = disabled;
         self
     }
 
-    pub fn with_current(mut self, _current: bool) -> Self {
+    pub fn withcurrent(mut self, _current: bool) -> Self {
         self.current = current;
         self
     }
@@ -109,19 +107,19 @@ fn merge_classes(existing: Option<&str>, additional: Option<&str>) -> Option<Str
 fn calculate_page_range(
     current_page: usize,
     total_pages: usize,
-    max_visible: usize,
+    maxvisible: usize,
 ) -> (usize, usize) {
-    if total_pages <= max_visible {
+    if total_pages <= maxvisible {
         return (1, total_pages);
     }
 
-    let half_visible = max_visible / 2;
-    let mut start = current_page.saturating_sub(half_visible);
-    let mut end = start + max_visible - 1;
+    let halfvisible = maxvisible / 2;
+    let mut start = current_page.saturating_sub(halfvisible);
+    let mut end = start + maxvisible - 1;
 
     if end > total_pages {
         end = total_pages;
-        start = end.saturating_sub(max_visible - 1);
+        start = end.saturating_sub(maxvisible - 1);
     }
 
     (start, end)
@@ -169,7 +167,7 @@ pub fn Pagination(
     let pagination_id = generate_id("pagination");
 
     // Reactive state
-    let (current_page_signal, _set_current_page_signal) = signal(current_page);
+    let (current_page_signal, _setcurrent_page_signal) = signal(current_page);
     let total_items_calculated = total_items.unwrap_or_else(|| total_pages * page_size);
 
     // Create context
@@ -288,29 +286,23 @@ pub fn PaginationItem(
         }
     };
 
-    let page_for_current = page.clone();
-    let page_for_disabled = page.clone();
+    let page_forcurrent = page.clone();
+    let page_fordisabled = page.clone();
 
     // Determine if this item is current
-    let is_current = Memo::new(move |_| {
+    let iscurrent = Memo::new(move |_| {
         if let Some(current) = current {
             current
-        } else if let Some(page) = page_for_current.as_ref() {
+        } else if let Some(page) = page_forcurrent.as_ref() {
             page.current
-        } else {
-            false
-        }
     });
 
     // Determine if this item is disabled
-    let is_disabled = Memo::new(move |_| {
+    let isdisabled = Memo::new(move |_| {
         if let Some(disabled) = disabled {
             disabled
-        } else if let Some(page) = page_for_disabled.as_ref() {
+        } else if let Some(page) = page_fordisabled.as_ref() {
             page.disabled
-        } else {
-            false
-        }
     });
 
     // Build base classes
@@ -323,19 +315,16 @@ pub fn PaginationItem(
             id=item_id
             class=combined_class
             style=style.unwrap_or_default()
-            data-current=is_current.get()
-            data-disabled=is_disabled.get()
+            data-current=iscurrent.get()
+            data-disabled=isdisabled.get()
             role="listitem"
         >
             <button
                 class="radix-pagination-button"
-                data-current=is_current.get()
-                data-disabled=is_disabled.get()
+                data-current=iscurrent.get()
+                data-disabled=isdisabled.get()
                 type="button"
                 role="button"
-                tabindex=if is_disabled.get() { "-1" } else { "0" }
-                aria-disabled=is_disabled.get()
-                aria-current=if is_current.get() { "page" } else { "false" }
                 on:click=handle_click
             >
                 {children()}
@@ -377,7 +366,7 @@ pub fn PaginationFirst(
         }
     };
 
-    let is_disabled = Memo::new(move |_| context.current_page.get() <= 1);
+    let isdisabled = Memo::new(move |_| context.current_page.get() <= 1);
 
     // Build base classes
     let base_classes = "radix-pagination-first";
@@ -389,21 +378,14 @@ pub fn PaginationFirst(
             id=first_id
             class=combined_class
             style=style.unwrap_or_default()
-            data-disabled=is_disabled.get()
+            data-disabled=isdisabled.get()
             role="listitem"
         >
             <button
                 class="radix-pagination-button"
-                data-disabled=is_disabled.get()
+                data-disabled=isdisabled.get()
                 type="button"
                 role="button"
-                tabindex=if is_disabled.get() { "-1" } else { "0" }
-                aria-disabled=is_disabled.get()
-                aria-label="Go to first page"
-                on:click=handle_click
-            >
-                {icon.map(|icon_text| view! {
-                    <span class="radix-pagination-icon">{icon_text}</span>
                 })}
                 {text.map(|button_text| view! {
                     <span class="radix-pagination-text">{button_text}</span>
@@ -448,7 +430,7 @@ pub fn PaginationPrevious(
         }
     };
 
-    let is_disabled = Memo::new(move |_| context.current_page.get() <= 1);
+    let isdisabled = Memo::new(move |_| context.current_page.get() <= 1);
 
     // Build base classes
     let base_classes = "radix-pagination-previous";
@@ -460,21 +442,14 @@ pub fn PaginationPrevious(
             id=prev_id
             class=combined_class
             style=style.unwrap_or_default()
-            data-disabled=is_disabled.get()
+            data-disabled=isdisabled.get()
             role="listitem"
         >
             <button
                 class="radix-pagination-button"
-                data-disabled=is_disabled.get()
+                data-disabled=isdisabled.get()
                 type="button"
                 role="button"
-                tabindex=if is_disabled.get() { "-1" } else { "0" }
-                aria-disabled=is_disabled.get()
-                aria-label="Go to previous page"
-                on:click=handle_click
-            >
-                {icon.map(|icon_text| view! {
-                    <span class="radix-pagination-icon">{icon_text}</span>
                 })}
                 {text.map(|button_text| view! {
                     <span class="radix-pagination-text">{button_text}</span>
@@ -519,7 +494,7 @@ pub fn PaginationNext(
         }
     };
 
-    let is_disabled = Memo::new(move |_| context.current_page.get() >= context.total_pages);
+    let isdisabled = Memo::new(move |_| context.current_page.get() >= context.total_pages);
 
     // Build base classes
     let base_classes = "radix-pagination-next";
@@ -531,21 +506,14 @@ pub fn PaginationNext(
             id=next_id
             class=combined_class
             style=style.unwrap_or_default()
-            data-disabled=is_disabled.get()
+            data-disabled=isdisabled.get()
             role="listitem"
         >
             <button
                 class="radix-pagination-button"
-                data-disabled=is_disabled.get()
+                data-disabled=isdisabled.get()
                 type="button"
                 role="button"
-                tabindex=if is_disabled.get() { "-1" } else { "0" }
-                aria-disabled=is_disabled.get()
-                aria-label="Go to next page"
-                on:click=handle_click
-            >
-                {icon.map(|icon_text| view! {
-                    <span class="radix-pagination-icon">{icon_text}</span>
                 })}
                 {text.map(|button_text| view! {
                     <span class="radix-pagination-text">{button_text}</span>
@@ -589,7 +557,7 @@ pub fn PaginationLast(
         }
     };
 
-    let is_disabled = Memo::new(move |_| context.current_page.get() >= context.total_pages);
+    let isdisabled = Memo::new(move |_| context.current_page.get() >= context.total_pages);
 
     // Build base classes
     let base_classes = "radix-pagination-last";
@@ -601,21 +569,14 @@ pub fn PaginationLast(
             id=last_id
             class=combined_class
             style=style.unwrap_or_default()
-            data-disabled=is_disabled.get()
+            data-disabled=isdisabled.get()
             role="listitem"
         >
             <button
                 class="radix-pagination-button"
-                data-disabled=is_disabled.get()
+                data-disabled=isdisabled.get()
                 type="button"
                 role="button"
-                tabindex=if is_disabled.get() { "-1" } else { "0" }
-                aria-disabled=is_disabled.get()
-                aria-label="Go to last page"
-                on:click=handle_click
-            >
-                {icon.map(|icon_text| view! {
-                    <span class="radix-pagination-icon">{icon_text}</span>
                 })}
                 {text.map(|button_text| view! {
                     <span class="radix-pagination-text">{button_text}</span>
@@ -729,13 +690,6 @@ pub fn PaginationInfo(
                 view! {
                     <span class="radix-pagination-info-text">{info_text}</span>
                 }
-            } else {
-                let start = start_item.get();
-                let end = end_item.get();
-                let total = total_items;
-                view! {
-                    <span class="radix-pagination-info-text">
-                        {format!("Showing {} to {} of {} results", start, end, total)}
                     </span>
                 }
             }}
@@ -778,34 +732,34 @@ pub fn PaginationContent(
 pub fn generate_page_numbers(
     current_page: usize,
     total_pages: usize,
-    max_visible: usize,
+    maxvisible: usize,
 ) -> Vec<PaginationPage> {
-    if total_pages <= max_visible {
+    if total_pages <= maxvisible {
         return (1..=total_pages)
-            .map(|page| PaginationPage::new(page).with_current(page == current_page))
+            .map(|page| PaginationPage::new(page).withcurrent(page == current_page))
             .collect();
     }
 
-    let (start, end) = calculate_page_range(current_page, total_pages, max_visible);
+    let (start, end) = calculate_page_range(current_page, total_pages, maxvisible);
     let mut pages = Vec::new();
 
     // Add first page if not in range
     if start > 1 {
         pages.push(PaginationPage::new(1));
         if start > 2 {
-            pages.push(PaginationPage::new(0).with_disabled(true)); // Placeholder for ellipsis
+            pages.push(PaginationPage::new(0).withdisabled(true)); // Placeholder for ellipsis
         }
     }
 
     // Add visible pages
     for page in start..=end {
-        pages.push(PaginationPage::new(page).with_current(page == current_page));
+        pages.push(PaginationPage::new(page).withcurrent(page == current_page));
     }
 
     // Add last page if not in range
     if end < total_pages {
         if end < total_pages - 1 {
-            pages.push(PaginationPage::new(0).with_disabled(true)); // Placeholder for ellipsis
+            pages.push(PaginationPage::new(0).withdisabled(true)); // Placeholder for ellipsis
         }
         pages.push(PaginationPage::new(total_pages));
     }
@@ -816,16 +770,16 @@ pub fn generate_page_numbers(
 /// Helper function to generate page numbers for pagination
 /// This function returns a vector of page numbers that should be displayed
 /// It handles ellipsis for large page counts
-pub fn get_visible_page_numbers(
+pub fn getvisible_page_numbers(
     current_page: usize,
     total_pages: usize,
-    max_visible: usize,
+    maxvisible: usize,
 ) -> Vec<usize> {
-    if total_pages <= max_visible {
+    if total_pages <= maxvisible {
         return (1..=total_pages).collect();
     }
 
-    let (start, end) = calculate_page_range(current_page, total_pages, max_visible);
+    let (start, end) = calculate_page_range(current_page, total_pages, maxvisible);
     let mut pages = Vec::new();
 
     // Add first page if not in range
@@ -854,7 +808,6 @@ pub fn get_visible_page_numbers(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
     use wasm_bindgen_test::*;
 
@@ -919,8 +872,8 @@ mod tests {
         #[test]
         fn test_pagination_properties(
             _current_page in 1..100usize,
-            _total_pages in 1..100usize,
-            _page_size in 1..50usize
+            __total_pages in 1..100usize,
+            __page_size in 1..50usize
         ) {
             // Property: current_page should never exceed total_pages
             prop_assume!(current_page <= total_pages);

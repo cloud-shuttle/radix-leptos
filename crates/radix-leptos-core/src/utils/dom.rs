@@ -13,7 +13,7 @@ pub fn is_focusable(element: &Element) -> bool {
     // Check if element is potentially focusable
     if is_potentially_focusable(element) {
         // Check if element is not disabled and not hidden
-        return !is_disabled(element) && !is_hidden(element);
+        return !isdisabled(element) && !is_hidden(element);
     }
 
     false
@@ -38,7 +38,7 @@ fn is_potentially_focusable(element: &Element) -> bool {
 }
 
 /// Check if an element is disabled
-fn is_disabled(element: &Element) -> bool {
+fn isdisabled(element: &Element) -> bool {
     element.has_attribute("disabled")
         || element.get_attribute("aria-disabled").as_deref() == Some("true")
 }
@@ -81,7 +81,6 @@ pub fn get_last_focusable(container: &Element) -> Option<Element> {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);

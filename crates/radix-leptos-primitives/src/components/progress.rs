@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Progress component with proper accessibility and styling variants
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -82,7 +80,7 @@ pub fn Progress(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let _progress_id = generate_id("progress");
+    let __progress_id = generate_id("progress");
 
     // Build data attributes for styling
     let data_variant = variant.as_str();
@@ -96,9 +94,6 @@ pub fn Progress(
     // Calculate percentage for visual representation
     let percentage = if max > 0.0 && !indeterminate {
         (value / max * 100.0).clamp(0.0, 100.0)
-    } else {
-        0.0
-    };
 
     view! {
         <div
@@ -113,10 +108,6 @@ pub fn Progress(
             role="progressbar"
             aria-valuemin=0.0
             aria-valuemax=max
-            aria-valuenow=if indeterminate { None } else { Some(value) }
-            aria-label="Progress"
-        >
-            {children()}
         </div>
     }
 }
@@ -169,7 +160,6 @@ pub fn ProgressIndicator(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
 
     // 1. Basic Rendering Tests
@@ -205,7 +195,7 @@ mod tests {
     fn test_progress_default_values() {
         run_test(|| {
             let value = 0.0;
-            let max = 100.0;
+            let _max = 100.0;
             let indeterminate = false;
             let variant = ProgressVariant::Default;
             let size = ProgressSize::Default;
@@ -222,7 +212,7 @@ mod tests {
     fn test_progress_custom_values() {
         run_test(|| {
             let value = 50.0;
-            let max = 200.0;
+            let _max = 200.0;
             let indeterminate = false;
             let variant = ProgressVariant::Success;
             let size = ProgressSize::Lg;
@@ -236,10 +226,10 @@ mod tests {
     }
 
     #[test]
-    fn test_progress_indeterminate_state() {
+    fn test_progressindeterminate_state() {
         run_test(|| {
             let value = 0.0;
-            let max = 100.0;
+            let _max = 100.0;
             let indeterminate = true;
             let variant = ProgressVariant::Warning;
             let size = ProgressSize::Sm;
@@ -257,15 +247,12 @@ mod tests {
     fn test_progress_value_calculation() {
         run_test(|| {
             let value = 50.0;
-            let max = 100.0;
+            let _max = 100.0;
             let indeterminate = false;
 
             // Test percentage calculation
             let percentage = if max > 0.0 && !indeterminate {
                 (value / max * 100.0f64).clamp(0.0f64, 100.0f64)
-            } else {
-                0.0
-            };
 
             assert_eq!(percentage, 50.0);
         });
@@ -274,7 +261,7 @@ mod tests {
     #[test]
     fn test_progress_value_bounds() {
         run_test(|| {
-            let max = 100.0;
+            let _max = 100.0;
             let indeterminate = false;
 
             // Test value clamping
@@ -284,21 +271,12 @@ mod tests {
 
             let percentage_below = if max > 0.0 && !indeterminate {
                 (value_below_min / max * 100.0f64).clamp(0.0f64, 100.0f64)
-            } else {
-                0.0
-            };
 
             let percentage_above = if max > 0.0 && !indeterminate {
                 (value_above_max / max * 100.0f64).clamp(0.0f64, 100.0f64)
-            } else {
-                0.0
-            };
 
             let percentage_in_range = if max > 0.0 && !indeterminate {
                 (value_in_range / max * 100.0f64).clamp(0.0f64, 100.0f64)
-            } else {
-                0.0
-            };
 
             assert_eq!(percentage_below, 0.0);
             assert_eq!(percentage_above, 100.0);
@@ -308,35 +286,28 @@ mod tests {
 
     // 4. Indeterminate State Tests
     #[test]
-    fn test_progress_indeterminate_calculation() {
+    fn test_progressindeterminate_calculation() {
         run_test(|| {
             let value = 50.0;
-            let max = 100.0;
+            let _max = 100.0;
             let indeterminate = true;
 
             // Test percentage calculation for indeterminate state
             let percentage = if max > 0.0 && !indeterminate {
                 (value / max * 100.0f64).clamp(0.0f64, 100.0f64)
-            } else {
-                0.0
-            };
 
             assert_eq!(percentage, 0.0);
         });
     }
 
     #[test]
-    fn test_progress_indeterminate_aria() {
+    fn test_progressindeterminate_aria() {
         run_test(|| {
             let value = 50.0;
-            let max = 100.0;
+            let _max = 100.0;
             let indeterminate = true;
 
             // Test ARIA attributes for indeterminate state
-            let aria_valuenow = if indeterminate { None } else { Some(value) };
-
-            assert!(aria_valuenow.is_none());
-        });
     }
 
     // 5. Accessibility Tests
@@ -363,14 +334,11 @@ mod tests {
         run_test(|| {
             // Test zero max value
             let value = 50.0;
-            let max = 0.0;
+            let _max = 0.0;
             let indeterminate = false;
 
             let percentage = if max > 0.0 && !indeterminate {
                 (value / max * 100.0f64).clamp(0.0f64, 100.0f64)
-            } else {
-                0.0
-            };
 
             assert_eq!(percentage, 0.0);
         });
@@ -380,14 +348,11 @@ mod tests {
     fn test_progress_negative_values() {
         run_test(|| {
             let value = -25.0;
-            let max = 100.0;
+            let _max = 100.0;
             let indeterminate = false;
 
             let percentage = if max > 0.0 && !indeterminate {
                 (value / max * 100.0f64).clamp(0.0f64, 100.0f64)
-            } else {
-                0.0
-            };
 
             assert_eq!(percentage, 0.0);
         });
@@ -397,14 +362,11 @@ mod tests {
     fn test_progress_completion_state() {
         run_test(|| {
             let value = 100.0;
-            let max = 100.0;
+            let _max = 100.0;
             let indeterminate = false;
 
             let percentage = if max > 0.0 && !indeterminate {
                 (value / max * 100.0f64).clamp(0.0f64, 100.0f64)
-            } else {
-                0.0
-            };
 
             assert_eq!(percentage, 100.0);
         });
@@ -414,19 +376,19 @@ mod tests {
     proptest! {
         #[test]
         fn test_progress_properties(
-            variant in prop::sample::select([
+            variant in prop::sample::select(&[
                 ProgressVariant::Default,
                 ProgressVariant::Destructive,
                 ProgressVariant::Success,
                 ProgressVariant::Warning,
             ]),
-            size in prop::sample::select([
+            size in prop::sample::select(&[
                 ProgressSize::Default,
                 ProgressSize::Sm,
                 ProgressSize::Lg,
             ]),
             value in -100.0..1000.0f64,
-            _max in 0.1..1000.0f64,
+            __max in 0.1..1000.0f64,
             indeterminate in prop::bool::ANY
         ) {
             assert!(!variant.as_str().is_empty());
@@ -438,18 +400,10 @@ mod tests {
             // Test percentage calculation
             let percentage = if max > 0.0 && !indeterminate {
                 (value / max * 100.0f64).clamp(0.0f64, 100.0f64)
-            } else {
-                0.0
-            };
 
             assert!(percentage >= 0.0 && percentage <= 100.0);
 
             // Test ARIA attributes
-            let aria_valuenow = if indeterminate { None } else { Some(value) };
-
-            if indeterminate {
-                assert!(aria_valuenow.is_none());
-            } else {
                 assert!(aria_valuenow.is_some());
             }
         }

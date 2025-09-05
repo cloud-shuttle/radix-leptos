@@ -3,8 +3,8 @@
 
 #[cfg(test)]
 #[allow(clippy::module_inception)]
+#[allow(clippy::module_inception)]
 mod integration_tests {
-    use super::*;
     use crate::theming::{
         BreakpointSystem, ButtonVariants, CSSVariables, ContainerSystem, FlexboxSystem, GridSystem,
         InputVariants, LayoutSystem, PrebuiltThemes, Size, SpacingSystem,
@@ -22,7 +22,7 @@ mod integration_tests {
         test_theme_provider_integration();
 
         // Test Dark Mode
-        test_dark_mode_integration();
+        testdark_mode_integration();
 
         // Test Size Variants
         test_size_variants_integration();
@@ -101,7 +101,7 @@ mod integration_tests {
         println!("    ✅ Theme Provider integration test passed");
     }
 
-    fn test_dark_mode_integration() {
+    fn testdark_mode_integration() {
         println!("  📋 Testing Dark Mode...");
 
         // Test dark theme creation
@@ -122,13 +122,10 @@ mod integration_tests {
 
         // Test theme switching logic
         let current_theme = light_theme.clone();
-        let is_dark = false;
+        let isdark = false;
 
-        let new_theme = if is_dark {
+        let new_theme = if isdark {
             CSSVariables::dark_theme()
-        } else {
-            current_theme
-        };
 
         assert_eq!(new_theme, light_theme);
 

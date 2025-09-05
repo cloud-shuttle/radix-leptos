@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 use std::collections::HashMap;
 use std::sync::Arc;
 use std::time::Duration;
@@ -37,17 +35,6 @@ pub fn OptimizedLazyLoading(
 
     let class = format!(
         "optimized-lazy-loading {} {}",
-        if enabled { "enabled" } else { "disabled" },
-        class.unwrap_or_default()
-    );
-
-    let style = style.unwrap_or_default();
-
-    let handle_intersect = move |_: web_sys::Event| {
-        if enabled {
-            if let Some(callback) = on_intersect {
-                callback.run(());
-            }
         }
     };
 
@@ -68,7 +55,7 @@ pub fn OptimizedLazyImage(
     /// Placeholder image URL
     #[prop(optional)] placeholder: Option<String>,
     /// Whether to show loading spinner
-    #[prop(optional)] show_loading: Option<bool>,
+    #[prop(optional)] showloading: Option<bool>,
     /// Whether to show error state
     #[prop(optional)] show_error: Option<bool>,
     /// Image width
@@ -87,7 +74,7 @@ pub fn OptimizedLazyImage(
     let src = src.unwrap_or_default();
     let alt = alt.unwrap_or_default();
     let placeholder = placeholder.unwrap_or_default();
-    let show_loading = show_loading.unwrap_or(true);
+    let showloading = showloading.unwrap_or(true);
     let show_error = show_error.unwrap_or(true);
     let width = width.unwrap_or_else(|| "100%".to_string());
     let height = height.unwrap_or_else(|| "auto".to_string());
@@ -129,12 +116,10 @@ pub fn OptimizedLazyImage(
                         class="placeholder"
                     />
                 }.into_any()
-            } else if show_loading {
+            } else if showloading {
                 view! {
                     <div class="loading-spinner">"Loading..."</div>
                 }.into_any()
-            } else {
-                view! { <></> }.into_any()
             }}
         </div>
     }
@@ -175,18 +160,6 @@ pub fn OptimizedLazyContent(
 
     let class = format!(
         "optimized-lazy-content {} {} {}",
-        if loaded { "loaded" } else { "not-loaded" },
-        if loading { "loading" } else { "" },
-        if error { "error" } else { "" },
-    );
-
-    let style = style.unwrap_or_default();
-
-    let handle_load = move |_: web_sys::Event| {
-        if !loaded && !loading {
-            if let Some(callback) = on_load {
-                callback.run(());
-            }
         }
     };
 
@@ -199,9 +172,7 @@ pub fn OptimizedLazyContent(
             } else if loading {
                 view! {
                     <div class="loading">
-                        {if let Some(_loading_comp) = loading_component {
-                            view! { <div class="default-loading">"Loading..."</div> }
-                        } else {
+                        {if let Some(loading_comp) = loading_component {
                             view! { <div class="default-loading">"Loading..."</div> }
                         }}
                     </div>
@@ -211,13 +182,9 @@ pub fn OptimizedLazyContent(
                     <div class="error">
                         {if let Some(_error_comp) = error_component {
                             view! { <div class="default-error">"Failed to load content"</div> }
-                        } else {
-                            view! { <div class="default-error">"Failed to load content"</div> }
                         }}
                     </div>
                 }.into_any()
-            } else {
-                view! { <></> }.into_any()
             }}
             {children.map(|c| c())}
         </div>
@@ -254,8 +221,6 @@ pub fn OptimizedLazyList(
 
     let class = format!(
         "optimized-lazy-list {} {}",
-        if loading { "loading" } else { "" },
-        if has_more { "has-more" } else { "no-more" },
     );
 
     let style = style.unwrap_or_default();
@@ -275,22 +240,15 @@ pub fn OptimizedLazyList(
                     (0..loaded_items).map(|_index| {
                         view! { <div class="lazy-item">"Item"</div> }
                     }).collect::<Vec<_>>()
-                } else {
-                    []
-                }}
             </div>
             {if has_more {
                 view! {
                     <div class="lazy-list-load-more" on:intersect=handle_load_more>
                         {if loading {
                             view! { <div class="loading">"Loading more items..."</div> }.into_any()
-                        } else {
-                            view! { <div class="load-more-trigger">"Load more"</div> }.into_any()
                         }}
                     </div>
                 }.into_any()
-            } else {
-                view! { <></> }.into_any()
             }}
         </div>
     }
@@ -368,12 +326,10 @@ pub fn OptimizedLazyLoadingProvider(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use leptos::prelude::*;
 
     // Component structure tests
     #[test]
-    fn test_optimized_lazy_loading_component_creation() {
+    fn test_optimized_lazyloading_component_creation() {
         let runtime = create_runtime();
         let view = view! {
             <OptimizedLazyLoading>
@@ -415,7 +371,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lazy_loading_manager_component_creation() {
+    fn test_lazyloading_manager_component_creation() {
         let runtime = create_runtime();
         let view = view! {
             <LazyLoadingManager>
@@ -427,7 +383,7 @@ mod tests {
     }
 
     #[test]
-    fn test_optimized_lazy_loading_hook_component_creation() {
+    fn test_optimized_lazyloading_hook_component_creation() {
         let runtime = create_runtime();
         let view = view! {
             <OptimizedLazyLoadingHook />
@@ -437,7 +393,7 @@ mod tests {
     }
 
     #[test]
-    fn test_optimized_lazy_loading_provider_component_creation() {
+    fn test_optimized_lazyloading_provider_component_creation() {
         let runtime = create_runtime();
         let view = view! {
             <OptimizedLazyLoadingProvider>
@@ -450,7 +406,7 @@ mod tests {
 
     // Props and state tests
     #[test]
-    fn test_optimized_lazy_loading_props_handling() {
+    fn test_optimized_lazyloading_props_handling() {
         let runtime = create_runtime();
         let view = view! {
             <OptimizedLazyLoading 
@@ -475,7 +431,7 @@ mod tests {
                 src="https://example.com/image.jpg"
                 alt="Test image"
                 placeholder="https://example.com/placeholder.jpg"
-                show_loading=true
+                showloading=true
                 show_error=true
                 width="300px"
                 height="200px"
@@ -517,7 +473,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lazy_loading_manager_props_handling() {
+    fn test_lazyloading_manager_props_handling() {
         let runtime = create_runtime();
         let view = view! {
             <LazyLoadingManager 
@@ -535,11 +491,11 @@ mod tests {
 
     // Performance tests
     #[test]
-    fn test_optimized_lazy_loading_performance() {
+    fn test_optimized_lazyloading_performance() {
         let runtime = create_runtime();
         let start = std::time::Instant::now();
         
-        for __ in 0..1000 {
+        for ___ in 0..1000 {
             let _ = view! {
                 <OptimizedLazyLoading>
                     <div>"Performance test"</div>
@@ -557,7 +513,7 @@ mod tests {
         let runtime = create_runtime();
         let start = std::time::Instant::now();
         
-        for __ in 0..1000 {
+        for ___ in 0..1000 {
             let _ = view! {
                 <OptimizedLazyImage src="test.jpg" alt="Test" />
             };
@@ -573,7 +529,7 @@ mod tests {
         let runtime = create_runtime();
         let start = std::time::Instant::now();
         
-        for __ in 0..1000 {
+        for ___ in 0..1000 {
             let _ = view! {
                 <OptimizedLazyContent content="<p>Test</p>" />
             };
@@ -589,7 +545,7 @@ mod tests {
         let runtime = create_runtime();
         let start = std::time::Instant::now();
         
-        for __ in 0..100 {
+        for ___ in 0..100 {
             let _ = view! {
                 <OptimizedLazyList total_items=1000 batch_size=50 />
             };
@@ -602,7 +558,7 @@ mod tests {
 
     // Integration tests
     #[test]
-    fn test_optimized_lazy_loading_integration() {
+    fn test_optimized_lazyloading_integration() {
         let runtime = create_runtime();
         let view = view! {
             <OptimizedLazyLoadingProvider>
@@ -621,7 +577,7 @@ mod tests {
 
     // Error handling tests
     #[test]
-    fn test_optimized_lazy_loading_error_handling() {
+    fn test_optimized_lazyloading_error_handling() {
         let runtime = create_runtime();
         let view = view! {
             <OptimizedLazyLoading enabled=false>
@@ -635,7 +591,7 @@ mod tests {
 
     // Accessibility tests
     #[test]
-    fn test_optimized_lazy_loading_accessibility() {
+    fn test_optimized_lazyloading_accessibility() {
         let runtime = create_runtime();
         let view = view! {
             <OptimizedLazyLoading>

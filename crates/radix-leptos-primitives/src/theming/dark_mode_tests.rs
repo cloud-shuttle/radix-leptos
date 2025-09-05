@@ -1,18 +1,16 @@
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use crate::theming::CSSVariables;
     use leptos::serde_json;
 
     #[test]
-    fn test_dark_mode_theme_creation() {
+    fn testdark_mode_theme_creation() {
         let dark_theme = CSSVariables::dark_theme();
         assert_eq!(dark_theme.neutral.neutral_50, "#0a0a0a");
         assert_eq!(dark_theme.neutral.neutral_950, "#fafafa");
     }
 
     #[test]
-    fn test_dark_mode_vs_light_mode() {
+    fn testdark_mode_vs_light_mode() {
         let light_theme = CSSVariables::default();
         let dark_theme = CSSVariables::dark_theme();
         
@@ -26,7 +24,7 @@ mod tests {
     }
 
     #[test]
-    fn test_dark_mode_css_generation() {
+    fn testdark_mode_css_generation() {
         let dark_theme = CSSVariables::dark_theme();
         let css_string = dark_theme.to_css_string();
         
@@ -37,7 +35,7 @@ mod tests {
     }
 
     #[test]
-    fn test_dark_mode_serialization() {
+    fn testdark_mode_serialization() {
         let dark_theme = CSSVariables::dark_theme();
         let json = serde_json::to_string(&dark_theme).unwrap();
         
@@ -47,7 +45,7 @@ mod tests {
     }
 
     #[test]
-    fn test_dark_mode_deserialization() {
+    fn testdark_mode_deserialization() {
         let dark_theme = CSSVariables::dark_theme();
         let json = serde_json::to_string(&dark_theme).unwrap();
         let deserialized: CSSVariables = serde_json::from_str(&json).unwrap();
@@ -56,7 +54,7 @@ mod tests {
     }
 
     #[test]
-    fn test_dark_mode_consistency() {
+    fn testdark_mode_consistency() {
         let dark1 = CSSVariables::dark_theme();
         let dark2 = CSSVariables::dark_theme();
         
@@ -65,7 +63,7 @@ mod tests {
     }
 
     #[test]
-    fn test_dark_mode_color_contrast() {
+    fn testdark_mode_color_contrast() {
         let dark_theme = CSSVariables::dark_theme();
         
         // Test that dark theme has proper contrast
@@ -79,33 +77,27 @@ mod tests {
     }
 
     #[test]
-    fn test_dark_mode_theme_switching_logic() {
+    fn testdark_mode_theme_switching_logic() {
         let light_theme = CSSVariables::default();
         let dark_theme = CSSVariables::dark_theme();
         
         // Test theme switching logic
         let current_theme = light_theme.clone();
-        let is_dark = false;
+        let isdark = false;
         
-        let new_theme = if is_dark {
+        let new_theme = if isdark {
             CSSVariables::dark_theme()
-        } else {
-            current_theme
-        };
         
         assert_eq!(new_theme, light_theme);
         
-        let new_theme_dark = if true {
+        let new_themedark = if true {
             CSSVariables::dark_theme()
-        } else {
-            light_theme
-        };
         
-        assert_eq!(new_theme_dark, dark_theme);
+        assert_eq!(new_themedark, dark_theme);
     }
 
     #[test]
-    fn test_dark_mode_storage_key_validation() {
+    fn testdark_mode_storage_key_validation() {
         // Test that storage keys are valid
         let valid_keys = [
             "theme-preference",
@@ -121,7 +113,7 @@ mod tests {
     }
 
     #[test]
-    fn test_dark_mode_theme_application() {
+    fn testdark_mode_theme_application() {
         let dark_theme = CSSVariables::dark_theme();
         let css_string = dark_theme.to_css_string();
         

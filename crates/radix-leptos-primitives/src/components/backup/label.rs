@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 use wasm_bindgen::JsCast;
 
 /// Label component with proper form control association
@@ -17,7 +15,6 @@ use wasm_bindgen::JsCast;
 /// # Example
 ///
 /// ```rust
-/// use leptos::*;
 /// use radix_leptos_primitives::*;
 ///
 /// #[component]
@@ -60,7 +57,7 @@ pub fn Label(
     for_control: Option<String>,
     /// Whether to render as child element instead of label
     #[prop(optional, default = false)]
-    __as_child: bool,
+    ___as_child: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -73,7 +70,7 @@ pub fn Label(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let _label_id = generate_id("label");
+    let __label_id = generate_id("label");
     
     // Build base classes
     let base_classes = "radix-label";

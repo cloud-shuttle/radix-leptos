@@ -14,7 +14,6 @@
 //! ## Quick Start
 //!
 //! ```rust
-//! use leptos::*;
 //! use radix_leptos::*;
 //!
 //! #[component]
@@ -84,11 +83,9 @@ pub use radix_leptos_primitives::*;
 pub use radix_leptos_core::{primitives::visually_hidden, utils};
 
 // Re-export commonly used Leptos items
-pub use leptos::*;
 
 #[cfg(test)]
 mod tests {
-    use super::*;
 
     #[test]
     fn test_component_imports() {

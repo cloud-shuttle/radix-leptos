@@ -1,7 +1,5 @@
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use crate::theming::CSSVariables;
     use leptos::serde_json;
 
     #[test]
@@ -12,7 +10,7 @@ mod tests {
     }
 
     #[test]
-    fn test_theme_provider_dark_theme() {
+    fn test_theme_providerdark_theme() {
         let dark_theme = CSSVariables::dark_theme();
         assert_eq!(dark_theme.neutral.neutral_50, "#0a0a0a");
         assert_eq!(dark_theme.neutral.neutral_950, "#fafafa");

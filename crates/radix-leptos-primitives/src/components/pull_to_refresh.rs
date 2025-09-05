@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 use wasm_bindgen::JsCast;
 
 /// Pull-to-refresh component for mobile devices
@@ -22,7 +20,7 @@ pub fn PullToRefresh(
     is_refreshing: Option<Signal<bool>>,
 ) -> impl IntoView {
     let (start_y, set_start_y) = signal(0.0);
-    let (current_y, set_current_y) = signal(0.0);
+    let (current_y, setcurrent_y) = signal(0.0);
     let (is_pulling, set_is_pulling) = signal(false);
     let (translate_y, set_translate_y) = signal(0.0);
 
@@ -33,7 +31,7 @@ pub fn PullToRefresh(
             if let Ok(html_element) = element.dyn_into::<web_sys::Element>() {
                 if html_element.scroll_top() == 0 {
                     set_start_y.set(event.client_y() as f64);
-                    set_current_y.set(event.client_y() as f64);
+                    setcurrent_y.set(event.client_y() as f64);
                     set_is_pulling.set(true);
                     set_translate_y.set(0.0);
                 }
@@ -44,7 +42,7 @@ pub fn PullToRefresh(
     let handle_mouse_move = move |event: web_sys::MouseEvent| {
         if is_pulling.get() {
             let new_y = event.client_y() as f64;
-            set_current_y.set(new_y);
+            setcurrent_y.set(new_y);
             
             let delta_y = new_y - start_y.get();
             if delta_y > 0.0 {
@@ -91,8 +89,6 @@ pub fn PullToRefresh(
             style={format!(
                 "transform: translateY({}px); transition: {};",
                 translate_y.get(),
-                if is_pulling.get() { "none" } else { "transform 0.3s ease-out" }
-            )}
             on:mousedown=handle_mouse_down
             on:mousemove=handle_mouse_move
             on:mouseup=handle_mouse_up
@@ -103,15 +99,10 @@ pub fn PullToRefresh(
                 class="refresh-indicator"
                 style={format!(
                     "opacity: {}; transform: scale({});",
-                    if is_pulling.get() { (translate_y.get() / refresh_threshold).min(1.0) } else { 0.0 },
-                    if is_pulling.get() { 0.5 + (translate_y.get() / refresh_threshold * 0.5).min(0.5) } else { 0.0 }
                 )}
             >
                 {if is_refreshing_state {
                     "🔄 Refreshing..."
-                } else {
-                    "⬇ Pull to refresh"
-                }}
             </div>
             
             // Main content
@@ -166,8 +157,6 @@ pub fn RefreshButton(
         <button
             class={format!(
                 "refresh-button {} {} {}",
-                if is_refreshing_state { "refreshing" } else { "" },
-                if is_pressed.get() { "pressed" } else { "" },
                 class.unwrap_or_default()
             )}
             disabled=is_refreshing_state

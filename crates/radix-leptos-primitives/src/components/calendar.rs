@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Calendar component - Date picker and calendar component
 #[component]
@@ -163,29 +161,25 @@ pub fn CalendarDay(
     #[prop(optional)] date: Option<String>,
     #[prop(optional)] day: Option<u8>,
     #[prop(optional)] is_today: Option<bool>,
-    #[prop(optional)] is_selected: Option<bool>,
-    #[prop(optional)] is_disabled: Option<bool>,
+    #[prop(optional)] isselected: Option<bool>,
+    #[prop(optional)] isdisabled: Option<bool>,
     #[prop(optional)] is_other_month: Option<bool>,
     #[prop(optional)] on_click: Option<Callback<String>>,
 ) -> impl IntoView {
     let date = date.unwrap_or_default();
     let day = day.unwrap_or(1);
     let is_today = is_today.unwrap_or(false);
-    let is_selected = is_selected.unwrap_or(false);
-    let is_disabled = is_disabled.unwrap_or(false);
+    let isselected = isselected.unwrap_or(false);
+    let isdisabled = isdisabled.unwrap_or(false);
     let is_other_month = is_other_month.unwrap_or(false);
 
     let class = merge_classes([
         "calendar-day",
-        if is_today { "today" } else { "" },
-        if is_selected { "selected" } else { "" },
-        if is_disabled { "disabled" } else { "" },
-        if is_other_month { "other-month" } else { "" },
         class.as_deref().unwrap_or(""),
     ]);
 
     let handle_click = move |_| {
-        if !is_disabled {
+        if !isdisabled {
             if let Some(callback) = on_click {
                 callback.run(date.clone());
             }
@@ -197,9 +191,9 @@ pub fn CalendarDay(
             class=class
             style=style
             type="button"
-            disabled=is_disabled
+            disabled=isdisabled
             aria-label=format!("{}", day)
-            aria-selected=is_selected
+            aria-selected=isselected
             on:click=handle_click
         >
             {children.map(|c| c())}
@@ -245,7 +239,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
     use wasm_bindgen_test::*;
 
@@ -263,7 +256,7 @@ mod tests {
     #[test]
     fn test_calendar_min_max_dates() {}
     #[test]
-    fn test_calendar_disabled_dates() {}
+    fn test_calendardisabled_dates() {}
     #[test]
     fn test_calendar_locale() {}
     #[test]
@@ -315,9 +308,9 @@ mod tests {
     #[test]
     fn test_calendar_day_today() {}
     #[test]
-    fn test_calendar_day_selected() {}
+    fn test_calendar_dayselected() {}
     #[test]
-    fn test_calendar_day_disabled() {}
+    fn test_calendar_daydisabled() {}
     #[test]
     fn test_calendar_day_other_month() {}
     #[test]
@@ -346,21 +339,21 @@ mod tests {
     // Property-based Tests
     #[test]
     fn test_calendar_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
 
         });
     }
 
     #[test]
     fn test_calendar_date_validation() {
-        proptest!(|(__year in 1900..2100i32, _month in 1..12u8, _day in 1..31u8)| {
+        proptest!(|(____year in 1900..2100i32, __month in 1..12u8, __day in 1..31u8)| {
 
         });
     }
 
     #[test]
     fn test_calendar_locale_validation() {
-        proptest!(|(__locale in ".*")| {
+        proptest!(|(____locale in ".*")| {
 
         });
     }

@@ -1,6 +1,4 @@
 use crate::utils::merge_classes;
-use leptos::prelude::*;
-use leptos::*;
 use wasm_bindgen::JsCast;
 
 /// Date Picker component - Date selection with validation
@@ -31,8 +29,6 @@ pub fn DatePicker(
 
     let class = merge_classes([
         "date-picker",
-        if disabled { "disabled" } else { "" },
-        if required { "required" } else { "" },
         class.as_deref().unwrap_or(""),
     ]);
 
@@ -80,8 +76,6 @@ pub fn DatePickerInput(
 
     let class = merge_classes([
         "date-picker-input",
-        if disabled { "disabled" } else { "" },
-        if required { "required" } else { "" },
         class.as_deref().unwrap_or(""),
     ]);
 
@@ -139,15 +133,6 @@ pub fn DatePickerTrigger(
 
     let class = merge_classes([
         "date-picker-trigger",
-        if disabled { "disabled" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    let handle_click = move |_| {
-        if !disabled {
-            if let Some(callback) = on_click {
-                callback.run(());
-            }
         }
     };
 
@@ -200,7 +185,7 @@ pub fn DatePickerCalendar(
 /// Date Validation structure
 #[derive(Debug, Clone, PartialEq)]
 pub struct DateValidation {
-    pub _is_valid: bool,
+    pub is_valid: bool,
     pub error_message: Option<String>,
     pub parsed_date: Option<String>,
 }
@@ -228,9 +213,6 @@ pub fn DatePickerValidation(
         "date-picker-validation",
         if validation.is_valid {
             "valid"
-        } else {
-            "invalid"
-        },
         class.as_deref().unwrap_or(""),
     ]);
 
@@ -244,11 +226,7 @@ pub fn DatePickerValidation(
             {if !validation.is_valid {
                 if let Some(error_message) = validation.error_message {
                     view! { <span class="error-message">{error_message}</span> }.into_any()
-                } else {
-                    view! { <span class="error-message">"Invalid date"</span> }.into_any()
                 }
-            } else {
-                view! { <></> }.into_any()
             }}
         </div>
     }
@@ -256,8 +234,6 @@ pub fn DatePickerValidation(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use leptos::prelude::*;
     use proptest::prelude::*;
     use wasm_bindgen_test::*;
 
@@ -295,12 +271,12 @@ mod tests {
     }
 
     #[test]
-    fn test_date_picker_disabled() {
+    fn test_date_pickerdisabled() {
         // Test DatePicker in disabled state
     }
 
     #[test]
-    fn test_date_picker_required() {
+    fn test_date_pickerrequired() {
         // Test DatePicker in required state
     }
 
@@ -346,12 +322,12 @@ mod tests {
     }
 
     #[test]
-    fn test_date_picker_input_disabled() {
+    fn test_date_picker_inputdisabled() {
         // Test DatePickerInput in disabled state
     }
 
     #[test]
-    fn test_date_picker_input_required() {
+    fn test_date_picker_inputrequired() {
         // Test DatePickerInput in required state
     }
 
@@ -387,7 +363,7 @@ mod tests {
     }
 
     #[test]
-    fn test_date_picker_trigger_disabled() {
+    fn test_date_picker_triggerdisabled() {
         // Test DatePickerTrigger in disabled state
     }
 
@@ -491,7 +467,7 @@ mod tests {
     // Helper function tests
     #[test]
     fn test_merge_classes_empty() {
-        let result = merge_classes([]);
+        let result = merge_classes(Vec::new());
         assert_eq!(result, "");
     }
 
@@ -516,7 +492,7 @@ mod tests {
     // Property-based Tests
     #[test]
     fn test_date_picker_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             // Test DatePicker with various class and style combinations
 
         });
@@ -524,12 +500,10 @@ mod tests {
 
     #[test]
     fn test_date_picker_date_validation() {
-        proptest!(|(_date in ".*")| {
+        proptest!(|(__date in ".*")| {
             let is_empty = date.is_empty();
             let validation = DateValidation {
                 is_valid: !is_empty,
-                error_message: if is_empty { Some("Empty date".to_string()) } else { None },
-                parsed_date: if is_empty { None } else { Some(date) },
             };
             assert!(validation.is_valid == !is_empty);
         });
@@ -537,7 +511,7 @@ mod tests {
 
     #[test]
     fn test_date_picker_format_validation() {
-        proptest!(|(__format in ".*")| {
+        proptest!(|(____format in ".*")| {
             // Test DatePicker with various format strings
 
         });

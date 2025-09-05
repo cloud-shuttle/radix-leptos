@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Scroll Area component for custom scrollable areas
 ///
@@ -18,18 +16,6 @@ pub fn ScrollArea(
     let class = merge_classes([
         "scroll-area",
         &orientation.to_class(),
-        if scroll_hidden { "scroll-hidden" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="region"
-            aria-orientation=orientation.to_aria()
-        >
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -68,18 +54,6 @@ pub fn ScrollAreaScrollbar(
     let class = merge_classes([
         "scroll-area-scrollbar",
         &orientation.to_class(),
-        if force_mount { "force-mount" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="scrollbar"
-            aria-orientation=orientation.to_aria()
-        >
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -154,7 +128,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
@@ -264,7 +237,7 @@ mod tests {
     // Helper Function Tests
     #[test]
     fn test_merge_classes_empty() {
-        let result = merge_classes([]);
+        let result = merge_classes(Vec::new());
         assert_eq!(result, "");
     }
 
@@ -290,7 +263,7 @@ mod tests {
     #[test]
     fn test_scroll_area_property_based() {
         use proptest::prelude::*;
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
 
         });
     }
@@ -298,7 +271,7 @@ mod tests {
     #[test]
     fn test_scroll_area_viewport_property_based() {
         use proptest::prelude::*;
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
 
         });
     }
@@ -306,7 +279,7 @@ mod tests {
     #[test]
     fn test_scroll_area_scrollbar_property_based() {
         use proptest::prelude::*;
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
 
         });
     }
@@ -314,7 +287,7 @@ mod tests {
     #[test]
     fn test_scroll_area_thumb_property_based() {
         use proptest::prelude::*;
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
 
         });
     }
@@ -322,7 +295,7 @@ mod tests {
     #[test]
     fn test_scroll_area_corner_property_based() {
         use proptest::prelude::*;
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
 
         });
     }

@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Avatar component - User profile images with fallbacks
 #[component]
@@ -117,10 +115,10 @@ pub fn AvatarGroup(
     #[prop(optional)] class: Option<String>,
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
-    #[prop(optional)] max_visible: Option<usize>,
+    #[prop(optional)] maxvisible: Option<usize>,
     #[prop(optional)] spacing: Option<AvatarSpacing>,
 ) -> impl IntoView {
-    let max_visible = max_visible.unwrap_or(5);
+    let maxvisible = maxvisible.unwrap_or(5);
     let spacing = spacing.unwrap_or_default();
 
     let class = merge_classes([
@@ -135,7 +133,7 @@ pub fn AvatarGroup(
             style=style
             role="group"
             aria-label="Avatar group"
-            data-max-visible=max_visible
+            data-max-visible=maxvisible
             data-spacing=spacing.to_string()
         >
             {children.map(|c| c())}
@@ -265,7 +263,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
     use wasm_bindgen_test::*;
 
@@ -289,7 +286,7 @@ mod tests {
     #[test]
     fn test_avatar_with_shape() {}
     #[test]
-    fn test_avatar_with_loading() {}
+    fn test_avatar_withloading() {}
     #[test]
     fn test_avatar_on_load() {}
     #[test]
@@ -323,7 +320,7 @@ mod tests {
     #[test]
     fn test_avatar_group_with_class() {}
     #[test]
-    fn test_avatar_group_max_visible() {}
+    fn test_avatar_group_maxvisible() {}
     #[test]
     fn test_avatar_group_spacing() {}
 
@@ -353,11 +350,11 @@ mod tests {
 
     // Avatar Loading tests
     #[test]
-    fn test_avatar_loading_default() {}
+    fn test_avatarloading_default() {}
     #[test]
-    fn test_avatar_loading_eager() {}
+    fn test_avatarloading_eager() {}
     #[test]
-    fn test_avatar_loading_lazy() {}
+    fn test_avatarloading_lazy() {}
 
     // Avatar Spacing tests
     #[test]
@@ -382,28 +379,28 @@ mod tests {
     // Property-based Tests
     #[test]
     fn test_avatar_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
 
         });
     }
 
     #[test]
     fn test_avatar_size_validation() {
-        proptest!(|(__size in 10.0..200.0f64)| {
+        proptest!(|(____size in 10.0..200.0f64)| {
 
         });
     }
 
     #[test]
     fn test_avatar_group_validation() {
-        proptest!(|(__max_visible in 1..20usize)| {
+        proptest!(|(____maxvisible in 1..20usize)| {
 
         });
     }
 
     // Integration Tests
     #[test]
-    fn test_avatar_image_loading() {}
+    fn test_avatar_imageloading() {}
     #[test]
     fn test_avatar_fallback_display() {}
     #[test]
@@ -421,5 +418,5 @@ mod tests {
     #[test]
     fn test_avatar_memory_usage() {}
     #[test]
-    fn test_avatar_image_loading_performance() {}
+    fn test_avatar_imageloading_performance() {}
 }

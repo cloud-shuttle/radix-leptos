@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 use wasm_bindgen::JsCast;
 
 /// Accordion type enum
@@ -53,7 +51,7 @@ pub fn Accordion(
     /// Child content (accordion items)
     children: Children,
 ) -> impl IntoView {
-    let _accordion_id = generate_id("accordion");
+    let __accordion_id = generate_id("accordion");
     
     // Build base classes
     let base_classes = "radix-accordion";
@@ -91,7 +89,7 @@ pub fn AccordionItem(
     /// Child content (trigger and content)
     children: Children,
 ) -> impl IntoView {
-    let _item_id = generate_id("accordion-item");
+    let __item_id = generate_id("accordion-item");
     
     // Build base classes
     let base_classes = "radix-accordion-item";
@@ -129,7 +127,7 @@ pub fn AccordionTrigger(
     /// Child content (trigger content)
     children: Children,
 ) -> impl IntoView {
-    let _trigger_id = generate_id("accordion-trigger");
+    let __trigger_id = generate_id("accordion-trigger");
     
     // Build base classes
     let base_classes = "radix-accordion-trigger";
@@ -199,7 +197,7 @@ pub fn AccordionContent(
     /// Child content (accordion content)
     children: Children,
 ) -> impl IntoView {
-    let _content_id = generate_id("accordion-content");
+    let __content_id = generate_id("accordion-content");
     
     // Build base classes
     let base_classes = "radix-accordion-content";
@@ -233,7 +231,7 @@ pub fn AccordionHeader(
     /// Child content (header content)
     children: Children,
 ) -> impl IntoView {
-    let _header_id = generate_id("accordion-header");
+    let __header_id = generate_id("accordion-header");
     
     // Build base classes
     let base_classes = "radix-accordion-header";

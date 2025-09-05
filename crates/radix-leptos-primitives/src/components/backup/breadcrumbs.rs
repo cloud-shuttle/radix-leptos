@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// Breadcrumb item structure
 #[derive(Clone, Debug, PartialEq)]
@@ -34,12 +32,12 @@ impl BreadcrumbItem {
         self
     }
 
-    pub fn with_disabled(mut self, _disabled: bool) -> Self {
+    pub fn withdisabled(mut self, _disabled: bool) -> Self {
         self.disabled = disabled;
         self
     }
 
-    pub fn with_current(mut self, _current: bool) -> Self {
+    pub fn withcurrent(mut self, _current: bool) -> Self {
         self.current = current;
         self
     }
@@ -71,7 +69,7 @@ pub struct BreadcrumbContext {
     pub items: Signal<Vec<BreadcrumbItem>>,
     pub separator: BreadcrumbSeparator,
     pub max_items: Option<usize>,
-    pub _show_ellipsis: bool,
+    pub __show_ellipsis: bool,
     pub breadcrumb_id: String,
     pub on_item_click: Option<Callback<BreadcrumbItem>>,
 }
@@ -107,7 +105,7 @@ pub fn Breadcrumbs(
     max_items: Option<usize>,
     /// Whether to show ellipsis for truncated items
     #[prop(optional, default = true)]
-    _show_ellipsis: bool,
+    __show_ellipsis: bool,
     /// Item click event handler
     #[prop(optional)]
     on_item_click: Option<Callback<BreadcrumbItem>>,
@@ -117,7 +115,7 @@ pub fn Breadcrumbs(
     /// Child content (breadcrumb items, etc.)
     children: Children,
 ) -> impl IntoView {
-    let _breadcrumb_id = generate_id("breadcrumbs");
+    let __breadcrumb_id = generate_id("breadcrumbs");
     
     // Reactive state
     let (items_signal, _set_items_signal) = signal(items);
@@ -168,7 +166,7 @@ pub fn BreadcrumbList(
     children: Children,
 ) -> impl IntoView {
     let _context = use_context::<BreadcrumbContext>().expect("BreadcrumbList must be used within Breadcrumbs");
-    let _list_id = generate_id("breadcrumb-list");
+    let __list_id = generate_id("breadcrumb-list");
     
     // Build base classes
     let base_classes = "radix-breadcrumb-list";
@@ -209,11 +207,11 @@ pub fn BreadcrumbItem(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<BreadcrumbContext>().expect("BreadcrumbItem must be used within Breadcrumbs");
-    let _item_id = generate_id("breadcrumb-item");
+    let __item_id = generate_id("breadcrumb-item");
     
     let item_for_click = item.clone();
-    let item_for_current = item.clone();
-    let item_for_disabled = item.clone();
+    let item_forcurrent = item.clone();
+    let item_fordisabled = item.clone();
     
     let handle_click = move |event: web_sys::MouseEvent| {
         if let Some(item) = item_for_click.clone() {
@@ -222,32 +220,23 @@ pub fn BreadcrumbItem(
                 if let Some(callback) = context.on_item_click.clone() {
                     callback.run(item);
                 }
-            } else {
-                event.prevent_default();
-            }
         }
     };
     
     // Determine if this item is current
-    let is_current = Memo::new(move |_| {
+    let iscurrent = Memo::new(move |_| {
         if let Some(current) = current {
             current
-        } else if let Some(item) = item_for_current.as_ref() {
+        } else if let Some(item) = item_forcurrent.as_ref() {
             item.current
-        } else {
-            false
-        }
     });
     
     // Determine if this item is disabled
-    let is_disabled = Memo::new(move |_| {
+    let isdisabled = Memo::new(move |_| {
         if let Some(disabled) = disabled {
             disabled
-        } else if let Some(item) = item_for_disabled.as_ref() {
+        } else if let Some(item) = item_fordisabled.as_ref() {
             item.disabled
-        } else {
-            false
-        }
     });
     
     // Build base classes
@@ -260,18 +249,12 @@ pub fn BreadcrumbItem(
             id=item_id
             class=combined_class
             style=style.unwrap_or_default()
-            data-current=is_current.get()
-            data-disabled=is_disabled.get()
+            data-current=iscurrent.get()
+            data-disabled=isdisabled.get()
             role="listitem"
         >
                             <span
-                    class=if is_current.get() { "radix-breadcrumb-current" } else { "radix-breadcrumb-link" }
-                    data-current=is_current.get()
-                    data-disabled=is_disabled.get()
-                    role=if is_current.get() { "none" } else { "link" }
-                    tabindex=if is_current.get() || is_disabled.get() { "-1" } else { "0" }
-                    aria-current=if is_current.get() { "page" } else { "false" }
-                    aria-disabled=is_disabled.get()
+                    aria-disabled=isdisabled.get()
                     on:click=handle_click
                 >
                     {children()}
@@ -308,7 +291,7 @@ pub fn BreadcrumbLink(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<BreadcrumbContext>().expect("BreadcrumbLink must be used within Breadcrumbs");
-    let _link_id = generate_id("breadcrumb-link");
+    let __link_id = generate_id("breadcrumb-link");
     let link_id_clone = link_id.clone();
     let text_clone = text.clone();
     let href_clone = href.clone();
@@ -329,8 +312,8 @@ pub fn BreadcrumbLink(
                 text_clone.clone().unwrap_or_default(),
             ).with_href(href_clone.clone().unwrap_or_default())
              .with_icon(icon_clone.clone().unwrap_or_default())
-             .with_current(current_clone.unwrap_or(false))
-             .with_disabled(disabled_clone.unwrap_or(false));
+             .withcurrent(current_clone.unwrap_or(false))
+             .withdisabled(disabled_clone.unwrap_or(false));
             
             callback.run(item);
         }
@@ -352,9 +335,6 @@ pub fn BreadcrumbLink(
             data-current=current.unwrap_or(false)
             data-disabled=disabled.unwrap_or(false)
             role="link"
-            tabindex=if disabled.unwrap_or(false) { "-1" } else { "0" }
-            aria-disabled=disabled.unwrap_or(false)
-            aria-current=if current.unwrap_or(false) { "page" } else { "false" }
             on:click=handle_click
         >
             {icon.map(|icon_text| view! {
@@ -384,7 +364,7 @@ pub fn BreadcrumbSeparator(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<BreadcrumbContext>().expect("BreadcrumbSeparator must be used within Breadcrumbs");
-    let _separator_id = generate_id("breadcrumb-separator");
+    let separator_id = generate_id("breadcrumb-separator");
     
     // Build base classes
     let base_classes = "radix-breadcrumb-separator";
@@ -423,7 +403,7 @@ pub fn BreadcrumbEllipsis(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let _ellipsis_id = generate_id("breadcrumb-ellipsis");
+    let __ellipsis_id = generate_id("breadcrumb-ellipsis");
     
     // Build base classes
     let base_classes = "radix-breadcrumb-ellipsis";

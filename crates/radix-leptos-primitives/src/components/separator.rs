@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Separator component - Visual dividers with orientation support
 #[component]
@@ -21,11 +19,6 @@ pub fn Separator(
         "separator",
         &orientation.to_class(),
         &thickness.to_class(),
-        if decorative { "decorative" } else { "semantic" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    let role = if decorative { "none" } else { "separator" };
     let aria_orientation = orientation.to_aria_orientation();
 
     view! {
@@ -239,7 +232,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
     use wasm_bindgen_test::*;
 
@@ -336,21 +328,21 @@ mod tests {
     // Property-based Tests
     #[test]
     fn test_separator_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
 
         });
     }
 
     #[test]
     fn test_separator_thickness_validation() {
-        proptest!(|(__thickness in 1.0..20.0f64)| {
+        proptest!(|(____thickness in 1.0..20.0f64)| {
 
         });
     }
 
     #[test]
     fn test_separator_orientation_validation() {
-        proptest!(|(__orientation in ".*")| {
+        proptest!(|(____orientation in ".*")| {
 
         });
     }

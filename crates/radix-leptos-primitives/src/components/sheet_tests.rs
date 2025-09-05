@@ -1,7 +1,5 @@
 #[cfg(test)]
 mod sheet_tests {
-    use super::*;
-    use leptos::*;
     use leptos::callback::Callback;
     use proptest::prelude::*;
     use crate::components::sheet::*;
@@ -23,13 +21,13 @@ mod sheet_tests {
         #[test]
         fn test_sheet_properties(
             open in any::<bool>(),
-            position in prop::sample::select([
+            position in prop::sample::select(&[
                 SheetPosition::Left,
                 SheetPosition::Right,
                 SheetPosition::Top,
                 SheetPosition::Bottom,
             ]),
-            size in prop::sample::select([
+            size in prop::sample::select(&[
                 SheetSize::Small,
                 SheetSize::Medium,
                 SheetSize::Large,
@@ -43,7 +41,7 @@ mod sheet_tests {
                     open=open
                     position=position
                     size=size
-                    on_open_change=Callback::new(|_| {})
+                    onopen_change=Callback::new(|_| {})
                 >
                     <SheetContent>
                         <SheetHeader>

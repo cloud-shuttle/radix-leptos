@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Button component with proper accessibility and styling variants
 ///
@@ -17,7 +15,6 @@ use leptos::*;
 /// # Example
 ///
 /// ```rust
-/// use leptos::*;
 /// use radix_leptos_primitives::*;
 ///
 /// #[component]
@@ -184,8 +181,6 @@ pub fn Button(
                     "⟳"
                 </span>
             </Show>
-            <span class=move || if loading { "button-content loading" } else { "button-content" }>
-                {children()}
             </span>
         </button>
     }
@@ -193,7 +188,6 @@ pub fn Button(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
     use wasm_bindgen_test::*;
 
@@ -239,7 +233,7 @@ mod tests {
 
     // 2. Props Validation Tests
     #[test]
-    fn test_button_disabled_state() {
+    fn test_buttondisabled_state() {
         run_test(|| {
             // Test disabled state logic
             let disabled = true;
@@ -252,7 +246,7 @@ mod tests {
     }
 
     #[test]
-    fn test_button_loading_state() {
+    fn test_buttonloading_state() {
         run_test(|| {
             // Test loading state logic
             let loading = true;
@@ -349,7 +343,7 @@ mod tests {
     proptest! {
         #[test]
         fn test_button_properties(
-            variant in prop::sample::select([
+            variant in prop::sample::select(&[
                 ButtonVariant::Default,
                 ButtonVariant::Destructive,
                 ButtonVariant::Outline,
@@ -357,7 +351,7 @@ mod tests {
                 ButtonVariant::Ghost,
                 ButtonVariant::Link,
             ]),
-            size in prop::sample::select([
+            size in prop::sample::select(&[
                 ButtonSize::Default,
                 ButtonSize::Small,
                 ButtonSize::Large,

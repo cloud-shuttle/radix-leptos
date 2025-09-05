@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Skeleton component - Loading placeholder component for better UX
 ///
@@ -17,12 +15,11 @@ use leptos::*;
 /// # Example
 ///
 /// ```rust
-/// use leptos::*;
 /// use radix_leptos_primitives::*;
 ///
 /// #[component]
 /// fn MyComponent() -> impl IntoView {
-///     let (loading, set_loading) = create_signal(true);
+///     let (loading, setloading) = create_signal(true);
 ///
 ///     view! {
 ///         <div class="content">
@@ -32,11 +29,6 @@ use leptos::*;
 ///                     <Skeleton variant=SkeletonVariant::Text lines=3 />
 ///                     <Skeleton variant=SkeletonVariant::Rectangular width="200px" height="100px" />
 ///                 </div>
-///             } else {
-///                 <div class="loaded-content">
-///                     // Actual content here
-///                 </div>
-///             }
 ///         </div>
 ///     }
 /// }
@@ -99,15 +91,6 @@ pub fn Skeleton(
         "skeleton",
         variant.as_str(),
         size.as_str(),
-        if animated { "animated" } else { "static" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    let mut style_attr = style.unwrap_or_default();
-
-    // Add custom dimensions if provided
-    if let Some(w) = width {
-        style_attr = format!("{}width: {};", style_attr, w);
     }
     if let Some(h) = height {
         style_attr = format!("{}height: {};", style_attr, h);
@@ -120,15 +103,10 @@ pub fn Skeleton(
                     (0..lines).map(|i| {
                         let line_class = if i == lines - 1 {
                             "skeleton-line skeleton-line-last"
-                        } else {
-                            "skeleton-line"
-                        };
                         view! {
                             <div class=line_class></div>
                         }
                     }).collect::<Vec<_>>()
-                } else {
-                    [view! { <div class="skeleton-line"></div> }]
                 }}
             </div>
         }
@@ -255,7 +233,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
 
     #[test]
@@ -266,17 +243,17 @@ mod tests {
 
     proptest! {
         #[test]
-        fn test_skeleton_props(__class in ".*", __style in ".*") {
+        fn test_skeleton_props(___class in ".*", ___style in ".*") {
 
         }
 
         #[test]
-        fn test_skeleton_variants(__variant_index in 0..3usize, __size_index in 0..4usize) {
+        fn test_skeleton_variants(___variant_index in 0..3usize, ___size_index in 0..4usize) {
 
         }
 
         #[test]
-        fn test_skeleton_sizes(__size_index in 0..4usize) {
+        fn test_skeleton_sizes(___size_index in 0..4usize) {
 
         }
 
@@ -286,32 +263,32 @@ mod tests {
         }
 
         #[test]
-        fn test_skeleton_lines(__lines in 1..10usize) {
+        fn test_skeleton_lines(___lines in 1..10usize) {
 
         }
 
         #[test]
-        fn test_skeleton_animation(__animated: bool) {
+        fn test_skeleton_animation(___animated: bool) {
 
         }
 
         #[test]
-        fn test_skeleton_group_props(__class in ".*", __style in ".*", _spacing in ".*") {
+        fn test_skeleton_group_props(___class in ".*", ___style in ".*", _spacing in ".*") {
 
         }
 
         #[test]
-        fn test_skeleton_text_props(__class in ".*", __style in ".*", __lines in 1..5usize) {
+        fn test_skeleton_text_props(___class in ".*", ___style in ".*", ___lines in 1..5usize) {
 
         }
 
         #[test]
-        fn test_skeleton_avatar_props(__class in ".*", __style in ".*", __size_index in 0..4usize) {
+        fn test_skeleton_avatar_props(___class in ".*", ___style in ".*", ___size_index in 0..4usize) {
 
         }
 
         #[test]
-        fn test_skeleton_button_props(__class in ".*", __style in ".*", __size_index in 0..4usize) {
+        fn test_skeleton_button_props(___class in ".*", ___style in ".*", ___size_index in 0..4usize) {
 
         }
     }

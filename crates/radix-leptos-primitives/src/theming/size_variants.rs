@@ -1,5 +1,4 @@
-use leptos::prelude::*;
-use leptos::*;
+use crate::theming::{Size, Variant};
 
 /// Size variants for components
 #[derive(Clone, Debug, PartialEq)]
@@ -179,15 +178,15 @@ pub fn SizeVariantProvider(
     let default_size = default_size.unwrap_or_default();
     let default_variant = default_variant.unwrap_or_default();
 
-    let (current_size, set_current_size) = signal(default_size);
-    let (current_variant, set_current_variant) = signal(default_variant);
+    let (current_size, setcurrent_size) = signal(default_size);
+    let (current_variant, setcurrent_variant) = signal(default_variant);
 
     // Provide size and variant context
     provide_context(SizeVariantContext {
         size: current_size,
         variant: current_variant,
-        set_size: Callback::new(move |size| set_current_size.set(size)),
-        set_variant: Callback::new(move |variant| set_current_variant.set(variant)),
+        set_size: Callback::new(move |size| setcurrent_size.set(size)),
+        set_variant: Callback::new(move |variant| setcurrent_variant.set(variant)),
     });
 
     view! {
@@ -212,12 +211,12 @@ pub fn use_size_variant() -> Option<SizeVariantContext> {
 }
 
 /// Hook for getting current size
-pub fn use_current_size() -> Option<ReadSignal<Size>> {
+pub fn usecurrent_size() -> Option<ReadSignal<Size>> {
     use_size_variant().map(|ctx| ctx.size)
 }
 
 /// Hook for getting current variant
-pub fn use_current_variant() -> Option<ReadSignal<Variant>> {
+pub fn usecurrent_variant() -> Option<ReadSignal<Variant>> {
     use_size_variant().map(|ctx| ctx.variant)
 }
 
@@ -253,13 +252,13 @@ pub fn SizeSelector(
     let sizes =
         sizes.unwrap_or_else(|| [Size::Xs, Size::Sm, Size::Md, Size::Lg, Size::Xl, Size::Xxl]);
 
-    let (selected_size, set_selected_size) = signal(current_size.unwrap_or_default());
+    let (selected_size, setselected_size) = signal(current_size.unwrap_or_default());
 
     let size_context = use_size_variant();
     let set_size = size_context.map(|ctx| ctx.set_size);
 
     let handle_size_change = move |size: Size| {
-        set_selected_size.set(size.clone());
+        setselected_size.set(size.clone());
 
         if let Some(set_size_fn) = set_size {
             set_size_fn.run(size.clone());
@@ -326,13 +325,13 @@ pub fn VariantSelector(
         ]
     });
 
-    let (selected_variant, set_selected_variant) = signal(current_variant.unwrap_or_default());
+    let (selected_variant, setselected_variant) = signal(current_variant.unwrap_or_default());
 
     let variant_context = use_size_variant();
     let set_variant = variant_context.map(|ctx| ctx.set_variant);
 
     let handle_variant_change = move |variant: Variant| {
-        set_selected_variant.set(variant.clone());
+        setselected_variant.set(variant.clone());
 
         if let Some(set_variant_fn) = set_variant {
             set_variant_fn.run(variant.clone());
@@ -410,8 +409,6 @@ pub fn SizeVariantPreview(
                         </span>
                     </div>
                 }.into_any()
-            } else {
-                view! { <></> }.into_any()
             }}
 
             {if show_variant {
@@ -423,8 +420,6 @@ pub fn SizeVariantPreview(
                         </span>
                     </div>
                 }.into_any()
-            } else {
-                view! { <></> }.into_any()
             }}
         </div>
     }
@@ -432,8 +427,6 @@ pub fn SizeVariantPreview(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use leptos::prelude::*;
 
     #[test]
     fn test_size_enum() {

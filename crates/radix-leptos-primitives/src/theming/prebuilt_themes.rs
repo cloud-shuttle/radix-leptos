@@ -1,7 +1,5 @@
 use crate::theming::css_variables::*;
 use crate::utils::merge_classes;
-use leptos::prelude::*;
-use leptos::*;
 use serde::{Deserialize, Serialize};
 
 /// Pre-built theme collection with industry-specific themes
@@ -23,7 +21,7 @@ impl Default for PrebuiltThemes {
     fn default() -> Self {
         Self {
             light: create_light_theme(),
-            dark: create_dark_theme(),
+            dark: createdark_theme(),
             high_contrast: create_high_contrast_theme(),
             finance: create_finance_theme(),
             healthcare: create_healthcare_theme(),
@@ -129,11 +127,11 @@ pub fn ThemeCategorySection(
             <div class="theme-grid">
                 {themes.into_iter().map(|theme| {
                     let theme_name = theme.name.clone();
-                    let is_selected = current_theme == theme_name;
+                    let isselected = current_theme == theme_name;
                     view! {
                         <ThemeCard
                             theme=theme
-                            selected=is_selected
+                            selected=isselected
                             show_preview=show_preview
                             on_select=on_theme_change.clone()
                         />
@@ -161,8 +159,6 @@ pub fn ThemeCard(
 
     let class = merge_classes([
         "theme-card",
-        if selected { "selected" } else { "" },
-        if show_preview { "with-preview" } else { "" },
         class.as_deref().unwrap_or(""),
     ]);
 
@@ -194,8 +190,6 @@ pub fn ThemeCard(
                         <ThemePreview colors=theme.colors.clone() />
                     </div>
                 }.into_any()
-            } else {
-                view! { <></> }.into_any()
             }}
 
             <div class="theme-info">
@@ -391,7 +385,7 @@ fn get_themes_by_categories(
                         "night".to_string(),
                         "modern".to_string(),
                     ],
-                    css_variables: create_dark_theme(),
+                    css_variables: createdark_theme(),
                 },
                 ThemeInfo {
                     name: "High Contrast".to_string(),
@@ -542,7 +536,7 @@ fn get_themes_by_categories(
                     css_variables: create_vibrant_theme(),
                 },
             ],
-            _ => [],
+            _ => Vec::new(),
         };
 
         themes_map.insert(*category, themes);
@@ -556,7 +550,7 @@ fn create_light_theme() -> CSSVariables {
     CSSVariables::default()
 }
 
-fn create_dark_theme() -> CSSVariables {
+fn createdark_theme() -> CSSVariables {
     CSSVariables::dark_theme()
 }
 
@@ -631,8 +625,6 @@ fn create_vibrant_theme() -> CSSVariables {
 
 #[cfg(test)]
 mod prebuilt_themes_tests {
-    use super::*;
-    use leptos::*;
     use proptest::prelude::*;
 
     #[test]
@@ -747,7 +739,7 @@ mod prebuilt_themes_tests {
     #[test]
     fn test_theme_creation_functions() {
         let light_theme = create_light_theme();
-        let dark_theme = create_dark_theme();
+        let dark_theme = createdark_theme();
         let high_contrast_theme = create_high_contrast_theme();
         let finance_theme = create_finance_theme();
         let healthcare_theme = create_healthcare_theme();
@@ -773,7 +765,7 @@ mod prebuilt_themes_tests {
     // Property-based tests
     #[test]
     fn test_theme_category_property_based() {
-        proptest!(|(category in prop::sample::select([
+        proptest!(|(category in prop::sample::select(&[
             ThemeCategory::Basic,
             ThemeCategory::Industry,
             ThemeCategory::Style,
@@ -789,7 +781,7 @@ mod prebuilt_themes_tests {
 
     #[test]
     fn test_theme_colors_property_based() {
-        proptest!(|(_color in ".*")| {
+        proptest!(|(__color in ".*")| {
             let colors = ThemeColors {
                 primary: color.clone(),
                 secondary: color.clone(),

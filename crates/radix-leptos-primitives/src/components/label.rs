@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Label component - Form labels with accessibility features
 #[component]
@@ -24,8 +22,6 @@ pub fn Label(
         "label",
         &size.to_class(),
         &variant.to_class(),
-        if required { "required" } else { "" },
-        if disabled { "disabled" } else { "" },
         class.as_deref().unwrap_or(""),
     ]);
 
@@ -65,20 +61,8 @@ pub fn LabelText(
 
     let class = merge_classes([
         "label-text",
-        if required { "required" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <span
-            class=class
-            style=style
-        >
-            {children.map(|c| c())}
             {if required {
                 view! { <span class="required-indicator" aria-label="required">"*"</span> }.into_any()
-            } else {
-                view! { <></> }.into_any()
             }}
         </span>
     }
@@ -122,19 +106,6 @@ pub fn LabelError(
 
     let class = merge_classes([
         "label-error",
-        if visible { "visible" } else { "hidden" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="alert"
-            aria-live="polite"
-            aria-label="Label error"
-        >
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -297,7 +268,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
     use wasm_bindgen_test::*;
 
@@ -313,9 +283,9 @@ mod tests {
     #[test]
     fn test_label_for_id() {}
     #[test]
-    fn test_label_required() {}
+    fn test_labelrequired() {}
     #[test]
-    fn test_label_disabled() {}
+    fn test_labeldisabled() {}
     #[test]
     fn test_label_size() {}
     #[test]
@@ -331,7 +301,7 @@ mod tests {
     #[test]
     fn test_label_text_text() {}
     #[test]
-    fn test_label_text_required() {}
+    fn test_label_textrequired() {}
 
     // Label Description tests
     #[test]
@@ -349,7 +319,7 @@ mod tests {
     #[test]
     fn test_label_error_error() {}
     #[test]
-    fn test_label_error_visible() {}
+    fn test_label_errorvisible() {}
 
     // Label Group tests
     #[test]
@@ -416,21 +386,21 @@ mod tests {
     // Property-based Tests
     #[test]
     fn test_label_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
 
         });
     }
 
     #[test]
     fn test_label_accessibility_validation() {
-        proptest!(|(_for_id in ".*", _required: bool, _disabled: bool)| {
+        proptest!(|(__for_id in ".*", _required: bool, _disabled: bool)| {
 
         });
     }
 
     #[test]
     fn test_label_variant_validation() {
-        proptest!(|(__variant in ".*")| {
+        proptest!(|(____variant in ".*")| {
 
         });
     }

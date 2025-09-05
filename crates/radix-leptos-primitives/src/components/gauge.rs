@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// Gauge component - Metric display
 #[component]
@@ -18,7 +16,7 @@ pub fn Gauge(
 ) -> impl IntoView {
     let value = value.unwrap_or(0.0);
     let min = min.unwrap_or(0.0);
-    let max = max.unwrap_or(100.0);
+    let _max = max.unwrap_or(100.0);
     let config = config.unwrap_or_default();
     let show_value = show_value.unwrap_or(true);
     let show_ticks = show_ticks.unwrap_or(true);
@@ -26,29 +24,6 @@ pub fn Gauge(
 
     let class = merge_classes([
         "gauge",
-        if show_value { "show-value" } else { "" },
-        if show_ticks { "show-ticks" } else { "" },
-        if animated { "animated" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="meter"
-            aria-label="Gauge meter"
-            aria-valuenow=value
-            aria-valuemin=min
-            aria-valuemax=max
-            data-value=value
-            data-min=min
-            data-max=max
-            data-show-value=show_value
-            data-show-ticks=show_ticks
-            data-animated=animated
-        >
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -282,7 +257,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
     use proptest::prelude::*;
 
@@ -362,25 +336,25 @@ mod tests {
 
     // Property-based Tests
     #[test] fn test_gauge_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             
         });
     }
 
     #[test] fn test_gauge_value_validation() {
-        proptest!(|(__value in 0.0..100.0f64, _min in 0.0..50.0f64, _max in 50.0..200.0f64)| {
+        proptest!(|(____value in 0.0..100.0f64, __min in 0.0..50.0f64, __max in 50.0..200.0f64)| {
             
         });
     }
 
     #[test] fn test_gauge_config_validation() {
-        proptest!(|(__width in 100.0..500.0f64, _height in 100.0..500.0f64)| {
+        proptest!(|(____width in 100.0..500.0f64, __height in 100.0..500.0f64)| {
             
         });
     }
 
     #[test] fn test_gauge_angle_property_based() {
-        proptest!(|(_start_angle in -180.0..0.0f64, _end_angle in 0.0..180.0f64)| {
+        proptest!(|(__start_angle in -180.0..0.0f64, __end_angle in 0.0..180.0f64)| {
             
         });
     }

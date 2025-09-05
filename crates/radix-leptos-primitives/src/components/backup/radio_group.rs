@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// Generate a simple unique ID for components
 fn generate_id(prefix: &str) -> String {
@@ -43,7 +41,7 @@ pub fn RadioGroup(
     /// Child content (radio options)
     children: Children,
 ) -> impl IntoView {
-    let _radio_group_id = generate_id("radio-group");
+    let __radio_group_id = generate_id("radio-group");
     
     // Build base classes
     let base_classes = "radix-radio-group";
@@ -88,7 +86,7 @@ pub fn RadioGroupItem(
     /// Child content (label)
     children: Children,
 ) -> impl IntoView {
-    let _radio_id = generate_id("radio");
+    let __radio_id = generate_id("radio");
     
     // Build base classes
     let base_classes = "radix-radio-group-item";
@@ -135,14 +133,6 @@ pub fn RadioGroupItem(
             aria-checked="false"
             aria-required=required
             aria-disabled=disabled
-            tabindex=if disabled { None } else { Some(0) }
-            data-value=value.clone()
-            on:click=handle_click
-            on:keydown=handle_keydown
-        >
-            <input
-                type="radio"
-                id=format!("{}-input", radio_id)
                 value=value.clone()
                 disabled=disabled
                 required=required
@@ -176,7 +166,7 @@ pub fn RadioGroupItemWithLabel(
     /// Child content (label)
     children: Children,
 ) -> impl IntoView {
-    let _radio_id = generate_id("radio");
+    let __radio_id = generate_id("radio");
     
     view! {
         <div style="display: flex; align-items: center; gap: 8px;">

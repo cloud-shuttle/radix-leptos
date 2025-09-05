@@ -1,4 +1,3 @@
-use leptos::prelude::*;
 
 #[derive(Clone, Debug, PartialEq)]
 pub enum MenubarSize {
@@ -206,7 +205,7 @@ pub fn MenubarCheckboxItem(
     #[prop(optional)] disabled: Option<bool>,
     #[prop(optional)] class: Option<String>,
     #[prop(optional)] style: Option<String>,
-    #[prop(optional)] on_checked_change: Option<Callback<bool>>,
+    #[prop(optional)] onchecked_change: Option<Callback<bool>>,
     children: Children,
 ) -> impl IntoView {
     let checked_value = checked.map(|c| c.get()).unwrap_or(false);
@@ -218,7 +217,7 @@ pub fn MenubarCheckboxItem(
     let checked_signal = checked.clone();
     let handle_click = move |_| {
         if !disabled {
-            if let Some(callback) = on_checked_change {
+            if let Some(callback) = onchecked_change {
                 let current_value = checked_signal.as_ref().map(|c| c.get()).unwrap_or(false);
                 callback.run(!current_value);
             }
@@ -229,7 +228,7 @@ pub fn MenubarCheckboxItem(
     let handle_keydown = move |event: web_sys::KeyboardEvent| {
         if !disabled && (event.key() == "Enter" || event.key() == " ") {
             event.prevent_default();
-            if let Some(callback) = on_checked_change {
+            if let Some(callback) = onchecked_change {
                 let current_value = checked_signal.as_ref().map(|c| c.get()).unwrap_or(false);
                 callback.run(!current_value);
             }
@@ -248,8 +247,6 @@ pub fn MenubarCheckboxItem(
             <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
                 {if checked_value {
                     view! { <span class="h-2 w-2 bg-current rounded-sm"></span> }
-                } else {
-                    view! { <span class="h-2 w-2"></span> }
                 }}
             </span>
             <span class="pl-6">{children()}</span>
@@ -305,8 +302,6 @@ pub fn MenubarRadioItem(
             <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
                 {if checked_value {
                     view! { <span class="h-2 w-2 bg-current rounded-full"></span> }
-                } else {
-                    view! { <span class="h-2 w-2"></span> }
                 }}
             </span>
             <span class="pl-6">{children()}</span>

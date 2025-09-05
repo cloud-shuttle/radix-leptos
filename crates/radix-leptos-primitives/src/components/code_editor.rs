@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// CodeEditor component - Syntax-highlighted editing
 #[component]
@@ -25,24 +23,6 @@ pub fn CodeEditor(
 
     let class = merge_classes([
         "code-editor",
-        if readonly { "readonly" } else { "" },
-        if show_line_numbers { "show-line-numbers" } else { "" },
-        if show_minimap { "show-minimap" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="textbox"
-            aria-label="Code editor"
-            data-language=language
-            data-readonly=readonly
-            data-show-line-numbers=show_line_numbers
-            data-show-minimap=show_minimap
-        >
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -53,11 +33,11 @@ pub struct CodeEditorConfig {
     pub theme: EditorTheme,
     pub font_size: f64,
     pub tab_size: usize,
-    pub _word_wrap: bool,
-    pub _auto_indent: bool,
-    pub _bracket_matching: bool,
-    pub _auto_complete: bool,
-    pub _syntax_highlighting: bool,
+    pub __word_wrap: bool,
+    pub __auto_indent: bool,
+    pub __bracket_matching: bool,
+    pub __auto_complete: bool,
+    pub __syntax_highlighting: bool,
 }
 
 impl Default for CodeEditorConfig {
@@ -264,7 +244,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
     use proptest::prelude::*;
 
@@ -290,7 +269,7 @@ mod tests {
     // Editor Theme tests
     #[test] fn test_editor_theme_default() { 
     #[test] fn test_editor_theme_default_variant() { 
-    #[test] fn test_editor_theme_dark() { 
+    #[test] fn test_editor_themedark() { 
     #[test] fn test_editor_theme_light() { 
     #[test] fn test_editor_theme_monokai() { 
     #[test] fn test_editor_theme_solarized() { 
@@ -300,7 +279,7 @@ mod tests {
     #[test] fn test_code_suggestion_with_class() { 
     #[test] fn test_code_suggestion_with_style() { 
     #[test] fn test_code_suggestion_suggestions() { 
-    #[test] fn test_code_suggestion_visible() { 
+    #[test] fn test_code_suggestionvisible() { 
     #[test] fn test_code_suggestion_hidden() { 
     #[test] fn test_code_suggestion_on_select() { 
 
@@ -321,7 +300,7 @@ mod tests {
     #[test] fn test_code_error_with_class() { 
     #[test] fn test_code_error_with_style() { 
     #[test] fn test_code_error_error() { 
-    #[test] fn test_code_error_visible() { 
+    #[test] fn test_code_errorvisible() { 
     #[test] fn test_code_error_hidden() { 
 
     // Code Error Item tests
@@ -343,25 +322,25 @@ mod tests {
 
     // Property-based Tests
     #[test] fn test_codeeditor_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             
         });
     }
 
     #[test] fn test_codeeditor_code_validation() {
-        proptest!(|(_code in ".*")| {
+        proptest!(|(__code in ".*")| {
             
         });
     }
 
     #[test] fn test_codeeditor_config_property_based() {
-        proptest!(|(__font_size in 8.0..24.0f64, _tab_size in 2..8usize)| {
+        proptest!(|(____font_size in 8.0..24.0f64, __tab_size in 2..8usize)| {
             
         });
     }
 
     #[test] fn test_codeeditor_theme_property_based() {
-        proptest!(|(__theme_index in 0..5usize)| {
+        proptest!(|(____theme_index in 0..5usize)| {
             
         });
     }

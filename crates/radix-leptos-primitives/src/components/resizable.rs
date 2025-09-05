@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 use wasm_bindgen::JsCast;
 
 /// Resizable component for resizable panels with constraints
@@ -66,12 +64,6 @@ pub fn Resizable(
 
     let class = format!(
         "resizable {} {}",
-        if enabled { "enabled" } else { "disabled" },
-        class.unwrap_or_default()
-    );
-
-    let style = format!(
-        "width: {}px; height: {}px; min-width: {}px; min-height: {}px; max-width: {}px; max-height: {}px; {}",
         width, height, min_width, min_height, max_width, max_height, style.unwrap_or_default()
     );
 
@@ -138,8 +130,6 @@ pub fn Resizable(
                         }).collect::<Vec<_>>()}
                     </div>
                 }.into_any()
-            } else {
-                view! { <></> }.into_any()
             }}
         </div>
     }
@@ -291,8 +281,6 @@ pub fn ResizablePanel(
 
     let class = format!(
         "resizable-panel {} {}",
-        if collapsible { "collapsible" } else { "" },
-        if collapsed { "collapsed" } else { "expanded" },
     );
 
     let style = style.unwrap_or_default();
@@ -318,30 +306,19 @@ pub fn ResizablePanel(
                                     type="button"
                                     on:click=handle_toggle
                                 >
-                                    {if collapsed { "▶" } else { "▼" }}
-                                </button>
-                            }.into_any()
-                        } else {
-                            view! { <></> }.into_any()
                         }}
                     </div>
                 }.into_any()
-            } else {
-                view! { <></> }.into_any()
             }}
             {if !collapsed {
                 view! {
                     <div class="panel-content">
                         {if !content.is_empty() {
                             view! { <div class="panel-text">{content}</div> }.into_any()
-                        } else {
-                            view! { <></> }.into_any()
                         }}
                         {children.map(|c| c())}
                     </div>
                 }.into_any()
-            } else {
-                view! { <></> }.into_any()
             }}
         </div>
     }
@@ -433,8 +410,6 @@ pub enum SplitterOrientation {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use leptos::prelude::*;
 
     // Component structure tests
     #[test]

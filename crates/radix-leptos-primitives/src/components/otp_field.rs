@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 use wasm_bindgen::JsCast;
 
 /// One-Time Password Field component for OTP input with validation
@@ -61,8 +59,6 @@ pub fn OtpField(
 
     let class = format!(
         "otp-field {} {} {}",
-        if disabled { "disabled" } else { "" },
-        if required { "required" } else { "" },
         class.unwrap_or_default()
     );
 
@@ -72,7 +68,7 @@ pub fn OtpField(
     let chars: Vec<char> = value.chars().take(length).collect();
     let mut inputs = Vec::new();
 
-    for _i in 0..length {
+    for __i in 0..length {
         let char_value = chars.get(i).copied().unwrap_or(' ');
         let input_type_str = match input_type {
             OtpInputType::Numeric => "tel",
@@ -142,8 +138,8 @@ pub enum OtpInputType {
 /// OTP validation result
 #[derive(Debug, Clone, PartialEq, Default)]
 pub struct OtpValidation {
-    pub _is_valid: bool,
-    pub _is_complete: bool,
+    pub is_valid: bool,
+    pub is_complete: bool,
     pub length: usize,
     pub errors: Vec<String>,
 }
@@ -195,18 +191,10 @@ pub fn OtpFieldWithValidation(
     let validation = validate_otp(&value, length, &input_type);
     let class = format!(
         "otp-field-with-validation {} {} {} {}",
-        if disabled { "disabled" } else { "" },
-        if required { "required" } else { "" },
         if validation.is_valid {
             "valid"
-        } else {
-            "invalid"
-        },
         if validation.is_complete {
             "complete"
-        } else {
-            "incomplete"
-        },
     );
 
     let style = style.unwrap_or_default();
@@ -232,8 +220,6 @@ pub fn OtpFieldWithValidation(
                         }).collect::<Vec<_>>()}
                     </div>
                 }.into_any()
-            } else {
-                view! { <></> }.into_any()
             }}
         </div>
     }
@@ -265,16 +251,6 @@ pub fn OtpTimer(
     let running = running.unwrap_or(false);
     let class = format!(
         "otp-timer {} {}",
-        if running { "running" } else { "stopped" },
-        class.unwrap_or_default()
-    );
-
-    let style = style.unwrap_or_default();
-
-    view! {
-        <div class=class style=style>
-            <div class="timer-display">
-                {format!("{:02}:{:02}", duration / 60, duration % 60)}
             </div>
             <button
                 class="timer-reset"
@@ -316,9 +292,6 @@ pub fn OtpResend(
         "otp-resend {} {}",
         if available {
             "available"
-        } else {
-            "unavailable"
-        },
         class.unwrap_or_default()
     );
 
@@ -340,10 +313,6 @@ pub fn OtpResend(
                         "Resend OTP"
                     </button>
                 }.into_any()
-            } else {
-                view! {
-                    <span class="resend-cooldown">
-                        {format!("Resend available in {}s", cooldown)}
                     </span>
                 }.into_any()
             }}
@@ -404,8 +373,6 @@ fn validate_otp(value: &str, expected_length: usize, input_type: &OtpInputType) 
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use leptos::prelude::*;
 
     // Component structure tests
     #[test]
@@ -464,7 +431,7 @@ mod tests {
             is_valid: true,
             is_complete: true,
             length: 6,
-            errors: [],
+            errors: Vec::new(),
         };
         assert!(validation.is_valid);
         assert!(validation.is_complete);
@@ -492,10 +459,10 @@ mod tests {
     fn test_otp_field_length_handling() {}
 
     #[test]
-    fn test_otp_field_disabled_state() {}
+    fn test_otp_fielddisabled_state() {}
 
     #[test]
-    fn test_otp_field_required_state() {}
+    fn test_otp_fieldrequired_state() {}
 
     #[test]
     fn test_otp_field_auto_focus() {}

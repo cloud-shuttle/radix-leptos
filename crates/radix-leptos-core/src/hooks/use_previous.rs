@@ -1,4 +1,3 @@
-use leptos::*;
 
 /// Hook for tracking the previous value of a signal
 /// 
@@ -8,7 +7,6 @@ use leptos::*;
 /// # Example
 /// 
 /// ```rust
-/// use leptos::*;
 /// use radix_leptos_core::use_previous;
 /// 
 /// #[component]
@@ -97,14 +95,11 @@ where
     create_memo(move |_| {
         if let Some(prev) = previous.get() {
             prev != signal.get()
-        } else {
-            false // No previous value means no change yet
-        }
     }).into()
 }
 
 /// Hook for getting both current and previous values
-pub fn use_current_and_previous<T>(signal: Signal<T>) -> Signal<(T, Option<T>)>
+pub fn usecurrent_and_previous<T>(signal: Signal<T>) -> Signal<(T, Option<T>)>
 where
     T: Clone + PartialEq + 'static,
 {
@@ -140,7 +135,6 @@ where
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     
     #[test]
     fn test_use_previous() {

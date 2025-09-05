@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Switch component with proper accessibility and styling variants
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -76,7 +74,7 @@ pub fn Switch(
     style: Option<String>,
     /// Checked change event handler
     #[prop(optional)]
-    on_checked_change: Option<Callback<bool>>,
+    onchecked_change: Option<Callback<bool>>,
     /// Child content
     children: Children,
 ) -> impl IntoView {
@@ -97,8 +95,8 @@ pub fn Switch(
         " " | "Enter" => {
             e.prevent_default();
             if !disabled {
-                if let Some(on_checked_change) = on_checked_change {
-                    on_checked_change.run(!checked);
+                if let Some(onchecked_change) = onchecked_change {
+                    onchecked_change.run(!checked);
                 }
             }
         }
@@ -109,8 +107,8 @@ pub fn Switch(
     let handle_click = move |e: web_sys::MouseEvent| {
         e.prevent_default();
         if !disabled {
-            if let Some(on_checked_change) = on_checked_change {
-                on_checked_change.run(!checked);
+            if let Some(onchecked_change) = onchecked_change {
+                onchecked_change.run(!checked);
             }
         }
     };
@@ -126,23 +124,6 @@ pub fn Switch(
             role="switch"
             aria-checked=checked
             aria-disabled=disabled
-            tabindex=if disabled { "-1" } else { "0" }
-            on:keydown=handle_keydown
-            on:click=handle_click
-        >
-            <input
-                id=switch_id.clone()
-                type="checkbox"
-                checked=checked
-                disabled=disabled
-                tabindex="-1"
-                aria-hidden="true"
-            />
-            <div class="radix-switch-track">
-                <div
-                    id=thumb_id
-                    class="radix-switch-thumb"
-                    data-state=if checked { "checked" } else { "unchecked" }
                 >
                 </div>
             </div>
@@ -176,7 +157,6 @@ pub fn SwitchThumb(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
 
     // 1. Basic Rendering Tests
@@ -238,7 +218,7 @@ mod tests {
     }
 
     #[test]
-    fn test_switch_disabled_state() {
+    fn test_switchdisabled_state() {
         run_test(|| {
             let checked = false;
             let disabled = true;
@@ -319,13 +299,13 @@ mod tests {
     fn test_switch_accessibility() {
         run_test(|| {
             let role = "switch";
-            let aria_checked = "false";
-            let aria_disabled = "false";
+            let ariachecked = "false";
+            let ariadisabled = "false";
             let tabindex = "0";
 
             assert_eq!(role, "switch");
-            assert_eq!(aria_checked, "false");
-            assert_eq!(aria_disabled, "false");
+            assert_eq!(ariachecked, "false");
+            assert_eq!(ariadisabled, "false");
             assert_eq!(tabindex, "0");
         });
     }
@@ -369,12 +349,12 @@ mod tests {
     proptest! {
         #[test]
         fn test_switch_properties(
-            variant in prop::sample::select([
+            variant in prop::sample::select(&[
                 SwitchVariant::Default,
                 SwitchVariant::Destructive,
                 SwitchVariant::Ghost,
             ]),
-            size in prop::sample::select([
+            size in prop::sample::select(&[
                 SwitchSize::Default,
                 SwitchSize::Sm,
                 SwitchSize::Lg,

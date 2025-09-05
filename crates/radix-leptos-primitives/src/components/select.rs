@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Select component with proper accessibility and styling variants
 ///
@@ -18,13 +16,12 @@ use leptos::*;
 /// # Example
 ///
 /// ```rust
-/// use leptos::*;
 /// use radix_leptos_primitives::*;
 ///
 /// #[component]
 /// fn MySelect() -> impl IntoView {
-///     let (selected_value, set_selected_value) = create_signal("option1".to_string());
-///     let (is_open, set_is_open) = create_signal(false);
+///     let (selected_value, setselected_value) = create_signal("option1".to_string());
+///     let (isopen, set_isopen) = create_signal(false);
 ///
 ///     let options = [
 ///         ("option1", "Option 1"),
@@ -35,9 +32,9 @@ use leptos::*;
 ///     view! {
 ///         <Select
 ///             value=selected_value
-///             on_value_change=move |value| set_selected_value.set(value)
-///             open=is_open
-///             on_open_change=move |open| set_is_open.set(open)
+///             on_value_change=move |value| setselected_value.set(value)
+///             open=isopen
+///             onopen_change=move |open| set_isopen.set(open)
 ///         >
 ///             <SelectTrigger>
 ///                 <SelectValue placeholder="Select an option" />
@@ -136,13 +133,13 @@ pub fn Select(
     on_value_change: Option<Callback<String>>,
     /// Open change event handler
     #[prop(optional)]
-    on_open_change: Option<Callback<bool>>,
+    onopen_change: Option<Callback<bool>>,
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let _select_id = generate_id("select");
-    let _trigger_id = generate_id("select-trigger");
-    let _content_id = generate_id("select-content");
+    let __select_id = generate_id("select");
+    let __trigger_id = generate_id("select-trigger");
+    let __content_id = generate_id("select-content");
 
     // Build data attributes for styling
     let data_variant = variant.as_str();
@@ -158,21 +155,21 @@ pub fn Select(
         "ArrowDown" | "ArrowUp" => {
             e.prevent_default();
             if !open {
-                if let Some(on_open_change) = on_open_change {
-                    on_open_change.run(true);
+                if let Some(onopen_change) = onopen_change {
+                    onopen_change.run(true);
                 }
             }
         }
         "Enter" | " " => {
             e.prevent_default();
-            if let Some(on_open_change) = on_open_change {
-                on_open_change.run(!open);
+            if let Some(onopen_change) = onopen_change {
+                onopen_change.run(!open);
             }
         }
         "Escape" => {
             e.prevent_default();
-            if let Some(on_open_change) = on_open_change {
-                on_open_change.run(false);
+            if let Some(onopen_change) = onopen_change {
+                onopen_change.run(false);
             }
         }
         _ => {}
@@ -309,17 +306,12 @@ pub fn SelectItem(
             data-value=value
             data-disabled=disabled
             role="option"
-            tabindex=if disabled { "-1" } else { "0" }
-            on:click=handle_click
-        >
-            {children()}
         </div>
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
 
     // 1. Basic Rendering Tests
@@ -354,7 +346,7 @@ mod tests {
 
     // 2. Props Validation Tests
     #[test]
-    fn test_select_open_state() {
+    fn test_selectopen_state() {
         run_test(|| {
             // Test select open state logic
             let open = true;
@@ -461,15 +453,15 @@ mod tests {
             // Test item selection logic
             let mut selected_value = None;
             let item_value = "option1".to_string();
-            let item_disabled = false;
+            let itemdisabled = false;
 
             // Initial state
             assert!(selected_value.is_none());
             assert_eq!(item_value, "option1");
-            assert!(!item_disabled);
+            assert!(!itemdisabled);
 
             // Select item
-            if !item_disabled {
+            if !itemdisabled {
                 selected_value = Some(item_value.clone());
             }
 
@@ -517,12 +509,12 @@ mod tests {
     proptest! {
         #[test]
         fn test_select_properties(
-            variant in prop::sample::select([
+            variant in prop::sample::select(&[
                 SelectVariant::Default,
                 SelectVariant::Destructive,
                 SelectVariant::Ghost,
             ]),
-            size in prop::sample::select([
+            size in prop::sample::select(&[
                 SelectSize::Default,
                 SelectSize::Sm,
                 SelectSize::Lg,

@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// Swipeable card component that responds to mouse gestures
 #[component]
@@ -21,14 +19,14 @@ pub fn SwipeableCard(
     min_swipe_distance: f64,
 ) -> impl IntoView {
     let (start_x, set_start_x) = signal(0.0);
-    let (current_x, set_current_x) = signal(0.0);
+    let (current_x, setcurrent_x) = signal(0.0);
     let (is_swiping, set_is_swiping) = signal(false);
     let (translate_x, set_translate_x) = signal(0.0);
 
     // Handle mouse events for desktop compatibility
     let handle_mouse_down = move |event: web_sys::MouseEvent| {
         set_start_x.set(event.client_x() as f64);
-        set_current_x.set(event.client_x() as f64);
+        setcurrent_x.set(event.client_x() as f64);
         set_is_swiping.set(true);
         set_translate_x.set(0.0);
     };
@@ -36,7 +34,7 @@ pub fn SwipeableCard(
     let handle_mouse_move = move |event: web_sys::MouseEvent| {
         if is_swiping.get() {
             let new_x = event.client_x() as f64;
-            set_current_x.set(new_x);
+            setcurrent_x.set(new_x);
             
             let delta_x: f64 = new_x - start_x.get();
             set_translate_x.set(delta_x * 0.3);
@@ -51,11 +49,6 @@ pub fn SwipeableCard(
                 if delta_x > 0.0 {
                     // Swiped right
                     if let Some(callback) = on_swipe_right {
-                        callback.run(());
-                    }
-                } else {
-                    // Swiped left
-                    if let Some(callback) = on_swipe_left {
                         callback.run(());
                     }
                 }
@@ -73,8 +66,6 @@ pub fn SwipeableCard(
             style={format!(
                 "transform: translateX({}px); transition: {};",
                 translate_x.get(),
-                if is_swiping.get() { "none" } else { "transform 0.2s ease-out" }
-            )}
             on:mousedown=handle_mouse_down
             on:mousemove=handle_mouse_move
             on:mouseup=handle_mouse_up
@@ -104,14 +95,14 @@ pub fn SwipeableListItem(
     min_swipe_distance: f64,
 ) -> impl IntoView {
     let (start_x, set_start_x) = signal(0.0);
-    let (current_x, set_current_x) = signal(0.0);
+    let (current_x, setcurrent_x) = signal(0.0);
     let (is_swiping, set_is_swiping) = signal(false);
     let (translate_x, set_translate_x) = signal(0.0);
 
     // Handle mouse events for desktop compatibility
     let handle_mouse_down = move |event: web_sys::MouseEvent| {
         set_start_x.set(event.client_x() as f64);
-        set_current_x.set(event.client_x() as f64);
+        setcurrent_x.set(event.client_x() as f64);
         set_is_swiping.set(true);
         set_translate_x.set(0.0);
     };
@@ -119,7 +110,7 @@ pub fn SwipeableListItem(
     let handle_mouse_move = move |event: web_sys::MouseEvent| {
         if is_swiping.get() {
             let new_x = event.client_x() as f64;
-            set_current_x.set(new_x);
+            setcurrent_x.set(new_x);
             
             let delta_x: f64 = new_x - start_x.get();
             set_translate_x.set(delta_x * 0.5);
@@ -134,11 +125,6 @@ pub fn SwipeableListItem(
                 if delta_x > 0.0 {
                     // Swiped right
                     if let Some(callback) = on_swipe_right {
-                        callback.run(());
-                    }
-                } else {
-                    // Swiped left
-                    if let Some(callback) = on_swipe_left {
                         callback.run(());
                     }
                 }
@@ -156,8 +142,6 @@ pub fn SwipeableListItem(
             style={format!(
                 "transform: translateX({}px); transition: {};",
                 translate_x.get(),
-                if is_swiping.get() { "none" } else { "transform 0.2s ease-out" }
-            )}
             on:mousedown=handle_mouse_down
             on:mousemove=handle_mouse_move
             on:mouseup=handle_mouse_up

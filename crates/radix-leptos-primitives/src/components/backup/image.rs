@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// Image aspect ratio variant
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]

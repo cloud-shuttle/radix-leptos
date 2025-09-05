@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Toggle component for toggle button functionality
 ///
@@ -41,8 +39,6 @@ pub fn Toggle(
         "toggle",
         &variant.to_class(),
         &size.to_class(),
-        if is_pressed.get() { "pressed" } else { "" },
-        if disabled { "disabled" } else { "" },
         class.as_deref().unwrap_or(""),
     ]);
 
@@ -131,7 +127,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
@@ -174,7 +169,7 @@ mod tests {
     fn test_toggle_default_pressed() {}
 
     #[test]
-    fn test_toggle_disabled() {}
+    fn test_toggledisabled() {}
 
     #[test]
     fn test_toggle_on_pressed_change() {}
@@ -241,7 +236,7 @@ mod tests {
     // Helper Function Tests
     #[test]
     fn test_merge_classes_empty() {
-        let result = merge_classes([]);
+        let result = merge_classes(Vec::new());
         assert_eq!(result, "");
     }
 
@@ -267,7 +262,7 @@ mod tests {
     #[test]
     fn test_toggle_property_based() {
         use proptest::prelude::*;
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
 
         });
     }

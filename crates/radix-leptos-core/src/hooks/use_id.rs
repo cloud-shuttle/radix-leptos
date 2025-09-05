@@ -1,4 +1,3 @@
-use leptos::*;
 use uuid::Uuid;
 
 /// Hook for generating stable, unique IDs for component accessibility
@@ -13,7 +12,6 @@ use uuid::Uuid;
 /// # Example
 /// 
 /// ```rust
-/// use leptos::*;
 /// use radix_leptos_core::use_id;
 /// 
 /// #[component]
@@ -51,7 +49,6 @@ pub fn use_id(prefix: Option<String>) -> Signal<String> {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     
     #[test]
     fn test_generates_unique_ids() {

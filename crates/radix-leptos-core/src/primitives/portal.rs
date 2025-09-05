@@ -1,5 +1,4 @@
 use leptos::prelude::*;
-// use leptos::*;  // Unused import
 
 /// Portal component for rendering content in different DOM locations
 ///
@@ -10,7 +9,6 @@ use leptos::prelude::*;
 /// # Example
 ///
 /// ```rust
-/// use leptos::*;
 /// use radix_leptos_core::Portal;
 ///
 /// #[component]
@@ -31,7 +29,7 @@ use leptos::prelude::*;
 pub fn Portal(
     /// Whether to force mount the portal regardless of hydration state
     #[prop(optional, default = false)]
-    __force_mount: bool,
+    ___force_mount: bool,
     /// Content to render in the portal
     children: Children,
 ) -> impl IntoView {
@@ -66,7 +64,6 @@ pub fn use_portal_context() -> Option<PortalContext> {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
 
     #[test]
     fn test_portal_context() {

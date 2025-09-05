@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// ColorPicker component - Design tool integration
 #[component]
@@ -24,8 +22,6 @@ pub fn ColorPicker(
     let class = merge_classes([
         "color-picker",
         &format.to_class(),
-        if show_palette { "show-palette" } else { "" },
-        if show_recent { "show-recent" } else { "" },
         class.as_deref().unwrap_or(""),
     ]);
 
@@ -50,10 +46,10 @@ pub fn ColorPicker(
 pub struct ColorPickerConfig {
     pub width: f64,
     pub height: f64,
-    pub _show_alpha: bool,
-    pub _show_hex: bool,
-    pub _show_rgb: bool,
-    pub _show_hsl: bool,
+    pub __show_alpha: bool,
+    pub __show_hex: bool,
+    pub __show_rgb: bool,
+    pub __show_hsl: bool,
     pub palette: Vec<String>,
     pub recent_colors: Vec<String>,
 }
@@ -74,7 +70,7 @@ impl Default for ColorPickerConfig {
                 "#00ff00".to_string(),
                 "#0000ff".to_string(),
             ],
-            recent_colors: [],
+            recent_colors: Vec::new(),
         }
     }
 }
@@ -125,16 +121,6 @@ pub fn ColorSwatch(
 
     let class = merge_classes([
         "color-swatch",
-        if selected { "selected" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="button"
-            aria-label=format!("Color swatch: {}", color)
             data-color=color
             data-size=size
             data-selected=selected
@@ -220,8 +206,8 @@ pub fn ColorSlider(
 ) -> impl IntoView {
     let value = value.unwrap_or(0.0);
     let min = min.unwrap_or(0.0);
-    let max = max.unwrap_or(100.0);
-    let step = step.unwrap_or(1.0);
+    let _max = max.unwrap_or(100.0);
+    let _step = step.unwrap_or(1.0);
 
     let class = merge_classes([
         "color-slider",
@@ -252,7 +238,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
     use proptest::prelude::*;
 
@@ -287,7 +272,7 @@ mod tests {
     #[test] fn test_color_swatch_with_style() { 
     #[test] fn test_color_swatch_color() { 
     #[test] fn test_color_swatch_size() { 
-    #[test] fn test_color_swatch_selected() { 
+    #[test] fn test_color_swatchselected() { 
     #[test] fn test_color_swatch_on_click() { 
 
     // Color Palette tests
@@ -295,7 +280,7 @@ mod tests {
     #[test] fn test_color_palette_with_class() { 
     #[test] fn test_color_palette_with_style() { 
     #[test] fn test_color_palette_colors() { 
-    #[test] fn test_color_palette_selected_color() { 
+    #[test] fn test_color_paletteselected_color() { 
     #[test] fn test_color_palette_on_color_select() { 
 
     // Color Input tests
@@ -325,19 +310,19 @@ mod tests {
 
     // Property-based Tests
     #[test] fn test_colorpicker_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             
         });
     }
 
     #[test] fn test_colorpicker_color_validation() {
-        proptest!(|(_color in "#[0-9a-fA-F]{6}")| {
+        proptest!(|(__color in "#[0-9a-fA-F]{6}")| {
             
         });
     }
 
     #[test] fn test_colorpicker_format_property_based() {
-        proptest!(|(__format_index in 0..4usize)| {
+        proptest!(|(____format_index in 0..4usize)| {
             
         });
     }

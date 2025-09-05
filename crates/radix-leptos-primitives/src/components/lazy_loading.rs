@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 use wasm_bindgen::JsCast;
 
 /// Lazy Loading component for lazy loading utilities
@@ -36,17 +34,6 @@ pub fn LazyLoading(
 
     let class = format!(
         "lazy-loading {} {}",
-        if enabled { "enabled" } else { "disabled" },
-        class.unwrap_or_default()
-    );
-
-    let style = style.unwrap_or_default();
-
-    let handle_intersect = move |_: web_sys::Event| {
-        if enabled {
-            if let Some(callback) = on_intersect {
-                callback.run(());
-            }
         }
     };
 
@@ -67,7 +54,7 @@ pub fn LazyImage(
     /// Placeholder image URL
     #[prop(optional)] placeholder: Option<String>,
     /// Whether to show loading spinner
-    #[prop(optional)] show_loading: Option<bool>,
+    #[prop(optional)] showloading: Option<bool>,
     /// Whether to show error state
     #[prop(optional)] show_error: Option<bool>,
     /// Image width
@@ -86,7 +73,7 @@ pub fn LazyImage(
     let src = src.unwrap_or_default();
     let alt = alt.unwrap_or_default();
     let placeholder = placeholder.unwrap_or_default();
-    let show_loading = show_loading.unwrap_or(true);
+    let showloading = showloading.unwrap_or(true);
     let show_error = show_error.unwrap_or(true);
     let width = width.unwrap_or_else(|| "100%".to_string());
     let height = height.unwrap_or_else(|| "auto".to_string());
@@ -128,12 +115,10 @@ pub fn LazyImage(
                         class="placeholder"
                     />
                 }.into_any()
-            } else if show_loading {
+            } else if showloading {
                 view! {
                     <div class="loading-spinner">"Loading..."</div>
                 }.into_any()
-            } else {
-                view! { <></> }.into_any()
             }}
         </div>
     }
@@ -174,18 +159,6 @@ pub fn LazyContent(
 
     let class = format!(
         "lazy-content {} {} {}",
-        if loaded { "loaded" } else { "not-loaded" },
-        if loading { "loading" } else { "" },
-        if error { "error" } else { "" },
-    );
-
-    let style = style.unwrap_or_default();
-
-    let handle_load = move |_: web_sys::Event| {
-        if !loaded && !loading {
-            if let Some(callback) = on_load {
-                callback.run(());
-            }
         }
     };
 
@@ -198,9 +171,7 @@ pub fn LazyContent(
             } else if loading {
                 view! {
                     <div class="loading">
-                        {if let Some(_loading_comp) = loading_component {
-                            view! { <div class="default-loading">"Loading..."</div> }
-                        } else {
+                        {if let Some(loading_comp) = loading_component {
                             view! { <div class="default-loading">"Loading..."</div> }
                         }}
                     </div>
@@ -210,13 +181,9 @@ pub fn LazyContent(
                     <div class="error">
                         {if let Some(_error_comp) = error_component {
                             view! { <div class="default-error">"Failed to load content"</div> }
-                        } else {
-                            view! { <div class="default-error">"Failed to load content"</div> }
                         }}
                     </div>
                 }.into_any()
-            } else {
-                view! { <></> }.into_any()
             }}
             {children.map(|c| c())}
         </div>
@@ -253,8 +220,6 @@ pub fn LazyList(
 
     let class = format!(
         "lazy-list {} {}",
-        if loading { "loading" } else { "" },
-        if has_more { "has-more" } else { "no-more" },
     );
 
     let style = style.unwrap_or_default();
@@ -274,22 +239,15 @@ pub fn LazyList(
                     (0..loaded_items).map(|_index| {
                         view! { <div class="lazy-item">"Item"</div> }
                     }).collect::<Vec<_>>()
-                } else {
-                    []
-                }}
             </div>
             {if has_more {
                 view! {
                     <div class="lazy-list-load-more" on:intersect=handle_load_more>
                         {if loading {
                             view! { <div class="loading">"Loading more items..."</div> }.into_any()
-                        } else {
-                            view! { <div class="load-more-trigger">"Load more"</div> }.into_any()
                         }}
                     </div>
                 }.into_any()
-            } else {
-                view! { <></> }.into_any()
             }}
         </div>
     }
@@ -342,12 +300,10 @@ pub fn LazyLoadingProvider(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use leptos::prelude::*;
 
     // Component structure tests
     #[test]
-    fn test_lazy_loading_component_creation() {
+    fn test_lazyloading_component_creation() {
         let runtime = create_runtime();
         let view = view! {
             <LazyLoading>
@@ -389,7 +345,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lazy_loading_hook_component_creation() {
+    fn test_lazyloading_hook_component_creation() {
         let runtime = create_runtime();
         let view = view! {
             <LazyLoadingHook />
@@ -399,7 +355,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lazy_loading_provider_component_creation() {
+    fn test_lazyloading_provider_component_creation() {
         let runtime = create_runtime();
         let view = view! {
             <LazyLoadingProvider>
@@ -412,7 +368,7 @@ mod tests {
 
     // Props and state tests
     #[test]
-    fn test_lazy_loading_props_handling() {
+    fn test_lazyloading_props_handling() {
         let runtime = create_runtime();
         let view = view! {
             <LazyLoading 
@@ -430,7 +386,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lazy_loading_enabled_state() {
+    fn test_lazyloading_enabled_state() {
         let runtime = create_runtime();
         let view = view! {
             <LazyLoading enabled=false>
@@ -442,7 +398,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lazy_loading_root_margin() {
+    fn test_lazyloading_root_margin() {
         let runtime = create_runtime();
         let view = view! {
             <LazyLoading root_margin="200px">
@@ -454,7 +410,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lazy_loading_threshold() {
+    fn test_lazyloading_threshold() {
         let runtime = create_runtime();
         let view = view! {
             <LazyLoading threshold=0.8>
@@ -466,7 +422,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lazy_loading_loading_component() {
+    fn test_lazyloadingloading_component() {
         let runtime = create_runtime();
         let loading_comp = || view! { <div>"Custom loading..."</div> };
         let view = view! {
@@ -479,7 +435,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lazy_loading_error_component() {
+    fn test_lazyloading_error_component() {
         let runtime = create_runtime();
         let error_comp = || view! { <div>"Custom error"</div> };
         let view = view! {
@@ -493,22 +449,22 @@ mod tests {
 
     // Event handling tests
     #[test]
-    fn test_lazy_loading_intersect_callback() {
+    fn test_lazyloading_intersect_callback() {
         
     }
 
     #[test]
-    fn test_lazy_loading_load_start_callback() {
+    fn test_lazyloading_load_start_callback() {
         
     }
 
     #[test]
-    fn test_lazy_loading_load_complete_callback() {
+    fn test_lazyloading_load_complete_callback() {
         
     }
 
     #[test]
-    fn test_lazy_loading_load_error_callback() {
+    fn test_lazyloading_load_error_callback() {
         
     }
 
@@ -548,13 +504,13 @@ mod tests {
     }
 
     #[test]
-    fn test_lazy_image_loading_spinner() {
+    fn test_lazy_imageloading_spinner() {
         let runtime = create_runtime();
         let view = view! {
             <LazyImage 
                 src="" 
                 alt="Test" 
-                show_loading=true 
+                showloading=true 
             />
         };
         assert!(view.into_any().is_some());
@@ -632,7 +588,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lazy_content_loading_state() {
+    fn test_lazy_contentloading_state() {
         
     }
 
@@ -642,7 +598,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lazy_content_loading_component() {
+    fn test_lazy_contentloading_component() {
         
     }
 
@@ -688,7 +644,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lazy_list_loading_state() {
+    fn test_lazy_listloading_state() {
         
     }
 
@@ -704,134 +660,134 @@ mod tests {
 
     // Intersection observer tests
     #[test]
-    fn test_lazy_loading_intersection_observer() {
+    fn test_lazyloading_intersection_observer() {
         
     }
 
     #[test]
-    fn test_lazy_loading_root_margin_config() {
+    fn test_lazyloading_root_margin_config() {
         
     }
 
     #[test]
-    fn test_lazy_loading_threshold_config() {
+    fn test_lazyloading_threshold_config() {
         
     }
 
     // Performance tests
     #[test]
-    fn test_lazy_loading_performance() {
+    fn test_lazyloading_performance() {
         
     }
 
     #[test]
-    fn test_lazy_loading_memory_usage() {
+    fn test_lazyloading_memory_usage() {
         
     }
 
     #[test]
-    fn test_lazy_loading_large_dataset() {
+    fn test_lazyloading_large_dataset() {
         
     }
 
     // Error handling tests
     #[test]
-    fn test_lazy_loading_error_handling() {
+    fn test_lazyloading_error_handling() {
         
     }
 
     #[test]
-    fn test_lazy_loading_fallback_components() {
+    fn test_lazyloading_fallback_components() {
         
     }
 
     #[test]
-    fn test_lazy_loading_retry_mechanism() {
+    fn test_lazyloading_retry_mechanism() {
         
     }
 
     // Accessibility tests
     #[test]
-    fn test_lazy_loading_accessibility() {
+    fn test_lazyloading_accessibility() {
         
     }
 
     #[test]
-    fn test_lazy_loading_screen_reader_support() {
+    fn test_lazyloading_screen_reader_support() {
         
     }
 
     #[test]
-    fn test_lazy_loading_keyboard_navigation() {
+    fn test_lazyloading_keyboard_navigation() {
         
     }
 
     // Integration tests
     #[test]
-    fn test_lazy_loading_full_workflow() {
+    fn test_lazyloading_full_workflow() {
         
     }
 
     #[test]
-    fn test_lazy_loading_with_images() {
+    fn test_lazyloading_with_images() {
         
     }
 
     #[test]
-    fn test_lazy_loading_with_content() {
+    fn test_lazyloading_with_content() {
         
     }
 
     #[test]
-    fn test_lazy_loading_with_list() {
+    fn test_lazyloading_with_list() {
         
     }
 
     // Provider tests
     #[test]
-    fn test_lazy_loading_provider_config() {
+    fn test_lazyloading_provider_config() {
         
     }
 
     #[test]
-    fn test_lazy_loading_provider_defaults() {
+    fn test_lazyloading_provider_defaults() {
         
     }
 
     // Edge case tests
     #[test]
-    fn test_lazy_loading_empty_content() {
+    fn test_lazyloading_empty_content() {
         
     }
 
     #[test]
-    fn test_lazy_loading_invalid_urls() {
+    fn test_lazyloading_invalid_urls() {
         
     }
 
     #[test]
-    fn test_lazy_loading_network_errors() {
+    fn test_lazyloading_network_errors() {
         
     }
 
     // Styling tests
     #[test]
-    fn test_lazy_loading_custom_classes() {
+    fn test_lazyloading_custom_classes() {
         
     }
 
     #[test]
-    fn test_lazy_loading_custom_styles() {
+    fn test_lazyloading_custom_styles() {
         
     }
 
     #[test]
-    fn test_lazy_loading_responsive_design() {
+    fn test_lazyloading_responsive_design() {
         
     }
 
     #[test]
-    fn test_lazy_loading_loading_animations() {
+    fn test_lazyloadingloading_animations() {
         
     }
 }

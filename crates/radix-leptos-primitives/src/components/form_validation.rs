@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 use std::collections::HashMap;
 use crate::utils::merge_classes;
 
@@ -62,14 +60,6 @@ pub fn FormField(
 
     let class = merge_classes([
         "form-field",
-        if required { "required" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    let handle_validation = move |result: FieldValidationResult| {
-        if let Some(callback) = on_validation {
-            callback.run(result);
-        }
     };
 
     view! {
@@ -85,13 +75,9 @@ pub fn FormField(
                         {label}
                         {if required {
                             view! { <span class="required-indicator">"*"</span> }
-                        } else {
-                            view! { <span class="required-indicator">""</span> }
                         }}
                     </FormLabel>
                 }.into_any()
-            } else {
-                view! { <span></span> }.into_any()
             }}
             {children.map(|c| c())}
             <FormFieldError name=name.clone() />
@@ -192,8 +178,6 @@ pub fn FormErrorSummary(
                         }).collect::<Vec<_>>()}
                     </ul>
                 }.into_any()
-            } else {
-                view! { <></> }.into_any()
             }}
         </div>
     }
@@ -262,7 +246,7 @@ pub type CustomValidator = Box<dyn Fn(&str) -> ValidationResult + Send + Sync>;
 /// Validation Result struct
 #[derive(Debug, Clone, PartialEq)]
 pub struct ValidationResult {
-    pub _is_valid: bool,
+    pub is_valid: bool,
     pub message: Option<String>,
 }
 
@@ -279,7 +263,7 @@ impl Default for ValidationResult {
 #[derive(Debug, Clone, PartialEq)]
 pub struct FieldValidationResult {
     pub field_name: String,
-    pub _is_valid: bool,
+    pub is_valid: bool,
     pub errors: Vec<String>,
     pub warnings: Vec<String>,
 }
@@ -298,10 +282,10 @@ impl Default for FieldValidationResult {
 /// Form Validation State struct
 #[derive(Debug, Clone, PartialEq)]
 pub struct FormValidationState {
-    pub _is_valid: bool,
-    pub _is_submitting: bool,
-    pub _is_dirty: bool,
-    pub _is_touched: bool,
+    pub is_valid: bool,
+    pub __is_submitting: bool,
+    pub __is_dirty: bool,
+    pub __is_touched: bool,
     pub field_errors: HashMap<String, FieldError>,
     pub form_errors: Vec<FormError>,
 }
@@ -450,9 +434,6 @@ impl ValidationEngine {
                         is_valid: false,
                         message: Some(rule.message.clone()),
                     }
-                } else {
-                    ValidationResult::default()
-                }
             }
             ValidationRuleType::MinLength(min_len) => {
                 if value.len() < *min_len {
@@ -460,9 +441,6 @@ impl ValidationEngine {
                         is_valid: false,
                         message: Some(rule.message.clone()),
                     }
-                } else {
-                    ValidationResult::default()
-                }
             }
             ValidationRuleType::MaxLength(max_len) => {
                 if value.len() > *max_len {
@@ -470,9 +448,6 @@ impl ValidationEngine {
                         is_valid: false,
                         message: Some(rule.message.clone()),
                     }
-                } else {
-                    ValidationResult::default()
-                }
             }
             ValidationRuleType::Min(min_val) => {
                 if let Ok(num) = value.parse::<f64>() {
@@ -481,14 +456,6 @@ impl ValidationEngine {
                             is_valid: false,
                             message: Some(rule.message.clone()),
                         }
-                    } else {
-                        ValidationResult::default()
-                    }
-                } else {
-                    ValidationResult {
-                        is_valid: false,
-                        message: Some("Invalid number format".to_string()),
-                    }
                 }
             }
             ValidationRuleType::Max(max_val) => {
@@ -498,14 +465,6 @@ impl ValidationEngine {
                             is_valid: false,
                             message: Some(rule.message.clone()),
                         }
-                    } else {
-                        ValidationResult::default()
-                    }
-                } else {
-                    ValidationResult {
-                        is_valid: false,
-                        message: Some("Invalid number format".to_string()),
-                    }
                 }
             }
             ValidationRuleType::Pattern(pattern) => {
@@ -515,14 +474,6 @@ impl ValidationEngine {
                             is_valid: false,
                             message: Some(rule.message.clone()),
                         }
-                    } else {
-                        ValidationResult::default()
-                    }
-                } else {
-                    ValidationResult {
-                        is_valid: false,
-                        message: Some("Invalid regex pattern".to_string()),
-                    }
                 }
             }
             ValidationRuleType::Email => {
@@ -531,9 +482,6 @@ impl ValidationEngine {
                         is_valid: false,
                         message: Some(rule.message.clone()),
                     }
-                } else {
-                    ValidationResult::default()
-                }
             }
             ValidationRuleType::Url => {
                 if !is_valid_url(value) {
@@ -541,9 +489,6 @@ impl ValidationEngine {
                         is_valid: false,
                         message: Some(rule.message.clone()),
                     }
-                } else {
-                    ValidationResult::default()
-                }
             }
             ValidationRuleType::Phone => {
                 if !is_valid_phone(value) {
@@ -551,9 +496,6 @@ impl ValidationEngine {
                         is_valid: false,
                         message: Some(rule.message.clone()),
                     }
-                } else {
-                    ValidationResult::default()
-                }
             }
             ValidationRuleType::Date => {
                 if !is_valid_date(value) {
@@ -561,9 +503,6 @@ impl ValidationEngine {
                         is_valid: false,
                         message: Some(rule.message.clone()),
                     }
-                } else {
-                    ValidationResult::default()
-                }
             }
             ValidationRuleType::Time => {
                 if !is_valid_time(value) {
@@ -571,9 +510,6 @@ impl ValidationEngine {
                         is_valid: false,
                         message: Some(rule.message.clone()),
                     }
-                } else {
-                    ValidationResult::default()
-                }
             }
             ValidationRuleType::Number => {
                 if !is_valid_number(value) {
@@ -581,9 +517,6 @@ impl ValidationEngine {
                         is_valid: false,
                         message: Some(rule.message.clone()),
                     }
-                } else {
-                    ValidationResult::default()
-                }
             }
             ValidationRuleType::Integer => {
                 if !is_valid_integer(value) {
@@ -591,18 +524,10 @@ impl ValidationEngine {
                         is_valid: false,
                         message: Some(rule.message.clone()),
                     }
-                } else {
-                    ValidationResult::default()
-                }
             }
             ValidationRuleType::Custom(name) => {
                 if let Some(validator) = self.custom_validators.get(name) {
                     validator(value)
-                } else {
-                    ValidationResult {
-                        is_valid: false,
-                        message: Some("Custom validator not found".to_string()),
-                    }
                 }
             }
         }
@@ -651,8 +576,6 @@ fn is_valid_integer(integer: &str) -> bool {
 
 #[cfg(test)]
 mod form_validation_tests {
-    use super::*;
-    use leptos::*;
     use proptest::prelude::*;
 
     #[test]
@@ -893,7 +816,7 @@ mod form_validation_tests {
     // Property-based tests
     #[test]
     fn test_validation_rule_property_based() {
-        proptest!(|(_message in ".*")| {
+        proptest!(|(__message in ".*")| {
             let rule = ValidationRule {
                 rule_type: ValidationRuleType::Required,
                 message: message.clone(),

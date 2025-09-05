@@ -1,6 +1,5 @@
+use crate::theming::CSSVariables;
 use super::css_variables::CSSVariables;
-use leptos::prelude::*;
-use leptos::*;
 
 /// Theme customization component
 #[component]
@@ -44,10 +43,10 @@ pub fn ThemeCustomizer(
     let show_shadows = show_shadows.unwrap_or(true);
     let show_animations = show_animations.unwrap_or(true);
 
-    let (current_theme, set_current_theme) = signal(initial_theme);
+    let (current_theme, setcurrent_theme) = signal(initial_theme);
 
     let handle_theme_change = Callback::new(move |new_theme: CSSVariables| {
-        set_current_theme.set(new_theme.clone());
+        setcurrent_theme.set(new_theme.clone());
         if let Some(callback) = on_theme_change {
             callback.run(new_theme);
         }
@@ -70,8 +69,6 @@ pub fn ThemeCustomizer(
                             on_change=handle_theme_change
                         />
                     }.into_any()
-                } else {
-                    view! { <></> }.into_any()
                 }}
 
                 {if show_typography {
@@ -81,8 +78,6 @@ pub fn ThemeCustomizer(
                             on_change=handle_theme_change
                         />
                     }.into_any()
-                } else {
-                    view! { <></> }.into_any()
                 }}
 
                 {if show_spacing {
@@ -92,8 +87,6 @@ pub fn ThemeCustomizer(
                             on_change=handle_theme_change
                         />
                     }.into_any()
-                } else {
-                    view! { <></> }.into_any()
                 }}
 
                 {if show_border_radius {
@@ -103,8 +96,6 @@ pub fn ThemeCustomizer(
                             on_change=handle_theme_change
                         />
                     }.into_any()
-                } else {
-                    view! { <></> }.into_any()
                 }}
 
                 {if show_shadows {
@@ -114,8 +105,6 @@ pub fn ThemeCustomizer(
                             on_change=handle_theme_change
                         />
                     }.into_any()
-                } else {
-                    view! { <></> }.into_any()
                 }}
 
                 {if show_animations {
@@ -125,8 +114,6 @@ pub fn ThemeCustomizer(
                             on_change=handle_theme_change
                         />
                     }.into_any()
-                } else {
-                    view! { <></> }.into_any()
                 }}
             </div>
 
@@ -746,8 +733,6 @@ pub fn ThemePreview(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use leptos::prelude::*;
 
     #[test]
     fn test_theme_customizer_creation() {

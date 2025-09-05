@@ -709,8 +709,6 @@ impl CSSVariables {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use leptos::*;
 
     #[test]
     fn test_css_variables_default() {

@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 use wasm_bindgen::JsCast;
 
 /// Switch state enum
@@ -68,7 +66,7 @@ pub fn Switch(
     /// Child content (label)
     children: Children,
 ) -> impl IntoView {
-    let _switch_id = generate_id("switch");
+    let __switch_id = generate_id("switch");
     
     // Build base classes
     let base_classes = "radix-switch";
@@ -122,7 +120,7 @@ pub fn Switch(
     };
     
     // Determine ARIA attributes
-    let aria_checked = match state {
+    let ariachecked = match state {
         SwitchState::Off => Some("false"),
         SwitchState::On => Some("true"),
     };
@@ -133,17 +131,9 @@ pub fn Switch(
             class=combined_class
             style=style.unwrap_or_default()
             role="switch"
-            aria-checked=aria_checked
+            aria-checked=ariachecked
             aria-required=required
             aria-disabled=disabled
-            tabindex=if disabled { None } else { Some(0) }
-            data-state=state.as_str()
-            on:click=handle_click
-            on:keydown=handle_keydown
-        >
-            <input
-                type="checkbox"
-                id=format!("{}-input", switch_id)
                 name=name.unwrap_or_default()
                 value=value.unwrap_or_default()
                 checked=state == SwitchState::On
@@ -199,7 +189,7 @@ pub fn SwitchWithLabel(
     /// Child content (label)
     children: Children,
 ) -> impl IntoView {
-    let _switch_id = generate_id("switch");
+    let __switch_id = generate_id("switch");
     
     view! {
         <div style="display: flex; align-items: center; gap: 8px;">

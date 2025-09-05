@@ -1,7 +1,5 @@
 #[cfg(test)]
 mod alert_dialog_tests {
-    use super::*;
-    use leptos::*;
     use leptos::callback::Callback;
     use proptest::prelude::*;
     use crate::components::alert_dialog::*;
@@ -23,12 +21,12 @@ mod alert_dialog_tests {
         #[test]
         fn test_alert_dialog_properties(
             open in any::<bool>(),
-            variant in prop::sample::select([
+            variant in prop::sample::select(&[
                 AlertDialogVariant::Default,
                 AlertDialogVariant::Destructive,
                 AlertDialogVariant::Warning,
             ]),
-            size in prop::sample::select([
+            size in prop::sample::select(&[
                 AlertDialogSize::Small,
                 AlertDialogSize::Medium,
                 AlertDialogSize::Large,
@@ -40,7 +38,7 @@ mod alert_dialog_tests {
                     open=open
                     variant=variant
                     size=size
-                    on_open_change=Callback::new(|_| {})
+                    onopen_change=Callback::new(|_| {})
                 >
                     <AlertDialogTitle>"Test Title"</AlertDialogTitle>
                     <AlertDialogDescription>"Test Description"</AlertDialogDescription>

@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Popover component for floating content containers
 ///
@@ -9,26 +7,26 @@ pub fn Popover(
     #[prop(optional)] class: Option<String>,
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
-    #[prop(optional)] default_open: Option<bool>,
+    #[prop(optional)] defaultopen: Option<bool>,
     #[prop(optional)] open: Option<ReadSignal<bool>>,
-    #[prop(optional)] on_open_change: Option<Callback<bool>>,
+    #[prop(optional)] onopen_change: Option<Callback<bool>>,
 ) -> impl IntoView {
-    let (is_open, set_is_open) = signal(
+    let (isopen, set_isopen) = signal(
         open.map(|o| o.get())
-            .unwrap_or_else(|| default_open.unwrap_or(false)),
+            .unwrap_or_else(|| defaultopen.unwrap_or(false)),
     );
 
     // Handle external open state changes
-    if let Some(external_open) = open {
+    if let Some(externalopen) = open {
         Effect::new(move |_| {
-            set_is_open.set(external_open.get());
+            set_isopen.set(externalopen.get());
         });
     }
 
     // Handle open state changes
-    if let Some(on_open_change) = on_open_change {
+    if let Some(onopen_change) = onopen_change {
         Effect::new(move |_| {
-            on_open_change.run(is_open.get());
+            onopen_change.run(isopen.get());
         });
     }
 
@@ -38,9 +36,6 @@ pub fn Popover(
         <div
             class=class
             style=style
-            data-state=if is_open.get() { "open" } else { "closed" }
-        >
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -58,15 +53,6 @@ pub fn PopoverTrigger(
 
     let class = merge_classes([
         "popover-trigger",
-        if disabled { "disabled" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    let handle_click = move |_| {
-        if !disabled {
-            if let Some(on_click) = on_click {
-                on_click.run(());
-            }
         }
     };
 
@@ -281,7 +267,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
@@ -297,13 +282,13 @@ mod tests {
     fn test_popover_with_style() {}
 
     #[test]
-    fn test_popover_with_default_open() {}
+    fn test_popover_with_defaultopen() {}
 
     #[test]
-    fn test_popover_with_controlled_open() {}
+    fn test_popover_with_controlledopen() {}
 
     #[test]
-    fn test_popover_on_open_change() {}
+    fn test_popover_onopen_change() {}
 
     // Popover Trigger Tests
     #[test]
@@ -316,7 +301,7 @@ mod tests {
     fn test_popover_trigger_with_style() {}
 
     #[test]
-    fn test_popover_trigger_disabled() {}
+    fn test_popover_triggerdisabled() {}
 
     #[test]
     fn test_popover_trigger_on_click() {}
@@ -332,7 +317,7 @@ mod tests {
     fn test_popover_content_with_style() {}
 
     #[test]
-    fn test_popover_content_visible() {}
+    fn test_popover_contentvisible() {}
 
     #[test]
     fn test_popover_content_hidden() {}
@@ -457,7 +442,7 @@ mod tests {
     // Helper Function Tests
     #[test]
     fn test_merge_classes_empty() {
-        let result = merge_classes([]);
+        let result = merge_classes(Vec::new());
         assert_eq!(result, "");
     }
 
@@ -483,7 +468,7 @@ mod tests {
     #[test]
     fn test_popover_property_based() {
         use proptest::prelude::*;
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
 
         });
     }
@@ -491,7 +476,7 @@ mod tests {
     #[test]
     fn test_popover_trigger_property_based() {
         use proptest::prelude::*;
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
 
         });
     }
@@ -499,7 +484,7 @@ mod tests {
     #[test]
     fn test_popover_content_property_based() {
         use proptest::prelude::*;
-        proptest!(|(__class in ".*", _style in ".*", side_offset in -100.0..100.0f64, align_offset in -100.0..100.0f64)| {
+        proptest!(|(____class in ".*", __style in ".*", _side_offset in -100.0..100.0f64, _align_offset in -100.0..100.0f64)| {
 
         });
     }
@@ -507,7 +492,7 @@ mod tests {
     #[test]
     fn test_popover_portal_property_based() {
         use proptest::prelude::*;
-        proptest!(|(__class in ".*", _style in ".*", container in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*", _container in ".*")| {
 
         });
     }
@@ -515,7 +500,7 @@ mod tests {
     #[test]
     fn test_popover_arrow_property_based() {
         use proptest::prelude::*;
-        proptest!(|(__class in ".*", _style in ".*", _width in 1.0..50.0f64, _height in 1.0..50.0f64)| {
+        proptest!(|(____class in ".*", __style in ".*", __width in 1.0..50.0f64, __height in 1.0..50.0f64)| {
 
         });
     }
@@ -523,7 +508,7 @@ mod tests {
     #[test]
     fn test_popover_close_property_based() {
         use proptest::prelude::*;
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
 
         });
     }

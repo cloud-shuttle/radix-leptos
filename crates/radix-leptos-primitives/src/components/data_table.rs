@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// DataTable component - Advanced table with sorting, filtering, and pagination
 #[component]
@@ -17,20 +15,6 @@ pub fn DataTable(
 
     let class = merge_classes([
         "data-table",
-        if sortable { "sortable" } else { "" },
-        if filterable { "filterable" } else { "" },
-        if selectable { "selectable" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="table"
-            aria-label="Data table"
-        >
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -46,7 +30,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
     use proptest::prelude::*;
 
@@ -62,7 +45,7 @@ mod tests {
 
     // Property-based Tests
     #[test] fn test_datatable_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             
         });
     }

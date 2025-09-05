@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// VirtualList component - High-performance virtual scrolling for large datasets
 #[component]
@@ -102,20 +100,6 @@ pub fn VirtualListItem(
 
     let class = merge_classes([
         "virtual-list-item",
-        if item.selected { "selected" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="listitem"
-            data-item-id=item.id
-            data-index=index
-            tabindex="0"
-        >
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -142,7 +126,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
     use proptest::prelude::*;
 
@@ -189,7 +172,7 @@ mod tests {
 
     // Property-based Tests
     #[test] fn test_virtuallist_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             
         });
     }
@@ -207,7 +190,7 @@ mod tests {
     }
 
     #[test] fn test_virtuallist_scroll_property_based() {
-        proptest!(|(__scroll_top in 0.0..10000.0f64, _scroll_left in 0.0..1000.0f64)| {
+        proptest!(|(____scroll_top in 0.0..10000.0f64, __scroll_left in 0.0..1000.0f64)| {
             
         });
     }

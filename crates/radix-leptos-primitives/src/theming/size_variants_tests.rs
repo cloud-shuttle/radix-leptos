@@ -1,7 +1,5 @@
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use crate::theming::Size;
 
     #[test]
     fn test_size_variants_creation() {

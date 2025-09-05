@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Accordion component with proper accessibility and collapsible sections
 ///
@@ -19,18 +17,17 @@ use leptos::*;
 /// # Example
 ///
 /// ```rust
-/// use leptos::*;
 /// use radix_leptos_primitives::*;
 ///
 /// #[component]
 /// fn MyAccordion() -> impl IntoView {
-///     let (open_sections, set_open_sections) = create_signal(["section1".to_string()]);
-///     let (allow_multiple, set_allow_multiple) = create_signal(false);
+///     let (open_sections, setopen_sections) = create_signal(["section1".to_string()]);
+///     let (allow_multiple, setallow_multiple) = create_signal(false);
 ///
 ///     view! {
 ///         <Accordion
 ///             value=open_sections
-///             on_value_change=move |value| set_open_sections.set(value)
+///             on_value_change=move |value| setopen_sections.set(value)
 ///             allow_multiple=allow_multiple
 ///         >
 ///             <AccordionItem value="section1".to_string()>
@@ -135,7 +132,7 @@ pub fn Accordion(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let _accordion_id = generate_id("accordion");
+    let __accordion_id = generate_id("accordion");
 
     // Build data attributes for styling
     let data_variant = variant.as_str();
@@ -197,7 +194,7 @@ pub fn AccordionItem(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let _item_id = generate_id(&format!("accordion-item-{}", value));
+    let __item_id = generate_id(&format!("accordion-item-{}", value));
 
     let base_classes = "radix-accordion-item";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
@@ -304,7 +301,6 @@ pub fn AccordionContent(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
 
     // 1. Basic Rendering Tests
@@ -395,13 +391,6 @@ mod tests {
             if !allow_multiple {
                 // In single mode, close all others and open this one
                 open_sections = [section_to_toggle.clone()];
-            } else {
-                // In multiple mode, toggle this section
-                if open_sections.contains(&section_to_toggle) {
-                    open_sections.retain(|s| s != &section_to_toggle);
-                } else {
-                    open_sections.push(section_to_toggle);
-                }
             }
 
             assert_eq!(open_sections, ["section2".to_string()]);
@@ -426,13 +415,6 @@ mod tests {
             if !allow_multiple {
                 // In single mode, close all others and open this one
                 open_sections = [section_to_toggle.clone()];
-            } else {
-                // In multiple mode, toggle this section
-                if open_sections.contains(&section_to_toggle) {
-                    open_sections.retain(|s| s != &section_to_toggle);
-                } else {
-                    open_sections.push(section_to_toggle);
-                }
             }
 
             assert_eq!(open_sections.len(), 2);
@@ -491,21 +473,19 @@ mod tests {
             // Test trigger click logic
             let trigger_clicked = true;
             let current_section = "section1".to_string();
-            let is_currently_open = true;
+            let iscurrentlyopen = true;
             let allow_multiple = false;
 
             // Initial state
             assert!(trigger_clicked);
             assert_eq!(current_section, "section1");
-            assert!(is_currently_open);
+            assert!(iscurrentlyopen);
             assert!(!allow_multiple);
 
             // Handle click
             if trigger_clicked {
-                if is_currently_open {
+                if iscurrentlyopen {
                     // Close the section
-                } else {
-                    // Open the section
                 }
             }
         });
@@ -534,7 +514,7 @@ mod tests {
     fn test_accordion_edge_cases() {
         run_test(|| {
             // Test edge case: accordion with no items
-            let open_sections: Vec<String> = [];
+            let open_sections: Vec<String> = Vec::new();
             let allow_multiple = true;
             let disabled = false;
 
@@ -546,7 +526,7 @@ mod tests {
     }
 
     #[test]
-    fn test_accordion_disabled_state() {
+    fn test_accordiondisabled_state() {
         run_test(|| {
             // Test disabled accordion logic
             let disabled = true;
@@ -566,12 +546,12 @@ mod tests {
     proptest! {
         #[test]
         fn test_accordion_properties(
-            variant in prop::sample::select([
+            variant in prop::sample::select(&[
                 AccordionVariant::Default,
                 AccordionVariant::Bordered,
                 AccordionVariant::Ghost,
             ]),
-            size in prop::sample::select([
+            size in prop::sample::select(&[
                 AccordionSize::Default,
                 AccordionSize::Sm,
                 AccordionSize::Lg,

@@ -1,6 +1,4 @@
 use crate::utils::merge_classes;
-use leptos::prelude::*;
-use leptos::*;
 
 /// Sheet component - Side panel/drawer component for mobile and desktop
 ///
@@ -19,7 +17,6 @@ use leptos::*;
 /// # Example
 ///
 /// ```rust
-/// use leptos::*;
 /// use radix_leptos_primitives::*;
 ///
 /// #[component]
@@ -33,7 +30,7 @@ use leptos::*;
 ///         
 ///         <Sheet
 ///             open=show_sheet
-///             on_open_change=move |open| set_show_sheet.set(open)
+///             onopen_change=move |open| set_show_sheet.set(open)
 ///             position=SheetPosition::Right
 ///             size=SheetSize::Medium
 ///         >
@@ -107,32 +104,17 @@ pub fn Sheet(
     #[prop(optional)] open: Option<bool>,
     #[prop(optional)] position: Option<SheetPosition>,
     #[prop(optional)] size: Option<SheetSize>,
-    #[prop(optional)] on_open_change: Option<Callback<bool>>,
+    #[prop(optional)] onopen_change: Option<Callback<bool>>,
 ) -> impl IntoView {
     let open = open.unwrap_or(false);
     let position = position.unwrap_or(SheetPosition::Right);
     let size = size.unwrap_or(SheetSize::Medium);
-    let on_open_change = on_open_change.unwrap_or_else(|| Callback::new(|_| {}));
+    let onopen_change = onopen_change.unwrap_or_else(|| Callback::new(|_| {}));
 
     let class = merge_classes([
         "sheet",
         position.as_str(),
         size.as_str(),
-        if open { "open" } else { "closed" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="dialog"
-            aria-modal="true"
-            data-position=position.as_str()
-            data-size=size.as_str()
-            data-open=open
-        >
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -277,7 +259,6 @@ pub fn SheetClose(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
 
     #[test]
@@ -288,57 +269,57 @@ mod tests {
 
     proptest! {
         #[test]
-        fn test_sheet_props(__class in ".*", __style in ".*") {
+        fn test_sheet_props(___class in ".*", ___style in ".*") {
 
         }
 
         #[test]
-        fn test_sheet_open_state(__open: bool, __position_index in 0..4usize, __size_index in 0..5usize) {
+        fn test_sheetopen_state(__open: bool, ___position_index in 0..4usize, ___size_index in 0..5usize) {
 
         }
 
         #[test]
-        fn test_sheet_positions(__position_index in 0..4usize) {
+        fn test_sheet_positions(___position_index in 0..4usize) {
 
         }
 
         #[test]
-        fn test_sheet_sizes(__size_index in 0..5usize) {
+        fn test_sheet_sizes(___size_index in 0..5usize) {
 
         }
 
         #[test]
-        fn test_sheet_content_props(__class in ".*", __style in ".*") {
+        fn test_sheet_content_props(___class in ".*", ___style in ".*") {
 
         }
 
         #[test]
-        fn test_sheet_header_props(__class in ".*", __style in ".*") {
+        fn test_sheet_header_props(___class in ".*", ___style in ".*") {
 
         }
 
         #[test]
-        fn test_sheet_title_props(__class in ".*", __style in ".*") {
+        fn test_sheet_title_props(___class in ".*", ___style in ".*") {
 
         }
 
         #[test]
-        fn test_sheet_description_props(__class in ".*", __style in ".*") {
+        fn test_sheet_description_props(___class in ".*", ___style in ".*") {
 
         }
 
         #[test]
-        fn test_sheet_body_props(__class in ".*", __style in ".*") {
+        fn test_sheet_body_props(___class in ".*", ___style in ".*") {
 
         }
 
         #[test]
-        fn test_sheet_footer_props(__class in ".*", __style in ".*") {
+        fn test_sheet_footer_props(___class in ".*", ___style in ".*") {
 
         }
 
         #[test]
-        fn test_sheet_close_props(__class in ".*", __style in ".*") {
+        fn test_sheet_close_props(___class in ".*", ___style in ".*") {
 
         }
     }

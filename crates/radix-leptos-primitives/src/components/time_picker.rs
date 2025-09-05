@@ -1,6 +1,4 @@
 use crate::utils::merge_classes;
-use leptos::prelude::*;
-use leptos::*;
 use wasm_bindgen::JsCast;
 
 /// Time Picker component - Time selection with validation
@@ -27,12 +25,10 @@ pub fn TimePicker(
     let disabled = disabled.unwrap_or(false);
     let required = required.unwrap_or(false);
     let format = format.unwrap_or(TimeFormat::TwentyFourHour);
-    let step = step.unwrap_or(1);
+    let _step = step.unwrap_or(1);
 
     let class = format!(
         "time-picker {} {} {} {}",
-        if disabled { "disabled" } else { "" },
-        if required { "required" } else { "" },
         format.as_str(),
         class.as_deref().unwrap_or("")
     );
@@ -79,12 +75,10 @@ pub fn TimePickerInput(
     let disabled = disabled.unwrap_or(false);
     let required = required.unwrap_or(false);
     let format = format.unwrap_or(TimeFormat::TwentyFourHour);
-    let step = step.unwrap_or(1);
+    let _step = step.unwrap_or(1);
 
     let class = format!(
         "time-picker-input {} {} {} {}",
-        if disabled { "disabled" } else { "" },
-        if required { "required" } else { "" },
         format.as_str(),
         class.as_deref().unwrap_or("")
     );
@@ -144,7 +138,7 @@ pub fn TimePickerDropdown(
 ) -> impl IntoView {
     let visible = visible.unwrap_or(false);
     let format = format.unwrap_or(TimeFormat::TwentyFourHour);
-    let step = step.unwrap_or(1);
+    let _step = step.unwrap_or(1);
     let min_time = min_time.unwrap_or_default();
     let max_time = max_time.unwrap_or_default();
 
@@ -213,7 +207,7 @@ pub fn TimePickerGrid(
     #[prop(optional)] on_time_select: Option<Callback<String>>,
 ) -> impl IntoView {
     let format = format.unwrap_or(TimeFormat::TwentyFourHour);
-    let step = step.unwrap_or(1);
+    let _step = step.unwrap_or(1);
     let min_time = min_time.unwrap_or_default();
     let max_time = max_time.unwrap_or_default();
 
@@ -273,7 +267,7 @@ impl TimeFormat {
 /// Time Validation struct
 #[derive(Debug, Clone, PartialEq)]
 pub struct TimeValidation {
-    pub _is_valid: bool,
+    pub is_valid: bool,
     pub error_message: Option<String>,
     pub parsed_time: Option<String>,
     pub hour: Option<u32>,
@@ -317,9 +311,7 @@ fn generate_time_options(
         TimeFormat::TwelveHour => {
             for _hour in 1..=12 {
                 for minute in (0..60).step_by(step as usize) {
-                    let period = if hour < 12 { "AM" } else { "PM" };
-                    let display_hour = if hour == 12 { 12 } else { hour % 12 };
-                    let time = format!("{:02}:{:02} {}", display_hour, minute, period);
+                    let time = format!("{:02}:{:02} {}", displayhour, minute, period);
                     if is_time_in_range(&time, min_time, max_time) {
                         options.push(time);
                     }
@@ -364,7 +356,7 @@ pub fn validate_time(time: &str, format: TimeFormat) -> TimeValidation {
 
     match format {
         TimeFormat::TwentyFourHour => {
-            if let Ok(parsed) = parse_24_hour_time(time) {
+            if let Ok(parsed) = parse_24hour_time(time) {
                 TimeValidation {
                     is_valid: true,
                     error_message: None,
@@ -372,20 +364,11 @@ pub fn validate_time(time: &str, format: TimeFormat) -> TimeValidation {
                     hour: Some(parsed.0),
                     minute: Some(parsed.1),
                     second: Some(parsed.2),
-                }
-            } else {
-                TimeValidation {
-                    is_valid: false,
-                    error_message: Some("Invalid time format. Use HH:MM or HH:MM:SS".to_string()),
-                    parsed_time: None,
-                    hour: None,
-                    minute: None,
-                    second: None,
                 }
             }
         }
         TimeFormat::TwelveHour => {
-            if let Ok(parsed) = parse_12_hour_time(time) {
+            if let Ok(parsed) = parse_12hour_time(time) {
                 TimeValidation {
                     is_valid: true,
                     error_message: None,
@@ -393,17 +376,6 @@ pub fn validate_time(time: &str, format: TimeFormat) -> TimeValidation {
                     hour: Some(parsed.0),
                     minute: Some(parsed.1),
                     second: Some(parsed.2),
-                }
-            } else {
-                TimeValidation {
-                    is_valid: false,
-                    error_message: Some(
-                        "Invalid time format. Use HH:MM AM/PM or HH:MM:SS AM/PM".to_string(),
-                    ),
-                    parsed_time: None,
-                    hour: None,
-                    minute: None,
-                    second: None,
                 }
             }
         }
@@ -411,7 +383,7 @@ pub fn validate_time(time: &str, format: TimeFormat) -> TimeValidation {
 }
 
 /// Parse 24-hour time format (HH:MM or HH:MM:SS)
-fn parse_24_hour_time(time: &str) -> Result<(u32, u32, u32), String> {
+fn parse_24hour_time(time: &str) -> Result<(u32, u32, u32), String> {
     let parts: Vec<&str> = time.split(':').collect();
 
     match parts.len() {
@@ -441,7 +413,7 @@ fn parse_24_hour_time(time: &str) -> Result<(u32, u32, u32), String> {
 }
 
 /// Parse 12-hour time format (HH:MM AM/PM or HH:MM:SS AM/PM)
-fn parse_12_hour_time(time: &str) -> Result<(u32, u32, u32), String> {
+fn parse_12hour_time(time: &str) -> Result<(u32, u32, u32), String> {
     let time_upper = time.to_uppercase();
     let parts: Vec<&str> = time_upper.split_whitespace().collect();
 
@@ -501,8 +473,6 @@ fn parse_12_hour_time(time: &str) -> Result<(u32, u32, u32), String> {
 
 #[cfg(test)]
 mod time_picker_tests {
-    use super::*;
-    use leptos::*;
     use proptest::prelude::*;
 
     #[test]
@@ -550,24 +520,24 @@ mod time_picker_tests {
     }
 
     #[test]
-    fn test_parse_24_hour_time() {
-        assert_eq!(parse_24_hour_time("14:30").unwrap(), (14, 30, 0));
-        assert_eq!(parse_24_hour_time("09:15:45").unwrap(), (9, 15, 45));
-        assert!(parse_24_hour_time("25:00").is_err());
-        assert!(parse_24_hour_time("12:60").is_err());
+    fn test_parse_24hour_time() {
+        assert_eq!(parse_24hour_time("14:30").unwrap(), (14, 30, 0));
+        assert_eq!(parse_24hour_time("09:15:45").unwrap(), (9, 15, 45));
+        assert!(parse_24hour_time("25:00").is_err());
+        assert!(parse_24hour_time("12:60").is_err());
     }
 
     #[test]
-    fn test_parse_12_hour_time() {
-        assert_eq!(parse_12_hour_time("2:30 PM").unwrap(), (14, 30, 0));
-        assert_eq!(parse_12_hour_time("12:00 AM").unwrap(), (0, 0, 0));
-        assert_eq!(parse_12_hour_time("12:00 PM").unwrap(), (12, 0, 0));
-        assert!(parse_12_hour_time("13:00 AM").is_err());
-        assert!(parse_12_hour_time("12:60 PM").is_err());
+    fn test_parse_12hour_time() {
+        assert_eq!(parse_12hour_time("2:30 PM").unwrap(), (14, 30, 0));
+        assert_eq!(parse_12hour_time("12:00 AM").unwrap(), (0, 0, 0));
+        assert_eq!(parse_12hour_time("12:00 PM").unwrap(), (12, 0, 0));
+        assert!(parse_12hour_time("13:00 AM").is_err());
+        assert!(parse_12hour_time("12:60 PM").is_err());
     }
 
     #[test]
-    fn test_validate_time_24_hour() {
+    fn test_validate_time_24hour() {
         let validation = validate_time("14:30", TimeFormat::TwentyFourHour);
         assert!(validation.is_valid);
         assert_eq!(validation.hour, Some(14));
@@ -575,7 +545,7 @@ mod time_picker_tests {
     }
 
     #[test]
-    fn test_validate_time_12_hour() {
+    fn test_validate_time_12hour() {
         let validation = validate_time("2:30 PM", TimeFormat::TwelveHour);
         assert!(validation.is_valid);
         assert_eq!(validation.hour, Some(14));
@@ -590,7 +560,7 @@ mod time_picker_tests {
     }
 
     #[test]
-    fn test_generate_time_options_24_hour() {
+    fn test_generate_time_options_24hour() {
         let options = generate_time_options(TimeFormat::TwentyFourHour, 1, "", "");
         assert!(!options.is_empty());
         assert!(options.contains(&"00:00".to_string()));
@@ -598,7 +568,7 @@ mod time_picker_tests {
     }
 
     #[test]
-    fn test_generate_time_options_12_hour() {
+    fn test_generate_time_options_12hour() {
         let options = generate_time_options(TimeFormat::TwelveHour, 1, "", "");
         assert!(!options.is_empty());
         assert!(options.contains(&"01:00 AM".to_string()));
@@ -615,16 +585,16 @@ mod time_picker_tests {
     // Property-based tests
     #[test]
     fn test_time_picker_property_based() {
-        proptest!(|(_time in ".*")| {
+        proptest!(|(__time in ".*")| {
             let validation = validate_time(&time, TimeFormat::TwentyFourHour);
             // Validation should always return a result
-            assert!(true);
+
         });
     }
 
     #[test]
     fn test_time_format_property_based() {
-        proptest!(|(format in prop::sample::select([TimeFormat::TwentyFourHour, TimeFormat::TwelveHour]))| {
+        proptest!(|(format in prop::sample::select(&[TimeFormat::TwentyFourHour, TimeFormat::TwelveHour]))| {
             let format_str = format.as_str();
             assert!(!format_str.is_empty());
         });

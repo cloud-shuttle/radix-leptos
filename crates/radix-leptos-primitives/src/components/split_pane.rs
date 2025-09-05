@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// SplitPane component - Resizable panel layouts
 #[component]
@@ -23,20 +21,6 @@ pub fn SplitPane(
     let class = merge_classes([
         "split-pane",
         &direction.to_class(),
-        if resizable { "resizable" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="group"
-            aria-label="Split pane container"
-            data-direction=direction.to_string()
-            data-resizable=resizable
-        >
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -96,26 +80,6 @@ pub fn SplitPanePanel(
 
     let class = merge_classes([
         "split-pane-panel",
-        if resizable { "resizable" } else { "" },
-        if collapsible { "collapsible" } else { "" },
-        if collapsed { "collapsed" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="region"
-            aria-label="Split pane panel"
-            data-size=size
-            data-min-size=min_size
-            data-max-size=max_size
-            data-resizable=resizable
-            data-collapsible=collapsible
-            data-collapsed=collapsed
-        >
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -161,7 +125,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
     use proptest::prelude::*;
 
@@ -214,7 +177,7 @@ mod tests {
 
     // Property-based Tests
     #[test] fn test_splitpane_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             
         });
     }
@@ -226,7 +189,7 @@ mod tests {
     }
 
     #[test] fn test_splitpane_direction_property_based() {
-        proptest!(|(__direction_index in 0..2usize)| {
+        proptest!(|(____direction_index in 0..2usize)| {
             
         });
     }

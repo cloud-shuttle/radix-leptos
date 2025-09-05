@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 use wasm_bindgen::JsCast;
 
 /// Multi-Select component for selecting multiple options with search functionality
@@ -57,15 +55,6 @@ pub fn MultiSelect(
 
     let class = format!(
         "multi-select {} {}",
-        if disabled { "disabled" } else { "" },
-        class.unwrap_or_default()
-    );
-
-    let style = style.unwrap_or_default();
-
-    view! {
-        <div class=class style=style>
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -101,23 +90,6 @@ pub fn MultiSelectTrigger(
     let open = open.unwrap_or(false);
     let class = format!(
         "multi-select-trigger {} {}",
-        if open { "open" } else { "" },
-        class.unwrap_or_default()
-    );
-
-    let style = style.unwrap_or_default();
-
-    view! {
-        <button
-            class=class
-            style=style
-            type="button"
-            role="combobox"
-            aria-expanded=open
-            on:click=move |_| {
-                if let Some(callback) = on_click {
-                    callback.run(());
-                }
             }
         >
             {children.map(|c| c())}
@@ -143,20 +115,6 @@ pub fn MultiSelectContent(
     let visible = visible.unwrap_or(false);
     let class = format!(
         "multi-select-content {} {}",
-        if visible { "visible" } else { "hidden" },
-        class.unwrap_or_default()
-    );
-
-    let style = style.unwrap_or_default();
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="listbox"
-            aria-multiselectable=true
-        >
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -188,8 +146,6 @@ pub fn MultiSelectOption(
     let disabled = disabled.unwrap_or(option.disabled);
     let class = format!(
         "multi-select-option {} {} {}",
-        if selected { "selected" } else { "" },
-        if disabled { "disabled" } else { "" },
         class.unwrap_or_default()
     );
 
@@ -248,20 +204,6 @@ pub fn MultiSelectSearch(
     let disabled = disabled.unwrap_or(false);
     let class = format!(
         "multi-select-search {} {}",
-        if disabled { "disabled" } else { "" },
-        class.unwrap_or_default()
-    );
-
-    let style = style.unwrap_or_default();
-
-    let handle_input = move |event: web_sys::Event| {
-        if let Some(input) = event
-            .target()
-            .and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok())
-        {
-            if let Some(callback) = on_change {
-                callback.run(input.value());
-            }
         }
     };
 
@@ -320,8 +262,6 @@ pub fn MultiSelectTag(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use leptos::prelude::*;
 
     // Component structure tests
     #[test]
@@ -380,10 +320,10 @@ mod tests {
     fn test_multiselect_options_handling() {}
 
     #[test]
-    fn test_multiselect_disabled_state() {}
+    fn test_multiselectdisabled_state() {}
 
     #[test]
-    fn test_multiselect_required_state() {}
+    fn test_multiselectrequired_state() {}
 
     #[test]
     fn test_multiselect_max_selections() {}
@@ -478,7 +418,7 @@ mod tests {
     fn test_multiselect_empty_options() {}
 
     #[test]
-    fn test_multiselect_all_options_disabled() {}
+    fn test_multiselect_all_optionsdisabled() {}
 
     #[test]
     fn test_multiselect_duplicate_values() {}

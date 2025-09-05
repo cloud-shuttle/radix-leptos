@@ -1,4 +1,3 @@
-use leptos::*;
 use web_sys::Element;
 use std::collections::HashMap;
 
@@ -10,7 +9,6 @@ use std::collections::HashMap;
 /// # Example
 /// 
 /// ```rust
-/// use leptos::*;
 /// use radix_leptos_core::{CollectionProvider, use_collection_context, CollectionItem};
 /// 
 /// #[component]
@@ -144,9 +142,6 @@ impl CollectionContext {
             if let Some(current_index) = items.iter().position(|item| item.value == current) {
                 let prev_index = if current_index == 0 {
                     items.len() - 1
-                } else {
-                    current_index - 1
-                };
                 return items.get(prev_index).cloned();
             }
         }
@@ -211,12 +206,6 @@ pub fn use_roving_tabindex(
                 if let Some(first) = collection.get_first_item() {
                     if first.value == item_value {
                         0
-                    } else {
-                        -1
-                    }
-                } else {
-                    -1
-                }
             }
         }
     }
@@ -278,7 +267,6 @@ fn focus_element(element: &Element) {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
     
     wasm_bindgen_test_configure!(run_in_browser);

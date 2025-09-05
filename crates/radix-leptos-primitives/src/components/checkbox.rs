@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Checkbox component with proper accessibility and styling variants
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -79,10 +77,10 @@ pub fn Checkbox(
     style: Option<String>,
     /// Checked change event handler
     #[prop(optional)]
-    on_checked_change: Option<Callback<bool>>,
+    onchecked_change: Option<Callback<bool>>,
     /// Indeterminate change event handler
     #[prop(optional)]
-    _on_indeterminate_change: Option<Callback<bool>>,
+    _onindeterminate_change: Option<Callback<bool>>,
     /// Child content
     children: Children,
 ) -> impl IntoView {
@@ -103,8 +101,8 @@ pub fn Checkbox(
         " " | "Enter" => {
             e.prevent_default();
             if !disabled {
-                if let Some(on_checked_change) = on_checked_change {
-                    on_checked_change.run(!checked);
+                if let Some(onchecked_change) = onchecked_change {
+                    onchecked_change.run(!checked);
                 }
             }
         }
@@ -115,8 +113,8 @@ pub fn Checkbox(
     let handle_click = move |e: web_sys::MouseEvent| {
         e.prevent_default();
         if !disabled {
-            if let Some(on_checked_change) = on_checked_change {
-                on_checked_change.run(!checked);
+            if let Some(onchecked_change) = onchecked_change {
+                onchecked_change.run(!checked);
             }
         }
     };
@@ -154,7 +152,6 @@ pub fn Checkbox(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
 
     // 1. Basic Rendering Tests
@@ -186,7 +183,7 @@ mod tests {
 
     // 2. Props Validation Tests
     #[test]
-    fn test_checkbox_checked_state() {
+    fn test_checkboxchecked_state() {
         run_test(|| {
             let checked = true;
             let indeterminate = false;
@@ -220,7 +217,7 @@ mod tests {
     }
 
     #[test]
-    fn test_checkbox_indeterminate_state() {
+    fn test_checkboxindeterminate_state() {
         run_test(|| {
             let checked = false;
             let indeterminate = true;
@@ -313,13 +310,13 @@ mod tests {
     fn test_checkbox_accessibility() {
         run_test(|| {
             let role = "checkbox";
-            let aria_checked = "false";
-            let aria_disabled = "false";
+            let ariachecked = "false";
+            let ariadisabled = "false";
             let tabindex = "-1";
 
             assert_eq!(role, "checkbox");
-            assert_eq!(aria_checked, "false");
-            assert_eq!(aria_disabled, "false");
+            assert_eq!(ariachecked, "false");
+            assert_eq!(ariadisabled, "false");
             assert_eq!(tabindex, "-1");
         });
     }
@@ -339,7 +336,7 @@ mod tests {
     }
 
     #[test]
-    fn test_checkbox_disabled_state() {
+    fn test_checkboxdisabled_state() {
         run_test(|| {
             let disabled = true;
             let checked = false;
@@ -355,12 +352,12 @@ mod tests {
     proptest! {
         #[test]
         fn test_checkbox_properties(
-            variant in prop::sample::select([
+            variant in prop::sample::select(&[
                 CheckboxVariant::Default,
                 CheckboxVariant::Destructive,
                 CheckboxVariant::Ghost,
             ]),
-            size in prop::sample::select([
+            size in prop::sample::select(&[
                 CheckboxSize::Default,
                 CheckboxSize::Sm,
                 CheckboxSize::Lg,

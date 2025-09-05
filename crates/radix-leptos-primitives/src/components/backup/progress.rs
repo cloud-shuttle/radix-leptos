@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// Progress component orientation
 #[derive(Clone, Debug, PartialEq)]
@@ -65,9 +63,9 @@ pub struct ProgressContext {
     pub orientation: ProgressOrientation,
     pub size: ProgressSize,
     pub variant: ProgressVariant,
-    pub _animated: bool,
-    pub _striped: bool,
-    pub _show_label: bool,
+    pub __animated: bool,
+    pub __striped: bool,
+    pub __show_label: bool,
     pub progress_id: String,
 }
 
@@ -97,9 +95,6 @@ fn clamp(value: f64, min: f64, max: f64) -> f64 {
 fn calculate_percentage(value: f64, max: f64) -> f64 {
     if max <= 0.0 {
         0.0
-    } else {
-        clamp(value, 0.0, max) / max * 100.0
-    }
 }
 
 /// Main Progress component
@@ -122,20 +117,20 @@ pub fn Progress(
     variant: ProgressVariant,
     /// Whether the progress bar is animated
     #[prop(optional, default = false)]
-    _animated: bool,
+    __animated: bool,
     /// Whether the progress bar has stripes
     #[prop(optional, default = false)]
-    _striped: bool,
+    __striped: bool,
     /// Whether to show the progress label
     #[prop(optional, default = false)]
-    _show_label: bool,
+    __show_label: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
     /// Child content (track, indicator, label, etc.)
     children: Children,
 ) -> impl IntoView {
-    let _progress_id = generate_id("progress");
+    let __progress_id = generate_id("progress");
     
     // Create reactive value signal
     let (value_signal, set_value_signal) = signal(value);
@@ -202,7 +197,7 @@ pub fn ProgressTrack(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<ProgressContext>().expect("ProgressTrack must be used within Progress");
-    let _track_id = generate_id("progress-track");
+    let __track_id = generate_id("progress-track");
     
     // Build base classes
     let base_classes = "radix-progress-track";
@@ -234,7 +229,7 @@ pub fn ProgressIndicator(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<ProgressContext>().expect("ProgressIndicator must be used within Progress");
-    let _indicator_id = generate_id("progress-indicator");
+    let __indicator_id = generate_id("progress-indicator");
     
     // Calculate percentage
     let percentage = Memo::new(move |_| {
@@ -251,8 +246,6 @@ pub fn ProgressIndicator(
         let base_style = style.clone().unwrap_or_default();
         let percentage_style = if context.orientation == ProgressOrientation::Horizontal {
             format!("width: {}%;", percentage.get())
-        } else {
-            format!("height: {}%;", percentage.get())
         };
         format!("{}; {}", base_style, percentage_style)
     });
@@ -282,7 +275,7 @@ pub fn ProgressLabel(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<ProgressContext>().expect("ProgressLabel must be used within Progress");
-    let _label_id = generate_id("progress-label");
+    let __label_id = generate_id("progress-label");
     
     // Build base classes
     let base_classes = "radix-progress-label";
@@ -315,7 +308,7 @@ pub fn ProgressValue(
     format: Option<String>,
 ) -> impl IntoView {
     let context = use_context::<ProgressContext>().expect("ProgressValue must be used within Progress");
-    let _value_id = generate_id("progress-value");
+    let __value_id = generate_id("progress-value");
     
     // Format the value display
     let display_value = Memo::new(move |_| {
@@ -359,7 +352,7 @@ pub fn ProgressDescription(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let _description_id = generate_id("progress-description");
+    let __description_id = generate_id("progress-description");
     
     // Build base classes
     let base_classes = "radix-progress-description";

@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Menubar component for menu bar with keyboard navigation
 ///
@@ -15,7 +13,7 @@ pub fn Menubar(
     #[prop(optional)] on_value_change: Option<Callback<String>>,
 ) -> impl IntoView {
     let orientation = orientation.unwrap_or_default();
-    let (current_value, set_current_value) = signal(
+    let (current_value, setcurrent_value) = signal(
         value
             .map(|v| v.get())
             .unwrap_or_else(|| default_value.unwrap_or_default()),
@@ -31,7 +29,7 @@ pub fn Menubar(
     // Handle external value changes
     if let Some(external_value) = value {
         Effect::new(move |_| {
-            set_current_value.set(external_value.get());
+            setcurrent_value.set(external_value.get());
         });
     }
 
@@ -68,15 +66,6 @@ pub fn MenubarMenu(
 
     let class = merge_classes([
         "menubar-menu",
-        if disabled { "disabled" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    let handle_click = move |_| {
-        if !disabled {
-            if let Some(on_select) = on_select {
-                on_select.run(());
-            }
         }
     };
 
@@ -94,12 +83,6 @@ pub fn MenubarMenu(
             class=class
             style=style
             role="none"
-            tabindex=if disabled { -1 } else { 0 }
-            on:click=handle_click
-            on:keydown=handle_keydown
-            data-value=value
-        >
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -117,15 +100,6 @@ pub fn MenubarTrigger(
 
     let class = merge_classes([
         "menubar-trigger",
-        if disabled { "disabled" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    let handle_click = move |_| {
-        if !disabled {
-            if let Some(on_click) = on_click {
-                on_click.run(());
-            }
         }
     };
 
@@ -196,15 +170,6 @@ pub fn MenubarItem(
 
     let class = merge_classes([
         "menubar-item",
-        if disabled { "disabled" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    let handle_click = move |_| {
-        if !disabled {
-            if let Some(on_select) = on_select {
-                on_select.run(());
-            }
         }
     };
 
@@ -222,11 +187,6 @@ pub fn MenubarItem(
             class=class
             style=style
             role="menuitem"
-            tabindex=if disabled { -1 } else { 0 }
-            on:click=handle_click
-            on:keydown=handle_keydown
-        >
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -324,7 +284,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
@@ -392,7 +351,7 @@ mod tests {
     }
 
     #[test]
-    fn test_menubar_menu_disabled() {
+    fn test_menubar_menudisabled() {
         // Test disabled state
     }
 
@@ -418,7 +377,7 @@ mod tests {
     }
 
     #[test]
-    fn test_menubar_trigger_disabled() {
+    fn test_menubar_triggerdisabled() {
         // Test disabled state
     }
 
@@ -444,7 +403,7 @@ mod tests {
     }
 
     #[test]
-    fn test_menubar_content_visible() {
+    fn test_menubar_contentvisible() {
         // Test visible state
     }
 
@@ -470,7 +429,7 @@ mod tests {
     }
 
     #[test]
-    fn test_menubar_item_disabled() {
+    fn test_menubar_itemdisabled() {
         // Test disabled state
     }
 
@@ -551,7 +510,7 @@ mod tests {
     // Helper Function Tests
     #[test]
     fn test_merge_classes_empty() {
-        let result = merge_classes([]);
+        let result = merge_classes(Vec::new());
         assert_eq!(result, "");
     }
 
@@ -578,7 +537,7 @@ mod tests {
     fn test_menubar_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             // Test that the component can be created with various class and style values
 
         });
@@ -588,7 +547,7 @@ mod tests {
     fn test_menubar_menu_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(__class in ".*", _style in ".*", _value in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*", __value in ".*")| {
             // Test that the component can be created with various prop values
 
         });
@@ -598,7 +557,7 @@ mod tests {
     fn test_menubar_trigger_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             // Test that the component can be created with various class and style values
 
         });
@@ -608,7 +567,7 @@ mod tests {
     fn test_menubar_content_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             // Test that the component can be created with various class and style values
 
         });
@@ -618,7 +577,7 @@ mod tests {
     fn test_menubar_item_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             // Test that the component can be created with various class and style values
 
         });
@@ -628,7 +587,7 @@ mod tests {
     fn test_menubar_separator_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             // Test that the component can be created with various class and style values
 
         });
@@ -638,7 +597,7 @@ mod tests {
     fn test_menubar_group_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             // Test that the component can be created with various class and style values
 
         });
@@ -648,7 +607,7 @@ mod tests {
     fn test_menubar_label_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             // Test that the component can be created with various class and style values
 
         });

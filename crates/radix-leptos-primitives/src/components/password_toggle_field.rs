@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 use wasm_bindgen::JsCast;
 
 /// Password Toggle Field component with visibility toggle
@@ -68,10 +66,6 @@ pub fn PasswordToggleField(
 
     let class = format!(
         "password-toggle-field {} {} {} {}",
-        if disabled { "disabled" } else { "" },
-        if required { "required" } else { "" },
-        if readonly { "readonly" } else { "" },
-        if visible { "visible" } else { "hidden" },
     );
 
     let style = style.unwrap_or_default();
@@ -110,29 +104,8 @@ pub fn PasswordToggleField(
             <div class="password-field-container">
                 <input
                     class="password-input"
-                    type=if visible { "text" } else { "password" }
-                    placeholder=placeholder
-                    value=value
-                    disabled=disabled
-                    required=required
-                    readonly=readonly
-                    minlength=min_length
-                    maxlength=max_length
-                    on:input=handle_input
-                    on:focus=handle_focus
-                    on:blur=handle_blur
-                />
-                <button
-                    class="password-toggle-button"
-                    type="button"
-                    disabled=disabled
-                    aria-label=if visible { "Hide password" } else { "Show password" }
                     on:click=handle_visibility_toggle
                 >
-                    {if visible { "👁️" } else { "👁️‍🗨️" }}
-                </button>
-            </div>
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -141,17 +114,17 @@ pub fn PasswordToggleField(
 #[derive(Debug, Clone, PartialEq, Default)]
 pub struct PasswordStrengthRequirements {
     pub min_length: usize,
-    pub _require_uppercase: bool,
-    pub _require_lowercase: bool,
-    pub _require_numbers: bool,
-    pub _require_symbols: bool,
+    pub require_uppercase: bool,
+    pub require_lowercase: bool,
+    pub require_numbers: bool,
+    pub require_symbols: bool,
     pub min_strength_score: usize,
 }
 
 /// Password validation result
 #[derive(Debug, Clone, PartialEq, Default)]
 pub struct PasswordValidation {
-    pub _is_valid: bool,
+    pub is_valid: bool,
     pub strength_score: usize,
     pub strength_level: PasswordStrengthLevel,
     pub errors: Vec<String>,
@@ -230,8 +203,6 @@ pub fn PasswordStrengthIndicator(
                                     }).collect::<Vec<_>>()}
                                 </div>
                             }.into_any()
-                        } else {
-                            view! { <></> }.into_any()
                         }}
                         {if !validation.warnings.is_empty() {
                             view! {
@@ -241,13 +212,9 @@ pub fn PasswordStrengthIndicator(
                                     }).collect::<Vec<_>>()}
                                 </div>
                             }.into_any()
-                        } else {
-                            view! { <></> }.into_any()
                         }}
                     </div>
                 }.into_any()
-            } else {
-                view! { <></> }.into_any()
             }}
         </div>
     }
@@ -281,8 +248,6 @@ pub fn PasswordRequirements(
                 <li>
                     {if show_checklist {
                         view! { <span class="checkmark">"✓"</span> }.into_any()
-                    } else {
-                        view! { <span class="bullet">"•"</span> }.into_any()
                     }}
                     {format!("At least {} characters", requirements.min_length)}
                 </li>
@@ -291,56 +256,40 @@ pub fn PasswordRequirements(
                         <li>
                             {if show_checklist {
                                 view! { <span class="checkmark">"✓"</span> }.into_any()
-                            } else {
-                                view! { <span class="bullet">"•"</span> }.into_any()
                             }}
                             "At least one uppercase letter"
                         </li>
                     }.into_any()
-                } else {
-                    view! { <></> }.into_any()
                 }}
                 {if requirements.require_lowercase {
                     view! {
                         <li>
                             {if show_checklist {
                                 view! { <span class="checkmark">"✓"</span> }.into_any()
-                            } else {
-                                view! { <span class="bullet">"•"</span> }.into_any()
                             }}
                             "At least one lowercase letter"
                         </li>
                     }.into_any()
-                } else {
-                    view! { <></> }.into_any()
                 }}
                 {if requirements.require_numbers {
                     view! {
                         <li>
                             {if show_checklist {
                                 view! { <span class="checkmark">"✓"</span> }.into_any()
-                            } else {
-                                view! { <span class="bullet">"•"</span> }.into_any()
                             }}
                             "At least one number"
                         </li>
                     }.into_any()
-                } else {
-                    view! { <></> }.into_any()
                 }}
                 {if requirements.require_symbols {
                     view! {
                         <li>
                             {if show_checklist {
                                 view! { <span class="checkmark">"✓"</span> }.into_any()
-                            } else {
-                                view! { <span class="bullet">"•"</span> }.into_any()
                             }}
                             "At least one symbol"
                         </li>
                     }.into_any()
-                } else {
-                    view! { <></> }.into_any()
                 }}
             </ul>
         </div>
@@ -362,9 +311,6 @@ fn validate_password(
             "Password must be at least {} characters long",
             requirements.min_length
         ));
-    } else {
-        strength_score += 1;
-    }
 
     // Check for uppercase letters
     if requirements.require_uppercase && !password.chars().any(|c| c.is_uppercase()) {
@@ -418,8 +364,6 @@ fn validate_password(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use leptos::prelude::*;
 
     // Component structure tests
     #[test]
@@ -467,8 +411,8 @@ mod tests {
             is_valid: true,
             strength_score: 4,
             strength_level: PasswordStrengthLevel::Good,
-            errors: [],
-            warnings: [],
+            errors: Vec::new(),
+            warnings: Vec::new(),
         };
         assert!(validation.is_valid);
         assert_eq!(validation.strength_score, 4);
@@ -498,10 +442,10 @@ mod tests {
     fn test_password_toggle_field_placeholder() {}
 
     #[test]
-    fn test_password_toggle_field_disabled_state() {}
+    fn test_password_toggle_fielddisabled_state() {}
 
     #[test]
-    fn test_password_toggle_field_required_state() {}
+    fn test_password_toggle_fieldrequired_state() {}
 
     #[test]
     fn test_password_toggle_field_readonly_state() {}

@@ -1,7 +1,5 @@
 #[cfg(test)]
 mod skeleton_tests {
-    use super::*;
-    use leptos::*;
     use leptos::callback::Callback;
     use proptest::prelude::*;
     use crate::components::skeleton::*;
@@ -22,19 +20,19 @@ mod skeleton_tests {
     proptest! {
         #[test]
         fn test_skeleton_properties(
-            variant in prop::sample::select([
+            variant in prop::sample::select(&[
                 SkeletonVariant::Text,
                 SkeletonVariant::Circular,
                 SkeletonVariant::Rectangular,
             ]),
-            size in prop::sample::select([
+            size in prop::sample::select(&[
                 SkeletonSize::Small,
                 SkeletonSize::Medium,
                 SkeletonSize::Large,
                 SkeletonSize::ExtraLarge,
             ]),
             animated in any::<bool>(),
-            _lines in 1..=5usize,
+            __lines in 1..=5usize,
         ) {
             // Test that Skeleton can be created with various property combinations
             let _skeleton = view! {

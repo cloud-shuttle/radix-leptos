@@ -1,6 +1,4 @@
 use crate::utils::merge_classes;
-use leptos::prelude::*;
-use leptos::*;
 use serde::{Deserialize, Serialize};
 
 /// Layout system for consistent spacing and alignment
@@ -553,7 +551,7 @@ pub fn LayoutOptionGroup(
 ) -> impl IntoView {
     let title = title.unwrap_or_default();
     let value = value.unwrap_or(0.0);
-    let values = values.unwrap_or_default();
+    let _values = values.unwrap_or_default();
     let on_change = on_change.unwrap_or_else(|| Callback::new(|_| {}));
     let on_values_change = on_values_change.unwrap_or_else(|| Callback::new(|_| {}));
 
@@ -578,10 +576,6 @@ pub fn LayoutOptionGroup(
                             }).collect::<Vec<_>>()}
                         </div>
                     }.into_any()
-                } else {
-                    view! {
-                        <div class="single-value">
-                            <span class="value-number">{value}</span>
                         </div>
                     }.into_any()
                 }}
@@ -782,10 +776,6 @@ pub fn ContainerLayoutSection(
 
                 <LayoutOptionGroup
                     title="Centers".to_string()
-                    values=container.centers.iter().map(|c| if *c { 1.0 } else { 0.0 }).collect()
-                    on_values_change=Callback::new(move |_centers| {
-                        on_change.run(container_clone4.clone());
-                    })
                 />
             </div>
         </div>
@@ -794,8 +784,6 @@ pub fn ContainerLayoutSection(
 
 #[cfg(test)]
 mod layout_system_tests {
-    use super::*;
-    use leptos::*;
     use proptest::prelude::*;
 
     #[test]
@@ -1056,7 +1044,7 @@ mod layout_system_tests {
     #[test]
     fn test_layout_option_group_component() {
         // Test logic without runtime
-        let values = [0.0, 1.0, 2.0, 4.0, 8.0];
+        let _values = [0.0, 1.0, 2.0, 4.0, 8.0];
         // Test component logic
         let title = "Spacing System";
         let layout_type = "spacing";
@@ -1067,7 +1055,7 @@ mod layout_system_tests {
     // Property-based tests
     #[test]
     fn test_spacing_direction_property_based() {
-        proptest!(|(direction in prop::sample::select([
+        proptest!(|(direction in prop::sample::select(&[
             SpacingDirection::All,
             SpacingDirection::Horizontal,
             SpacingDirection::Vertical,
@@ -1083,7 +1071,7 @@ mod layout_system_tests {
 
     #[test]
     fn test_breakpoint_property_based() {
-        proptest!(|(breakpoint in prop::sample::select([
+        proptest!(|(breakpoint in prop::sample::select(&[
             Breakpoint::ExtraSmall,
             Breakpoint::Small,
             Breakpoint::Medium,

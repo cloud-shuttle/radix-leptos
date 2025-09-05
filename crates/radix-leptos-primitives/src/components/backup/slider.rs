@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// Slider orientation enum
 #[derive(Clone, Debug, PartialEq)]
@@ -42,7 +40,7 @@ impl SliderMark {
 #[derive(Clone)]
 pub struct SliderContext {
     pub current_value: Signal<f64>,
-    pub set_current_value: WriteSignal<f64>,
+    pub setcurrent_value: WriteSignal<f64>,
     pub is_dragging: Signal<bool>,
     pub set_is_dragging: WriteSignal<bool>,
     pub min: f64,
@@ -59,7 +57,7 @@ pub struct SliderContext {
 #[derive(Clone)]
 pub struct RangeSliderContext {
     pub current_values: Signal<(f64, f64)>,
-    pub set_current_values: WriteSignal<(f64, f64)>,
+    pub setcurrent_values: WriteSignal<(f64, f64)>,
     pub is_dragging: Signal<bool>,
     pub set_is_dragging: WriteSignal<bool>,
     pub active_thumb: Signal<usize>,
@@ -137,16 +135,16 @@ pub fn Slider(
     /// Child content (track, thumb, etc.)
     children: Children,
 ) -> impl IntoView {
-    let _slider_id = generate_id("slider");
+    let __slider_id = generate_id("slider");
     
     // Reactive state
-    let (current_value, set_current_value) = signal(value.unwrap_or(min));
+    let (current_value, setcurrent_value) = signal(value.unwrap_or(min));
     let (is_dragging, set_is_dragging) = signal(false);
     
     // Create context
     let context = SliderContext {
         current_value: current_value.into(),
-        set_current_value,
+        setcurrent_value,
         is_dragging: is_dragging.into(),
         set_is_dragging,
         min,
@@ -227,17 +225,17 @@ pub fn RangeSlider(
     /// Child content (track, thumbs, etc.)
     children: Children,
 ) -> impl IntoView {
-    let _range_slider_id = generate_id("range-slider");
+    let __range_slider_id = generate_id("range-slider");
     
     // Reactive state
-    let (current_values, set_current_values) = signal(value.unwrap_or((min, max)));
+    let (current_values, setcurrent_values) = signal(value.unwrap_or((min, max)));
     let (is_dragging, set_is_dragging) = signal(false);
     let (active_thumb, set_active_thumb) = signal(0); // 0 for min, 1 for max
     
     // Create context
     let context = RangeSliderContext {
         current_values: current_values.into(),
-        set_current_values,
+        setcurrent_values,
         is_dragging: is_dragging.into(),
         set_is_dragging,
         active_thumb: active_thumb.into(),
@@ -294,7 +292,7 @@ pub fn SliderTrack(
     /// Child content (range, thumb, etc.)
     children: Children,
 ) -> impl IntoView {
-    let _track_id = generate_id("slider-track");
+    let __track_id = generate_id("slider-track");
     
     // Build base classes
     let base_classes = "radix-slider-track";
@@ -325,7 +323,7 @@ pub fn SliderRange(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let _range_id = generate_id("slider-range");
+    let __range_id = generate_id("slider-range");
     
     // Build base classes
     let base_classes = "radix-slider-range";
@@ -349,7 +347,7 @@ pub fn SliderRange(
 pub fn SliderThumb(
     /// Whether this thumb is active (being dragged)
     #[prop(optional, default = false)]
-    __active: bool,
+    ___active: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -360,14 +358,14 @@ pub fn SliderThumb(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<SliderContext>().expect("SliderThumb must be used within Slider");
-    let _thumb_id = generate_id("slider-thumb");
+    let __thumb_id = generate_id("slider-thumb");
     
     let handle_click = move |_event: web_sys::MouseEvent| {
         if !context.disabled {
             // For now, just increment by step on click
             let current_value = context.current_value.get();
             let new_value = clamp(current_value + context.step, context.min, context.max);
-            context.set_current_value.set(new_value);
+            context.setcurrent_value.set(new_value);
             
             if let Some(callback) = context.on_change.clone() {
                 callback.run(new_value);
@@ -378,15 +376,15 @@ pub fn SliderThumb(
     let handle_key_down = move |event: web_sys::KeyboardEvent| {
         if !context.disabled {
             let current_value = context.current_value.get();
-            let step = context.step;
+            let _step = context.step;
             let min = context.min;
-            let max = context.max;
+            let _max = context.max;
             
             match event.key().as_str() {
                 "ArrowLeft" | "ArrowDown" => {
                     event.prevent_default();
                     let new_value = clamp(current_value - step, min, max);
-                    context.set_current_value.set(new_value);
+                    context.setcurrent_value.set(new_value);
                     
                     if let Some(callback) = context.on_change.clone() {
                         callback.run(new_value);
@@ -395,7 +393,7 @@ pub fn SliderThumb(
                 "ArrowRight" | "ArrowUp" => {
                     event.prevent_default();
                     let new_value = clamp(current_value + step, min, max);
-                    context.set_current_value.set(new_value);
+                    context.setcurrent_value.set(new_value);
                     
                     if let Some(callback) = context.on_change.clone() {
                         callback.run(new_value);
@@ -403,7 +401,7 @@ pub fn SliderThumb(
                 }
                 "Home" => {
                     event.prevent_default();
-                    context.set_current_value.set(min);
+                    context.setcurrent_value.set(min);
                     
                     if let Some(callback) = context.on_change.clone() {
                         callback.run(min);
@@ -411,7 +409,7 @@ pub fn SliderThumb(
                 }
                 "End" => {
                     event.prevent_default();
-                    context.set_current_value.set(max);
+                    context.setcurrent_value.set(max);
                     
                     if let Some(callback) = context.on_change.clone() {
                         callback.run(max);
@@ -420,7 +418,7 @@ pub fn SliderThumb(
                 "PageDown" => {
                     event.prevent_default();
                     let new_value = clamp(current_value - step * 10.0, min, max);
-                    context.set_current_value.set(new_value);
+                    context.setcurrent_value.set(new_value);
                     
                     if let Some(callback) = context.on_change.clone() {
                         callback.run(new_value);
@@ -429,7 +427,7 @@ pub fn SliderThumb(
                 "PageUp" => {
                     event.prevent_default();
                     let new_value = clamp(current_value + step * 10.0, min, max);
-                    context.set_current_value.set(new_value);
+                    context.setcurrent_value.set(new_value);
                     
                     if let Some(callback) = context.on_change.clone() {
                         callback.run(new_value);
@@ -477,34 +475,25 @@ pub fn RangeSliderThumb(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<RangeSliderContext>().expect("RangeSliderThumb must be used within RangeSlider");
-    let _thumb_id = generate_id("range-slider-thumb");
+    let __thumb_id = generate_id("range-slider-thumb");
     
     let handle_click = move |_event: web_sys::MouseEvent| {
         if !context.disabled {
             let current_values = context.current_values.get();
-            let step = context.step;
+            let _step = context.step;
             let min = context.min;
-            let max = context.max;
+            let _max = context.max;
             
             let (current_value, other_value) = if thumb_index == 0 {
                 (current_values.0, current_values.1)
-            } else {
-                (current_values.1, current_values.0)
-            };
             
             let new_value = if thumb_index == 0 {
                 clamp(current_value + step, min, other_value)
-            } else {
-                clamp(current_value + step, other_value, max)
-            };
             
             let new_values = if thumb_index == 0 {
                 (new_value, other_value)
-            } else {
-                (other_value, new_value)
-            };
             
-            context.set_current_values.set(new_values);
+            context.setcurrent_values.set(new_values);
             
             if let Some(callback) = context.on_change.clone() {
                 callback.run(new_values);
@@ -515,32 +504,23 @@ pub fn RangeSliderThumb(
     let handle_key_down = move |event: web_sys::KeyboardEvent| {
         if !context.disabled {
             let current_values = context.current_values.get();
-            let step = context.step;
+            let _step = context.step;
             let min = context.min;
-            let max = context.max;
+            let _max = context.max;
             
             let (current_value, other_value) = if thumb_index == 0 {
                 (current_values.0, current_values.1)
-            } else {
-                (current_values.1, current_values.0)
-            };
             
             match event.key().as_str() {
                 "ArrowLeft" | "ArrowDown" => {
                     event.prevent_default();
                     let new_value = if thumb_index == 0 {
                         clamp(current_value - step, min, other_value)
-                    } else {
-                        clamp(current_value - step, other_value, max)
-                    };
                     
                     let new_values = if thumb_index == 0 {
                         (new_value, other_value)
-                    } else {
-                        (other_value, new_value)
-                    };
                     
-                    context.set_current_values.set(new_values);
+                    context.setcurrent_values.set(new_values);
                     
                     if let Some(callback) = context.on_change.clone() {
                         callback.run(new_values);
@@ -550,17 +530,11 @@ pub fn RangeSliderThumb(
                     event.prevent_default();
                     let new_value = if thumb_index == 0 {
                         clamp(current_value + step, min, other_value)
-                    } else {
-                        clamp(current_value + step, other_value, max)
-                    };
                     
                     let new_values = if thumb_index == 0 {
                         (new_value, other_value)
-                    } else {
-                        (other_value, new_value)
-                    };
                     
-                    context.set_current_values.set(new_values);
+                    context.setcurrent_values.set(new_values);
                     
                     if let Some(callback) = context.on_change.clone() {
                         callback.run(new_values);
@@ -611,7 +585,7 @@ pub fn SliderMark(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let _mark_id = generate_id("slider-mark");
+    let __mark_id = generate_id("slider-mark");
     
     // Build base classes
     let base_classes = "radix-slider-mark";

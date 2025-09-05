@@ -1,21 +1,19 @@
-use leptos::*;
-use leptos::prelude::*;
 use wasm_bindgen::JsCast;
 use chrono::{NaiveDate, Datelike, Duration, Utc};
 
 /// DatePicker context for state management
 #[derive(Clone)]
 pub struct DatePickerContext {
-    pub is_open: Signal<bool>,
-    pub set_is_open: WriteSignal<bool>,
+    pub isopen: Signal<bool>,
+    pub set_isopen: WriteSignal<bool>,
     pub current_month: Signal<NaiveDate>,
-    pub set_current_month: WriteSignal<NaiveDate>,
+    pub setcurrent_month: WriteSignal<NaiveDate>,
     pub selected_date: Signal<Option<NaiveDate>>,
-    pub set_selected_date: WriteSignal<Option<NaiveDate>>,
+    pub setselected_date: WriteSignal<Option<NaiveDate>>,
     pub input_value: Signal<String>,
     pub set_input_value: WriteSignal<String>,
     pub on_change: Option<Callback<NaiveDate>>,
-    pub on_calendar_open: Option<Callback<()>>,
+    pub on_calendaropen: Option<Callback<()>>,
     pub on_calendar_close: Option<Callback<()>>,
     pub _disabled: bool,
     pub date_picker_id: String,
@@ -52,7 +50,7 @@ pub fn DatePicker(
     _max_date: Option<NaiveDate>,
     /// Dates that are disabled for selection
     #[prop(optional)]
-    _disabled_dates: Option<Vec<NaiveDate>>,
+    disabled_dates: Option<Vec<NaiveDate>>,
     /// Date format string
     #[prop(optional)]
     _format: Option<String>,
@@ -64,7 +62,7 @@ pub fn DatePicker(
     on_change: Option<Callback<NaiveDate>>,
     /// Calendar open event handler
     #[prop(optional)]
-    on_calendar_open: Option<Callback<()>>,
+    on_calendaropen: Option<Callback<()>>,
     /// Calendar close event handler
     #[prop(optional)]
     on_calendar_close: Option<Callback<()>>,
@@ -77,26 +75,26 @@ pub fn DatePicker(
     /// Child content (trigger, calendar, etc.)
     children: Children,
 ) -> impl IntoView {
-    let _date_picker_id = generate_id("date-picker");
+    let __date_picker_id = generate_id("date-picker");
     
     // Reactive state
-    let (is_open, set_is_open) = signal(false);
-    let (current_month, set_current_month) = signal(selected_date.unwrap_or_else(|| Utc::now().naive_utc().date()));
-    let (selected_date_state, set_selected_date) = signal(selected_date);
+    let (isopen, set_isopen) = signal(false);
+    let (current_month, setcurrent_month) = signal(selected_date.unwrap_or_else(|| Utc::now().naive_utc().date()));
+    let (selected_date_state, setselected_date) = signal(selected_date);
     let (input_value, set_input_value) = signal(selected_date.map(|d| d.format("%Y-%m-%d").to_string()).unwrap_or_default());
     
     // Create context
     let context = DatePickerContext {
-        is_open: is_open.into(),
-        set_is_open,
+        isopen: isopen.into(),
+        set_isopen,
         current_month: current_month.into(),
-        set_current_month,
+        setcurrent_month,
         selected_date: selected_date_state.into(),
-        set_selected_date,
+        setselected_date,
         input_value: input_value.into(),
         set_input_value,
         on_change,
-        on_calendar_open,
+        on_calendaropen,
         on_calendar_close,
         disabled,
         date_picker_id: date_picker_id.clone(),
@@ -115,7 +113,7 @@ pub fn DatePicker(
             id=date_picker_id
             class=combined_class
             data-selected-date=selected_date_state.get().map(|d| d.format("%Y-%m-%d").to_string()).unwrap_or_default()
-            data-open=is_open.get()
+            data-open=isopen.get()
             role="application"
             aria-label="Date picker"
         >
@@ -129,7 +127,7 @@ pub fn DatePicker(
 pub fn DatePickerTrigger(
     /// Whether the trigger is disabled
     #[prop(optional, default = false)]
-    __disabled: bool,
+    disabled: bool,
     /// Placeholder text
     #[prop(optional)]
     _placeholder: Option<String>,
@@ -143,19 +141,15 @@ pub fn DatePickerTrigger(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<DatePickerContext>().expect("DatePickerTrigger must be used within DatePicker");
-    let _trigger_id = generate_id("date-picker-trigger");
+    let __trigger_id = generate_id("date-picker-trigger");
     
     let handle_click = move |_event: web_sys::MouseEvent| {
         if !context.disabled {
-            let new_open_state = !context.is_open.get();
-            context.set_is_open.set(new_open_state);
+            let newopen_state = !context.isopen.get();
+            context.set_isopen.set(newopen_state);
             
-            if new_open_state {
-                if let Some(callback) = context.on_calendar_open.clone() {
-                    callback.run(());
-                }
-            } else {
-                if let Some(callback) = context.on_calendar_close.clone() {
+            if newopen_state {
+                if let Some(callback) = context.on_calendaropen.clone() {
                     callback.run(());
                 }
             }
@@ -167,22 +161,18 @@ pub fn DatePickerTrigger(
             match event.key().as_str() {
                 "Enter" | " " => {
                     event.prevent_default();
-                    let new_open_state = !context.is_open.get();
-                    context.set_is_open.set(new_open_state);
+                    let newopen_state = !context.isopen.get();
+                    context.set_isopen.set(newopen_state);
                     
-                    if new_open_state {
-                        if let Some(callback) = context.on_calendar_open.clone() {
-                            callback.run(());
-                        }
-                    } else {
-                        if let Some(callback) = context.on_calendar_close.clone() {
+                    if newopen_state {
+                        if let Some(callback) = context.on_calendaropen.clone() {
                             callback.run(());
                         }
                     }
                 }
                 "Escape" => {
-                    if context.is_open.get() {
-                        context.set_is_open.set(false);
+                    if context.isopen.get() {
+                        context.set_isopen.set(false);
                         if let Some(callback) = context.on_calendar_close.clone() {
                             callback.run(());
                         }
@@ -204,11 +194,11 @@ pub fn DatePickerTrigger(
             class=combined_class
             style=style.unwrap_or_default()
             data-disabled=context.disabled
-            data-open=context.is_open.get()
+            data-open=context.isopen.get()
             role="button"
             tabindex="0"
             aria-haspopup="dialog"
-            aria-expanded=context.is_open.get()
+            aria-expanded=context.isopen.get()
             on:click=handle_click
             on:keydown=handle_keydown
         >
@@ -225,7 +215,7 @@ pub fn DatePickerCalendar(
     __open: bool,
     /// Current month to display
     #[prop(optional)]
-    _current_month: Option<NaiveDate>,
+    current_month: Option<NaiveDate>,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -236,18 +226,15 @@ pub fn DatePickerCalendar(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<DatePickerContext>().expect("DatePickerCalendar must be used within DatePicker");
-    let _calendar_id = generate_id("date-picker-calendar");
+    let __calendar_id = generate_id("date-picker-calendar");
     
     // Build base classes
     let base_classes = "radix-date-picker-calendar";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
     
-    let display_style = if context.is_open.get() {
+    let display_style = if context.isopen.get() {
         style.unwrap_or_default()
-    } else {
-        "display: none;".to_string()
-    };
     
     view! {
         <div
@@ -276,7 +263,7 @@ pub fn DatePickerGrid(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<DatePickerContext>().expect("DatePickerGrid must be used within DatePicker");
-    let _grid_id = generate_id("date-picker-grid");
+    let __grid_id = generate_id("date-picker-grid");
     
     // Build base classes
     let base_classes = "radix-date-picker-grid";
@@ -306,10 +293,7 @@ pub fn DatePickerGrid(
                             let current = context.current_month.get();
                             let prev_month = if current.month() == 1 {
                                 NaiveDate::from_ymd_opt(current.year() - 1, 12, 1).unwrap()
-                            } else {
-                                NaiveDate::from_ymd_opt(current.year(), current.month() - 1, 1).unwrap()
-                            };
-                            context.set_current_month.set(prev_month);
+                            context.setcurrent_month.set(prev_month);
                         }
                     >
                         "‹"
@@ -320,10 +304,7 @@ pub fn DatePickerGrid(
                             let current = context.current_month.get();
                             let next_month = if current.month() == 12 {
                                 NaiveDate::from_ymd_opt(current.year() + 1, 1, 1).unwrap()
-                            } else {
-                                NaiveDate::from_ymd_opt(current.year(), current.month() + 1, 1).unwrap()
-                            };
-                            context.set_current_month.set(next_month);
+                            context.setcurrent_month.set(next_month);
                         }
                     >
                         "›"
@@ -360,16 +341,16 @@ pub fn DatePickerDay(
     _date: Option<NaiveDate>,
     /// Whether the day is selected
     #[prop(optional, default = false)]
-    __selected: bool,
+    selected: bool,
     /// Whether the day is disabled
     #[prop(optional, default = false)]
-    __disabled: bool,
+    disabled: bool,
     /// Whether the day is today
     #[prop(optional, default = false)]
-    __today: bool,
+    ___today: bool,
     /// Whether the day is outside the current month
     #[prop(optional, default = false)]
-    __outside_month: bool,
+    ___outside_month: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -379,7 +360,7 @@ pub fn DatePickerDay(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let _day_id = generate_id("date-picker-day");
+    let __day_id = generate_id("date-picker-day");
     
     // Build base classes
     let base_classes = "radix-date-picker-day";
@@ -410,7 +391,7 @@ pub fn DatePickerInput(
     placeholder: Option<String>,
     /// Whether the input is disabled
     #[prop(optional, default = false)]
-    __disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -419,7 +400,7 @@ pub fn DatePickerInput(
     style: Option<String>,
 ) -> impl IntoView {
     let context = use_context::<DatePickerContext>().expect("DatePickerInput must be used within DatePicker");
-    let _input_id = generate_id("date-picker-input");
+    let __input_id = generate_id("date-picker-input");
     
     let handle_input = move |event: web_sys::Event| {
         if let Some(target) = event.target() {
@@ -429,7 +410,7 @@ pub fn DatePickerInput(
                 
                 // Try to parse the date
                 if let Ok(date) = NaiveDate::parse_from_str(&value, "%Y-%m-%d") {
-                    context.set_selected_date.set(Some(date));
+                    context.setselected_date.set(Some(date));
                     if let Some(callback) = context.on_change.clone() {
                         callback.run(date);
                     }
@@ -444,8 +425,8 @@ pub fn DatePickerInput(
                 event.prevent_default();
                 let value = context.input_value.get();
                 if let Ok(date) = NaiveDate::parse_from_str(&value, "%Y-%m-%d") {
-                    context.set_selected_date.set(Some(date));
-                    context.set_is_open.set(false);
+                    context.setselected_date.set(Some(date));
+                    context.set_isopen.set(false);
                     
                     if let Some(callback) = context.on_change.clone() {
                         callback.run(date);
@@ -456,8 +437,8 @@ pub fn DatePickerInput(
                 }
             }
             "Escape" => {
-                if context.is_open.get() {
-                    context.set_is_open.set(false);
+                if context.isopen.get() {
+                    context.set_isopen.set(false);
                     if let Some(callback) = context.on_calendar_close.clone() {
                         callback.run(());
                     }
@@ -483,7 +464,7 @@ pub fn DatePickerInput(
             disabled=context.disabled
             role="textbox"
             aria-autocomplete="none"
-            aria-expanded=context.is_open.get()
+            aria-expanded=context.isopen.get()
             aria-controls=context.date_picker_id.clone()
             on:input=handle_input
             on:keydown=handle_keydown

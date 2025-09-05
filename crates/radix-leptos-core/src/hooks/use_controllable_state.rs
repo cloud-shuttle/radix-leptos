@@ -1,4 +1,3 @@
-use leptos::*;
 
 /// Return value for the use_controllable_state hook
 #[derive(Clone)]
@@ -22,7 +21,6 @@ pub struct UseControllableStateReturn<T: 'static> {
 /// # Example
 /// 
 /// ```rust
-/// use leptos::*;
 /// use radix_leptos_core::use_controllable_state;
 /// 
 /// #[component]
@@ -43,9 +41,6 @@ pub struct UseControllableStateReturn<T: 'static> {
 ///     
 ///     view! {
 ///         <button on:click=toggle>
-///             {move || if state.value.get() { "On" } else { "Off" }}
-///         </button>
-///     }
 /// }
 /// ```
 pub fn use_controllable_state<T>(
@@ -63,9 +58,6 @@ where
     
     let value = if let Some(controlled_value) = prop {
         controlled_value
-    } else {
-        internal_value.into()
-    };
     
     // Create setter that handles both controlled and uncontrolled modes
     let set_value = create_write_slice(
@@ -90,7 +82,6 @@ where
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     
     #[test]
     fn test_uncontrolled_mode() {

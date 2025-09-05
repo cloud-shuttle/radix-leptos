@@ -1,6 +1,4 @@
 use crate::utils::merge_classes;
-use leptos::prelude::*;
-use leptos::*;
 use serde::{Deserialize, Serialize};
 
 /// Component variant system for consistent styling
@@ -664,8 +662,6 @@ pub fn StateVariantOptionGroup(
 
 #[cfg(test)]
 mod component_variants_tests {
-    use super::*;
-    use leptos::*;
     use proptest::prelude::*;
 
     #[test]
@@ -819,7 +815,7 @@ mod component_variants_tests {
     // Property-based tests
     #[test]
     fn test_size_variant_property_based() {
-        proptest!(|(size in prop::sample::select([
+        proptest!(|(size in prop::sample::select(&[
             SizeVariant::ExtraSmall,
             SizeVariant::Small,
             SizeVariant::Medium,
@@ -835,7 +831,7 @@ mod component_variants_tests {
 
     #[test]
     fn test_style_variant_property_based() {
-        proptest!(|(style in prop::sample::select([
+        proptest!(|(style in prop::sample::select(&[
             StyleVariant::Default,
             StyleVariant::Primary,
             StyleVariant::Secondary,

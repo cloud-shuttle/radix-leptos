@@ -1,4 +1,3 @@
-use leptos::*;
 use web_sys::{Element, HtmlElement, KeyboardEvent};
 use wasm_bindgen::JsCast;
 use crate::utils::dom::{get_focusable_elements, get_first_focusable, get_last_focusable};
@@ -19,12 +18,11 @@ use crate::utils::dom::{get_focusable_elements, get_first_focusable, get_last_fo
 /// # Example
 /// 
 /// ```rust
-/// use leptos::*;
 /// use radix_leptos_core::use_focus_trap;
 /// 
 /// #[component]
 /// pub fn Dialog() -> impl IntoView {
-///     let (open, set_open) = create_signal(false);
+///     let (open, setopen) = create_signal(false);
 ///     let dialog_ref = create_node_ref::<web_sys::Element>();
 ///     let trigger_ref = create_node_ref::<web_sys::Element>();
 ///     
@@ -37,12 +35,12 @@ use crate::utils::dom::{get_focusable_elements, get_first_focusable, get_last_fo
 ///     );
 ///     
 ///     view! {
-///         <button ref=trigger_ref on:click=move |_| set_open.set(true)>
+///         <button ref=trigger_ref on:click=move |_| setopen.set(true)>
 ///             "Open Dialog"
 ///         </button>
 ///         <Show when=move || open.get()>
 ///             <div ref=dialog_ref role="dialog">
-///                 <button on:click=move |_| set_open.set(false)>
+///                 <button on:click=move |_| setopen.set(false)>
 ///                     "Close"
 ///                 </button>
 ///                 <input type="text" placeholder="Trapped input" />
@@ -57,7 +55,7 @@ pub fn use_focus_trap(
     initial_focus: Option<NodeRef<Element>>,
     restore_focus: Option<NodeRef<Element>>,
 ) {
-    let (previously_focused, set_previously_focused) = create_signal::<Option<Element>>(None);
+    let (previouslyfocused, set_previouslyfocused) = create_signal::<Option<Element>>(None);
     
     // Effect to handle focus trap activation/deactivation
     create_effect(move |_| {
@@ -66,8 +64,8 @@ pub fn use_focus_trap(
         if is_active {
             if let Some(container) = container_ref.get() {
                 // Store currently focused element for restoration
-                if let Some(current) = get_currently_focused() {
-                    set_previously_focused.set(Some(current));
+                if let Some(current) = getcurrentlyfocused() {
+                    set_previouslyfocused.set(Some(current));
                 }
                 
                 // Focus initial element or first focusable element
@@ -82,12 +80,7 @@ pub fn use_focus_trap(
                 // Set up focus trap event listeners
                 setup_focus_trap(&container);
             }
-        } else {
-            // Restore focus when trap deactivates
-            let element_to_restore = if let Some(restore_ref) = restore_focus {
-                restore_ref.get()
-            } else {
-                previously_focused.get_untracked()
+                previouslyfocused.get_untracked()
             };
             
             if let Some(element) = element_to_restore {
@@ -130,7 +123,7 @@ fn handle_tab_key(container: &Element, event: &KeyboardEvent) {
     let first = &focusable_elements[0];
     let last = &focusable_elements[focusable_elements.len() - 1];
     
-    if let Some(current) = get_currently_focused() {
+    if let Some(current) = getcurrentlyfocused() {
         if event.shift_key() {
             // Shift+Tab (backward)
             if is_same_element(&current, first) {
@@ -138,19 +131,12 @@ fn handle_tab_key(container: &Element, event: &KeyboardEvent) {
                 event.prevent_default();
                 focus_element(last);
             }
-        } else {
-            // Tab (forward)  
-            if is_same_element(&current, last) {
-                // At last element, wrap to first
-                event.prevent_default();
-                focus_element(first);
-            }
         }
     }
 }
 
 /// Get the currently focused element
-fn get_currently_focused() -> Option<Element> {
+fn getcurrentlyfocused() -> Option<Element> {
     web_sys::window()?
         .document()?
         .active_element()
@@ -172,13 +158,13 @@ fn is_same_element(a: &Element, b: &Element) -> bool {
 #[derive(Clone)]
 pub struct FocusTrapOptions {
     /// Whether to focus the first element on activation
-    pub _auto_focus: bool,
+    pub __auto_focus: bool,
     /// Whether to restore focus on deactivation
-    pub _restore_focus: bool,
+    pub __restore_focus: bool,
     /// Whether to allow clicking outside to deactivate
-    pub _click_outside_deactivates: bool,
+    pub __click_outside_deactivates: bool,
     /// Whether to trap focus on Tab key
-    pub _tab_trap: bool,
+    pub __tab_trap: bool,
 }
 
 impl Default for FocusTrapOptions {
@@ -198,7 +184,7 @@ pub fn use_focus_trap_with_options(
     active: Signal<bool>,
     options: FocusTrapOptions,
 ) {
-    let (previously_focused, set_previously_focused) = create_signal::<Option<Element>>(None);
+    let (previouslyfocused, set_previouslyfocused) = create_signal::<Option<Element>>(None);
     
     create_effect(move |_| {
         let is_active = active.get();
@@ -208,8 +194,8 @@ pub fn use_focus_trap_with_options(
             if let Some(container) = container_ref.get() {
                 // Store previously focused element
                 if opts.restore_focus {
-                    if let Some(current) = get_currently_focused() {
-                        set_previously_focused.set(Some(current));
+                    if let Some(current) = getcurrentlyfocused() {
+                        set_previouslyfocused.set(Some(current));
                     }
                 }
                 
@@ -227,7 +213,7 @@ pub fn use_focus_trap_with_options(
             }
         } else if opts.restore_focus {
             // Restore focus
-            if let Some(element) = previously_focused.get_untracked() {
+            if let Some(element) = previouslyfocused.get_untracked() {
                 focus_element(&element);
             }
         }
@@ -236,7 +222,6 @@ pub fn use_focus_trap_with_options(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
     
     wasm_bindgen_test_configure!(run_in_browser);

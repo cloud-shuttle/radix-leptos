@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// Carousel size variant
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
@@ -47,7 +45,7 @@ pub fn Carousel(
     autoplay: CarouselAutoplay,
     /// Whether the carousel should loop
     #[prop(optional, default = true)]
-    _loop_carousel: bool,
+    __loop_carousel: bool,
     /// Whether the carousel is interactive (clickable)
     #[prop(optional, default = false)]
     _interactive: bool,
@@ -63,7 +61,7 @@ pub fn Carousel(
     /// Carousel content
     children: Children,
 ) -> impl IntoView {
-    let (current_slide, set_current_slide) = signal(0);
+    let (current_slide, setcurrent_slide) = signal(0);
     let (total_slides, set_total_slides) = signal(3); // Default to 3 slides
     let (is_playing, set_is_playing) = signal(false);
 
@@ -98,9 +96,9 @@ pub fn Carousel(
             let current = current_slide.get();
             let total = total_slides.get();
             if current < total - 1 {
-                set_current_slide.set(current + 1);
+                setcurrent_slide.set(current + 1);
             } else if loop_carousel {
-                set_current_slide.set(0);
+                setcurrent_slide.set(0);
             }
         }
     };
@@ -110,16 +108,16 @@ pub fn Carousel(
             let current = current_slide.get();
             let total = total_slides.get();
             if current > 0 {
-                set_current_slide.set(current - 1);
+                setcurrent_slide.set(current - 1);
             } else if loop_carousel {
-                set_current_slide.set(total - 1);
+                setcurrent_slide.set(total - 1);
             }
         }
     };
 
     let go_to_slide = move |index: usize| {
         if !disabled && index < total_slides.get() {
-            set_current_slide.set(index);
+            setcurrent_slide.set(index);
         }
     };
 
@@ -163,26 +161,6 @@ pub fn Carousel(
                 </div>
             </div>
 
-            <div class="radix-carousel-arrows" style=move || if show_arrows() { "" } else { "display: none;" }>
-                <button 
-                    class="radix-carousel-arrow radix-carousel-arrow--prev"
-                    aria-label="Previous slide"
-                    on:click=prev_slide
-                    disabled=move || disabled || (!loop_carousel && current_slide.get() == 0)
-                >
-                    "‹"
-                </button>
-                <button 
-                    class="radix-carousel-arrow radix-carousel-arrow--next"
-                    aria-label="Next slide"
-                    on:click=next_slide
-                    disabled=move || disabled || (!loop_carousel && current_slide.get() == total_slides.get() - 1)
-                >
-                    "›"
-                </button>
-            </div>
-
-            <div class="radix-carousel-dots" style=move || if show_dots() { "" } else { "display: none;" }>
                 {move || {
                     (0..total_slides.get()).map(|index| {
                         let is_active = move || current_slide.get() == index;
@@ -192,9 +170,6 @@ pub fn Carousel(
                                 class=move || {
                                     if is_active() {
                                         "carousel-indicator radix-carousel-dot radix-carousel-dot--active"
-                                    } else {
-                                        "carousel-indicator radix-carousel-dot"
-                                    }
                                 }
                                 on:click=move |_| go_to_slide(index_clone)
                                 disabled=disabled
@@ -205,13 +180,6 @@ pub fn Carousel(
                 }}
             </div>
 
-            <div class="radix-carousel-controls" style=move || if show_autoplay() { "" } else { "display: none;" }>
-                <button 
-                    class="radix-carousel-autoplay-toggle"
-                    on:click=toggle_autoplay
-                    disabled=disabled
-                >
-                    {move || if is_playing.get() { "⏸️" } else { "▶️" }}
                 </button>
             </div>
         </div>
@@ -244,7 +212,7 @@ pub fn CarouselWithCustomNavigation(
     size: CarouselSize,
     /// Whether the carousel should loop
     #[prop(optional, default = true)]
-    _loop_carousel: bool,
+    __loop_carousel: bool,
     /// Whether the carousel is interactive (clickable)
     #[prop(optional, default = false)]
     _interactive: bool,
@@ -260,7 +228,7 @@ pub fn CarouselWithCustomNavigation(
     /// Carousel content
     children: Children,
 ) -> impl IntoView {
-    let (current_slide, set_current_slide) = signal(0);
+    let (current_slide, setcurrent_slide) = signal(0);
     let (total_slides, set_total_slides) = signal(3); // Default to 3 slides
 
     let size_class = move || {

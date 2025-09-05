@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Slider component with proper accessibility and styling variants
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -89,10 +87,10 @@ pub fn Slider(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let _slider_id = generate_id("slider");
-    let _track_id = generate_id("slider-track");
-    let _range_id = generate_id("slider-range");
-    let _thumb_id = generate_id("slider-thumb");
+    let __slider_id = generate_id("slider");
+    let __track_id = generate_id("slider-track");
+    let __range_id = generate_id("slider-range");
+    let __thumb_id = generate_id("slider-thumb");
 
     // Build data attributes for styling
     let data_variant = variant.as_str();
@@ -157,9 +155,6 @@ pub fn Slider(
     // Calculate percentage for visual representation
     let percentage = if max > min {
         ((value - min) / (max - min) * 100.0).clamp(0.0, 100.0)
-    } else {
-        0.0
-    };
 
     view! {
         <div
@@ -177,10 +172,6 @@ pub fn Slider(
             aria-valuemax=max
             aria-valuenow=value
             aria-disabled=disabled
-            tabindex=if disabled { "-1" } else { "0" }
-            on:keydown=handle_keydown
-        >
-            {children()}
         </div>
     }
 }
@@ -256,7 +247,6 @@ pub fn SliderThumb(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
 
     // 1. Basic Rendering Tests
@@ -292,8 +282,8 @@ mod tests {
         run_test(|| {
             let value = 0.0;
             let min = 0.0;
-            let max = 100.0;
-            let step = 1.0;
+            let _max = 100.0;
+            let _step = 1.0;
             let disabled = false;
             let variant = SliderVariant::Default;
             let size = SliderSize::Default;
@@ -313,8 +303,8 @@ mod tests {
         run_test(|| {
             let value = 50.0;
             let min = 10.0;
-            let max = 90.0;
-            let step = 5.0;
+            let _max = 90.0;
+            let _step = 5.0;
             let disabled = false;
             let variant = SliderVariant::Destructive;
             let size = SliderSize::Lg;
@@ -330,12 +320,12 @@ mod tests {
     }
 
     #[test]
-    fn test_slider_disabled_state() {
+    fn test_sliderdisabled_state() {
         run_test(|| {
             let value = 25.0;
             let min = 0.0;
-            let max = 100.0;
-            let step = 1.0;
+            let _max = 100.0;
+            let _step = 1.0;
             let disabled = true;
             let variant = SliderVariant::Ghost;
             let size = SliderSize::Sm;
@@ -356,15 +346,12 @@ mod tests {
         run_test(|| {
             let value = 50.0;
             let min = 0.0;
-            let max = 100.0;
-            let step = 1.0;
+            let _max = 100.0;
+            let _step = 1.0;
 
             // Test percentage calculation
             let percentage = if max > min {
                 ((value - min) / (max - min) * 100.0f64).clamp(0.0f64, 100.0f64)
-            } else {
-                0.0
-            };
 
             assert_eq!(percentage, 50.0);
         });
@@ -374,8 +361,8 @@ mod tests {
     fn test_slider_value_bounds() {
         run_test(|| {
             let min = 10.0;
-            let max = 90.0;
-            let step = 5.0;
+            let _max = 90.0;
+            let _step = 5.0;
 
             // Test value clamping
             let value_below_min: f64 = 5.0;
@@ -465,14 +452,14 @@ mod tests {
             let aria_valuemin = 0.0;
             let aria_valuemax = 100.0;
             let aria_valuenow = 50.0;
-            let aria_disabled = false;
+            let ariadisabled = false;
             let tabindex = "0";
 
             assert_eq!(role, "slider");
             assert_eq!(aria_valuemin, 0.0);
             assert_eq!(aria_valuemax, 100.0);
             assert_eq!(aria_valuenow, 50.0);
-            assert!(!aria_disabled);
+            assert!(!ariadisabled);
             assert_eq!(tabindex, "0");
         });
     }
@@ -484,14 +471,11 @@ mod tests {
             // Test zero range
             let value = 0.0;
             let min = 0.0;
-            let max = 0.0;
-            let step = 1.0;
+            let _max = 0.0;
+            let _step = 1.0;
 
             let percentage = if max > min {
                 ((value - min) / (max - min) * 100.0f64).clamp(0.0f64, 100.0f64)
-            } else {
-                0.0
-            };
 
             assert_eq!(percentage, 0.0);
         });
@@ -502,21 +486,18 @@ mod tests {
         run_test(|| {
             let value = -25.0;
             let min = -100.0;
-            let max = 100.0;
-            let step = 5.0;
+            let _max = 100.0;
+            let _step = 5.0;
 
             let percentage = if max > min {
                 ((value - min) / (max - min) * 100.0f64).clamp(0.0f64, 100.0f64)
-            } else {
-                0.0
-            };
 
             assert_eq!(percentage, 37.5);
         });
     }
 
     #[test]
-    fn test_slider_disabled_interaction() {
+    fn test_sliderdisabled_interaction() {
         run_test(|| {
             let value: f64 = 50.0;
             let min: f64 = 0.0;
@@ -528,9 +509,6 @@ mod tests {
             let arrow_left_pressed = true;
             let new_value: f64 = if !disabled && arrow_left_pressed {
                 (value - step).max(min)
-            } else {
-                value
-            };
 
             assert_eq!(new_value, 50.0); // Should remain unchanged
         });
@@ -540,12 +518,12 @@ mod tests {
     proptest! {
         #[test]
         fn test_slider_properties(
-            variant in prop::sample::select([
+            variant in prop::sample::select(&[
                 SliderVariant::Default,
                 SliderVariant::Destructive,
                 SliderVariant::Ghost,
             ]),
-            size in prop::sample::select([
+            size in prop::sample::select(&[
                 SliderSize::Default,
                 SliderSize::Sm,
                 SliderSize::Lg,
@@ -553,7 +531,7 @@ mod tests {
             value in -1000.0..1000.0f64,
             min in -1000.0..1000.0f64,
             max in -1000.0..1000.0f64,
-            _step in 0.1..100.0f64,
+            __step in 0.1..100.0f64,
             disabled in prop::bool::ANY
         ) {
             assert!(!variant.as_str().is_empty());
@@ -565,9 +543,6 @@ mod tests {
             // Test percentage calculation
             let percentage = if max > min {
                 ((value - min) / (max - min) * 100.0f64).clamp(0.0f64, 100.0f64)
-            } else {
-                0.0
-            };
 
             assert!(percentage >= 0.0 && percentage <= 100.0);
 

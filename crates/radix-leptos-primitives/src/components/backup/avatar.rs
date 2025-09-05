@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// Avatar size variant
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
@@ -220,9 +218,6 @@ pub fn AvatarWithInitials(
             )
         } else if name_parts.len() == 1 {
             name_parts[0].chars().next().unwrap_or('?').to_uppercase().to_string()
-        } else {
-            "?".to_string()
-        }
     };
     
     let class_value = class.unwrap_or_default();

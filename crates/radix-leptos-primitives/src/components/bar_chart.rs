@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// BarChart component - Categorical data display
 #[component]
@@ -26,25 +24,6 @@ pub fn BarChart(
     let class = merge_classes([
         "bar-chart",
         &orientation.to_class(),
-        if stacked { "stacked" } else { "" },
-        if show_values { "show-values" } else { "" },
-        if show_grid { "show-grid" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="img"
-            aria-label="Bar chart visualization"
-            data-series-count=data.len()
-            data-orientation=orientation.to_string()
-            data-stacked=stacked
-            data-show-values=show_values
-            data-show-grid=show_grid
-        >
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -62,7 +41,7 @@ impl Default for BarSeries {
     fn default() -> Self {
         Self {
             name: "Series".to_string(),
-            data: [],
+            data: Vec::new(),
             color: "#3b82f6".to_string(),
             opacity: 1.0,
         }
@@ -246,7 +225,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
     use proptest::prelude::*;
 
@@ -312,25 +290,25 @@ mod tests {
 
     // Property-based Tests
     #[test] fn test_barchart_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             
         });
     }
 
     #[test] fn test_barchart_data_validation() {
-        proptest!(|(___series_count in 0..10usize, _bars_per_series in 0..50usize)| {
+        proptest!(|(______series_count in 0..10usize, __bars_per_series in 0..50usize)| {
             
         });
     }
 
     #[test] fn test_barchart_config_validation() {
-        proptest!(|(__width in 100.0..2000.0f64, _height in 100.0..2000.0f64)| {
+        proptest!(|(____width in 100.0..2000.0f64, __height in 100.0..2000.0f64)| {
             
         });
     }
 
     #[test] fn test_barchart_orientation_property_based() {
-        proptest!(|(__orientation_index in 0..2usize)| {
+        proptest!(|(____orientation_index in 0..2usize)| {
             
         });
     }

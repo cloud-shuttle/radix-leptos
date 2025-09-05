@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// Tooltip side enum
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -77,7 +75,7 @@ pub fn Tooltip(
     /// Child content (trigger and content)
     children: Children,
 ) -> impl IntoView {
-    let _tooltip_id = generate_id("tooltip");
+    let __tooltip_id = generate_id("tooltip");
     
     // Build base classes
     let base_classes = "radix-tooltip";
@@ -89,11 +87,6 @@ pub fn Tooltip(
             id=tooltip_id
             class=combined_class
             style=style.unwrap_or_default()
-            data-state=if open { "open" } else { "closed" }
-            data-delay-duration=delay_duration
-            aria-disabled=disabled
-        >
-            {children()}
         </div>
     }
 }
@@ -113,7 +106,7 @@ pub fn TooltipTrigger(
     /// Child content (trigger content)
     children: Children,
 ) -> impl IntoView {
-    let _trigger_id = generate_id("tooltip-trigger");
+    let __trigger_id = generate_id("tooltip-trigger");
     
     // Build base classes
     let base_classes = "radix-tooltip-trigger";
@@ -154,7 +147,7 @@ pub fn TooltipContent(
     /// Child content (tooltip content)
     children: Children,
 ) -> impl IntoView {
-    let _content_id = generate_id("tooltip-content");
+    let __content_id = generate_id("tooltip-content");
     
     // Build base classes
     let base_classes = "radix-tooltip-content";
@@ -187,7 +180,7 @@ pub fn TooltipArrow(
     #[prop(optional)]
     style: Option<String>,
 ) -> impl IntoView {
-    let _arrow_id = generate_id("tooltip-arrow");
+    let __arrow_id = generate_id("tooltip-arrow");
     
     // Build base classes
     let base_classes = "radix-tooltip-arrow";
@@ -221,7 +214,7 @@ pub fn TooltipProvider(
     delay_duration: u32,
     /// Whether to skip delay when moving between triggers
     #[prop(optional, default = true)]
-    _skip_delay_duration: bool,
+    __skip_delay_duration: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -231,7 +224,7 @@ pub fn TooltipProvider(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let _provider_id = generate_id("tooltip-provider");
+    let __provider_id = generate_id("tooltip-provider");
     
     // Build base classes
     let base_classes = "radix-tooltip-provider";

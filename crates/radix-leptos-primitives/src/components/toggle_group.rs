@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Toggle Group component for group of toggle buttons
 ///
@@ -23,7 +21,7 @@ pub fn ToggleGroup(
     let orientation = orientation.unwrap_or_default();
     let type_ = type_.unwrap_or_default();
     let disabled = disabled.unwrap_or(false);
-    let (current_value, set_current_value) = signal(
+    let (current_value, setcurrent_value) = signal(
         value
             .clone()
             .unwrap_or_else(|| default_value.unwrap_or_default()),
@@ -32,7 +30,7 @@ pub fn ToggleGroup(
     // Handle external value changes
     if let Some(external_value) = value {
         Effect::new(move |_| {
-            set_current_value.set(external_value.clone());
+            setcurrent_value.set(external_value.clone());
         });
     }
 
@@ -49,19 +47,6 @@ pub fn ToggleGroup(
         &size.to_class(),
         &orientation.to_class(),
         &type_.to_class(),
-        if disabled { "disabled" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="group"
-            aria-orientation=orientation.to_aria()
-            data-type=type_.to_aria()
-        >
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -81,15 +66,6 @@ pub fn ToggleGroupItem(
 
     let class = merge_classes([
         "toggle-group-item",
-        if disabled { "disabled" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    let handle_click = move |_| {
-        if !disabled {
-            if let Some(on_click) = on_click {
-                on_click.run(());
-            }
         }
     };
 
@@ -216,7 +192,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
@@ -271,7 +246,7 @@ mod tests {
     fn test_toggle_group_with_default_value() {}
 
     #[test]
-    fn test_toggle_group_disabled() {}
+    fn test_toggle_groupdisabled() {}
 
     #[test]
     fn test_toggle_group_on_value_change() {}
@@ -290,7 +265,7 @@ mod tests {
     fn test_toggle_group_item_with_value() {}
 
     #[test]
-    fn test_toggle_group_item_disabled() {}
+    fn test_toggle_group_itemdisabled() {}
 
     #[test]
     fn test_toggle_group_item_on_click() {}
@@ -396,7 +371,7 @@ mod tests {
     // Helper Function Tests
     #[test]
     fn test_merge_classes_empty() {
-        let result = merge_classes([]);
+        let result = merge_classes(Vec::new());
         assert_eq!(result, "");
     }
 
@@ -422,7 +397,7 @@ mod tests {
     #[test]
     fn test_toggle_group_property_based() {
         use proptest::prelude::*;
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
 
         });
     }
@@ -430,7 +405,7 @@ mod tests {
     #[test]
     fn test_toggle_group_item_property_based() {
         use proptest::prelude::*;
-        proptest!(|(__class in ".*", _style in ".*", _value in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*", __value in ".*")| {
 
         });
     }

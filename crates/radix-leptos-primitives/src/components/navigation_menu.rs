@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Navigation Menu component for main navigation
 ///
@@ -15,7 +13,7 @@ pub fn NavigationMenu(
     #[prop(optional)] on_value_change: Option<Callback<String>>,
 ) -> impl IntoView {
     let orientation = orientation.unwrap_or_default();
-    let (current_value, set_current_value) = signal(
+    let (current_value, setcurrent_value) = signal(
         value
             .map(|v| v.get())
             .unwrap_or_else(|| default_value.unwrap_or_default()),
@@ -31,7 +29,7 @@ pub fn NavigationMenu(
     // Handle external value changes
     if let Some(external_value) = value {
         Effect::new(move |_| {
-            set_current_value.set(external_value.get());
+            setcurrent_value.set(external_value.get());
         });
     }
 
@@ -84,15 +82,6 @@ pub fn NavigationMenuItem(
 
     let class = merge_classes([
         "navigation-menu-item",
-        if disabled { "disabled" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    let handle_click = move |_| {
-        if !disabled {
-            if let Some(on_select) = on_select {
-                on_select.run(());
-            }
         }
     };
 
@@ -113,13 +102,6 @@ pub fn NavigationMenuItem(
         >
             <button
                 role="menuitem"
-                tabindex=if disabled { -1 } else { 0 }
-                disabled=disabled
-                on:click=handle_click
-                on:keydown=handle_keydown
-                data-value=value
-            >
-                {children.map(|c| c())}
             </button>
         </li>
     }
@@ -138,15 +120,6 @@ pub fn NavigationMenuTrigger(
 
     let class = merge_classes([
         "navigation-menu-trigger",
-        if disabled { "disabled" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    let handle_click = move |_| {
-        if !disabled {
-            if let Some(on_click) = on_click {
-                on_click.run(());
-            }
         }
     };
 
@@ -219,8 +192,6 @@ pub fn NavigationMenuLink(
 
     let class = merge_classes([
         "navigation-menu-link",
-        if disabled { "disabled" } else { "" },
-        if active { "active" } else { "" },
         class.as_deref().unwrap_or(""),
     ]);
 
@@ -239,20 +210,9 @@ pub fn NavigationMenuLink(
                 style=style
                 href=href
                 on:click=handle_click
-                aria-current=if active { "page" } else { "false" }
-            >
-                {children.map(|c| c())}
             </a>
         }
         .into_any()
-    } else {
-        view! {
-            <button
-                class=class
-                style=style
-                disabled=disabled
-                on:click=handle_click
-                aria-current=if active { "page" } else { "false" }
             >
                 {children.map(|c| c())}
             </button>
@@ -314,7 +274,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
@@ -398,7 +357,7 @@ mod tests {
     }
 
     #[test]
-    fn test_navigation_menu_item_disabled() {
+    fn test_navigation_menu_itemdisabled() {
         // Test disabled state
     }
 
@@ -424,7 +383,7 @@ mod tests {
     }
 
     #[test]
-    fn test_navigation_menu_trigger_disabled() {
+    fn test_navigation_menu_triggerdisabled() {
         // Test disabled state
     }
 
@@ -450,7 +409,7 @@ mod tests {
     }
 
     #[test]
-    fn test_navigation_menu_content_visible() {
+    fn test_navigation_menu_contentvisible() {
         // Test visible state
     }
 
@@ -486,7 +445,7 @@ mod tests {
     }
 
     #[test]
-    fn test_navigation_menu_link_disabled() {
+    fn test_navigation_menu_linkdisabled() {
         // Test disabled state
     }
 
@@ -540,7 +499,7 @@ mod tests {
     // Helper Function Tests
     #[test]
     fn test_merge_classes_empty() {
-        let result = merge_classes([]);
+        let result = merge_classes(Vec::new());
         assert_eq!(result, "");
     }
 
@@ -567,7 +526,7 @@ mod tests {
     fn test_navigation_menu_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             // Test that the component can be created with various class and style values
 
         });
@@ -577,7 +536,7 @@ mod tests {
     fn test_navigation_menu_list_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             // Test that the component can be created with various class and style values
 
         });
@@ -587,7 +546,7 @@ mod tests {
     fn test_navigation_menu_item_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(__class in ".*", _style in ".*", _value in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*", __value in ".*")| {
             // Test that the component can be created with various prop values
 
         });
@@ -597,7 +556,7 @@ mod tests {
     fn test_navigation_menu_trigger_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             // Test that the component can be created with various class and style values
 
         });
@@ -607,7 +566,7 @@ mod tests {
     fn test_navigation_menu_content_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             // Test that the component can be created with various class and style values
 
         });
@@ -617,7 +576,7 @@ mod tests {
     fn test_navigation_menu_link_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(__class in ".*", _style in ".*", href in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*", _href in ".*")| {
             // Test that the component can be created with various prop values
 
         });
@@ -627,7 +586,7 @@ mod tests {
     fn test_navigation_menu_separator_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             // Test that the component can be created with various class and style values
 
         });

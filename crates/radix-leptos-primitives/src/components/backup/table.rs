@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// Table data structure
 #[derive(Clone, Debug, PartialEq)]
@@ -20,12 +18,12 @@ impl TableData {
         }
     }
 
-    pub fn with_selected(mut self, _selected: bool) -> Self {
+    pub fn withselected(mut self, _selected: bool) -> Self {
         self.selected = selected;
         self
     }
 
-    pub fn with_disabled(mut self, _disabled: bool) -> Self {
+    pub fn withdisabled(mut self, _disabled: bool) -> Self {
         self.disabled = disabled;
         self
     }
@@ -36,7 +34,7 @@ impl TableData {
 pub struct TableColumn {
     pub id: String,
     pub header: String,
-    pub _sortable: bool,
+    pub __sortable: bool,
     pub width: Option<String>,
     pub align: TableAlign,
 }
@@ -52,7 +50,7 @@ impl TableColumn {
         }
     }
 
-    pub fn with_sortable(mut self, _sortable: bool) -> Self {
+    pub fn with_sortable(mut self, __sortable: bool) -> Self {
         self.sortable = sortable;
         self
     }
@@ -154,7 +152,7 @@ pub struct TableContext {
     pub total_pages: Signal<usize>,
     pub size: TableSize,
     pub variant: TableVariant,
-    pub _selectable: bool,
+    pub __selectable: bool,
     pub _multi_select: bool,
     pub selected_rows: Signal<Vec<String>>,
     pub table_id: String,
@@ -192,7 +190,7 @@ pub fn Table(
     variant: TableVariant,
     /// Whether rows are selectable
     #[prop(optional, default = false)]
-    _selectable: bool,
+    __selectable: bool,
     /// Whether multiple rows can be selected
     #[prop(optional, default = false)]
     _multi_select: bool,
@@ -211,25 +209,22 @@ pub fn Table(
     /// Child content (table headers, rows, etc.)
     children: Children,
 ) -> impl IntoView {
-    let _table_id = generate_id("table");
+    let __table_id = generate_id("table");
     
     // Reactive state
     let (columns_signal, _set_columns_signal) = signal(columns);
     let (data_signal, _set_data_signal) = signal(data);
     let (sort_column_signal, _set_sort_column_signal) = signal(sort_column);
     let (sort_direction_signal, _set_sort_direction_signal) = signal(sort_direction);
-    let (current_page_signal, _set_current_page_signal) = signal(current_page);
+    let (current_page_signal, _setcurrent_page_signal) = signal(current_page);
     let (page_size_signal, _set_page_size_signal) = signal(page_size);
-    let (selected_rows_signal, _set_selected_rows_signal) = signal(Vec::<String>::new());
+    let (selected_rows_signal, _setselected_rows_signal) = signal(Vec::<String>::new());
     
     // Calculate total pages
     let total_pages = Memo::new(move |_| {
         let data_len = data_signal.get().len();
         if data_len == 0 {
             1
-        } else {
-            (data_len + page_size_signal.get() - 1) / page_size_signal.get()
-        }
     });
     
     // Create context
@@ -292,7 +287,7 @@ pub fn TableHeader(
     children: Children,
 ) -> impl IntoView {
     let _context = use_context::<TableContext>().expect("TableHeader must be used within Table");
-    let _header_id = generate_id("table-header");
+    let __header_id = generate_id("table-header");
     
     // Build base classes
     let base_classes = "radix-table-header";
@@ -323,7 +318,7 @@ pub fn TableBody(
     children: Children,
 ) -> impl IntoView {
     let _context = use_context::<TableContext>().expect("TableBody must be used within Table");
-    let _body_id = generate_id("table-body");
+    let __body_id = generate_id("table-body");
     
     // Build base classes
     let base_classes = "radix-table-body";
@@ -363,11 +358,11 @@ pub fn TableRow(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<TableContext>().expect("TableRow must be used within Table");
-    let _row_id = generate_id("table-row");
+    let __row_id = generate_id("table-row");
     
     let row_for_click = row.clone();
-    let row_for_selected = row.clone();
-    let row_for_disabled = row.clone();
+    let row_forselected = row.clone();
+    let row_fordisabled = row.clone();
     
     let handle_click = move |event: web_sys::MouseEvent| {
         if let Some(row) = row_for_click.clone() {
@@ -376,32 +371,23 @@ pub fn TableRow(
                 if let Some(callback) = context.on_row_select.clone() {
                     callback.run(row);
                 }
-            } else {
-                event.prevent_default();
-            }
         }
     };
     
     // Determine if this row is selected
-    let is_selected = Memo::new(move |_| {
+    let isselected = Memo::new(move |_| {
         if let Some(selected) = selected {
             selected
-        } else if let Some(row) = row_for_selected.as_ref() {
+        } else if let Some(row) = row_forselected.as_ref() {
             row.selected
-        } else {
-            false
-        }
     });
     
     // Determine if this row is disabled
-    let is_disabled = Memo::new(move |_| {
+    let isdisabled = Memo::new(move |_| {
         if let Some(disabled) = disabled {
             disabled
-        } else if let Some(row) = row_for_disabled.as_ref() {
+        } else if let Some(row) = row_fordisabled.as_ref() {
             row.disabled
-        } else {
-            false
-        }
     });
     
     // Build base classes
@@ -414,11 +400,11 @@ pub fn TableRow(
             id=row_id
             class=combined_class
             style=style.unwrap_or_default()
-            data-selected=is_selected.get()
-            data-disabled=is_disabled.get()
+            data-selected=isselected.get()
+            data-disabled=isdisabled.get()
             role="row"
-            aria-selected=is_selected.get()
-            aria-disabled=is_disabled.get()
+            aria-selected=isselected.get()
+            aria-disabled=isdisabled.get()
             on:click=handle_click
         >
             {children()}
@@ -445,7 +431,7 @@ pub fn TableHeaderCell(
     children: Children,
 ) -> impl IntoView {
     let _context = use_context::<TableContext>().expect("TableHeaderCell must be used within Table");
-    let _cell_id = generate_id("table-header-cell");
+    let __cell_id = generate_id("table-header-cell");
     
     // Build base classes
     let base_classes = "radix-table-header-cell";
@@ -485,7 +471,7 @@ pub fn TableCell(
     children: Children,
 ) -> impl IntoView {
     let _context = use_context::<TableContext>().expect("TableCell must be used within Table");
-    let _cell_id = generate_id("table-cell");
+    let __cell_id = generate_id("table-cell");
     
     // Build base classes
     let base_classes = "radix-table-cell";
@@ -526,7 +512,7 @@ pub fn TableSortButton(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<TableContext>().expect("TableSortButton must be used within Table");
-    let _button_id = generate_id("table-sort-button");
+    let __button_id = generate_id("table-sort-button");
     
     let column_id_clone = column_id.clone();
     let header_text_clone = header_text.clone();
@@ -541,9 +527,6 @@ pub fn TableSortButton(
                 SortDirection::Ascending => SortDirection::Descending,
                 SortDirection::Descending => SortDirection::Ascending,
             }
-        } else {
-            SortDirection::Ascending
-        };
         
         // Call the sort handler
         if let Some(callback) = context.on_sort.clone() {
@@ -558,31 +541,20 @@ pub fn TableSortButton(
     
     let current_sort_direction = context.sort_direction.get();
     let current_sort_column = context.sort_column.get();
-    let is_current_column = current_sort_column.as_ref() == Some(&column_id);
+    let iscurrent_column = current_sort_column.as_ref() == Some(&column_id);
     
     view! {
         <button
             id=button_id
             class=combined_class
             style=style.unwrap_or_default()
-            data-sort-direction=if is_current_column { current_sort_direction.as_str() } else { "none" }
-            type="button"
-            role="button"
-            aria-label=format!("Sort by {}", header_text_clone)
-            aria-sort=if is_current_column { current_sort_direction.as_str() } else { "none" }
-            on:click=handle_click
-        >
-            <span class="radix-table-sort-text">{header_text}</span>
             <span class="radix-table-sort-icon">
-                {if is_current_column {
+                {if iscurrent_column {
                     match current_sort_direction {
                         SortDirection::Ascending => "↑",
                         SortDirection::Descending => "↓",
                         SortDirection::None => "↕",
                     }
-                } else {
-                    "↕"
-                }}
             </span>
             {children()}
         </button>
@@ -602,7 +574,7 @@ pub fn TablePagination(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<TableContext>().expect("TablePagination must be used within Table");
-    let _pagination_id = generate_id("table-pagination");
+    let __pagination_id = generate_id("table-pagination");
     
     // Build base classes
     let base_classes = "radix-table-pagination";
@@ -638,7 +610,7 @@ pub fn TableInfo(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<TableContext>().expect("TableInfo must be used within Table");
-    let _info_id = generate_id("table-info");
+    let __info_id = generate_id("table-info");
     
     // Build base classes
     let base_classes = "radix-table-info";
@@ -649,19 +621,6 @@ pub fn TableInfo(
     let total_pages = context.total_pages.get();
     let page_size = context.page_size.get();
     let total_items = context.data.get().len();
-    let start_item = if total_items == 0 { 0 } else { (current_page - 1) * page_size + 1 };
-    let end_item = std::cmp::min(current_page * page_size, total_items);
-    
-    view! {
-        <div
-            id=info_id
-            class=combined_class
-            style=style.unwrap_or_default()
-            role="status"
-            aria-live="polite"
-        >
-            <span class="radix-table-info-text">
-                "Showing " {start_item} " to " {end_item} " of " {total_items} " entries"
             </span>
             {children()}
         </div>

@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Hover Card component for contextual hover information
 ///
@@ -11,28 +9,28 @@ pub fn HoverCard(
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] open_delay: Option<u32>,
     #[prop(optional)] close_delay: Option<u32>,
-    #[prop(optional)] default_open: Option<bool>,
+    #[prop(optional)] defaultopen: Option<bool>,
     #[prop(optional)] open: Option<ReadSignal<bool>>,
-    #[prop(optional)] on_open_change: Option<Callback<bool>>,
+    #[prop(optional)] onopen_change: Option<Callback<bool>>,
 ) -> impl IntoView {
     let open_delay = open_delay.unwrap_or(700);
     let close_delay = close_delay.unwrap_or(300);
-    let (is_open, set_is_open) = signal(
+    let (isopen, set_isopen) = signal(
         open.map(|o| o.get())
-            .unwrap_or_else(|| default_open.unwrap_or(false)),
+            .unwrap_or_else(|| defaultopen.unwrap_or(false)),
     );
 
     // Handle external open state changes
-    if let Some(external_open) = open {
+    if let Some(externalopen) = open {
         Effect::new(move |_| {
-            set_is_open.set(external_open.get());
+            set_isopen.set(externalopen.get());
         });
     }
 
     // Handle open state changes
-    if let Some(on_open_change) = on_open_change {
+    if let Some(onopen_change) = onopen_change {
         Effect::new(move |_| {
-            on_open_change.run(is_open.get());
+            onopen_change.run(isopen.get());
         });
     }
 
@@ -42,9 +40,6 @@ pub fn HoverCard(
         <div
             class=class
             style=style
-            data-state=if is_open.get() { "open" } else { "closed" }
-        >
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -65,15 +60,6 @@ pub fn HoverCardTrigger(
 
     let class = merge_classes([
         "hover-card-trigger",
-        if disabled { "disabled" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    let handle_mouse_enter = move |_| {
-        if !disabled {
-            if let Some(on_mouse_enter) = on_mouse_enter {
-                on_mouse_enter.run(());
-            }
         }
     };
 
@@ -287,7 +273,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
@@ -309,7 +294,7 @@ mod tests {
     }
 
     #[test]
-    fn test_hover_card_with_open_delay() {
+    fn test_hover_card_withopen_delay() {
         // Test with custom open delay
     }
 
@@ -319,17 +304,17 @@ mod tests {
     }
 
     #[test]
-    fn test_hover_card_with_default_open() {
+    fn test_hover_card_with_defaultopen() {
         // Test with default open state
     }
 
     #[test]
-    fn test_hover_card_with_controlled_open() {
+    fn test_hover_card_with_controlledopen() {
         // Test with controlled open state
     }
 
     #[test]
-    fn test_hover_card_on_open_change() {
+    fn test_hover_card_onopen_change() {
         // Test open change callback
     }
 
@@ -350,7 +335,7 @@ mod tests {
     }
 
     #[test]
-    fn test_hover_card_trigger_disabled() {
+    fn test_hover_card_triggerdisabled() {
         // Test disabled state
     }
 
@@ -391,7 +376,7 @@ mod tests {
     }
 
     #[test]
-    fn test_hover_card_content_visible() {
+    fn test_hover_card_contentvisible() {
         // Test visible state
     }
 
@@ -533,7 +518,7 @@ mod tests {
     // Helper Function Tests
     #[test]
     fn test_merge_classes_empty() {
-        let result = merge_classes([]);
+        let result = merge_classes(Vec::new());
         assert_eq!(result, "");
     }
 
@@ -560,7 +545,7 @@ mod tests {
     fn test_hover_card_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(__class in ".*", _style in ".*", _open_delay in 0..5000u32, _close_delay in 0..5000u32)| {
+        proptest!(|(____class in ".*", __style in ".*", _open_delay in 0..5000u32, __close_delay in 0..5000u32)| {
             // Test that the component can be created with various prop values
 
         });
@@ -570,7 +555,7 @@ mod tests {
     fn test_hover_card_trigger_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             // Test that the component can be created with various class and style values
 
         });
@@ -580,7 +565,7 @@ mod tests {
     fn test_hover_card_content_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(__class in ".*", _style in ".*", side_offset in -100.0..100.0f64, align_offset in -100.0..100.0f64)| {
+        proptest!(|(____class in ".*", __style in ".*", _side_offset in -100.0..100.0f64, _align_offset in -100.0..100.0f64)| {
             // Test that the component can be created with various prop values
 
         });
@@ -590,7 +575,7 @@ mod tests {
     fn test_hover_card_portal_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(__class in ".*", _style in ".*", container in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*", _container in ".*")| {
             // Test that the component can be created with various prop values
 
         });
@@ -600,7 +585,7 @@ mod tests {
     fn test_hover_card_arrow_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(__class in ".*", _style in ".*", _width in 1.0..50.0f64, _height in 1.0..50.0f64)| {
+        proptest!(|(____class in ".*", __style in ".*", __width in 1.0..50.0f64, __height in 1.0..50.0f64)| {
             // Test that the component can be created with various prop values
 
         });

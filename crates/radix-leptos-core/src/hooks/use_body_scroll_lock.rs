@@ -1,4 +1,3 @@
-use leptos::*;
 use web_sys::{HtmlElement, CssStyleDeclaration};
 
 /// Hook for locking body scroll to prevent background scrolling
@@ -10,24 +9,23 @@ use web_sys::{HtmlElement, CssStyleDeclaration};
 /// # Example
 /// 
 /// ```rust
-/// use leptos::*;
 /// use radix_leptos_core::use_body_scroll_lock;
 /// 
 /// #[component]
 /// pub fn Modal() -> impl IntoView {
-///     let (open, set_open) = create_signal(false);
+///     let (open, setopen) = create_signal(false);
 ///     
 ///     // Lock body scroll when modal is open
 ///     use_body_scroll_lock(open.into());
 ///     
 ///     view! {
-///         <button on:click=move |_| set_open.set(true)>
+///         <button on:click=move |_| setopen.set(true)>
 ///             "Open Modal"
 ///         </button>
 ///         <Show when=move || open.get()>
 ///             <div class="modal-overlay">
 ///                 <div class="modal-content">
-///                     <button on:click=move |_| set_open.set(false)>
+///                     <button on:click=move |_| setopen.set(false)>
 ///                         "Close"
 ///                     </button>
 ///                 </div>
@@ -45,9 +43,6 @@ pub fn use_body_scroll_lock(locked: Signal<bool>) {
         
         if should_lock {
             lock_body_scroll(set_original_style, set_original_scroll_position);
-        } else {
-            unlock_body_scroll(original_style.get_untracked(), original_scroll_position.get_untracked());
-        }
     });
     
     // Cleanup on component unmount
@@ -100,9 +95,6 @@ fn unlock_body_scroll(
         // Restore original overflow or remove if it was empty
         if let Some(original) = original_style {
             let _ = style.set_property("overflow", &original);
-        } else {
-            let _ = style.remove_property("overflow");
-        }
         
         // Remove scroll lock styles
         let _ = style.remove_property("padding-right");
@@ -158,9 +150,9 @@ fn get_scrollbar_width() -> String {
 #[derive(Clone)]
 pub struct ScrollLockOptions {
     /// Whether to reserve space for scrollbar to prevent layout shift
-    pub _reserve_scrollbar_gap: bool,
+    pub __reserve_scrollbar_gap: bool,
     /// Whether to prevent scroll position jumping
-    pub _prevent_scroll_jump: bool,
+    pub __prevent_scroll_jump: bool,
     /// Custom padding to apply when locking
     pub custom_padding: Option<String>,
 }
@@ -188,9 +180,6 @@ pub fn use_body_scroll_lock_with_options(
         
         if should_lock {
             lock_body_scroll_advanced(set_original_styles, opts);
-        } else {
-            unlock_body_scroll_advanced(original_styles.get_untracked());
-        }
     });
     
     on_cleanup(move || {
@@ -266,8 +255,6 @@ fn unlock_body_scroll_advanced(original_state: Option<ScrollLockState>) {
 
 fn get_style_property(style: &CssStyleDeclaration, property: &str) -> Option<String> {
     style.get_property_value(property).ok()
-        .and_then(|val| if val.is_empty() { None } else { Some(val) })
-}
 
 fn restore_or_remove_property(
     style: &CssStyleDeclaration,
@@ -276,14 +263,10 @@ fn restore_or_remove_property(
 ) {
     if let Some(value) = original_value {
         let _ = style.set_property(property, &value);
-    } else {
-        let _ = style.remove_property(property);
-    }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
     
     wasm_bindgen_test_configure!(run_in_browser);

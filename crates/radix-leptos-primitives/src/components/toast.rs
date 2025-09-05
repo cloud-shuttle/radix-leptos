@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Toast component - Enhanced notification system with positioning
 #[component]
@@ -29,9 +27,6 @@ pub fn Toast(
         &position.to_class(),
         if dismissible {
             "dismissible"
-        } else {
-            "persistent"
-        },
         class.as_deref().unwrap_or(""),
     ]);
 
@@ -303,7 +298,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
     use wasm_bindgen_test::*;
 
@@ -327,7 +321,7 @@ mod tests {
     #[test]
     fn test_toast_duration() {}
     #[test]
-    fn test_toast_dismissible() {}
+    fn test_toastdismissible() {}
     #[test]
     fn test_toast_on_dismiss() {}
     #[test]
@@ -428,21 +422,21 @@ mod tests {
     // Property-based Tests
     #[test]
     fn test_toast_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
 
         });
     }
 
     #[test]
     fn test_toast_duration_validation() {
-        proptest!(|(__duration in 1000..30000u64)| {
+        proptest!(|(____duration in 1000..30000u64)| {
 
         });
     }
 
     #[test]
     fn test_toast_position_validation() {
-        proptest!(|(__position in ".*")| {
+        proptest!(|(____position in ".*")| {
 
         });
     }

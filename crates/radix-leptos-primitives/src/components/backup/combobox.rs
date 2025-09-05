@@ -1,18 +1,16 @@
-use leptos::*;
-use leptos::prelude::*;
 use wasm_bindgen::JsCast;
 
 /// Combobox context for sharing state between components
 #[derive(Clone)]
 pub struct ComboboxContext {
-    pub is_open: Signal<bool>,
-    pub set_is_open: WriteSignal<bool>,
+    pub isopen: Signal<bool>,
+    pub set_isopen: WriteSignal<bool>,
     pub search_query: Signal<String>,
     pub set_search_query: WriteSignal<String>,
     pub selected_value: Signal<Option<String>>,
-    pub set_selected_value: WriteSignal<Option<String>>,
+    pub setselected_value: WriteSignal<Option<String>>,
     pub focused_index: Signal<usize>,
-    pub set_focused_index: WriteSignal<usize>,
+    pub setfocused_index: WriteSignal<usize>,
     pub options: Signal<Vec<ComboboxOption>>,
     pub filtered_options: Memo<Vec<ComboboxOption>>,
     pub on_change: Option<Callback<String>>,
@@ -40,7 +38,7 @@ impl ComboboxOption {
         }
     }
 
-    pub fn with_disabled(mut self, _disabled: bool) -> Self {
+    pub fn withdisabled(mut self, _disabled: bool) -> Self {
         self.disabled = Some(disabled);
         self
     }
@@ -85,7 +83,7 @@ pub fn Combobox(
     _disabled: bool,
     /// Whether the combobox supports search/filtering
     #[prop(optional, default = true)]
-    _searchable: bool,
+    __searchable: bool,
     /// Whether the combobox supports multiple selection
     #[prop(optional, default = false)]
     _multi_select: bool,
@@ -101,13 +99,13 @@ pub fn Combobox(
     /// Child content (trigger, content, and items)
     children: Children,
 ) -> impl IntoView {
-    let _combobox_id = generate_id("combobox");
+    let __combobox_id = generate_id("combobox");
     
     // Reactive state
-    let (is_open, set_is_open) = signal(false);
+    let (isopen, set_isopen) = signal(false);
     let (search_query, set_search_query) = signal(String::new());
-    let (selected_value, set_selected_value) = signal(value.clone());
-    let (focused_index, set_focused_index) = signal(0);
+    let (selected_value, setselected_value) = signal(value.clone());
+    let (focused_index, setfocused_index) = signal(0);
     let (options_signal, _) = signal(options.clone());
     
     // Filter options based on search query
@@ -115,12 +113,6 @@ pub fn Combobox(
         let current_options = options_signal.get();
         if search_query.get().is_empty() {
             current_options
-        } else {
-            current_options
-                .iter()
-                .filter(|option| {
-                    option.label.to_lowercase().contains(&search_query.get().to_lowercase())
-                })
                 .cloned()
                 .collect::<Vec<_>>()
         }
@@ -128,14 +120,14 @@ pub fn Combobox(
     
     // Create context
     let context = ComboboxContext {
-        is_open: is_open.into(),
-        set_is_open,
+        isopen: isopen.into(),
+        set_isopen,
         search_query: search_query.into(),
         set_search_query,
         selected_value: selected_value.into(),
-        set_selected_value,
+        setselected_value,
         focused_index: focused_index.into(),
-        set_focused_index,
+        setfocused_index,
         options: options_signal.into(),
         filtered_options,
         on_change,
@@ -158,11 +150,11 @@ pub fn Combobox(
             class=combined_class
             data-value=selected_value.get().unwrap_or_default()
             data-disabled=disabled
-            data-open=is_open.get()
+            data-open=isopen.get()
             data-searchable=searchable
             data-multi-select=multi_select
             role="combobox"
-            aria-expanded=is_open.get()
+            aria-expanded=isopen.get()
             aria-haspopup="listbox"
             aria-controls=format!("{}-listbox", combobox_id.clone())
         >
@@ -198,7 +190,7 @@ pub fn ComboboxTrigger(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let _trigger_id = generate_id("combobox-trigger");
+    let __trigger_id = generate_id("combobox-trigger");
     
     // Get context
     let context = use_context::<ComboboxContext>().expect("ComboboxTrigger must be used within Combobox");
@@ -206,10 +198,10 @@ pub fn ComboboxTrigger(
     // Handle toggle dropdown
     let handle_click = move |event: web_sys::MouseEvent| {
         if !context.disabled {
-            context.set_is_open.update(|open| *open = !*open);
-            if !context.is_open.get() {
+            context.set_isopen.update(|open| *open = !*open);
+            if !context.isopen.get() {
                 context.set_search_query.set(String::new());
-                context.set_focused_index.set(0);
+                context.setfocused_index.set(0);
             }
         }
         
@@ -224,17 +216,17 @@ pub fn ComboboxTrigger(
         match event.key().as_str() {
             "ArrowDown" | "ArrowUp" => {
                 event.prevent_default();
-                if !context.is_open.get() {
-                    context.set_is_open.set(true);
+                if !context.isopen.get() {
+                    context.set_isopen.set(true);
                 }
             }
             "Enter" | " " => {
                 event.prevent_default();
-                context.set_is_open.update(|open| *open = !*open);
+                context.set_isopen.update(|open| *open = !*open);
             }
             "Escape" => {
                 event.prevent_default();
-                context.set_is_open.set(false);
+                context.set_isopen.set(false);
                 context.set_search_query.set(String::new());
             }
             _ => {}
@@ -257,11 +249,11 @@ pub fn ComboboxTrigger(
             class=combined_class
             style=style.unwrap_or_default()
             data-disabled=context.disabled || disabled
-            data-open=context.is_open.get()
+            data-open=context.isopen.get()
             role="button"
             tabindex="0"
             aria-haspopup="listbox"
-            aria-expanded=context.is_open.get()
+            aria-expanded=context.isopen.get()
             on:click=handle_click
             on:keydown=handle_keydown
         >
@@ -285,13 +277,13 @@ pub fn ComboboxContent(
     /// Child content (items)
     children: Children,
 ) -> impl IntoView {
-    let _content_id = generate_id("combobox-content");
+    let __content_id = generate_id("combobox-content");
     
     // Get context
     let context = use_context::<ComboboxContext>().expect("ComboboxContent must be used within Combobox");
     
     // Use provided open state or context state
-    let is_open = open.unwrap_or_else(|| context.is_open.get());
+    let isopen = open.unwrap_or_else(|| context.isopen.get());
     
     // Build base classes
     let base_classes = "radix-combobox-content";
@@ -302,15 +294,6 @@ pub fn ComboboxContent(
         <div
             id=content_id
             class=combined_class
-            style=if is_open { style.unwrap_or_default() } else { "display: none;".to_string() }
-            role="listbox"
-            aria-label="Combobox options"
-            aria-activedescendant=move || {
-                if context.focused_index.get() > 0 {
-                    Some(format!("{}-item-{}", context.combobox_id, context.focused_index.get()))
-                } else {
-                    None
-                }
             }
         >
             {children()}
@@ -348,27 +331,18 @@ pub fn ComboboxItem(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let _item_id = generate_id("combobox-item");
+    let __item_id = generate_id("combobox-item");
     
     // Get context
     let context = use_context::<ComboboxContext>().expect("ComboboxItem must be used within Combobox");
     
     // Get current option index and state
     let current_value = value.clone();
-    let is_focused = if focused {
+    let isfocused = if focused {
         focused
-    } else {
-        let filtered_options = context.filtered_options.get();
-        filtered_options.iter().position(|opt| opt.value == current_value)
-            .map(|index| index == context.focused_index.get())
-            .unwrap_or(false)
-    };
     
-    let is_selected = if selected {
+    let isselected = if selected {
         selected
-    } else {
-        context.selected_value.get().as_ref() == Some(&current_value)
-    };
     
     // Handle option selection
     let handle_click = move |event: web_sys::MouseEvent| {
@@ -376,8 +350,8 @@ pub fn ComboboxItem(
         let filtered_options = context.filtered_options.get();
         if let Some(option) = filtered_options.iter().find(|opt| opt.value == current_value) {
             if !option.disabled.unwrap_or(false) {
-                context.set_selected_value.set(Some(option.value.clone()));
-                context.set_is_open.set(false);
+                context.setselected_value.set(Some(option.value.clone()));
+                context.set_isopen.set(false);
                 context.set_search_query.set(String::new());
                 
                 // Call on_change callback if provided
@@ -405,10 +379,10 @@ pub fn ComboboxItem(
             style=style.unwrap_or_default()
             data-value=value
             data-disabled=disabled
-            data-focused=is_focused
-            data-selected=is_selected
+            data-focused=isfocused
+            data-selected=isselected
             role="option"
-            aria-selected=is_selected
+            aria-selected=isselected
             aria-disabled=disabled
             tabindex="-1"
             on:click=handle_click
@@ -443,7 +417,7 @@ pub fn ComboboxInput(
     #[prop(optional)]
     on_keydown: Option<Callback<web_sys::KeyboardEvent>>,
 ) -> impl IntoView {
-    let _input_id = generate_id("combobox-input");
+    let __input_id = generate_id("combobox-input");
     
     // Get context
     let context = use_context::<ComboboxContext>().expect("ComboboxInput must be used within Combobox");
@@ -457,11 +431,11 @@ pub fn ComboboxInput(
             if let Ok(input) = target.dyn_into::<web_sys::HtmlInputElement>() {
                 let value = input.value();
                 context.set_search_query.set(value.clone());
-                context.set_focused_index.set(0);
+                context.setfocused_index.set(0);
                 
                 // Open dropdown when typing
-                if !context.is_open.get() {
-                    context.set_is_open.set(true);
+                if !context.isopen.get() {
+                    context.set_isopen.set(true);
                 }
                 
                 // Call on_search callback if provided
@@ -485,14 +459,14 @@ pub fn ComboboxInput(
                 let current_index = context.focused_index.get();
                 let options_len = context.filtered_options.get().len();
                 if current_index < options_len - 1 {
-                    context.set_focused_index.set(current_index + 1);
+                    context.setfocused_index.set(current_index + 1);
                 }
             }
             "ArrowUp" => {
                 event.prevent_default();
                 let current_index = context.focused_index.get();
                 if current_index > 0 {
-                    context.set_focused_index.set(current_index - 1);
+                    context.setfocused_index.set(current_index - 1);
                 }
             }
             "Enter" => {
@@ -500,8 +474,8 @@ pub fn ComboboxInput(
                 let options = context.filtered_options.get();
                 if let Some(option) = options.get(context.focused_index.get()) {
                     if !option.disabled.unwrap_or(false) {
-                        context.set_selected_value.set(Some(option.value.clone()));
-                        context.set_is_open.set(false);
+                        context.setselected_value.set(Some(option.value.clone()));
+                        context.set_isopen.set(false);
                         context.set_search_query.set(String::new());
                         
                         // Call on_change callback if provided
@@ -513,7 +487,7 @@ pub fn ComboboxInput(
             }
             "Escape" => {
                 event.prevent_default();
-                context.set_is_open.set(false);
+                context.set_isopen.set(false);
                 context.set_search_query.set(String::new());
             }
             _ => {}
@@ -541,7 +515,7 @@ pub fn ComboboxInput(
             disabled=context.disabled || disabled
             role="combobox"
             aria-autocomplete="list"
-            aria-expanded=context.is_open.get()
+            aria-expanded=context.isopen.get()
             aria-controls=format!("{}-listbox", context.combobox_id)
             on:input=handle_input
             on:keydown=handle_keydown
@@ -574,16 +548,16 @@ pub fn ComboboxOptions(
         <div class=combined_class style=style.unwrap_or_default()>
             {move || {
                 filtered_options.get().into_iter().enumerate().map(|(index, option)| {
-                    let is_focused = index == context.focused_index.get();
-                    let is_selected = context.selected_value.get().as_ref() == Some(&option.value);
+                    let isfocused = index == context.focused_index.get();
+                    let isselected = context.selected_value.get().as_ref() == Some(&option.value);
                     
                     view! {
                         <ComboboxItem
                             value=option.value.clone()
                             label=option.label.clone()
                             disabled=option.disabled.unwrap_or(false)
-                            focused=is_focused
-                            selected=is_selected
+                            focused=isfocused
+                            selected=isselected
                         >
                             {option.label}
                         </ComboboxItem>

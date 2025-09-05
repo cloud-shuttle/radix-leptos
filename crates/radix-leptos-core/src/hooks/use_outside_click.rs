@@ -1,4 +1,3 @@
-use leptos::*;
 use leptos_use::{use_event_listener, UseEventListenerReturn};
 use wasm_bindgen::JsCast;
 use web_sys::{Element, Event, MouseEvent, TouchEvent, EventTarget};
@@ -17,24 +16,23 @@ use web_sys::{Element, Event, MouseEvent, TouchEvent, EventTarget};
 /// # Example
 /// 
 /// ```rust
-/// use leptos::*;
 /// use radix_leptos_core::use_outside_click;
 /// 
 /// #[component]
 /// pub fn Dropdown() -> impl IntoView {
-///     let (open, set_open) = create_signal(false);
+///     let (open, setopen) = create_signal(false);
 ///     let dropdown_ref = create_node_ref::<web_sys::Element>();
 ///     
 ///     // Close dropdown when clicking outside
 ///     use_outside_click(
 ///         dropdown_ref,
-///         move || set_open.set(false),
+///         move || setopen.set(false),
 ///         None,
 ///     );
 ///     
 ///     view! {
 ///         <div>
-///             <button on:click=move |_| set_open.set(!open.get())>
+///             <button on:click=move |_| setopen.set(!open.get())>
 ///                 "Toggle Dropdown"
 ///             </button>
 ///             <Show when=move || open.get()>
@@ -120,7 +118,6 @@ where
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
     use web_sys::HtmlElement;
     

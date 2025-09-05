@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// Separator component for visual separation between content
 ///
@@ -15,7 +13,6 @@ use leptos::prelude::*;
 /// # Example
 ///
 /// ```rust
-/// use leptos::*;
 /// use radix_leptos_primitives::*;
 ///
 /// #[component]
@@ -98,7 +95,7 @@ pub fn Separator(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let _separator_id = generate_id("separator");
+    let separator_id = generate_id("separator");
     
     // Build base classes with data attributes for CSS targeting
     let base_classes = "radix-separator";
@@ -112,21 +109,12 @@ pub fn Separator(
     // Role and aria attributes for semantic separators
     let (role_attr, aria_orientation) = if variant == SeparatorVariant::Semantic {
         ("separator", Some(orientation.as_str()))
-    } else {
-        ("", None)
-    };
     
     view! {
         <div
             id=separator_id
             class=combined_class
             style=style.unwrap_or_default()
-            role=if !role_attr.is_empty() { Some(role_attr) } else { None }
-            aria-orientation=aria_orientation
-            data-orientation=data_orientation
-            data-variant=data_variant
-        >
-            {children()}
         </div>
     }
 }

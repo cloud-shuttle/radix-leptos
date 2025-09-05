@@ -17,23 +17,15 @@ pub fn merge_optional_classes(existing: Option<&str>, additional: Option<&str>) 
                 Some(additional.to_string())
             } else if additional.is_empty() {
                 Some(existing.to_string())
-            } else {
-                Some(format!("{} {}", existing, additional))
             }
         }
         (Some(existing), None) => {
             if existing.is_empty() {
                 None
-            } else {
-                Some(existing.to_string())
-            }
         }
         (None, Some(additional)) => {
             if additional.is_empty() {
                 None
-            } else {
-                Some(additional.to_string())
-            }
         }
         (None, None) => None,
     }

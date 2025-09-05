@@ -1,5 +1,4 @@
 use leptos::prelude::*;
-// use leptos::*;  // Unused import
 
 /// VisuallyHidden component for content that should only be available to screen readers
 ///
@@ -13,7 +12,6 @@ use leptos::prelude::*;
 /// # Example
 ///
 /// ```rust
-/// use leptos::*;
 /// use radix_leptos_core::VisuallyHidden;
 ///
 /// #[component]
@@ -64,7 +62,6 @@ pub fn use_visually_hidden_style() -> &'static str {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
 
     #[test]
     fn test_visually_hidden_style() {

@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// Context menu size variant
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
@@ -37,7 +35,7 @@ pub fn ContextMenu(
     /// Context menu content
     children: Children,
 ) -> impl IntoView {
-    let (is_open, set_is_open) = signal(false);
+    let (isopen, set_isopen) = signal(false);
 
     let size_class = move || {
         match size {
@@ -50,7 +48,7 @@ pub fn ContextMenu(
     let handle_context_menu = move |e: web_sys::MouseEvent| {
         if !disabled {
             e.prevent_default();
-            set_is_open.set(true);
+            set_isopen.set(true);
         }
     };
 
@@ -58,11 +56,11 @@ pub fn ContextMenu(
         if !disabled {
             match e.key().as_str() {
                 "Escape" => {
-                    set_is_open.set(false);
+                    set_isopen.set(false);
                 }
                 "Enter" | " " => {
-                    if !is_open.get() {
-                        set_is_open.set(true);
+                    if !isopen.get() {
+                        set_isopen.set(true);
                     }
                 }
                 _ => {}
@@ -82,7 +80,7 @@ pub fn ContextMenu(
         base_classes.push("radix-context-menu--disabled");
     }
 
-    if is_open.get() {
+    if isopen.get() {
         base_classes.push("radix-context-menu--open");
     }
 
@@ -96,12 +94,6 @@ pub fn ContextMenu(
             <div
                 class="radix-context-menu-trigger"
                 data-radix-context-menu-trigger=""
-                tabindex=if disabled { -1 } else { 0 }
-                role="button"
-                aria-haspopup="true"
-                aria-expanded=move || is_open.get()
-            >
-                {children()}
             </div>
             
             <div
@@ -109,8 +101,6 @@ pub fn ContextMenu(
                 data-radix-context-menu-content=""
                 role="menu"
                 tabindex=-1
-                data-state=move || if is_open.get() { "open" } else { "closed" }
-                style=move || if is_open.get() { "" } else { "display: none;" }
             >
                 <div class="radix-context-menu-viewport">
                     <div class="radix-context-menu-items">
@@ -149,11 +139,6 @@ pub fn ContextMenuTrigger(
         <div
             class=merge_classes(&base_classes)
             data-radix-context-menu-trigger=""
-            tabindex=if disabled { -1 } else { 0 }
-            role="button"
-            aria-haspopup="true"
-        >
-            {children()}
         </div>
     }
 }
@@ -271,13 +256,6 @@ pub fn ContextMenuItem(
             class=merge_classes(&base_classes)
             data-radix-context-menu-item=""
             role="menuitem"
-            tabindex=if disabled { -1 } else { 0 }
-            aria-disabled=disabled
-            aria-selected=selected
-            on:click=handle_click
-            on:keydown=handle_keydown
-        >
-            {children()}
         </div>
     }
 }
@@ -350,7 +328,7 @@ pub fn ContextMenuCheckboxItem(
     /// Checkbox item content
     children: Children,
 ) -> impl IntoView {
-    let (is_checked, set_is_checked) = signal(checked);
+    let (ischecked, set_ischecked) = signal(checked);
 
     let class_value = class.unwrap_or_default();
 
@@ -363,16 +341,16 @@ pub fn ContextMenuCheckboxItem(
         base_classes.push("radix-context-menu-checkbox-item--disabled");
     }
 
-    if is_checked.get() {
+    if ischecked.get() {
         base_classes.push("radix-context-menu-checkbox-item--checked");
     }
 
     let handle_click = move |e: web_sys::MouseEvent| {
         if !disabled {
-            let new_checked = !is_checked.get();
-            set_is_checked.set(new_checked);
+            let newchecked = !ischecked.get();
+            set_ischecked.set(newchecked);
             if let Some(callback) = on_change {
-                callback.run(new_checked);
+                callback.run(newchecked);
             }
         }
     };
@@ -382,10 +360,10 @@ pub fn ContextMenuCheckboxItem(
             match e.key().as_str() {
                 "Enter" | " " => {
                     e.prevent_default();
-                    let new_checked = !is_checked.get();
-                    set_is_checked.set(new_checked);
+                    let newchecked = !ischecked.get();
+                    set_ischecked.set(newchecked);
                     if let Some(callback) = on_change {
-                        callback.run(new_checked);
+                        callback.run(newchecked);
                     }
                 }
                 _ => {}
@@ -397,16 +375,6 @@ pub fn ContextMenuCheckboxItem(
         <div
             class=merge_classes(&base_classes)
             role="menuitemcheckbox"
-            tabindex=if disabled { -1 } else { 0 }
-            aria-checked=is_checked
-            aria-disabled=disabled
-            on:click=handle_click
-            on:keydown=handle_keydown
-        >
-            <div class="radix-context-menu-checkbox-item-indicator">
-                <span 
-                    class="radix-context-menu-checkbox-item-check"
-                    style=move || if is_checked.get() { "" } else { "display: none;" }
                 >
                     "✓"
                 </span>
@@ -483,16 +451,6 @@ pub fn ContextMenuRadioItem(
         <div
             class=merge_classes(&base_classes)
             role="menuitemradio"
-            tabindex=if disabled { -1 } else { 0 }
-            aria-checked=checked
-            aria-disabled=disabled
-            on:click=handle_click
-            on:keydown=handle_keydown
-        >
-            <div class="radix-context-menu-radio-item-indicator">
-                <span 
-                    class="radix-context-menu-radio-item-dot"
-                    style=move || if checked { "" } else { "display: none;" }
                 >
                     "●"
                 </span>

@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 use wasm_bindgen::JsCast;
 use crate::utils::merge_classes;
 
@@ -23,8 +21,8 @@ pub fn RangeSlider(
     #[prop(optional)] on_max_change: Option<Callback<f64>>,
 ) -> impl IntoView {
     let min = min.unwrap_or(0.0);
-    let max = max.unwrap_or(100.0);
-    let step = step.unwrap_or(1.0);
+    let _max = max.unwrap_or(100.0);
+    let _step = step.unwrap_or(1.0);
     let min_value = min_value.unwrap_or(min);
     let max_value = max_value.unwrap_or(max);
     let disabled = disabled.unwrap_or(false);
@@ -34,17 +32,6 @@ pub fn RangeSlider(
 
     let class = merge_classes([
         "range-slider",
-        if disabled { "disabled" } else { "" },
-        orientation.as_str(),
-        size.as_str(),
-        variant.as_str(),
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    let handle_change = move |new_value: RangeSliderValue| {
-        if let Some(callback) = on_change {
-            callback.run(new_value);
-        }
     };
 
     let handle_min_change = Callback::new(move |new_min: f64| {
@@ -128,8 +115,8 @@ pub fn RangeSliderTrack(
     #[prop(optional)] variant: Option<SliderVariant>,
 ) -> impl IntoView {
     let min = min.unwrap_or(0.0);
-    let max = max.unwrap_or(100.0);
-    let step = step.unwrap_or(1.0);
+    let _max = max.unwrap_or(100.0);
+    let _step = step.unwrap_or(1.0);
     let min_value = min_value.unwrap_or(min);
     let max_value = max_value.unwrap_or(max);
     let disabled = disabled.unwrap_or(false);
@@ -139,23 +126,6 @@ pub fn RangeSliderTrack(
 
     let class = merge_classes([
         "range-slider-track",
-        if disabled { "disabled" } else { "" },
-        orientation.as_str(),
-        size.as_str(),
-        variant.as_str(),
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    // Calculate track fill percentage
-    let range = max - min;
-    let fill_start = ((min_value - min) / range * 100.0).max(0.0).min(100.0);
-    let fill_end = ((max_value - min) / range * 100.0).max(0.0).min(100.0);
-    let fill_width = (fill_end - fill_start).max(0.0);
-
-    let track_style = match orientation {
-        SliderOrientation::Horizontal => {
-            format!(
-                "background: linear-gradient(to right, transparent {}%, var(--slider-fill-color) {}%, var(--slider-fill-color) {}%, transparent {}%); {}",
                 fill_start,
                 fill_start,
                 fill_end,
@@ -210,8 +180,8 @@ pub fn RangeSliderThumb(
 ) -> impl IntoView {
     let value = value.unwrap_or(0.0);
     let min = min.unwrap_or(0.0);
-    let max = max.unwrap_or(100.0);
-    let step = step.unwrap_or(1.0);
+    let _max = max.unwrap_or(100.0);
+    let _step = step.unwrap_or(1.0);
     let disabled = disabled.unwrap_or(false);
     let orientation = orientation.unwrap_or(SliderOrientation::Horizontal);
     let size = size.unwrap_or(SliderSize::Default);
@@ -220,22 +190,6 @@ pub fn RangeSliderThumb(
 
     let class = merge_classes([
         "range-slider-thumb",
-        if disabled { "disabled" } else { "" },
-        orientation.as_str(),
-        size.as_str(),
-        variant.as_str(),
-        thumb_type.as_str(),
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    // Calculate thumb position
-    let range = max - min;
-    let position = ((value - min) / range * 100.0).max(0.0).min(100.0);
-
-    let thumb_style = match orientation {
-        SliderOrientation::Horizontal => {
-            format!(
-                "left: {}%; {}",
                 position,
                 style.unwrap_or_default()
             )
@@ -272,11 +226,6 @@ pub fn RangeSliderThumb(
             class=class
             style=thumb_style
             role="slider"
-            tabindex=if disabled { -1 } else { 0 }
-            aria-valuemin=min
-            aria-valuemax=max
-            aria-valuenow=value
-            aria-valuetext=format!("{}", value)
             aria-label=format!("{} thumb", thumb_type.as_str())
             data-value=value
             data-thumb-type=thumb_type.as_str()
@@ -435,8 +384,6 @@ pub fn RangeSliderValueDisplay(
         >
             {if show_both {
                 format!("{} - {}", format_value(min_value), format_value(max_value))
-            } else {
-                format!("{}", format_value(max_value))
             }}
         </div>
     }
@@ -471,7 +418,7 @@ pub fn RangeSliderMarks(
     let marks = marks.unwrap_or_default();
     let orientation = orientation.unwrap_or(SliderOrientation::Horizontal);
     let min = min.unwrap_or(0.0);
-    let max = max.unwrap_or(100.0);
+    let _max = max.unwrap_or(100.0);
 
     let class = merge_classes([
         "range-slider-marks",
@@ -528,8 +475,6 @@ impl Default for SliderMark {
 
 #[cfg(test)]
 mod range_slider_tests {
-    use super::*;
-    use leptos::*;
     use proptest::prelude::*;
 
     #[test]
@@ -678,7 +623,7 @@ mod range_slider_tests {
     // Property-based tests
     #[test]
     fn test_range_slider_property_based() {
-        proptest!(|(_min in -1000.0..1000.0, max in -1000.0..1000.0)| {
+        proptest!(|(__min in -1000.0..1000.0, max in -1000.0..1000.0)| {
             if min < max {
                 let value = RangeSliderValue { min, max };
                 assert!(value.min <= value.max);
@@ -688,7 +633,7 @@ mod range_slider_tests {
 
     #[test]
     fn test_slider_orientation_property_based() {
-        proptest!(|(orientation in prop::sample::select([SliderOrientation::Horizontal, SliderOrientation::Vertical]))| {
+        proptest!(|(orientation in prop::sample::select(&[SliderOrientation::Horizontal, SliderOrientation::Vertical]))| {
             let orientation_str = orientation.as_str();
             assert!(!orientation_str.is_empty());
         });

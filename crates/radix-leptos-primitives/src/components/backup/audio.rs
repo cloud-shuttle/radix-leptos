@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// Audio size variant
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
@@ -55,16 +53,16 @@ pub fn Audio(
     theme: AudioTheme,
     /// Whether the audio should autoplay
     #[prop(optional, default = false)]
-    _autoplay: bool,
+    __autoplay: bool,
     /// Whether the audio should loop
     #[prop(optional, default = false)]
-    _loop_audio: bool,
+    __loop_audio: bool,
     /// Whether the audio should be muted
     #[prop(optional, default = false)]
-    _muted: bool,
+    __muted: bool,
     /// Whether the audio should show controls
     #[prop(optional, default = true)]
-    _show_controls: bool,
+    __show_controls: bool,
     /// Whether the audio is interactive (clickable)
     #[prop(optional, default = false)]
     _interactive: bool,
@@ -163,13 +161,13 @@ pub fn AudioWithCustomControls(
     theme: AudioTheme,
     /// Whether the audio should autoplay
     #[prop(optional, default = false)]
-    _autoplay: bool,
+    __autoplay: bool,
     /// Whether the audio should loop
     #[prop(optional, default = false)]
-    _loop_audio: bool,
+    __loop_audio: bool,
     /// Whether the audio should be muted
     #[prop(optional, default = false)]
-    _muted: bool,
+    __muted: bool,
     /// Whether the audio is interactive (clickable)
     #[prop(optional, default = false)]
     _interactive: bool,
@@ -269,13 +267,13 @@ pub fn AudioPlayer(
     theme: AudioTheme,
     /// Whether the audio should autoplay
     #[prop(optional, default = false)]
-    _autoplay: bool,
+    __autoplay: bool,
     /// Whether the audio should loop
     #[prop(optional, default = false)]
-    _loop_audio: bool,
+    __loop_audio: bool,
     /// Whether the audio should be muted
     #[prop(optional, default = false)]
-    _muted: bool,
+    __muted: bool,
     /// Whether the audio is interactive (clickable)
     #[prop(optional, default = false)]
     _interactive: bool,

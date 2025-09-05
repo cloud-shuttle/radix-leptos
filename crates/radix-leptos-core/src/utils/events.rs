@@ -30,10 +30,10 @@ pub fn should_handle_key_event(
     }
 
     if let Some(mods) = modifiers {
-        return event.ctrl_key() == mods._ctrl
-            && event.shift_key() == mods._shift
-            && event.alt_key() == mods._alt
-            && event.meta_key() == mods._meta;
+        return event.ctrl_key() == mods.__ctrl
+            && event.shift_key() == mods.__shift
+            && event.alt_key() == mods.__alt
+            && event.meta_key() == mods.__meta;
     }
 
     true
@@ -42,37 +42,37 @@ pub fn should_handle_key_event(
 /// Keyboard modifier state
 #[derive(Debug, Clone, PartialEq)]
 pub struct KeyModifiers {
-    pub _ctrl: bool,
-    pub _shift: bool,
-    pub _alt: bool,
-    pub _meta: bool,
+    pub __ctrl: bool,
+    pub __shift: bool,
+    pub __alt: bool,
+    pub __meta: bool,
 }
 
 impl KeyModifiers {
     pub fn none() -> Self {
         Self {
-            _ctrl: false,
-            _shift: false,
-            _alt: false,
-            _meta: false,
+            __ctrl: false,
+            __shift: false,
+            __alt: false,
+            __meta: false,
         }
     }
 
     pub fn ctrl() -> Self {
         Self {
-            _ctrl: true,
-            _shift: false,
-            _alt: false,
-            _meta: false,
+            __ctrl: true,
+            __shift: false,
+            __alt: false,
+            __meta: false,
         }
     }
 
     pub fn shift() -> Self {
         Self {
-            _ctrl: false,
-            _shift: true,
-            _alt: false,
-            _meta: false,
+            __ctrl: false,
+            __shift: true,
+            __alt: false,
+            __meta: false,
         }
     }
 }
@@ -109,7 +109,6 @@ pub fn create_mouse_event(event_type: &str) -> web_sys::MouseEvent {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
@@ -117,13 +116,13 @@ mod tests {
     #[test]
     fn test_key_modifiers() {
         let none = KeyModifiers::none();
-        assert!(!none._ctrl && !none._shift && !none._alt && !none._meta);
+        assert!(!none.__ctrl && !none.__shift && !none.__alt && !none.__meta);
 
         let ctrl = KeyModifiers::ctrl();
-        assert!(ctrl._ctrl && !ctrl._shift && !ctrl._alt && !ctrl._meta);
+        assert!(ctrl.__ctrl && !ctrl.__shift && !ctrl.__alt && !ctrl.__meta);
 
         let shift = KeyModifiers::shift();
-        assert!(!shift._ctrl && shift._shift && !shift._alt && !shift._meta);
+        assert!(!shift.__ctrl && shift.__shift && !shift.__alt && !shift.__meta);
     }
 
     #[wasm_bindgen_test]

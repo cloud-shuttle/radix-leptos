@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Tabs component with proper accessibility and styling variants
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -80,7 +78,7 @@ pub fn Tabs(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let _tabs_id = generate_id("tabs");
+    let __tabs_id = generate_id("tabs");
 
     // Build data attributes for styling
     let data_variant = variant.as_str();
@@ -177,7 +175,7 @@ pub fn TabsTrigger(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let _trigger_id = generate_id(&format!("tab-trigger-{}", value));
+    let __trigger_id = generate_id(&format!("tab-trigger-{}", value));
 
     let base_classes = "radix-tabs-trigger";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
@@ -209,12 +207,6 @@ pub fn TabsTrigger(
             role="tab"
             aria-selected="false"
             aria-controls=format!("tab-content-{}", value.clone())
-            tabindex=if disabled { "-1" } else { "0" }
-            disabled=disabled
-            on:click=handle_click
-            on:keydown=handle_keydown
-        >
-            {children()}
         </button>
     }
 }
@@ -233,7 +225,7 @@ pub fn TabsContent(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let _content_id = generate_id(&format!("tab-content-{}", value));
+    let __content_id = generate_id(&format!("tab-content-{}", value));
 
     let base_classes = "radix-tabs-content";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
@@ -255,7 +247,6 @@ pub fn TabsContent(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
 
     // 1. Basic Rendering Tests
@@ -287,7 +278,7 @@ mod tests {
 
     // 2. Props Validation Tests
     #[test]
-    fn test_tabs_selected_state() {
+    fn test_tabsselected_state() {
         run_test(|| {
             let value = Some("tab1".to_string());
             let disabled = false;
@@ -317,7 +308,7 @@ mod tests {
     }
 
     #[test]
-    fn test_tabs_disabled_state() {
+    fn test_tabsdisabled_state() {
         run_test(|| {
             let value = Some("tab1".to_string());
             let disabled = true;
@@ -411,15 +402,15 @@ mod tests {
         run_test(|| {
             let trigger_clicked = true;
             let trigger_value = "tab1".to_string();
-            let trigger_disabled = false;
+            let triggerdisabled = false;
             let current_value: Option<String> = None;
 
             assert!(trigger_clicked);
             assert_eq!(trigger_value, "tab1");
-            assert!(!trigger_disabled);
+            assert!(!triggerdisabled);
             assert!(current_value.is_none());
 
-            if trigger_clicked && !trigger_disabled {}
+            if trigger_clicked && !triggerdisabled {}
         });
     }
 
@@ -430,7 +421,7 @@ mod tests {
             let role = "tablist";
             let trigger_role = "tab";
             let content_role = "tabpanel";
-            let aria_selected = "false";
+            let ariaselected = "false";
             let aria_controls = "tab-content-tab1";
             let aria_labelledby = "tab-trigger-tab1";
             let tabindex = "0";
@@ -438,7 +429,7 @@ mod tests {
             assert_eq!(role, "tablist");
             assert_eq!(trigger_role, "tab");
             assert_eq!(content_role, "tabpanel");
-            assert_eq!(aria_selected, "false");
+            assert_eq!(ariaselected, "false");
             assert_eq!(aria_controls, "tab-content-tab1");
             assert_eq!(aria_labelledby, "tab-trigger-tab1");
             assert_eq!(tabindex, "0");
@@ -478,7 +469,7 @@ mod tests {
     }
 
     #[test]
-    fn test_tabs_disabled_interaction() {
+    fn test_tabsdisabled_interaction() {
         run_test(|| {
             let value = Some("tab1".to_string());
             let disabled = true;
@@ -491,8 +482,6 @@ mod tests {
             // Disabled tabs should not respond to interactions
             if trigger_clicked && !disabled {
                 assert!(false); // Should not execute
-            } else {
-            }
         });
     }
 
@@ -500,12 +489,12 @@ mod tests {
     proptest! {
         #[test]
         fn test_tabs_properties(
-            variant in prop::sample::select([
+            variant in prop::sample::select(&[
                 TabsVariant::Default,
                 TabsVariant::Destructive,
                 TabsVariant::Ghost,
             ]),
-            size in prop::sample::select([
+            size in prop::sample::select(&[
                 TabsSize::Default,
                 TabsSize::Sm,
                 TabsSize::Lg,

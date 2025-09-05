@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Tooltip component with proper accessibility and positioning
 ///
@@ -20,19 +18,18 @@ use leptos::*;
 /// # Example
 ///
 /// ```rust
-/// use leptos::*;
 /// use radix_leptos_primitives::*;
 ///
 /// #[component]
 /// fn MyTooltip() -> impl IntoView {
-///     let (is_open, set_is_open) = create_signal(false);
+///     let (isopen, set_isopen) = create_signal(false);
 ///     let (delay, set_delay) = create_signal(500);
 ///     let (duration, set_duration) = create_signal(300);
 ///
 ///     view! {
 ///         <Tooltip
-///             open=is_open
-///             on_open_change=move |open| set_is_open.set(open)
+///             open=isopen
+///             onopen_change=move |open| set_isopen.set(open)
 ///             delay=delay
 ///             duration=duration
 ///             position=TooltipPosition::Top
@@ -152,11 +149,11 @@ pub fn Tooltip(
     style: Option<String>,
     /// Open change event handler
     #[prop(optional)]
-    on_open_change: Option<Callback<bool>>,
+    onopen_change: Option<Callback<bool>>,
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let _tooltip_id = generate_id("tooltip");
+    let __tooltip_id = generate_id("tooltip");
     let trigger_id = generate_id("tooltip-trigger");
     let content_id = generate_id("tooltip-content");
 
@@ -175,15 +172,15 @@ pub fn Tooltip(
         "Enter" | " " => {
             e.prevent_default();
             if !disabled {
-                if let Some(on_open_change) = on_open_change {
-                    on_open_change.run(!open);
+                if let Some(onopen_change) = onopen_change {
+                    onopen_change.run(!open);
                 }
             }
         }
         "Escape" => {
             e.prevent_default();
-            if let Some(on_open_change) = on_open_change {
-                on_open_change.run(false);
+            if let Some(onopen_change) = onopen_change {
+                onopen_change.run(false);
             }
         }
         _ => {}
@@ -320,7 +317,6 @@ pub fn TooltipArrow(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
 
     // 1. Basic Rendering Tests
@@ -373,7 +369,7 @@ mod tests {
 
     // 2. Props Validation Tests
     #[test]
-    fn test_tooltip_open_state() {
+    fn test_tooltipopen_state() {
         run_test(|| {
             // Test tooltip open state logic
             let open = true;
@@ -576,7 +572,7 @@ mod tests {
     }
 
     #[test]
-    fn test_tooltip_disabled_state() {
+    fn test_tooltipdisabled_state() {
         run_test(|| {
             // Test disabled tooltip logic
             let disabled = true;
@@ -624,18 +620,18 @@ mod tests {
     proptest! {
         #[test]
         fn test_tooltip_properties(
-            variant in prop::sample::select([
+            variant in prop::sample::select(&[
                 TooltipVariant::Default,
                 TooltipVariant::Destructive,
                 TooltipVariant::Warning,
                 TooltipVariant::Info,
             ]),
-            size in prop::sample::select([
+            size in prop::sample::select(&[
                 TooltipSize::Default,
                 TooltipSize::Sm,
                 TooltipSize::Lg,
             ]),
-            position in prop::sample::select([
+            position in prop::sample::select(&[
                 TooltipPosition::Top,
                 TooltipPosition::Bottom,
                 TooltipPosition::Left,
@@ -643,8 +639,8 @@ mod tests {
             ]),
             open in prop::bool::ANY,
             disabled in prop::bool::ANY,
-            _delay in 0..2000u32,
-            _duration in 0..2000u32
+            __delay in 0..2000u32,
+            __duration in 0..2000u32
         ) {
             // Property: Tooltip should always render without panicking
             // Property: All variants should have valid string representations

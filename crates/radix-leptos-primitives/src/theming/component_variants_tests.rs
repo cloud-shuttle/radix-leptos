@@ -1,6 +1,5 @@
 #[cfg(test)]
 mod tests {
-    use super::*;
     use crate::theming::{
         ButtonVariants, ComponentVariants, InputTypeVariant, InputVariants, SizeVariant,
         StateVariant, StyleVariant,

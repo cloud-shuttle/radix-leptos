@@ -1,4 +1,3 @@
-use leptos::prelude::*;
 
 #[derive(Clone, Debug, PartialEq)]
 pub enum ScrollAreaOrientation {

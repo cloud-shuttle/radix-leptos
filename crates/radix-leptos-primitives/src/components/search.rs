@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 use wasm_bindgen::JsCast;
 
 /// Search component - Search input with suggestions and filtering
@@ -29,8 +27,6 @@ pub fn Search(
 
     let class = merge_classes([
         "search",
-        if disabled { "disabled" } else { "" },
-        if required { "required" } else { "" },
         class.as_deref().unwrap_or(""),
     ]);
 
@@ -69,8 +65,6 @@ pub fn SearchInput(
 
     let class = merge_classes([
         "search-input",
-        if disabled { "disabled" } else { "" },
-        if required { "required" } else { "" },
         class.as_deref().unwrap_or(""),
     ]);
 
@@ -140,19 +134,6 @@ pub fn SearchSuggestions(
 
     let class = merge_classes([
         "search-suggestions",
-        if visible { "visible" } else { "hidden" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="listbox"
-            aria-label="Search suggestions"
-            aria-expanded=visible
-        >
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -172,15 +153,6 @@ pub fn SearchSuggestionItem(
 
     let class = merge_classes([
         "search-suggestion-item",
-        if selected { "selected" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    let suggestion_clone = suggestion.clone();
-    let handle_click = move |_| {
-        if let Some(callback) = on_click {
-            callback.run(suggestion_clone.clone());
-        }
     };
 
     view! {
@@ -210,14 +182,6 @@ pub fn SearchClearButton(
 
     let class = merge_classes([
         "search-clear-button",
-        if visible { "visible" } else { "hidden" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    let handle_click = move |_| {
-        if let Some(callback) = on_click {
-            callback.run(());
-        }
     };
 
     view! {
@@ -315,7 +279,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
     use wasm_bindgen_test::*;
 
@@ -333,9 +296,9 @@ mod tests {
     #[test]
     fn test_search_placeholder() {}
     #[test]
-    fn test_search_disabled() {}
+    fn test_searchdisabled() {}
     #[test]
-    fn test_search_required() {}
+    fn test_searchrequired() {}
     #[test]
     fn test_search_suggestions() {}
     #[test]
@@ -359,9 +322,9 @@ mod tests {
     #[test]
     fn test_search_input_placeholder() {}
     #[test]
-    fn test_search_input_disabled() {}
+    fn test_search_inputdisabled() {}
     #[test]
-    fn test_search_input_required() {}
+    fn test_search_inputrequired() {}
     #[test]
     fn test_search_input_on_input() {}
     #[test]
@@ -379,9 +342,9 @@ mod tests {
     #[test]
     fn test_search_suggestions_suggestions() {}
     #[test]
-    fn test_search_suggestions_visible() {}
+    fn test_search_suggestionsvisible() {}
     #[test]
-    fn test_search_suggestions_selected_index() {}
+    fn test_search_suggestionsselected_index() {}
     #[test]
     fn test_search_suggestions_on_suggestion_select() {}
 
@@ -393,7 +356,7 @@ mod tests {
     #[test]
     fn test_search_suggestion_item_suggestion() {}
     #[test]
-    fn test_search_suggestion_item_selected() {}
+    fn test_search_suggestion_itemselected() {}
     #[test]
     fn test_search_suggestion_item_on_click() {}
 
@@ -403,7 +366,7 @@ mod tests {
     #[test]
     fn test_search_clear_button_with_class() {}
     #[test]
-    fn test_search_clear_button_visible() {}
+    fn test_search_clear_buttonvisible() {}
     #[test]
     fn test_search_clear_button_on_click() {}
 
@@ -421,7 +384,7 @@ mod tests {
     #[test]
     fn test_search_filter_filters() {}
     #[test]
-    fn test_search_filter_selected_filters() {}
+    fn test_search_filterselected_filters() {}
     #[test]
     fn test_search_filter_on_filter_change() {}
 
@@ -444,21 +407,21 @@ mod tests {
     // Property-based Tests
     #[test]
     fn test_search_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
 
         });
     }
 
     #[test]
     fn test_search_suggestions_validation() {
-        proptest!(|(___suggestion_count in 0..50usize)| {
+        proptest!(|(______suggestion_count in 0..50usize)| {
 
         });
     }
 
     #[test]
     fn test_search_debounce_validation() {
-        proptest!(|(__debounce_ms in 100..2000u64)| {
+        proptest!(|(____debounce_ms in 100..2000u64)| {
 
         });
     }

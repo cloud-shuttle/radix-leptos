@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 use wasm_bindgen::JsCast;
 
 /// Combobox component - Searchable select component with autocomplete
@@ -30,27 +28,6 @@ pub fn Combobox(
 
     let class = merge_classes([
         "combobox",
-        if multiple { "multiple" } else { "single" },
-        if disabled { "disabled" } else { "" },
-        if required { "required" } else { "" },
-        if searchable { "searchable" } else { "" },
-        if clearable { "clearable" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="combobox"
-            aria-label="Combobox"
-            aria-expanded="false"
-            aria-haspopup="listbox"
-            data-multiple=multiple
-            data-searchable=searchable
-            data-clearable=clearable
-        >
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -76,8 +53,6 @@ pub fn ComboboxInput(
 
     let class = merge_classes([
         "combobox-input",
-        if disabled { "disabled" } else { "" },
-        if required { "required" } else { "" },
         class.as_deref().unwrap_or(""),
     ]);
 
@@ -147,19 +122,6 @@ pub fn ComboboxOptions(
 
     let class = merge_classes([
         "combobox-options",
-        if visible { "visible" } else { "hidden" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="listbox"
-            aria-label="Combobox options"
-            aria-expanded=visible
-        >
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -181,8 +143,6 @@ pub fn ComboboxOption(
 
     let class = merge_classes([
         "combobox-option",
-        if selected { "selected" } else { "" },
-        if disabled { "disabled" } else { "" },
         class.as_deref().unwrap_or(""),
     ]);
 
@@ -223,15 +183,6 @@ pub fn ComboboxTrigger(
 
     let class = merge_classes([
         "combobox-trigger",
-        if disabled { "disabled" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    let handle_click = move |_| {
-        if !disabled {
-            if let Some(callback) = on_click {
-                callback.run(());
-            }
         }
     };
 
@@ -262,14 +213,6 @@ pub fn ComboboxClearButton(
 
     let class = merge_classes([
         "combobox-clear-button",
-        if visible { "visible" } else { "hidden" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    let handle_click = move |_| {
-        if let Some(callback) = on_click {
-            callback.run(());
-        }
     };
 
     view! {
@@ -365,7 +308,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
     use wasm_bindgen_test::*;
 
@@ -383,9 +325,9 @@ mod tests {
     #[test]
     fn test_combobox_placeholder() {}
     #[test]
-    fn test_combobox_disabled() {}
+    fn test_comboboxdisabled() {}
     #[test]
-    fn test_combobox_required() {}
+    fn test_comboboxrequired() {}
     #[test]
     fn test_combobox_options() {}
     #[test]
@@ -409,9 +351,9 @@ mod tests {
     #[test]
     fn test_combobox_input_placeholder() {}
     #[test]
-    fn test_combobox_input_disabled() {}
+    fn test_combobox_inputdisabled() {}
     #[test]
-    fn test_combobox_input_required() {}
+    fn test_combobox_inputrequired() {}
     #[test]
     fn test_combobox_input_on_input() {}
     #[test]
@@ -429,9 +371,9 @@ mod tests {
     #[test]
     fn test_combobox_options_options() {}
     #[test]
-    fn test_combobox_options_visible() {}
+    fn test_combobox_optionsvisible() {}
     #[test]
-    fn test_combobox_options_selected_index() {}
+    fn test_combobox_optionsselected_index() {}
     #[test]
     fn test_combobox_options_on_option_select() {}
 
@@ -443,9 +385,9 @@ mod tests {
     #[test]
     fn test_combobox_option_option() {}
     #[test]
-    fn test_combobox_option_selected() {}
+    fn test_combobox_optionselected() {}
     #[test]
-    fn test_combobox_option_disabled() {}
+    fn test_combobox_optiondisabled() {}
     #[test]
     fn test_combobox_option_on_click() {}
 
@@ -455,7 +397,7 @@ mod tests {
     #[test]
     fn test_combobox_trigger_with_class() {}
     #[test]
-    fn test_combobox_trigger_disabled() {}
+    fn test_combobox_triggerdisabled() {}
     #[test]
     fn test_combobox_trigger_on_click() {}
 
@@ -465,7 +407,7 @@ mod tests {
     #[test]
     fn test_combobox_clear_button_with_class() {}
     #[test]
-    fn test_combobox_clear_button_visible() {}
+    fn test_combobox_clear_buttonvisible() {}
     #[test]
     fn test_combobox_clear_button_on_click() {}
 
@@ -500,14 +442,14 @@ mod tests {
     // Property-based Tests
     #[test]
     fn test_combobox_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
 
         });
     }
 
     #[test]
     fn test_combobox_options_validation() {
-        proptest!(|(___option_count in 0..50usize)| {
+        proptest!(|(______option_count in 0..50usize)| {
 
         });
     }

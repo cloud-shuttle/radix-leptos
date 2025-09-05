@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 use wasm_bindgen::JsCast;
 
 /// File Upload component - File upload with drag & drop support
@@ -28,13 +26,8 @@ pub fn FileUpload(
 
     let class = merge_classes([
         "file-upload",
-        if multiple { "multiple" } else { "single" },
-        if disabled { "disabled" } else { "" },
         if drag_drop_enabled {
             "drag-drop-enabled"
-        } else {
-            ""
-        },
         class.as_deref().unwrap_or(""),
     ]);
 
@@ -86,8 +79,6 @@ pub fn FileUploadInput(
 
     let class = merge_classes([
         "file-upload-input",
-        if multiple { "multiple" } else { "single" },
-        if disabled { "disabled" } else { "" },
         class.as_deref().unwrap_or(""),
     ]);
 
@@ -98,7 +89,7 @@ pub fn FileUploadInput(
         {
             // File processing logic would be implemented here
             if let Some(callback) = on_change {
-                callback.run([]);
+                callback.run(Vec::new());
             }
         }
     };
@@ -131,17 +122,6 @@ pub fn FileUploadDropZone(
 
     let class = merge_classes([
         "file-upload-drop-zone",
-        if disabled { "disabled" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    let handle_drop = move |event: web_sys::DragEvent| {
-        if !disabled {
-            event.prevent_default();
-            // File drop handling logic would be implemented here
-            if let Some(callback) = on_drop {
-                callback.run([]);
-            }
         }
     };
 
@@ -322,7 +302,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
     use wasm_bindgen_test::*;
 
@@ -344,7 +323,7 @@ mod tests {
     #[test]
     fn test_file_upload_max_files() {}
     #[test]
-    fn test_file_upload_disabled() {}
+    fn test_file_uploaddisabled() {}
     #[test]
     fn test_file_upload_drag_drop_enabled() {}
     #[test]
@@ -366,7 +345,7 @@ mod tests {
     #[test]
     fn test_file_upload_input_accept() {}
     #[test]
-    fn test_file_upload_input_disabled() {}
+    fn test_file_upload_inputdisabled() {}
     #[test]
     fn test_file_upload_input_on_change() {}
 
@@ -376,7 +355,7 @@ mod tests {
     #[test]
     fn test_file_upload_drop_zone_with_class() {}
     #[test]
-    fn test_file_upload_drop_zone_disabled() {}
+    fn test_file_upload_drop_zonedisabled() {}
     #[test]
     fn test_file_upload_drop_zone_on_drop() {}
     #[test]
@@ -443,21 +422,21 @@ mod tests {
     // Property-based Tests
     #[test]
     fn test_file_upload_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
 
         });
     }
 
     #[test]
     fn test_file_upload_file_validation() {
-        proptest!(|(___file_count in 0..20usize)| {
+        proptest!(|(______file_count in 0..20usize)| {
 
         });
     }
 
     #[test]
     fn test_file_upload_size_validation() {
-        proptest!(|(__size in 0..1000000000u64)| {
+        proptest!(|(____size in 0..1000000000u64)| {
 
         });
     }

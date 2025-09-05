@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// Touch-optimized button component for mobile devices
 #[component]
@@ -84,11 +82,6 @@ pub fn TouchButton(
             type=button_type
             class={format!(
                 "touch-button {} {} {} {}",
-                if disabled { "disabled" } else { "" },
-                if is_pressed.get() { "pressed" } else { "" },
-                if is_touching.get() { "touching" } else { "" },
-                class.unwrap_or_default()
-            )}
             disabled=disabled
             on:click=handle_click
             on:touchstart=handle_touch_start
@@ -185,11 +178,6 @@ pub fn TouchIconButton(
             type=button_type
             class={format!(
                 "touch-icon-button {} {} {} {}",
-                if disabled { "disabled" } else { "" },
-                if is_pressed.get() { "pressed" } else { "" },
-                if is_touching.get() { "touching" } else { "" },
-                class.unwrap_or_default()
-            )}
             disabled=disabled
             on:click=handle_click
             on:touchstart=handle_touch_start
@@ -286,11 +274,6 @@ pub fn FloatingActionButton(
             type=button_type
             class={format!(
                 "floating-action-button {} {} {} {}",
-                if disabled { "disabled" } else { "" },
-                if is_pressed.get() { "pressed" } else { "" },
-                if is_touching.get() { "touching" } else { "" },
-                class.unwrap_or_default()
-            )}
             disabled=disabled
             on:click=handle_click
             on:touchstart=handle_touch_start

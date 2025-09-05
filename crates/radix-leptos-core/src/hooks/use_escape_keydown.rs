@@ -1,4 +1,3 @@
-use leptos::*;
 // use leptos_use::{use_event_listener, UseEventListenerReturn};
 use wasm_bindgen::JsCast;
 use web_sys::{KeyboardEvent, EventTarget};
@@ -16,16 +15,15 @@ use web_sys::{KeyboardEvent, EventTarget};
 /// # Example
 /// 
 /// ```rust
-/// use leptos::*;
 /// use radix_leptos_core::use_escape_keydown;
 /// 
 /// #[component]
 /// pub fn Dialog() -> impl IntoView {
-///     let (open, set_open) = create_signal(false);
+///     let (open, setopen) = create_signal(false);
 ///     
 ///     // Close dialog when Escape is pressed
 ///     use_escape_keydown(
-///         move || set_open.set(false),
+///         move || setopen.set(false),
 ///         None,
 ///     );
 ///     
@@ -33,7 +31,7 @@ use web_sys::{KeyboardEvent, EventTarget};
 ///         <Show when=move || open.get()>
 ///             <div role="dialog">
 ///                 "Dialog content"
-///                 <button on:click=move |_| set_open.set(false)>
+///                 <button on:click=move |_| setopen.set(false)>
 ///                     "Close"
 ///                 </button>
 ///             </div>
@@ -100,7 +98,6 @@ where
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
     
     wasm_bindgen_test_configure!(run_in_browser);

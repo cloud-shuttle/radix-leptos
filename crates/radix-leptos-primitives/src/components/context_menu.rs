@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Context Menu component - Right-click context menus with keyboard navigation
 #[component]
@@ -9,31 +7,31 @@ pub fn ContextMenu(
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] items: Option<Vec<ContextMenuItem>>,
     #[prop(optional)] on_item_click: Option<Callback<ContextMenuItem>>,
-    #[prop(optional)] on_open: Option<Callback<()>>,
+    #[prop(optional)] onopen: Option<Callback<()>>,
     #[prop(optional)] on_close: Option<Callback<()>>,
 ) -> impl IntoView {
     let items = items.unwrap_or_default();
-    let is_open = create_rw_signal(false);
+    let isopen = create_rw_signal(false);
     let selected_index = create_rw_signal(0);
 
     let class = merge_classes(["context-menu", class.as_deref().unwrap_or("")]);
 
     let handle_right_click = move |event: web_sys::MouseEvent| {
         event.prevent_default();
-        is_open.set(true);
-        if let Some(callback) = on_open {
+        isopen.set(true);
+        if let Some(callback) = onopen {
             callback.run(());
         }
     };
 
     let handle_keydown = move |event: web_sys::KeyboardEvent| {
-        if !is_open.get() {
+        if !isopen.get() {
             return;
         }
 
         match event.key().as_str() {
             "Escape" => {
-                is_open.set(false);
+                isopen.set(false);
                 if let Some(callback) = on_close {
                     callback.run(());
                 }
@@ -47,9 +45,6 @@ pub fn ContextMenu(
                 event.prevent_default();
                 let new_index = if selected_index.get() == 0 {
                     items.len() - 1
-                } else {
-                    selected_index.get() - 1
-                };
                 selected_index.set(new_index);
             }
             "Enter" | " " => {
@@ -86,7 +81,7 @@ pub struct ContextMenuItem {
     pub label: String,
     pub icon: Option<String>,
     pub _disabled: bool,
-    pub _separator: bool,
+    pub separator: bool,
     pub submenu: Option<Vec<ContextMenuItem>>,
 }
 
@@ -118,18 +113,6 @@ pub fn ContextMenuItem(
 
     let class = merge_classes([
         "context-menu-item",
-        if selected { "selected" } else { "" },
-        if item.disabled { "disabled" } else { "" },
-        if item.separator { "separator" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    let item_clone = item.clone();
-    let handle_click = move |_| {
-        if !item_clone.disabled {
-            if let Some(callback) = on_click {
-                callback.run(item_clone.clone());
-            }
         }
     };
 
@@ -144,12 +127,6 @@ pub fn ContextMenuItem(
         >
             {if item.separator {
                 view! { <hr /> }.into_any()
-            } else {
-                view! {
-                    {if let Some(icon) = item.icon {
-                        view! { <span class="icon">{icon}</span> }.into_any()
-                    } else {
-                        view! { <></> }.into_any()
                     }}
                     <span class="label">{item.label}</span>
                     {children.map(|c| c())}
@@ -171,19 +148,6 @@ pub fn ContextMenuTrigger(
 
     let class = merge_classes([
         "context-menu-trigger",
-        if disabled { "disabled" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="button"
-            aria-disabled=disabled
-            tabindex="0"
-        >
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -199,7 +163,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
     use wasm_bindgen_test::*;
 
@@ -217,7 +180,7 @@ mod tests {
     #[test]
     fn test_context_menu_on_item_click() {}
     #[test]
-    fn test_context_menu_on_open() {}
+    fn test_context_menu_onopen() {}
     #[test]
     fn test_context_menu_on_close() {}
 
@@ -229,7 +192,7 @@ mod tests {
     #[test]
     fn test_context_menu_item_with_icon() {}
     #[test]
-    fn test_context_menu_item_disabled() {}
+    fn test_context_menu_itemdisabled() {}
     #[test]
     fn test_context_menu_item_separator() {}
     #[test]
@@ -241,7 +204,7 @@ mod tests {
     #[test]
     fn test_context_menu_trigger_with_class() {}
     #[test]
-    fn test_context_menu_trigger_disabled() {}
+    fn test_context_menu_triggerdisabled() {}
 
     // Helper function tests
     #[test]
@@ -256,21 +219,21 @@ mod tests {
     // Property-based Tests
     #[test]
     fn test_context_menu_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
 
         });
     }
 
     #[test]
     fn test_context_menu_items_validation() {
-        proptest!(|(___item_count in 0..20usize)| {
+        proptest!(|(______item_count in 0..20usize)| {
 
         });
     }
 
     #[test]
     fn test_context_menu_keyboard_navigation() {
-        proptest!(|(__key in ".*")| {
+        proptest!(|(____key in ".*")| {
 
         });
     }

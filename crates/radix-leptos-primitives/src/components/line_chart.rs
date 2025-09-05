@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// LineChart component - Time series and trend visualization
 #[component]
@@ -25,10 +23,6 @@ pub fn LineChart(
 
     let class = merge_classes([
         "line-chart",
-        if smooth { "smooth" } else { "" },
-        if area_fill { "area-fill" } else { "" },
-        if show_points { "show-points" } else { "" },
-        if show_grid { "show-grid" } else { "" },
         class.as_deref().unwrap_or(""),
     ]);
 
@@ -63,7 +57,7 @@ impl Default for LineSeries {
     fn default() -> Self {
         Self {
             name: "Series".to_string(),
-            data: [],
+            data: Vec::new(),
             color: "#3b82f6".to_string(),
             stroke_width: 2.0,
             opacity: 1.0,
@@ -255,7 +249,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
     use proptest::prelude::*;
 
@@ -326,25 +319,25 @@ mod tests {
 
     // Property-based Tests
     #[test] fn test_linechart_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             
         });
     }
 
     #[test] fn test_linechart_data_validation() {
-        proptest!(|(___series_count in 0..10usize, _points_per_series in 0..100usize)| {
+        proptest!(|(______series_count in 0..10usize, __points_per_series in 0..100usize)| {
             
         });
     }
 
     #[test] fn test_linechart_config_validation() {
-        proptest!(|(__width in 100.0..2000.0f64, _height in 100.0..2000.0f64)| {
+        proptest!(|(____width in 100.0..2000.0f64, __height in 100.0..2000.0f64)| {
             
         });
     }
 
     #[test] fn test_linechart_animation_property_based() {
-        proptest!(|(__duration in 100.0..5000.0f64, _delay in 0.0..1000.0f64)| {
+        proptest!(|(____duration in 100.0..5000.0f64, __delay in 0.0..1000.0f64)| {
             
         });
     }

@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// PieChart component - Proportional data visualization
 #[component]
@@ -25,10 +23,6 @@ pub fn PieChart(
 
     let class = merge_classes([
         "pie-chart",
-        if inner_radius > 0.0 { "donut" } else { "" },
-        if show_labels { "show-labels" } else { "" },
-        if show_percentages { "show-percentages" } else { "" },
-        if show_legend { "show-legend" } else { "" },
         class.as_deref().unwrap_or(""),
     ]);
 
@@ -186,16 +180,6 @@ pub fn PieChartLabel(
     let class = merge_classes([
         "pie-chart-label",
         &position.to_class(),
-        if show_percentage { "show-percentage" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="text"
-            aria-label=format!("Label for {}", slice.label.clone())
             data-label=slice.label.clone()
             data-percentage=slice.percentage
             data-position=position.to_string()
@@ -203,8 +187,6 @@ pub fn PieChartLabel(
             {slice.label.clone()}
             {if show_percentage {
                 view! { <span class="percentage">" (" {slice.percentage} "%)"</span> }.into_any()
-                } else {
-        view! { <></> }.into_any()
     }}
         </div>
     }
@@ -248,7 +230,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
     use proptest::prelude::*;
 
@@ -316,25 +297,25 @@ mod tests {
 
     // Property-based Tests
     #[test] fn test_piechart_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             
         });
     }
 
     #[test] fn test_piechart_data_validation() {
-        proptest!(|(___slice_count in 1..20usize)| {
+        proptest!(|(______slice_count in 1..20usize)| {
             
         });
     }
 
     #[test] fn test_piechart_config_validation() {
-        proptest!(|(__width in 100.0..1000.0f64, _height in 100.0..1000.0f64, _radius in 50.0..200.0f64)| {
+        proptest!(|(____width in 100.0..1000.0f64, __height in 100.0..1000.0f64, __radius in 50.0..200.0f64)| {
             
         });
     }
 
     #[test] fn test_piechart_animation_property_based() {
-        proptest!(|(__duration in 100.0..5000.0f64, _delay in 0.0..1000.0f64)| {
+        proptest!(|(____duration in 100.0..5000.0f64, __delay in 0.0..1000.0f64)| {
             
         });
     }

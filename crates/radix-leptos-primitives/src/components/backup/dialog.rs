@@ -1,12 +1,10 @@
-use leptos::*;
-use leptos::prelude::*;
 use leptos::context::Provider;
 
 /// Dialog context for managing dialog state across components
 #[derive(Clone)]
 struct DialogContext {
     open: ReadSignal<bool>,
-    set_open: WriteSignal<bool>,
+    setopen: WriteSignal<bool>,
     trigger_id: String,
     content_id: String,
 }
@@ -23,31 +21,31 @@ fn generate_id(prefix: &str) -> String {
 pub fn DialogRoot(
     /// Default open state for uncontrolled usage
     #[prop(optional, default = false)]
-    _default_open: bool,
+    __defaultopen: bool,
     /// Callback when open state changes
     #[prop(optional)]
-    on_open_change: Option<Callback<bool>>,
+    onopen_change: Option<Callback<bool>>,
     /// Child components
     children: Children,
 ) -> impl IntoView {
     // Generate unique IDs for accessibility
-    let _trigger_id = generate_id("dialog-trigger");
-    let _content_id = generate_id("dialog-content");
+    let __trigger_id = generate_id("dialog-trigger");
+    let __content_id = generate_id("dialog-content");
     
     // Simple state management
-    let (open_signal, set_open_signal) = signal(default_open);
+    let (open_signal, setopen_signal) = signal(defaultopen);
     
     // Handle open state changes
     Effect::new(move |_| {
-        let current_open = open_signal.get();
-        if let Some(callback) = on_open_change {
-            callback.run(current_open);
+        let currentopen = open_signal.get();
+        if let Some(callback) = onopen_change {
+            callback.run(currentopen);
         }
     });
     
     let context = DialogContext {
         open: open_signal,
-        set_open: set_open_signal,
+        setopen: setopen_signal,
         trigger_id,
         content_id,
     };
@@ -79,14 +77,14 @@ pub fn DialogTrigger(
     
     let handle_click = move |e: web_sys::MouseEvent| {
         if !disabled {
-            context.set_open.set(true);
+            context.setopen.set(true);
             if let Some(on_click) = on_click {
                 on_click.run(e);
             }
         }
     };
     
-    let is_open = move || context.open.get();
+    let isopen = move || context.open.get();
     let class_value = class.unwrap_or_default();
     let children_view = children();
     
@@ -96,7 +94,7 @@ pub fn DialogTrigger(
             class=class_value
             disabled=disabled
             aria-haspopup="dialog"
-            aria-expanded=is_open
+            aria-expanded=isopen
             aria-controls=context.content_id.clone()
             on:click=handle_click
         >
@@ -117,7 +115,7 @@ pub fn DialogContent(
     let context = use_context::<DialogContext>()
         .expect("DialogContent must be used within DialogRoot");
     
-    let is_open = move || context.open.get();
+    let isopen = move || context.open.get();
     let class_value = class.unwrap_or_default();
     let children_view = children();
     
@@ -127,9 +125,6 @@ pub fn DialogContent(
             class=class_value
             role="dialog"
             aria-modal="true"
-            data-state=move || if is_open() { "open" } else { "closed" }
-            tabindex="-1"
-            style=move || if is_open() { "display: block;" } else { "display: none;" }
         >
             {children_view}
         </div>
@@ -148,7 +143,7 @@ pub fn DialogTitle(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let _title_id = generate_id("dialog-title");
+    let __title_id = generate_id("dialog-title");
     let class_value = class.unwrap_or_default();
     let children_view = children();
     
@@ -169,7 +164,7 @@ pub fn DialogDescription(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let _description_id = generate_id("dialog-description");
+    let __description_id = generate_id("dialog-description");
     let class_value = class.unwrap_or_default();
     let children_view = children();
     
@@ -199,7 +194,7 @@ pub fn DialogClose(
         .expect("DialogClose must be used within DialogRoot");
     
     let handle_click = move |e: web_sys::MouseEvent| {
-        context.set_open.set(false);
+        context.setopen.set(false);
         if let Some(on_click) = on_click {
             on_click.run(e);
         }

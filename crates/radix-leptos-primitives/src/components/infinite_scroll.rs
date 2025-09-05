@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 use wasm_bindgen::JsCast;
 
 /// Infinite Scroll component for infinite scrolling functionality
@@ -35,24 +33,6 @@ pub fn InfiniteScroll(
 
     let class = format!(
         "infinite-scroll {} {} {}",
-        if enabled { "enabled" } else { "disabled" },
-        if loading { "loading" } else { "" },
-        if has_more { "has-more" } else { "no-more" },
-    );
-
-    let style = style.unwrap_or_default();
-
-    let handle_scroll = move |event: web_sys::Event| {
-        if enabled && !loading && has_more {
-            if let Some(target) = event.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) {
-                let scroll_top = target.scroll_top();
-                let scroll_height = target.scroll_height();
-                let client_height = target.client_height();
-
-                if scroll_top + client_height >= scroll_height - threshold as i32 {
-                    if let Some(callback) = on_load_more {
-                        callback.run(());
-                    }
                 }
 
                 let scroll_event = ScrollEvent {
@@ -77,9 +57,7 @@ pub fn InfiniteScroll(
             {if loading {
                 view! {
                     <div class="infinite-scroll-loading">
-                        {if let Some(_loading_comp) = loading_component {
-                            view! { <div class="default-loading">"Loading..."</div> }
-                        } else {
+                        {if let Some(loading_comp) = loading_component {
                             view! { <div class="default-loading">"Loading..."</div> }
                         }}
                     </div>
@@ -89,13 +67,9 @@ pub fn InfiniteScroll(
                     <div class="infinite-scroll-end">
                         {if let Some(_end_comp) = end_component {
                             view! { <div class="default-end">"No more data"</div> }
-                        } else {
-                            view! { <div class="default-end">"No more data"</div> }
                         }}
                     </div>
                 }.into_any()
-            } else {
-                view! { <></> }.into_any()
             }}
         </div>
     }
@@ -136,24 +110,12 @@ pub fn InfiniteScrollItem(
 
     let class = format!(
         "infinite-scroll-item {} {}",
-        if visible { "visible" } else { "hidden" },
-        class.unwrap_or_default()
-    );
-
-    let style = style.unwrap_or_default();
-
-    let handle_render = move |_: web_sys::Event| {
-        if let Some(callback) = on_render {
-            callback.run(index);
-        }
     };
 
     view! {
         <div class=class style=style on:mount=handle_render>
             {if !data.is_empty() {
                 view! { <div class="item-data">{data}</div> }.into_any()
-            } else {
-                view! { <></> }.into_any()
             }}
             {children.map(|c| c())}
         </div>
@@ -185,12 +147,6 @@ pub fn InfiniteScrollContainer(
 
     let class = format!(
         "infinite-scroll-container {} {}",
-        if show_scrollbar { "show-scrollbar" } else { "hide-scrollbar" },
-        class.unwrap_or_default()
-    );
-
-    let style = format!(
-        "height: {}; width: {}; scroll-behavior: {}; {}",
         height,
         width,
         match scroll_behavior {
@@ -260,9 +216,6 @@ pub fn VirtualInfiniteScroll(
                     (visible_start..visible_end.min(item_count)).map(|_index| {
                         view! { <div class="virtual-item">"Item"</div> }
                     }).collect::<Vec<_>>()
-                } else {
-                    []
-                }}
             </div>
         </div>
     }
@@ -295,8 +248,6 @@ pub fn InfiniteScrollHook(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use leptos::prelude::*;
 
     // Component structure tests
     #[test]
@@ -383,12 +334,12 @@ mod tests {
     }
 
     #[test]
-    fn test_infinite_scroll_loading_state() {
+    fn test_infinite_scrollloading_state() {
         
     }
 
     #[test]
-    fn test_infinite_scroll_loading_component() {
+    fn test_infinite_scrollloading_component() {
         
     }
 
@@ -483,7 +434,7 @@ mod tests {
     }
 
     #[test]
-    fn test_virtual_infinite_scroll_visible_range() {
+    fn test_virtual_infinite_scrollvisible_range() {
         
     }
 
@@ -505,7 +456,7 @@ mod tests {
 
     // Loading states tests
     #[test]
-    fn test_infinite_scroll_loading_indicator() {
+    fn test_infinite_scrollloading_indicator() {
         
     }
 

@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// DragDrop component - Modern drag and drop interactions
 #[component]
@@ -42,7 +40,7 @@ pub fn DragDrop(
 pub struct DragItem {
     pub id: String,
     pub content: String,
-    pub _draggable: bool,
+    pub __draggable: bool,
     pub data: Option<String>,
 }
 
@@ -60,10 +58,10 @@ impl Default for DragItem {
 /// Drag Drop Configuration
 #[derive(Debug, Clone, PartialEq)]
 pub struct DragDropConfig {
-    pub _drag_enabled: bool,
-    pub _drop_enabled: bool,
-    pub _multiple_selection: bool,
-    pub _auto_scroll: bool,
+    pub __drag_enabled: bool,
+    pub __drop_enabled: bool,
+    pub __multiple_selection: bool,
+    pub __auto_scroll: bool,
     pub scroll_speed: f64,
     pub drag_preview: DragPreviewType,
 }
@@ -235,7 +233,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
     use proptest::prelude::*;
 
@@ -295,7 +292,7 @@ mod tests {
     #[test] fn test_drag_preview_creation() { 
     #[test] fn test_drag_preview_with_class() { 
     #[test] fn test_drag_preview_with_style() { 
-    #[test] fn test_drag_preview_visible() { 
+    #[test] fn test_drag_previewvisible() { 
     #[test] fn test_drag_preview_hidden() { 
     #[test] fn test_drag_preview_position() { 
 
@@ -307,7 +304,7 @@ mod tests {
 
     // Property-based Tests
     #[test] fn test_dragdrop_property_based() {
-        // proptest!(|(__class in ".*", _style in ".*")| {
+        // proptest!(|(____class in ".*", __style in ".*")| {
         //     
         // });
         
@@ -328,7 +325,7 @@ mod tests {
     }
 
     #[test] fn test_dragdrop_position_property_based() {
-        // proptest!(|(__x in 0.0..1000.0f64, _y in 0.0..1000.0f64)| {
+        // proptest!(|(____x in 0.0..1000.0f64, __y in 0.0..1000.0f64)| {
         //     
         // });
         

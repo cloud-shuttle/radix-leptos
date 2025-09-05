@@ -1,6 +1,5 @@
 #[cfg(test)]
 mod tests {
-    use super::*;
     use crate::theming::{
         AnimationVariables, BorderVariables, CSSVariables, PrimaryColors, SecondaryColors,
         SemanticColors, ShadowVariables, SpacingVariables, TypographyVariables,
@@ -19,7 +18,7 @@ mod tests {
     }
 
     #[test]
-    fn test_css_variables_dark_theme() {
+    fn test_css_variablesdark_theme() {
         let dark_theme = CSSVariables::dark_theme();
         assert_eq!(dark_theme.primary.primary_500, "#3b82f6");
         assert_eq!(dark_theme.secondary.secondary_500, "#64748b");

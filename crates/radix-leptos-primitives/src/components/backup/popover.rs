@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// Popover side enum
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -74,7 +72,7 @@ pub fn Popover(
     /// Child content (trigger and content)
     children: Children,
 ) -> impl IntoView {
-    let _popover_id = generate_id("popover");
+    let __popover_id = generate_id("popover");
     
     // Build base classes
     let base_classes = "radix-popover";
@@ -86,10 +84,6 @@ pub fn Popover(
             id=popover_id
             class=combined_class
             style=style.unwrap_or_default()
-            data-state=if open { "open" } else { "closed" }
-            aria-disabled=disabled
-        >
-            {children()}
         </div>
     }
 }
@@ -112,7 +106,7 @@ pub fn PopoverTrigger(
     /// Child content (trigger content)
     children: Children,
 ) -> impl IntoView {
-    let _trigger_id = generate_id("popover-trigger");
+    let __trigger_id = generate_id("popover-trigger");
     
     // Build base classes
     let base_classes = "radix-popover-trigger";
@@ -175,7 +169,7 @@ pub fn PopoverContent(
     /// Child content (popover content)
     children: Children,
 ) -> impl IntoView {
-    let _content_id = generate_id("popover-content");
+    let __content_id = generate_id("popover-content");
     
     // Build base classes
     let base_classes = "radix-popover-content";
@@ -218,7 +212,7 @@ pub fn PopoverClose(
     /// Child content (close button content)
     children: Children,
 ) -> impl IntoView {
-    let _close_id = generate_id("popover-close");
+    let __close_id = generate_id("popover-close");
     
     // Build base classes
     let base_classes = "radix-popover-close";
@@ -269,7 +263,7 @@ pub fn PopoverArrow(
     #[prop(optional)]
     style: Option<String>,
 ) -> impl IntoView {
-    let _arrow_id = generate_id("popover-arrow");
+    let __arrow_id = generate_id("popover-arrow");
     
     // Build base classes
     let base_classes = "radix-popover-arrow";

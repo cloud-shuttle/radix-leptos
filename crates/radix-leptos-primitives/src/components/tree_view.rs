@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 use wasm_bindgen::JsCast;
 
 /// Tree View component for displaying hierarchical data
@@ -51,10 +49,6 @@ pub fn TreeView(
 
     let class = format!(
         "tree-view {} {} {} {}",
-        if show_icons { "show-icons" } else { "" },
-        if multiple { "multiple" } else { "" },
-        if checkable { "checkable" } else { "" },
-        if show_lines { "show-lines" } else { "" },
     );
 
     let style = style.unwrap_or_default();
@@ -74,7 +68,7 @@ pub struct TreeNode {
     pub value: Option<String>,
     pub icon: Option<String>,
     pub children: Option<Vec<TreeNode>>,
-    pub _expanded: bool,
+    pub expanded: bool,
     pub _selected: bool,
     pub _checked: bool,
     pub _disabled: bool,
@@ -131,17 +125,6 @@ pub fn TreeNode(
         "tree-node {} {} {} {} {}",
         if node.expanded {
             "expanded"
-        } else {
-            "collapsed"
-        },
-        if node.selected { "selected" } else { "" },
-        if node.checked { "checked" } else { "" },
-        if node.disabled { "disabled" } else { "" },
-        class.unwrap_or_default()
-    );
-
-    let style = format!(
-        "padding-left: {}px; {}",
         node.level * 20,
         style.unwrap_or_default()
     );
@@ -181,14 +164,8 @@ pub fn TreeNode(
                         <button
                             class="tree-expand-icon"
                             type="button"
-                            aria-label=if node.expanded { "Collapse" } else { "Expand" }
-                            on:click=handle_expand
-                        >
-                            {if node.expanded { "▼" } else { "▶" }}
                         </button>
                     }.into_any()
-                } else {
-                    view! { <span class="tree-spacer"></span> }.into_any()
                 }}
 
                 {if checkable {
@@ -201,16 +178,12 @@ pub fn TreeNode(
                             on:change=handle_check
                         />
                     }.into_any()
-                } else {
-                    view! { <></> }.into_any()
                 }}
 
                 {if show_node_icons && node.icon.is_some() {
                     view! {
                         <span class="tree-node-icon">{node.icon.clone().unwrap()}</span>
                     }.into_any()
-                } else {
-                    view! { <></> }.into_any()
                 }}
 
                 <span class="tree-node-label" on:click=handle_select>
@@ -240,8 +213,6 @@ pub fn TreeNode(
                         }).collect::<Vec<_>>()}
                     </div>
                 }.into_any()
-            } else {
-                view! { <></> }.into_any()
             }}
 
             {children.map(|c| c())}
@@ -282,20 +253,6 @@ pub fn TreeViewSearch(
     let disabled = disabled.unwrap_or(false);
     let class = format!(
         "tree-search {} {}",
-        if disabled { "disabled" } else { "" },
-        class.unwrap_or_default()
-    );
-
-    let style = style.unwrap_or_default();
-
-    let handle_input = move |event: web_sys::Event| {
-        if let Some(input) = event
-            .target()
-            .and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok())
-        {
-            if let Some(callback) = on_change {
-                callback.run(input.value());
-            }
         }
     };
 
@@ -349,8 +306,6 @@ pub fn TreeViewActions(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use leptos::prelude::*;
 
     // Component structure tests
     #[test]
@@ -373,7 +328,7 @@ mod tests {
             label: "Node 1".to_string(),
             value: Some("value1".to_string()),
             icon: Some("📁".to_string()),
-            children: Some([]),
+            children: Some(Vec::new()),
             expanded: false,
             selected: false,
             checked: false,
@@ -544,7 +499,7 @@ mod tests {
     fn test_treeview_single_node() {}
 
     #[test]
-    fn test_treeview_disabled_nodes() {}
+    fn test_treeviewdisabled_nodes() {}
 
     #[test]
     fn test_treeview_duplicate_ids() {}

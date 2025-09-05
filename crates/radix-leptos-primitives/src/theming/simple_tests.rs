@@ -1,8 +1,8 @@
 // Simple tests for theming system that don't rely on complex proptest infrastructure
 #[cfg(test)]
 #[allow(clippy::module_inception)]
+#[allow(clippy::module_inception)]
 mod simple_tests {
-    use super::*;
     use crate::theming::{ButtonVariants, CSSVariables, LayoutSystem, PrebuiltThemes, Size};
 
     #[test]
@@ -14,7 +14,7 @@ mod simple_tests {
     }
 
     #[test]
-    fn test_dark_theme_basic() {
+    fn testdark_theme_basic() {
         let dark_theme = CSSVariables::dark_theme();
         assert_eq!(dark_theme.neutral.neutral_50, "#0a0a0a");
         assert_eq!(dark_theme.neutral.neutral_950, "#fafafa");

@@ -1,6 +1,5 @@
 #[cfg(test)]
 mod tests {
-    use super::*;
     use crate::theming::{CSSVariables, PrebuiltThemes};
     use leptos::serde_json;
 
@@ -36,7 +35,7 @@ mod tests {
     }
 
     #[test]
-    fn test_prebuilt_themes_dark_theme() {
+    fn test_prebuilt_themesdark_theme() {
         let themes = PrebuiltThemes::default();
         let dark_theme = &themes.dark;
         

@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Aspect Ratio component - Maintain aspect ratio containers
 #[component]
@@ -161,7 +159,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
     use wasm_bindgen_test::*;
 
@@ -228,21 +225,21 @@ mod tests {
     // Property-based Tests
     #[test]
     fn test_aspect_ratio_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
 
         });
     }
 
     #[test]
     fn test_aspect_ratio_validation() {
-        proptest!(|(__ratio in 0.1..10.0f64, _width in 10.0..1000.0f64)| {
+        proptest!(|(____ratio in 0.1..10.0f64, __width in 10.0..1000.0f64)| {
 
         });
     }
 
     #[test]
     fn test_aspect_ratio_constraints_validation() {
-        proptest!(|(__min_width in 0.0..500.0f64, _max_width in 500.0..2000.0f64, _min_height in 0.0..500.0f64, _max_height in 500.0..2000.0f64)| {
+        proptest!(|(____min_width in 0.0..500.0f64, __max_width in 500.0..2000.0f64, __min_height in 0.0..500.0f64, __max_height in 500.0..2000.0f64)| {
 
         });
     }

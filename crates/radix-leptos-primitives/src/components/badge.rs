@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Badge variant for different status types
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
@@ -151,11 +149,7 @@ pub fn BadgeCount(
                     </Badge>
                 }
             } else {
-                view! {
-                    <Badge variant=BadgeVariant::Default class="radix-badge--hidden".to_string()>
-                        <span>{String::new()}</span>
-                    </Badge>
-                }
+                view! { <></> }
             }
         }}
     }

@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// Chart component - Base visualization infrastructure
 /// 
@@ -26,8 +24,6 @@ pub fn Chart(
     let class = merge_classes([
         "chart",
         &theme.to_class(),
-        if interactive { "interactive" } else { "" },
-        if animated { "animated" } else { "" },
         class.as_deref().unwrap_or(""),
     ]);
 
@@ -71,7 +67,7 @@ pub struct ChartData {
 impl Default for ChartData {
     fn default() -> Self {
         Self {
-            series: [],
+            series: Vec::new(),
             categories: None,
         }
     }
@@ -99,9 +95,9 @@ pub struct ChartConfig {
     pub width: f64,
     pub height: f64,
     pub margin: ChartMargin,
-    pub _show_legend: bool,
-    pub _show_grid: bool,
-    pub _show_tooltips: bool,
+    pub __show_legend: bool,
+    pub __show_grid: bool,
+    pub __show_tooltips: bool,
 }
 
 impl Default for ChartConfig {
@@ -299,7 +295,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
     use proptest::prelude::*;
 
@@ -339,7 +334,7 @@ mod tests {
     }
 
     #[test]
-    fn test_chart_interactive() {
+    fn test_chartinteractive() {
         
     }
 
@@ -439,7 +434,7 @@ mod tests {
     }
 
     #[test]
-    fn test_chart_theme_dark() {
+    fn test_chart_themedark() {
         let theme = ChartTheme::Dark;
         assert_eq!(theme.to_class(), "theme-dark");
     }
@@ -467,7 +462,7 @@ mod tests {
     }
 
     #[test]
-    fn test_chart_tooltip_visible() {
+    fn test_chart_tooltipvisible() {
         
     }
 
@@ -583,7 +578,7 @@ mod tests {
     // Helper function tests
     #[test]
     fn test_merge_classes_empty() {
-        let result = merge_classes([]);
+        let result = merge_classes(Vec::new());
         assert_eq!(result, "");
     }
 
@@ -609,7 +604,7 @@ mod tests {
     
     #[test]
     fn test_chart_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             // Test with random class and style values
             
         });
@@ -617,7 +612,7 @@ mod tests {
 
     #[test]
     fn test_chart_data_property_based() {
-        proptest!(|(___series_count in 0..10usize, _points_per_series in 0..100usize)| {
+        proptest!(|(______series_count in 0..10usize, __points_per_series in 0..100usize)| {
             // Test with random data series
             
         });
@@ -625,7 +620,7 @@ mod tests {
 
     #[test]
     fn test_chart_config_property_based() {
-        proptest!(|(__width in 100.0..2000.0f64, _height in 100.0..2000.0f64)| {
+        proptest!(|(____width in 100.0..2000.0f64, __height in 100.0..2000.0f64)| {
             // Test with random chart dimensions
             
         });
@@ -633,7 +628,7 @@ mod tests {
 
     #[test]
     fn test_chart_theme_property_based() {
-        proptest!(|(__theme_index in 0..3usize)| {
+        proptest!(|(____theme_index in 0..3usize)| {
             // Test with random theme selection
             
         });
@@ -641,7 +636,7 @@ mod tests {
 
     #[test]
     fn test_chart_interaction_property_based() {
-        proptest!(|(__interactive: bool, _animated: bool)| {
+        proptest!(|(___interactive: bool, __animated: bool)| {
             // Test with random interaction settings
             
         });

@@ -1,5 +1,3 @@
-use leptos::prelude::*;
-use leptos::*;
 
 /// Collapsible component - Collapsible content areas with smooth animations
 #[component]
@@ -10,7 +8,7 @@ pub fn Collapsible(
     #[prop(optional)] open: Option<bool>,
     #[prop(optional)] disabled: Option<bool>,
     #[prop(optional)] animated: Option<bool>,
-    #[prop(optional)] on_open_change: Option<Callback<bool>>,
+    #[prop(optional)] onopen_change: Option<Callback<bool>>,
 ) -> impl IntoView {
     let open = RwSignal::new(open.unwrap_or(false));
     let disabled = disabled.unwrap_or(false);
@@ -18,19 +16,6 @@ pub fn Collapsible(
 
     let class = merge_classes([
         "collapsible",
-        if open.get() { "open" } else { "closed" },
-        if disabled { "disabled" } else { "" },
-        if animated { "animated" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    let handle_click = move |_| {
-        if !disabled {
-            let new_state = !open.get();
-            open.set(new_state);
-            if let Some(callback) = on_open_change {
-                callback.run(new_state);
-            }
         }
     };
 
@@ -61,20 +46,6 @@ pub fn CollapsibleTrigger(
 
     let class = merge_classes([
         "collapsible-trigger",
-        if disabled { "disabled" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <button
-            class=class
-            style=style
-            type="button"
-            disabled=disabled
-            aria-expanded="false"
-            aria-controls="collapsible-content"
-        >
-            {children.map(|c| c())}
         </button>
     }
 }
@@ -93,8 +64,6 @@ pub fn CollapsibleContent(
 
     let class = merge_classes([
         "collapsible-content",
-        if open { "open" } else { "closed" },
-        if animated { "animated" } else { "" },
         class.as_deref().unwrap_or(""),
     ]);
 
@@ -145,8 +114,6 @@ pub fn CollapsibleIcon(
 
     let class = merge_classes([
         "collapsible-icon",
-        if open { "open" } else { "closed" },
-        if animated { "animated" } else { "" },
         class.as_deref().unwrap_or(""),
     ]);
 
@@ -156,9 +123,6 @@ pub fn CollapsibleIcon(
             style=style
             aria-hidden="true"
         >
-            {if open { "▼" } else { "▶" }}
-        </span>
-    }
 }
 
 /// Helper function to merge CSS classes
@@ -172,7 +136,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use proptest::prelude::*;
     use wasm_bindgen_test::*;
 
@@ -186,13 +149,13 @@ mod tests {
     #[test]
     fn test_collapsible_with_style() {}
     #[test]
-    fn test_collapsible_open_state() {}
+    fn test_collapsibleopen_state() {}
     #[test]
-    fn test_collapsible_disabled_state() {}
+    fn test_collapsibledisabled_state() {}
     #[test]
     fn test_collapsible_animated() {}
     #[test]
-    fn test_collapsible_on_open_change() {}
+    fn test_collapsible_onopen_change() {}
 
     // Collapsible Trigger tests
     #[test]
@@ -200,7 +163,7 @@ mod tests {
     #[test]
     fn test_collapsible_trigger_with_class() {}
     #[test]
-    fn test_collapsible_trigger_disabled() {}
+    fn test_collapsible_triggerdisabled() {}
 
     // Collapsible Content tests
     #[test]
@@ -208,7 +171,7 @@ mod tests {
     #[test]
     fn test_collapsible_content_with_class() {}
     #[test]
-    fn test_collapsible_content_open_state() {}
+    fn test_collapsible_contentopen_state() {}
     #[test]
     fn test_collapsible_content_animated() {}
 
@@ -224,7 +187,7 @@ mod tests {
     #[test]
     fn test_collapsible_icon_with_class() {}
     #[test]
-    fn test_collapsible_icon_open_state() {}
+    fn test_collapsible_iconopen_state() {}
     #[test]
     fn test_collapsible_icon_animated() {}
 
@@ -241,21 +204,21 @@ mod tests {
     // Property-based Tests
     #[test]
     fn test_collapsible_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
 
         });
     }
 
     #[test]
     fn test_collapsible_state_validation() {
-        proptest!(|(__open: bool, _disabled: bool, _animated: bool)| {
+        proptest!(|(___open: bool, _disabled: bool, __animated: bool)| {
 
         });
     }
 
     #[test]
     fn test_collapsible_animation_properties() {
-        proptest!(|(__duration in 100.0..5000.0f64, _delay in 0.0..1000.0f64)| {
+        proptest!(|(____duration in 100.0..5000.0f64, __delay in 0.0..1000.0f64)| {
 
         });
     }

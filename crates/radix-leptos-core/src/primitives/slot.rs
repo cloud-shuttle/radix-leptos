@@ -1,4 +1,3 @@
-use leptos::*;
 use web_sys::Element;
 use wasm_bindgen::JsCast;
 use std::collections::HashMap;
@@ -12,12 +11,11 @@ use std::collections::HashMap;
 /// # Example
 /// 
 /// ```rust
-/// use leptos::*;
 /// use radix_leptos_core::Slot;
 /// 
 /// #[component]
 /// fn DialogTrigger(
-///     #[prop(optional)] _as_child: bool,
+///     #[prop(optional)] __as_child: bool,
 ///     #[prop(optional)] class: Option<String>,
 ///     children: Children,
 /// ) -> impl IntoView {
@@ -27,10 +25,6 @@ use std::collections::HashMap;
 ///                 {children()}
 ///             </Slot>
 ///         }
-///     } else {
-///         view! {
-///             <button class=class>
-///                 {children()}
 ///             </button>
 ///         }
 ///     }
@@ -119,8 +113,6 @@ pub fn merge_styles(existing: Option<&str>, additional: Option<&str>) -> Option<
     match (existing, additional) {
         (Some(existing), Some(additional)) => {
             // Ensure both styles end with semicolons for proper merging
-            let existing = if existing.ends_with(';') { existing } else { &format!("{};", existing) };
-            let additional = if additional.ends_with(';') { additional } else { &format!("{};", additional) };
             Some(format!("{} {}", existing, additional))
         }
         (Some(existing), None) => Some(existing.to_string()),
@@ -166,7 +158,6 @@ where
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
     
     wasm_bindgen_test_configure!(run_in_browser);

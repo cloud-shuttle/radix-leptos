@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 use wasm_bindgen::JsCast;
 
 /// Checkbox state enum
@@ -70,7 +68,7 @@ pub fn Checkbox(
     /// Child content (label)
     children: Children,
 ) -> impl IntoView {
-    let _checkbox_id = generate_id("checkbox");
+    let __checkbox_id = generate_id("checkbox");
     
     // Build base classes
     let base_classes = "radix-checkbox";
@@ -125,7 +123,7 @@ pub fn Checkbox(
     };
     
     // Determine ARIA attributes
-    let aria_checked = match state {
+    let ariachecked = match state {
         CheckboxState::Unchecked => Some("false"),
         CheckboxState::Checked => Some("true"),
         CheckboxState::Indeterminate => Some("mixed"),
@@ -137,17 +135,9 @@ pub fn Checkbox(
             class=combined_class
             style=style.unwrap_or_default()
             role="checkbox"
-            aria-checked=aria_checked
+            aria-checked=ariachecked
             aria-required=required
             aria-disabled=disabled
-            tabindex=if disabled { None } else { Some(0) }
-            data-state=state.as_str()
-            on:click=handle_click
-            on:keydown=handle_keydown
-        >
-            <input
-                type="checkbox"
-                id=format!("{}-input", checkbox_id)
                 name=name.unwrap_or_default()
                 value=value.unwrap_or_default()
                 checked=state == CheckboxState::Checked
@@ -206,7 +196,7 @@ pub fn CheckboxWithLabel(
     /// Child content (label)
     children: Children,
 ) -> impl IntoView {
-    let _checkbox_id = generate_id("checkbox");
+    let __checkbox_id = generate_id("checkbox");
     
     view! {
         <div style="display: flex; align-items: center; gap: 8px;">

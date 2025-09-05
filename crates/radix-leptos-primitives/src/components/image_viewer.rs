@@ -1,5 +1,3 @@
-use leptos::*;
-use leptos::prelude::*;
 
 /// ImageViewer component - Advanced image viewing
 #[component]
@@ -25,24 +23,6 @@ pub fn ImageViewer(
 
     let class = merge_classes([
         "image-viewer",
-        if zoomable { "zoomable" } else { "" },
-        if pannable { "pannable" } else { "" },
-        if rotatable { "rotatable" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="img"
-            aria-label=alt
-            data-src=src
-            data-zoomable=zoomable
-            data-pannable=pannable
-            data-rotatable=rotatable
-        >
-            {children.map(|c| c())}
         </div>
     }
 }
@@ -124,16 +104,6 @@ pub fn ImageThumbnail(
 
     let class = merge_classes([
         "image-thumbnail",
-        if selected { "selected" } else { "" },
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="button"
-            aria-label=format!("Thumbnail: {}", alt)
             data-src=src
             data-selected=selected
             tabindex="0"
@@ -204,7 +174,6 @@ fn merge_classes(classes: Vec<&str>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use wasm_bindgen_test::*;
     use proptest::prelude::*;
 
@@ -244,7 +213,7 @@ mod tests {
     #[test] fn test_image_thumbnail_with_style() { 
     #[test] fn test_image_thumbnail_src() { 
     #[test] fn test_image_thumbnail_alt() { 
-    #[test] fn test_image_thumbnail_selected() { 
+    #[test] fn test_image_thumbnailselected() { 
     #[test] fn test_image_thumbnail_on_click() { 
 
     // Image Gallery tests
@@ -252,7 +221,7 @@ mod tests {
     #[test] fn test_image_gallery_with_class() { 
     #[test] fn test_image_gallery_with_style() { 
     #[test] fn test_image_gallery_images() { 
-    #[test] fn test_image_gallery_current_index() { 
+    #[test] fn test_image_gallerycurrent_index() { 
     #[test] fn test_image_gallery_on_image_select() { 
 
     // Gallery Image tests
@@ -267,25 +236,25 @@ mod tests {
 
     // Property-based Tests
     #[test] fn test_imageviewer_property_based() {
-        proptest!(|(__class in ".*", _style in ".*")| {
+        proptest!(|(____class in ".*", __style in ".*")| {
             
         });
     }
 
     #[test] fn test_imageviewer_config_validation() {
-        proptest!(|(__width in 100.0..2000.0f64, _height in 100.0..2000.0f64)| {
+        proptest!(|(____width in 100.0..2000.0f64, __height in 100.0..2000.0f64)| {
             
         });
     }
 
     #[test] fn test_imageviewer_zoom_property_based() {
-        proptest!(|(__zoom_min in 0.1..1.0f64, _zoom_max in 1.0..10.0f64)| {
+        proptest!(|(____zoom_min in 0.1..1.0f64, __zoom_max in 1.0..10.0f64)| {
             
         });
     }
 
     #[test] fn test_imageviewer_gallery_property_based() {
-        proptest!(|(___image_count in 0..50usize)| {
+        proptest!(|(______image_count in 0..50usize)| {
             
         });
     }
