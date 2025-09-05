@@ -426,11 +426,16 @@ pub fn DropdownMenuCheckboxItem(
                         class=move || {
                             if ischecked.get() {
                                 "h-2 w-2 bg-current"
+                            } else {
+                                ""
+                            }
                         }
                         style=move || {
                             if ischecked.get() {
                                 "background-color: currentColor;"
-                        }
+                            } else {
+                                ""
+                            }
                     />
                 </div>
                 {children()}
@@ -528,11 +533,16 @@ pub fn DropdownMenuRadioItem(
                         class=move || {
                             if ischecked.get() {
                                 "h-2 w-2 rounded-full bg-current"
+                            } else {
+                                ""
+                            }
                         }
                         style=move || {
                             if ischecked.get() {
                                 "background-color: currentColor;"
-                        }
+                            } else {
+                                ""
+                            }
                     />
                 </div>
                 {children()}

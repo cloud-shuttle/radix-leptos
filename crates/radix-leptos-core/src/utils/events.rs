@@ -111,6 +111,8 @@ pub fn create_mouse_event(event_type: &str) -> web_sys::MouseEvent {
 mod tests {
     use wasm_bindgen_test::*;
 
+    use super::*;
+    
     wasm_bindgen_test_configure!(run_in_browser);
 
     #[test]

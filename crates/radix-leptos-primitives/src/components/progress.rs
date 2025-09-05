@@ -94,6 +94,9 @@ pub fn Progress(
     // Calculate percentage for visual representation
     let percentage = if max > 0.0 && !indeterminate {
         (value / max * 100.0).clamp(0.0, 100.0)
+    } else {
+        0.0
+    };
 
     view! {
         <div
@@ -251,8 +254,11 @@ mod tests {
             let indeterminate = false;
 
             // Test percentage calculation
-            let percentage = if max > 0.0 && !indeterminate {
-                (value / max * 100.0f64).clamp(0.0f64, 100.0f64)
+            let percentage = if _max > 0.0 && !indeterminate {
+                (value / _max * 100.0f64).clamp(0.0f64, 100.0f64)
+            } else {
+                0.0
+            };
 
             assert_eq!(percentage, 50.0);
         });
@@ -269,14 +275,23 @@ mod tests {
             let value_above_max = 150.0;
             let value_in_range = 50.0;
 
-            let percentage_below = if max > 0.0 && !indeterminate {
-                (value_below_min / max * 100.0f64).clamp(0.0f64, 100.0f64)
+            let percentage_below = if _max > 0.0 && !indeterminate {
+                (value_below_min / _max * 100.0f64).clamp(0.0f64, 100.0f64)
+            } else {
+                0.0
+            };
 
-            let percentage_above = if max > 0.0 && !indeterminate {
-                (value_above_max / max * 100.0f64).clamp(0.0f64, 100.0f64)
+            let percentage_above = if _max > 0.0 && !indeterminate {
+                (value_above_max / _max * 100.0f64).clamp(0.0f64, 100.0f64)
+            } else {
+                0.0
+            };
 
-            let percentage_in_range = if max > 0.0 && !indeterminate {
-                (value_in_range / max * 100.0f64).clamp(0.0f64, 100.0f64)
+            let percentage_in_range = if _max > 0.0 && !indeterminate {
+                (value_in_range / _max * 100.0f64).clamp(0.0f64, 100.0f64)
+            } else {
+                0.0
+            };
 
             assert_eq!(percentage_below, 0.0);
             assert_eq!(percentage_above, 100.0);
@@ -293,8 +308,11 @@ mod tests {
             let indeterminate = true;
 
             // Test percentage calculation for indeterminate state
-            let percentage = if max > 0.0 && !indeterminate {
-                (value / max * 100.0f64).clamp(0.0f64, 100.0f64)
+            let percentage = if _max > 0.0 && !indeterminate {
+                (value / _max * 100.0f64).clamp(0.0f64, 100.0f64)
+            } else {
+                0.0
+            };
 
             assert_eq!(percentage, 0.0);
         });
@@ -308,6 +326,8 @@ mod tests {
             let indeterminate = true;
 
             // Test ARIA attributes for indeterminate state
+            assert!(indeterminate);
+        });
     }
 
     // 5. Accessibility Tests
@@ -337,8 +357,11 @@ mod tests {
             let _max = 0.0;
             let indeterminate = false;
 
-            let percentage = if max > 0.0 && !indeterminate {
-                (value / max * 100.0f64).clamp(0.0f64, 100.0f64)
+            let percentage = if _max > 0.0 && !indeterminate {
+                (value / _max * 100.0f64).clamp(0.0f64, 100.0f64)
+            } else {
+                0.0
+            };
 
             assert_eq!(percentage, 0.0);
         });
@@ -351,8 +374,11 @@ mod tests {
             let _max = 100.0;
             let indeterminate = false;
 
-            let percentage = if max > 0.0 && !indeterminate {
-                (value / max * 100.0f64).clamp(0.0f64, 100.0f64)
+            let percentage = if _max > 0.0 && !indeterminate {
+                (value / _max * 100.0f64).clamp(0.0f64, 100.0f64)
+            } else {
+                0.0
+            };
 
             assert_eq!(percentage, 0.0);
         });
@@ -365,8 +391,11 @@ mod tests {
             let _max = 100.0;
             let indeterminate = false;
 
-            let percentage = if max > 0.0 && !indeterminate {
-                (value / max * 100.0f64).clamp(0.0f64, 100.0f64)
+            let percentage = if _max > 0.0 && !indeterminate {
+                (value / _max * 100.0f64).clamp(0.0f64, 100.0f64)
+            } else {
+                0.0
+            };
 
             assert_eq!(percentage, 100.0);
         });

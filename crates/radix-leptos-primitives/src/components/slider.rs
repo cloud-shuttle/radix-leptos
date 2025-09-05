@@ -155,6 +155,9 @@ pub fn Slider(
     // Calculate percentage for visual representation
     let percentage = if max > min {
         ((value - min) / (max - min) * 100.0).clamp(0.0, 100.0)
+    } else {
+        0.0
+    };
 
     view! {
         <div
@@ -350,8 +353,11 @@ mod tests {
             let _step = 1.0;
 
             // Test percentage calculation
-            let percentage = if max > min {
-                ((value - min) / (max - min) * 100.0f64).clamp(0.0f64, 100.0f64)
+            let percentage = if _max > min {
+                ((value - min) / (_max - min) * 100.0f64).clamp(0.0f64, 100.0f64)
+            } else {
+                0.0
+            };
 
             assert_eq!(percentage, 50.0);
         });
@@ -474,8 +480,11 @@ mod tests {
             let _max = 0.0;
             let _step = 1.0;
 
-            let percentage = if max > min {
-                ((value - min) / (max - min) * 100.0f64).clamp(0.0f64, 100.0f64)
+            let percentage = if _max > min {
+                ((value - min) / (_max - min) * 100.0f64).clamp(0.0f64, 100.0f64)
+            } else {
+                0.0
+            };
 
             assert_eq!(percentage, 0.0);
         });
@@ -489,8 +498,11 @@ mod tests {
             let _max = 100.0;
             let _step = 5.0;
 
-            let percentage = if max > min {
-                ((value - min) / (max - min) * 100.0f64).clamp(0.0f64, 100.0f64)
+            let percentage = if _max > min {
+                ((value - min) / (_max - min) * 100.0f64).clamp(0.0f64, 100.0f64)
+            } else {
+                0.0
+            };
 
             assert_eq!(percentage, 37.5);
         });
@@ -509,6 +521,9 @@ mod tests {
             let arrow_left_pressed = true;
             let new_value: f64 = if !disabled && arrow_left_pressed {
                 (value - step).max(min)
+            } else {
+                value
+            };
 
             assert_eq!(new_value, 50.0); // Should remain unchanged
         });
@@ -541,8 +556,11 @@ mod tests {
             assert!(step > 0.0);
 
             // Test percentage calculation
-            let percentage = if max > min {
-                ((value - min) / (max - min) * 100.0f64).clamp(0.0f64, 100.0f64)
+            let percentage = if _max > min {
+                ((value - min) / (_max - min) * 100.0f64).clamp(0.0f64, 100.0f64)
+            } else {
+                0.0
+            };
 
             assert!(percentage >= 0.0 && percentage <= 100.0);
 

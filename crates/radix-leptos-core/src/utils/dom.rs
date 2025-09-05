@@ -83,6 +83,8 @@ pub fn get_last_focusable(container: &Element) -> Option<Element> {
 mod tests {
     use wasm_bindgen_test::*;
 
+    use super::*;
+    
     wasm_bindgen_test_configure!(run_in_browser);
 
     #[wasm_bindgen_test]
