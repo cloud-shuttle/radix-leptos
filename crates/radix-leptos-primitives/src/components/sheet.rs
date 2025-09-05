@@ -111,7 +111,7 @@ pub fn Sheet(
     let size = size.unwrap_or(SheetSize::Medium);
     let onopen_change = onopen_change.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = 
+    let class = merge_classes([
         "sheet",
         position.as_str(),
         size.as_str(),

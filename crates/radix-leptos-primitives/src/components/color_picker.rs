@@ -19,7 +19,7 @@ pub fn ColorPicker(
     let show_palette = show_palette.unwrap_or(true);
     let show_recent = show_recent.unwrap_or(true);
 
-    let class = 
+    let class = merge_classes([
         "color-picker",
         &format.to_class(),
         class.as_deref().unwrap_or(""),
@@ -119,7 +119,7 @@ pub fn ColorSwatch(
     let size = size.unwrap_or(24.0);
     let selected = selected.unwrap_or(false);
 
-    let class = 
+    let class = merge_classes([
         "color-swatch",
             data-color=color
             data-size=size
@@ -142,7 +142,7 @@ pub fn ColorPalette(
     let colors = colors.unwrap_or_default();
     let selected_color = selected_color.unwrap_or_default();
 
-    let class = 
+    let class = merge_classes([
         "color-palette",
         class.as_deref().unwrap_or(""),
     ]);
@@ -175,7 +175,7 @@ pub fn ColorInput(
     let format = format.unwrap_or_default();
     let placeholder = placeholder.unwrap_or_default();
 
-    let class = 
+    let class = merge_classes([
         "color-input",
         &format.to_class(),
         class.as_deref().unwrap_or(""),
@@ -209,7 +209,7 @@ pub fn ColorSlider(
     let _max = max.unwrap_or(100.0);
     let _step = step.unwrap_or(1.0);
 
-    let class = 
+    let class = merge_classes([
         "color-slider",
         class.as_deref().unwrap_or(""),
     ]);

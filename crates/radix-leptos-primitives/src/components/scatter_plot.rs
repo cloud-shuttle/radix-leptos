@@ -19,7 +19,7 @@ pub fn ScatterPlot(
     let show_grid = show_grid.unwrap_or(true);
     let show_axes = show_axes.unwrap_or(true);
 
-    let class = 
+    let class = merge_classes([
         "scatter-plot",
         </div>
     }
@@ -173,7 +173,7 @@ pub fn ScatterPlotPoint(
     let point = point.unwrap_or_default();
     let size = size.unwrap_or(4.0);
 
-    let class = 
+    let class = merge_classes([
         "scatter-plot-point",
         class.as_deref().unwrap_or(""),
     ]);
@@ -205,7 +205,7 @@ pub fn ScatterPlotTrendLine(
     let trend_type = trend_type.unwrap_or_default();
     let opacity = opacity.unwrap_or(0.8);
 
-    let class = 
+    let class = merge_classes([
         "scatter-plot-trend-line",
         &trend_type.to_class(),
         class.as_deref().unwrap_or(""),

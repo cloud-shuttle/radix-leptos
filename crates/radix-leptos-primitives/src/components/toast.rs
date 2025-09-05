@@ -21,7 +21,7 @@ pub fn Toast(
     let duration = duration.unwrap_or(5000);
     let dismissible = dismissible.unwrap_or(true);
 
-    let class = 
+    let class = merge_classes([
         "toast",
         &variant.to_class(),
         &position.to_class(),
@@ -60,7 +60,7 @@ pub fn ToastProvider(
     let max_toasts = max_toasts.unwrap_or(5);
     let default_duration = default_duration.unwrap_or(5000);
 
-    let class = 
+    let class = merge_classes([
         "toast-provider",
         &position.to_class(),
         class.as_deref().unwrap_or(""),
@@ -268,7 +268,7 @@ pub fn ToastViewport(
 ) -> impl IntoView {
     let position = position.unwrap_or_default();
 
-    let class = 
+    let class = merge_classes([
         "toast-viewport",
         &position.to_class(),
         class.as_deref().unwrap_or(""),

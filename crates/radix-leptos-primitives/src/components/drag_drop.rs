@@ -15,7 +15,7 @@ pub fn DragDrop(
     let items = items.unwrap_or_default();
     let config = config.unwrap_or_default();
 
-    let class = 
+    let class = merge_classes([
         "drag-drop",
         class.as_deref().unwrap_or(""),
     ]);
@@ -135,7 +135,7 @@ pub fn DragHandle(
 ) -> impl IntoView {
     let item_id = item_id.unwrap_or_default();
 
-    let class = 
+    let class = merge_classes([
         "drag-handle",
         class.as_deref().unwrap_or(""),
     ]);
@@ -168,7 +168,7 @@ pub fn DropZone(
     let zone_id = zone_id.unwrap_or_default();
     let accept_types = accept_types.unwrap_or_default();
 
-    let class = 
+    let class = merge_classes([
         "drop-zone",
         class.as_deref().unwrap_or(""),
     ]);
@@ -203,7 +203,7 @@ pub fn DragPreview(
         return view! { <></> }.into_any();
     }
 
-    let class = 
+    let class = merge_classes([
         "drag-preview",
         class.as_deref().unwrap_or(""),
     ]);

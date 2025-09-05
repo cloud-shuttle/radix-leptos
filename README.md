@@ -195,12 +195,51 @@ open http://localhost:8081/manual-test-suite.html
 
 ```
 radix-leptos/
-├── crates/
+├── crates/                      # Core library crates
 │   ├── radix-leptos-core/      # Core utilities and traits
 │   ├── radix-leptos-primitives/ # UI component primitives
 │   └── radix-leptos/           # Main library facade
 ├── examples/                    # Example applications
-└── tests/                      # Comprehensive test suite
+├── docs/                        # Documentation
+│   ├── remediation/            # Remediation documentation
+│   ├── releases/               # Release notes and changelogs
+│   ├── developer-guide/        # Development guidelines
+│   └── user-guide/             # User documentation
+├── tests/                       # Comprehensive test suite
+│   ├── unit/                   # Unit tests
+│   ├── integration/            # Integration tests
+│   ├── e2e/                    # End-to-end tests
+│   └── performance/            # Performance tests
+└── scripts/                     # Development scripts
+    ├── remediation/            # Error fixing and remediation
+    ├── maintenance/            # Build and deployment
+    └── testing/                # Test automation
+```
+
+## 🛠️ Development Scripts
+
+The project includes organized automation scripts for development and maintenance:
+
+### Remediation Scripts (`scripts/remediation/`)
+- **Error fixing scripts** for systematic code remediation
+- **Phase execution scripts** for organized error resolution
+- **Complete remediation automation** for large-scale fixes
+
+### Maintenance Scripts (`scripts/maintenance/`)
+- **Build automation** for development and production
+- **Deployment scripts** for automated releases
+- **Test execution** for comprehensive validation
+
+### Usage
+```bash
+# Run complete remediation
+./scripts/remediation/run_full_remediation.sh
+
+# Build for production
+./scripts/maintenance/build-production.sh
+
+# Run all tests
+./scripts/maintenance/run-tests.sh
 ```
 
 ## 🔧 Feature Flags

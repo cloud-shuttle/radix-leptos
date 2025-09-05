@@ -35,7 +35,7 @@ pub fn Toggle(
         });
     }
 
-    let class = 
+    let class = merge_classes([
         "toggle",
         &variant.to_class(),
         &size.to_class(),

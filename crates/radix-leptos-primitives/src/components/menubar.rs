@@ -33,7 +33,7 @@ pub fn Menubar(
         });
     }
 
-    let class = 
+    let class = merge_classes([
         "menubar",
         &orientation.to_class(),
         class.as_deref().unwrap_or(""),
@@ -64,7 +64,7 @@ pub fn MenubarMenu(
     let disabled = disabled.unwrap_or(false);
     let value = value.unwrap_or_default();
 
-    let class = 
+    let class = merge_classes([
         "menubar-menu",
     ]);
 
@@ -97,10 +97,9 @@ pub fn MenubarTrigger(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = 
+    let class = merge_classes([
         "menubar-trigger",
-        }
-    };
+    ]);
 
     let handle_keydown = move |ev: web_sys::KeyboardEvent| {
         if !disabled && (ev.key() == "Enter" || ev.key() == " ") {
@@ -167,10 +166,9 @@ pub fn MenubarItem(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = 
+    let class = merge_classes([
         "menubar-item",
-        }
-    };
+    ]);
 
     let handle_keydown = move |ev: web_sys::KeyboardEvent| {
         if !disabled && (ev.key() == "Enter" || ev.key() == " ") {

@@ -111,7 +111,7 @@ pub fn ThemeCategorySection(
     let show_preview = show_preview.unwrap_or(true);
     let on_theme_change = on_theme_change.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = 
+    let class = merge_classes([
         "theme-category-section",
         category.as_str(),
         class.as_deref().unwrap_or(""),
@@ -157,7 +157,7 @@ pub fn ThemeCard(
     let show_preview = show_preview.unwrap_or(true);
     let on_select = on_select.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = 
+    let class = merge_classes([
         "theme-card",
         class.as_deref().unwrap_or(""),
     ]);

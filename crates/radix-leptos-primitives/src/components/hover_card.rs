@@ -125,7 +125,7 @@ pub fn HoverCardContent(
         return view! { <></> }.into_any();
     }
 
-    let class = 
+    let class = merge_classes([
         "hover-card-content",
         &side.to_class(),
         &align.to_class(),

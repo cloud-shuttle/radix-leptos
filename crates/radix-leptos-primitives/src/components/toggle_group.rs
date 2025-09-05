@@ -41,7 +41,7 @@ pub fn ToggleGroup(
         });
     }
 
-    let class = 
+    let class = merge_classes([
         "toggle-group",
         &variant.to_class(),
         &size.to_class(),
@@ -64,7 +64,7 @@ pub fn ToggleGroupItem(
     let disabled = disabled.unwrap_or(false);
     let value = value.unwrap_or_default();
 
-    let class = 
+    let class = merge_classes([
         "toggle-group-item",
         }
     };

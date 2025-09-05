@@ -93,7 +93,7 @@ pub fn AspectRatioWrapper(
     let ratio = ratio.unwrap_or(16.0 / 9.0);
     let fit = fit.unwrap_or_default();
 
-    let class = 
+    let class = merge_classes([
         "aspect-ratio-wrapper",
         &fit.to_class(),
         class.as_deref().unwrap_or(""),

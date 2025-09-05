@@ -111,7 +111,7 @@ pub fn ContextMenuItem(
     let item = item.unwrap_or_default();
     let selected = selected.unwrap_or(false);
 
-    let class = 
+    let class = merge_classes([
         "context-menu-item",
         }
     };
@@ -146,7 +146,7 @@ pub fn ContextMenuTrigger(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = 
+    let class = merge_classes([
         "context-menu-trigger",
         </div>
     }

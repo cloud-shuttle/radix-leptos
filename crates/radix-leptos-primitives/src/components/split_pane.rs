@@ -18,7 +18,7 @@ pub fn SplitPane(
     let max_sizes = max_sizes.unwrap_or([80.0, 80.0]);
     let resizable = resizable.unwrap_or(true);
 
-    let class = 
+    let class = merge_classes([
         "split-pane",
         &direction.to_class(),
         </div>
@@ -78,7 +78,7 @@ pub fn SplitPanePanel(
     let collapsible = collapsible.unwrap_or(false);
     let collapsed = collapsed.unwrap_or(false);
 
-    let class = 
+    let class = merge_classes([
         "split-pane-panel",
         </div>
     }
@@ -96,7 +96,7 @@ pub fn SplitPaneResizer(
 ) -> impl IntoView {
     let direction = direction.unwrap_or_default();
 
-    let class = 
+    let class = merge_classes([
         "split-pane-resizer",
         &direction.to_class(),
         class.as_deref().unwrap_or(""),

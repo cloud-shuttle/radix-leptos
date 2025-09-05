@@ -27,7 +27,7 @@ pub fn DatePicker(
     let format = format.unwrap_or_else(|| "YYYY-MM-DD".to_string());
     let locale = locale.unwrap_or_else(|| "en-US".to_string());
 
-    let class = 
+    let class = merge_classes([
         "date-picker",
         class.as_deref().unwrap_or(""),
     ]);
@@ -74,7 +74,7 @@ pub fn DatePickerInput(
     let required = required.unwrap_or(false);
     let format = format.unwrap_or_else(|| "YYYY-MM-DD".to_string());
 
-    let class = 
+    let class = merge_classes([
         "date-picker-input",
         class.as_deref().unwrap_or(""),
     ]);
@@ -131,7 +131,7 @@ pub fn DatePickerTrigger(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = 
+    let class = merge_classes([
         "date-picker-trigger",
         }
     };
@@ -209,7 +209,7 @@ pub fn DatePickerValidation(
 ) -> impl IntoView {
     let validation = validation.unwrap_or_default();
 
-    let class = 
+    let class = merge_classes([
         "date-picker-validation",
         if validation.is_valid {
             "valid"

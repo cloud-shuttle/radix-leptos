@@ -15,7 +15,7 @@ pub fn Separator(
     let thickness = thickness.unwrap_or_default();
     let color = color.unwrap_or_default();
 
-    let class = 
+    let class = merge_classes([
         "separator",
         &orientation.to_class(),
         &thickness.to_class(),
@@ -48,7 +48,7 @@ pub fn SeparatorLine(
     let thickness = thickness.unwrap_or_default();
     let color = color.unwrap_or_default();
 
-    let class = 
+    let class = merge_classes([
         "separator-line",
         &orientation.to_class(),
         &thickness.to_class(),
@@ -81,7 +81,7 @@ pub fn SeparatorText(
     let text = text.unwrap_or_default();
     let orientation = orientation.unwrap_or_default();
 
-    let class = 
+    let class = merge_classes([
         "separator-text",
         &orientation.to_class(),
         class.as_deref().unwrap_or(""),
@@ -173,7 +173,7 @@ pub fn SeparatorGroup(
     let spacing = spacing.unwrap_or_default();
     let orientation = orientation.unwrap_or_default();
 
-    let class = 
+    let class = merge_classes([
         "separator-group",
         &spacing.to_class(),
         &orientation.to_class(),

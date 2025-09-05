@@ -21,7 +21,7 @@ pub fn ImageViewer(
     let pannable = pannable.unwrap_or(true);
     let rotatable = rotatable.unwrap_or(true);
 
-    let class = 
+    let class = merge_classes([
         "image-viewer",
         </div>
     }
@@ -69,7 +69,7 @@ pub fn ImageControls(
     let zoom_level = zoom_level.unwrap_or(1.0);
     let rotation = rotation.unwrap_or(0.0);
 
-    let class = 
+    let class = merge_classes([
         "image-controls",
         class.as_deref().unwrap_or(""),
     ]);
@@ -102,7 +102,7 @@ pub fn ImageThumbnail(
     let alt = alt.unwrap_or_default();
     let selected = selected.unwrap_or(false);
 
-    let class = 
+    let class = merge_classes([
         "image-thumbnail",
             data-src=src
             data-selected=selected
@@ -124,7 +124,7 @@ pub fn ImageGallery(
     let images = images.unwrap_or_default();
     let current_index = current_index.unwrap_or(0);
 
-    let class = 
+    let class = merge_classes([
         "image-gallery",
         class.as_deref().unwrap_or(""),
     ]);

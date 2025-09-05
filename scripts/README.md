@@ -1,46 +1,153 @@
-# Scripts Directory
+# 🛠️ Radix-Leptos Scripts
 
-This directory contains various utility scripts for the radix-leptos project.
+This directory contains all the automation scripts for the Radix-Leptos project, organized by purpose and functionality.
 
-## Directory Structure
+## 📁 Directory Structure
 
-### `test-fixes/`
-Contains scripts used to fix test compilation issues during development:
+```
+scripts/
+├── README.md                    # This file
+├── remediation/                 # Remediation and error fixing scripts
+├── maintenance/                 # Build, deployment, and maintenance scripts
+├── testing/                     # Test automation and validation scripts
+├── bundle-size-monitor.js       # Bundle size monitoring
+├── performance-benchmark.js     # Performance benchmarking
+├── prepare-release.sh          # Release preparation
+├── release.sh                  # Automated release process
+├── setup-hooks.sh              # Git hooks setup
+└── tdd-workflow.sh             # Test-driven development workflow
+```
 
-- `fix_component_variants_tests.sh` - Fixes embedded tests in component_variants.rs
-- `fix_dark_mode_tests.sh` - Fixes embedded tests in dark_mode.rs  
-- `fix_layout_system_tests.sh` - Fixes embedded tests in layout_system.rs
-- `fix_prebuilt_themes_tests.sh` - Fixes embedded tests in prebuilt_themes.rs
-- `fix_proptest.sh` - Fixes proptest macro issues throughout codebase
-- `fix_size_variants_tests.sh` - Fixes embedded tests in size_variants.rs
-- `fix_theme_customization_tests.sh` - Fixes embedded tests in theme_customization.rs
-- `fix_theme_provider_tests.sh` - Fixes embedded tests in theme_provider.rs
+## 🔧 Script Categories
 
-### `maintenance/`
-Contains scripts for ongoing project maintenance:
+### 🚨 Remediation Scripts (`remediation/`)
 
-- `run-tests.sh` - Main test runner script for the project
+These scripts were created to systematically fix the 400+ compilation errors in the codebase:
 
-### `bundle-size-monitor.js`
-Monitors bundle size and provides alerts when size increases.
+#### Core Fix Scripts
+- `fix_array_to_vec.sh` - Converts array literals to vectors
+- `fix_proptest_arrays.sh` - Fixes proptest array references
+- `fix_variable_naming.sh` - Standardizes variable naming
+- `fix_field_naming.sh` - Standardizes struct field naming
+- `fix_remaining_errors.sh` - Addresses remaining compilation issues
+- `fix_merge_classes_syntax.sh` - Fixes merge_classes syntax errors
 
-### `performance-benchmark.js`
-Runs performance benchmarks on components.
+#### Phase Execution Scripts
+- `run_remediation_phase1.sh` - Phase 1: Critical type fixes
+- `run_remediation_phase2.sh` - Phase 2: Variable naming consistency
+- `run_remediation_phase3.sh` - Phase 3: Struct definition alignment
+- `run_remediation_phase4.sh` - Phase 4: Final cleanup and validation
+- `run_full_remediation.sh` - Master script for complete remediation
 
-### `prepare-release.sh`
-Prepares the project for release by running checks and building.
+#### Usage
+```bash
+# Run individual fixes
+./scripts/remediation/fix_array_to_vec.sh
 
-### `tdd-workflow.sh`
-Implements TDD workflow automation.
+# Run specific phase
+./scripts/remediation/run_remediation_phase1.sh
 
-## Usage
+# Run complete remediation
+./scripts/remediation/run_full_remediation.sh
+```
 
-Most scripts are designed to be run from the project root directory. Check individual script files for specific usage instructions.
+### 🔨 Maintenance Scripts (`maintenance/`)
 
-## Contributing
+Scripts for building, deploying, and maintaining the project:
+
+- `build.sh` - Standard build process
+- `build-production.sh` - Production build with optimizations
+- `deploy-production.sh` - Production deployment
+- `run-tests.sh` - Test execution
+
+#### Usage
+```bash
+# Build the project
+./scripts/maintenance/build.sh
+
+# Build for production
+./scripts/maintenance/build-production.sh
+
+# Deploy to production
+./scripts/maintenance/deploy-production.sh
+```
+
+### 🧪 Testing Scripts (`testing/`)
+
+Scripts for test automation and validation:
+
+- Test execution scripts
+- Test result analysis
+- Test coverage reporting
+
+### 📊 Monitoring Scripts
+
+- `bundle-size-monitor.js` - Monitors bundle size changes
+- `performance-benchmark.js` - Performance benchmarking
+
+### 🚀 Release Scripts
+
+- `prepare-release.sh` - Prepares release artifacts
+- `release.sh` - Automated release process
+
+### ⚙️ Setup Scripts
+
+- `setup-hooks.sh` - Sets up Git hooks for development
+- `tdd-workflow.sh` - Test-driven development workflow
+
+## 🎯 Usage Guidelines
+
+### Running Scripts
+
+1. **Make scripts executable** (if not already):
+   ```bash
+   chmod +x scripts/**/*.sh
+   ```
+
+2. **Run from project root**:
+   ```bash
+   ./scripts/category/script-name.sh
+   ```
+
+3. **Check script help** (if available):
+   ```bash
+   ./scripts/category/script-name.sh --help
+   ```
+
+### Script Safety
+
+- All scripts include error handling and safety checks
+- Scripts create backup branches before making changes
+- Scripts provide detailed output and progress information
+- Scripts can be run multiple times safely (idempotent)
+
+### Development Workflow
+
+1. **Before making changes**: Run relevant maintenance scripts
+2. **During development**: Use testing scripts for validation
+3. **After development**: Use remediation scripts if issues arise
+4. **For releases**: Use release scripts for automation
+
+## 📚 Documentation
+
+- **Remediation**: See `docs/remediation/` for detailed remediation documentation
+- **Releases**: See `docs/releases/` for release notes and documentation
+- **Development**: See `docs/developer-guide/` for development guidelines
+
+## 🤝 Contributing
 
 When adding new scripts:
-1. Place them in the appropriate subdirectory
-2. Make them executable (`chmod +x script_name.sh`)
-3. Update this README with a description
-4. Add usage instructions in the script header
+
+1. **Place in appropriate directory** based on purpose
+2. **Add to this README** with description and usage
+3. **Include error handling** and safety checks
+4. **Make executable** with `chmod +x`
+5. **Test thoroughly** before committing
+
+## 🎉 Success Story
+
+These scripts were instrumental in transforming the Radix-Leptos codebase from 400+ compilation errors to a fully functional, production-ready component library. They represent a systematic approach to code quality and maintenance that can be applied to other projects.
+
+---
+
+*For more information, see the main project documentation in the `docs/` directory.*

@@ -21,7 +21,7 @@ pub fn LineChart(
     let show_points = show_points.unwrap_or(true);
     let show_grid = show_grid.unwrap_or(true);
 
-    let class = 
+    let class = merge_classes([
         "line-chart",
         class.as_deref().unwrap_or(""),
     ]);
@@ -190,7 +190,7 @@ pub fn LineChartArea(
     let series = series.unwrap_or_default();
     let opacity = opacity.unwrap_or(0.3);
 
-    let class = 
+    let class = merge_classes([
         "line-chart-area",
         class.as_deref().unwrap_or(""),
     ]);
@@ -219,7 +219,7 @@ pub fn LineChartPoint(
     let point = point.unwrap_or_default();
     let radius = radius.unwrap_or(4.0);
 
-    let class = 
+    let class = merge_classes([
         "line-chart-point",
         class.as_deref().unwrap_or(""),
     ]);

@@ -18,7 +18,7 @@ pub fn Label(
     let size = size.unwrap_or_default();
     let variant = variant.unwrap_or_default();
 
-    let class = 
+    let class = merge_classes([
         "label",
         &size.to_class(),
         &variant.to_class(),
@@ -59,7 +59,7 @@ pub fn LabelText(
     let text = text.unwrap_or_default();
     let required = required.unwrap_or(false);
 
-    let class = 
+    let class = merge_classes([
         "label-text",
             {if required {
                 view! { <span class="required-indicator" aria-label="required">"*"</span> }.into_any()
@@ -104,7 +104,7 @@ pub fn LabelError(
     let error = error.unwrap_or_default();
     let visible = visible.unwrap_or(false);
 
-    let class = 
+    let class = merge_classes([
         "label-error",
         </div>
     }
@@ -122,7 +122,7 @@ pub fn LabelGroup(
     let orientation = orientation.unwrap_or_default();
     let spacing = spacing.unwrap_or_default();
 
-    let class = 
+    let class = merge_classes([
         "label-group",
         &orientation.to_class(),
         &spacing.to_class(),

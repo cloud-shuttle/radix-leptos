@@ -33,7 +33,7 @@ pub fn NavigationMenu(
         });
     }
 
-    let class = 
+    let class = merge_classes([
         "navigation-menu",
         &orientation.to_class(),
         class.as_deref().unwrap_or(""),
@@ -80,10 +80,9 @@ pub fn NavigationMenuItem(
     let disabled = disabled.unwrap_or(false);
     let value = value.unwrap_or_default();
 
-    let class = 
+    let class = merge_classes([
         "navigation-menu-item",
-        }
-    };
+    ]);
 
     let handle_keydown = move |ev: web_sys::KeyboardEvent| {
         if !disabled && (ev.key() == "Enter" || ev.key() == " ") {
@@ -118,7 +117,7 @@ pub fn NavigationMenuTrigger(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = 
+    let class = merge_classes([
         "navigation-menu-trigger",
         }
     };
@@ -190,7 +189,7 @@ pub fn NavigationMenuLink(
     let disabled = disabled.unwrap_or(false);
     let active = active.unwrap_or(false);
 
-    let class = 
+    let class = merge_classes([
         "navigation-menu-link",
         class.as_deref().unwrap_or(""),
     ]);

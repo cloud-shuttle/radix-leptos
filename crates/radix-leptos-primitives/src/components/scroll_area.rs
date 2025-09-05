@@ -13,7 +13,7 @@ pub fn ScrollArea(
     let orientation = orientation.unwrap_or_default();
     let scroll_hidden = scroll_hidden.unwrap_or(false);
 
-    let class = 
+    let class = merge_classes([
         "scroll-area",
         &orientation.to_class(),
         </div>
@@ -51,7 +51,7 @@ pub fn ScrollAreaScrollbar(
     let orientation = orientation.unwrap_or_default();
     let force_mount = force_mount.unwrap_or(false);
 
-    let class = 
+    let class = merge_classes([
         "scroll-area-scrollbar",
         &orientation.to_class(),
         </div>

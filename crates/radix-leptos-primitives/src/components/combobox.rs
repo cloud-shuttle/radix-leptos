@@ -26,7 +26,7 @@ pub fn Combobox(
     let searchable = searchable.unwrap_or(true);
     let clearable = clearable.unwrap_or(true);
 
-    let class = 
+    let class = merge_classes([
         "combobox",
         </div>
     }
@@ -51,7 +51,7 @@ pub fn ComboboxInput(
     let disabled = disabled.unwrap_or(false);
     let required = required.unwrap_or(false);
 
-    let class = 
+    let class = merge_classes([
         "combobox-input",
         class.as_deref().unwrap_or(""),
     ]);
@@ -120,7 +120,7 @@ pub fn ComboboxOptions(
     let visible = visible.unwrap_or(false);
     let selected_index = selected_index.unwrap_or(0);
 
-    let class = 
+    let class = merge_classes([
         "combobox-options",
         </div>
     }
@@ -141,7 +141,7 @@ pub fn ComboboxOption(
     let selected = selected.unwrap_or(false);
     let disabled = disabled.unwrap_or(false);
 
-    let class = 
+    let class = merge_classes([
         "combobox-option",
         class.as_deref().unwrap_or(""),
     ]);
@@ -181,7 +181,7 @@ pub fn ComboboxTrigger(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = 
+    let class = merge_classes([
         "combobox-trigger",
         }
     };
@@ -211,7 +211,7 @@ pub fn ComboboxClearButton(
 ) -> impl IntoView {
     let visible = visible.unwrap_or(false);
 
-    let class = 
+    let class = merge_classes([
         "combobox-clear-button",
     };
 

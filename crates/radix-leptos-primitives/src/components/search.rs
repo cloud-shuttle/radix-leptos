@@ -25,7 +25,7 @@ pub fn Search(
     let max_suggestions = max_suggestions.unwrap_or(10);
     let debounce_ms = debounce_ms.unwrap_or(300);
 
-    let class = 
+    let class = merge_classes([
         "search",
         class.as_deref().unwrap_or(""),
     ]);
@@ -63,7 +63,7 @@ pub fn SearchInput(
     let disabled = disabled.unwrap_or(false);
     let required = required.unwrap_or(false);
 
-    let class = 
+    let class = merge_classes([
         "search-input",
         class.as_deref().unwrap_or(""),
     ]);
@@ -132,7 +132,7 @@ pub fn SearchSuggestions(
     let visible = visible.unwrap_or(false);
     let selected_index = selected_index.unwrap_or(0);
 
-    let class = 
+    let class = merge_classes([
         "search-suggestions",
         </div>
     }
@@ -151,7 +151,7 @@ pub fn SearchSuggestionItem(
     let suggestion = suggestion.unwrap_or_default();
     let selected = selected.unwrap_or(false);
 
-    let class = 
+    let class = merge_classes([
         "search-suggestion-item",
     };
 
@@ -180,7 +180,7 @@ pub fn SearchClearButton(
 ) -> impl IntoView {
     let visible = visible.unwrap_or(false);
 
-    let class = 
+    let class = merge_classes([
         "search-clear-button",
     };
 

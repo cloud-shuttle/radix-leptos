@@ -173,7 +173,7 @@ pub fn CalendarDay(
     let isdisabled = isdisabled.unwrap_or(false);
     let is_other_month = is_other_month.unwrap_or(false);
 
-    let class = 
+    let class = merge_classes([
         "calendar-day",
         class.as_deref().unwrap_or(""),
     ]);
