@@ -1,5 +1,6 @@
 use leptos::*;
 use leptos::prelude::*;
+use crate::utils::merge_classes;
 
 /// Sheet component - Side panel/drawer component for mobile and desktop
 ///
@@ -295,14 +296,6 @@ pub fn SheetClose(
     }
 }
 
-// Helper function to merge CSS classes
-fn merge_classes(classes: Vec<&str>) -> String {
-    classes
-        .into_iter()
-        .filter(|c| !c.is_empty())
-        .collect::<Vec<_>>()
-        .join(" ")
-}
 
 #[cfg(test)]
 mod tests {

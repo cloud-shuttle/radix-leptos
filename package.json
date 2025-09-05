@@ -16,14 +16,39 @@
     "test:report": "playwright show-report",
     "test:run-comprehensive": "./tests/run-comprehensive-tests.sh",
     "test:install": "playwright install",
-    "test:codegen": "playwright codegen http://localhost:8081/production-test.html"
+    "test:codegen": "playwright codegen http://localhost:8081/production-test.html",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "bundle-size": "node scripts/bundle-size-monitor.js",
+    "bundle-analyze": "node scripts/bundle-size-monitor.js analyze",
+    "bundle-monitor": "node scripts/bundle-size-monitor.js monitor",
+    "perf-init": "node scripts/performance-benchmark.js init",
+    "perf-run": "node scripts/performance-benchmark.js run",
+    "perf-compare": "node scripts/performance-benchmark.js compare",
+    "perf-report": "node scripts/performance-benchmark.js report"
   },
-  "keywords": ["radix", "leptos", "ui", "components", "wasm", "rust", "testing", "playwright"],
+  "keywords": [
+    "radix",
+    "leptos",
+    "ui",
+    "components",
+    "wasm",
+    "rust",
+    "testing",
+    "playwright"
+  ],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.15.0",
   "devDependencies": {
     "@playwright/test": "^1.55.0",
-    "playwright": "^1.55.0"
+    "@storybook/addon-a11y": "^8.6.14",
+    "@storybook/addon-docs": "^8.6.14",
+    "@storybook/addon-essentials": "^8.6.14",
+    "@storybook/addon-interactions": "^8.6.14",
+    "@storybook/addon-links": "^8.6.14",
+    "@storybook/html-vite": "^8.6.14",
+    "playwright": "^1.55.0",
+    "storybook": "^8.6.14"
   }
 }

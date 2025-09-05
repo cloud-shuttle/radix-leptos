@@ -12,12 +12,15 @@ keywords.workspace = true
 categories.workspace = true
 
 [dependencies]
-radix-leptos-core = { version = "0.7.0", path = "../radix-leptos-core" }
+radix-leptos-core = { version = "0.8.0", path = "../radix-leptos-core" }
 leptos.workspace = true
 web-sys.workspace = true
 # leptos-use.workspace = true
 wasm-bindgen.workspace = true
 js-sys.workspace = true
+serde = { version = "1.0", features = ["derive"] }
+log = "0.4"
+regex = "1.0"
 thiserror.workspace = true
 chrono.workspace = true
 

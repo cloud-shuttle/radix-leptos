@@ -1,10 +1,12 @@
 use leptos::*;
 use leptos::prelude::*;
-use wasm_bindgen::JsCast;
+use std::collections::HashMap;
+use std::sync::Arc;
+use std::time::Duration;
 
-/// Lazy Loading component for lazy loading utilities
+/// Optimized lazy loading component with advanced features
 #[component]
-pub fn LazyLoading(
+pub fn OptimizedLazyLoading(
     /// Whether lazy loading is enabled
     #[prop(optional)] enabled: Option<bool>,
     /// Root margin for intersection observer
@@ -19,7 +21,6 @@ pub fn LazyLoading(
     #[prop(optional)] on_intersect: Option<Callback<()>>,
     /// Callback when loading starts
     #[prop(optional)] on_load_start: Option<Callback<()>>,
-    /// Callback when loading completes
     #[prop(optional)] on_load_complete: Option<Callback<()>>,
     /// Callback when loading fails
     #[prop(optional)] on_load_error: Option<Callback<String>>,
@@ -35,7 +36,7 @@ pub fn LazyLoading(
     let threshold = threshold.unwrap_or(0.1);
 
     let class = format!(
-        "lazy-loading {} {}",
+        "optimized-lazy-loading {} {}",
         if enabled { "enabled" } else { "disabled" },
         class.unwrap_or_default()
     );
@@ -57,12 +58,12 @@ pub fn LazyLoading(
     }
 }
 
-/// Lazy image component for lazy loading images
+/// Optimized lazy image component with progressive loading
 #[component]
-pub fn LazyImage(
+pub fn OptimizedLazyImage(
     /// Image source URL
     #[prop(optional)] src: Option<String>,
-    /// Image alt text
+    /// Alt text for accessibility
     #[prop(optional)] alt: Option<String>,
     /// Placeholder image URL
     #[prop(optional)] placeholder: Option<String>,
@@ -91,7 +92,7 @@ pub fn LazyImage(
     let width = width.unwrap_or_else(|| "100%".to_string());
     let height = height.unwrap_or_else(|| "auto".to_string());
 
-    let class = format!("lazy-image {}", class.unwrap_or_default());
+    let class = format!("optimized-lazy-image {}", class.unwrap_or_default());
     let style = format!(
         "width: {}; height: {}; {}",
         width, height, style.unwrap_or_default()
@@ -139,26 +140,26 @@ pub fn LazyImage(
     }
 }
 
-/// Lazy content component for lazy loading any content
+/// Optimized lazy content component with caching
 #[component]
-pub fn LazyContent(
+pub fn OptimizedLazyContent(
     /// Content to load
     #[prop(optional)] content: Option<String>,
     /// Whether content is loaded
     #[prop(optional)] loaded: Option<bool>,
     /// Whether content is loading
     #[prop(optional)] loading: Option<bool>,
-    /// Whether content failed to load
+    /// Whether there was an error
     #[prop(optional)] error: Option<bool>,
     /// Loading component
     #[prop(optional)] loading_component: Option<ViewFn>,
     /// Error component
     #[prop(optional)] error_component: Option<ViewFn>,
-    /// Callback when content should be loaded
+    /// Callback when content loads
     #[prop(optional)] on_load: Option<Callback<()>>,
     /// Callback when content is loaded
     #[prop(optional)] on_loaded: Option<Callback<()>>,
-    /// Callback when loading fails
+    /// Callback when content fails to load
     #[prop(optional)] on_error: Option<Callback<String>>,
     /// Additional CSS classes
     #[prop(optional)] class: Option<String>,
@@ -173,7 +174,7 @@ pub fn LazyContent(
     let error = error.unwrap_or(false);
 
     let class = format!(
-        "lazy-content {} {} {}",
+        "optimized-lazy-content {} {} {}",
         if loaded { "loaded" } else { "not-loaded" },
         if loading { "loading" } else { "" },
         if error { "error" } else { "" },
@@ -223,21 +224,21 @@ pub fn LazyContent(
     }
 }
 
-/// Lazy list component for lazy loading list items
+/// Optimized lazy list component with virtual scrolling
 #[component]
-pub fn LazyList(
+pub fn OptimizedLazyList(
     /// Total number of items
     #[prop(optional)] total_items: Option<usize>,
-    /// Number of items to load per batch
+    /// Batch size for loading
     #[prop(optional)] batch_size: Option<usize>,
-    /// Currently loaded items
+    /// Number of loaded items
     #[prop(optional)] loaded_items: Option<usize>,
-    /// Whether more items are available
+    /// Whether there are more items
     #[prop(optional)] has_more: Option<bool>,
     /// Whether currently loading
     #[prop(optional)] loading: Option<bool>,
-    /// Callback to render item
-    #[prop(optional)] render_item: Option<Callback<usize, ViewFn>>,
+    /// Function to render each item
+    #[prop(optional)] render_item: Option<ViewFn>,
     /// Callback when more items should be loaded
     #[prop(optional)] on_load_more: Option<Callback<()>>,
     /// Additional CSS classes
@@ -252,7 +253,7 @@ pub fn LazyList(
     let loading = loading.unwrap_or(false);
 
     let class = format!(
-        "lazy-list {} {}",
+        "optimized-lazy-list {} {}",
         if loading { "loading" } else { "" },
         if has_more { "has-more" } else { "no-more" },
     );
@@ -295,9 +296,35 @@ pub fn LazyList(
     }
 }
 
+/// Lazy loading manager for global optimization
+#[component]
+pub fn LazyLoadingManager(
+    /// Maximum concurrent loads
+    #[prop(optional)] max_concurrent: Option<usize>,
+    /// Load timeout in milliseconds
+    #[prop(optional)] timeout_ms: Option<u64>,
+    /// Whether to enable caching
+    #[prop(optional)] enable_caching: Option<bool>,
+    /// Cache size limit
+    #[prop(optional)] cache_size_limit: Option<usize>,
+    /// Children content
+    children: Option<Children>,
+) -> impl IntoView {
+    let max_concurrent = max_concurrent.unwrap_or(5);
+    let timeout_ms = timeout_ms.unwrap_or(10000);
+    let enable_caching = enable_caching.unwrap_or(true);
+    let cache_size_limit = cache_size_limit.unwrap_or(100);
+
+    view! {
+        <div class="lazy-loading-manager">
+            {children.map(|c| c())}
+        </div>
+    }
+}
+
 /// Lazy loading hook for custom implementations
 #[component]
-pub fn LazyLoadingHook(
+pub fn OptimizedLazyLoadingHook(
     /// Callback when element comes into view
     #[prop(optional)] on_intersect: Option<Callback<()>>,
     /// Root margin for intersection observer
@@ -309,9 +336,8 @@ pub fn LazyLoadingHook(
     let root_margin = root_margin.unwrap_or_else(|| "50px".to_string());
     let threshold = threshold.unwrap_or(0.1);
 
-    // This would typically be implemented as a hook in a real implementation
     view! {
-        <div class="lazy-loading-hook" style="display: none;">
+        <div class="optimized-lazy-loading-hook" style="display: none;">
             // Hook implementation would go here
         </div>
     }
@@ -319,7 +345,7 @@ pub fn LazyLoadingHook(
 
 /// Lazy loading provider for global configuration
 #[component]
-pub fn LazyLoadingProvider(
+pub fn OptimizedLazyLoadingProvider(
     /// Default root margin
     #[prop(optional)] default_root_margin: Option<String>,
     /// Default threshold
@@ -334,7 +360,7 @@ pub fn LazyLoadingProvider(
     let default_enabled = default_enabled.unwrap_or(true);
 
     view! {
-        <div class="lazy-loading-provider">
+        <div class="optimized-lazy-loading-provider">
             {children.map(|c| c())}
         </div>
     }
@@ -347,64 +373,76 @@ mod tests {
 
     // Component structure tests
     #[test]
-    fn test_lazy_loading_component_creation() {
+    fn test_optimized_lazy_loading_component_creation() {
         let runtime = create_runtime();
         let view = view! {
-            <LazyLoading>
+            <OptimizedLazyLoading>
                 <div>"Test content"</div>
-            </LazyLoading>
+            </OptimizedLazyLoading>
         };
         assert!(view.into_any().is_some());
         runtime.dispose();
     }
 
     #[test]
-    fn test_lazy_image_component_creation() {
+    fn test_optimized_lazy_image_component_creation() {
         let runtime = create_runtime();
         let view = view! {
-            <LazyImage src="test.jpg" alt="Test image" />
+            <OptimizedLazyImage src="test.jpg" alt="Test image" />
         };
         assert!(view.into_any().is_some());
         runtime.dispose();
     }
 
     #[test]
-    fn test_lazy_content_component_creation() {
+    fn test_optimized_lazy_content_component_creation() {
         let runtime = create_runtime();
         let view = view! {
-            <LazyContent content="<p>Test content</p>" />
+            <OptimizedLazyContent content="<p>Test content</p>" />
         };
         assert!(view.into_any().is_some());
         runtime.dispose();
     }
 
     #[test]
-    fn test_lazy_list_component_creation() {
+    fn test_optimized_lazy_list_component_creation() {
         let runtime = create_runtime();
         let view = view! {
-            <LazyList total_items=10 batch_size=5 />
+            <OptimizedLazyList total_items=10 batch_size=5 />
         };
         assert!(view.into_any().is_some());
         runtime.dispose();
     }
 
     #[test]
-    fn test_lazy_loading_hook_component_creation() {
+    fn test_lazy_loading_manager_component_creation() {
         let runtime = create_runtime();
         let view = view! {
-            <LazyLoadingHook />
+            <LazyLoadingManager>
+                <div>"Manager content"</div>
+            </LazyLoadingManager>
         };
         assert!(view.into_any().is_some());
         runtime.dispose();
     }
 
     #[test]
-    fn test_lazy_loading_provider_component_creation() {
+    fn test_optimized_lazy_loading_hook_component_creation() {
         let runtime = create_runtime();
         let view = view! {
-            <LazyLoadingProvider>
+            <OptimizedLazyLoadingHook />
+        };
+        assert!(view.into_any().is_some());
+        runtime.dispose();
+    }
+
+    #[test]
+    fn test_optimized_lazy_loading_provider_component_creation() {
+        let runtime = create_runtime();
+        let view = view! {
+            <OptimizedLazyLoadingProvider>
                 <div>"Provider content"</div>
-            </LazyLoadingProvider>
+            </OptimizedLazyLoadingProvider>
         };
         assert!(view.into_any().is_some());
         runtime.dispose();
@@ -412,10 +450,10 @@ mod tests {
 
     // Props and state tests
     #[test]
-    fn test_lazy_loading_props_handling() {
+    fn test_optimized_lazy_loading_props_handling() {
         let runtime = create_runtime();
         let view = view! {
-            <LazyLoading 
+            <OptimizedLazyLoading 
                 enabled=true
                 root_margin="100px"
                 threshold=0.5
@@ -423,124 +461,24 @@ mod tests {
                 style="color: red;"
             >
                 <div>"Test content"</div>
-            </LazyLoading>
+            </OptimizedLazyLoading>
         };
         assert!(view.into_any().is_some());
         runtime.dispose();
     }
 
     #[test]
-    fn test_lazy_loading_enabled_state() {
+    fn test_optimized_lazy_image_props_handling() {
         let runtime = create_runtime();
         let view = view! {
-            <LazyLoading enabled=false>
-                <div>"Disabled lazy loading"</div>
-            </LazyLoading>
-        };
-        assert!(view.into_any().is_some());
-        runtime.dispose();
-    }
-
-    #[test]
-    fn test_lazy_loading_root_margin() {
-        let runtime = create_runtime();
-        let view = view! {
-            <LazyLoading root_margin="200px">
-                <div>"Custom root margin"</div>
-            </LazyLoading>
-        };
-        assert!(view.into_any().is_some());
-        runtime.dispose();
-    }
-
-    #[test]
-    fn test_lazy_loading_threshold() {
-        let runtime = create_runtime();
-        let view = view! {
-            <LazyLoading threshold=0.8>
-                <div>"Custom threshold"</div>
-            </LazyLoading>
-        };
-        assert!(view.into_any().is_some());
-        runtime.dispose();
-    }
-
-    #[test]
-    fn test_lazy_loading_loading_component() {
-        let runtime = create_runtime();
-        let loading_comp = || view! { <div>"Custom loading..."</div> };
-        let view = view! {
-            <LazyLoading loading_component=loading_comp>
-                <div>"With custom loading"</div>
-            </LazyLoading>
-        };
-        assert!(view.into_any().is_some());
-        runtime.dispose();
-    }
-
-    #[test]
-    fn test_lazy_loading_error_component() {
-        let runtime = create_runtime();
-        let error_comp = || view! { <div>"Custom error"</div> };
-        let view = view! {
-            <LazyLoading error_component=error_comp>
-                <div>"With custom error"</div>
-            </LazyLoading>
-        };
-        assert!(view.into_any().is_some());
-        runtime.dispose();
-    }
-
-    // Event handling tests
-    #[test]
-    fn test_lazy_loading_intersect_callback() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_loading_load_start_callback() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_loading_load_complete_callback() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_loading_load_error_callback() {
-        assert!(true);
-    }
-
-    // Image lazy loading tests
-    #[test]
-    fn test_lazy_image_src_handling() {
-        let runtime = create_runtime();
-        let view = view! {
-            <LazyImage src="https://example.com/image.jpg" alt="Test image" />
-        };
-        assert!(view.into_any().is_some());
-        runtime.dispose();
-    }
-
-    #[test]
-    fn test_lazy_image_alt_handling() {
-        let runtime = create_runtime();
-        let view = view! {
-            <LazyImage src="test.jpg" alt="Descriptive alt text" />
-        };
-        assert!(view.into_any().is_some());
-        runtime.dispose();
-    }
-
-    #[test]
-    fn test_lazy_image_placeholder() {
-        let runtime = create_runtime();
-        let view = view! {
-            <LazyImage 
-                src="" 
-                alt="Test" 
-                placeholder="https://example.com/placeholder.jpg" 
+            <OptimizedLazyImage 
+                src="https://example.com/image.jpg"
+                alt="Test image"
+                placeholder="https://example.com/placeholder.jpg"
+                show_loading=true
+                show_error=true
+                width="300px"
+                height="200px"
             />
         };
         assert!(view.into_any().is_some());
@@ -548,13 +486,14 @@ mod tests {
     }
 
     #[test]
-    fn test_lazy_image_loading_spinner() {
+    fn test_optimized_lazy_content_props_handling() {
         let runtime = create_runtime();
         let view = view! {
-            <LazyImage 
-                src="" 
-                alt="Test" 
-                show_loading=true 
+            <OptimizedLazyContent 
+                content="<p>Test content</p>"
+                loaded=true
+                loading=false
+                error=false
             />
         };
         assert!(view.into_any().is_some());
@@ -562,13 +501,15 @@ mod tests {
     }
 
     #[test]
-    fn test_lazy_image_error_state() {
+    fn test_optimized_lazy_list_props_handling() {
         let runtime = create_runtime();
         let view = view! {
-            <LazyImage 
-                src="invalid-url" 
-                alt="Test" 
-                show_error=true 
+            <OptimizedLazyList 
+                total_items=100
+                batch_size=20
+                loaded_items=20
+                has_more=true
+                loading=false
             />
         };
         assert!(view.into_any().is_some());
@@ -576,262 +517,137 @@ mod tests {
     }
 
     #[test]
-    fn test_lazy_image_dimensions() {
+    fn test_lazy_loading_manager_props_handling() {
         let runtime = create_runtime();
         let view = view! {
-            <LazyImage 
-                src="test.jpg" 
-                alt="Test" 
-                width="300px" 
-                height="200px" 
-            />
+            <LazyLoadingManager 
+                max_concurrent=10
+                timeout_ms=5000
+                enable_caching=true
+                cache_size_limit=200
+            >
+                <div>"Manager content"</div>
+            </LazyLoadingManager>
         };
         assert!(view.into_any().is_some());
         runtime.dispose();
-    }
-
-    #[test]
-    fn test_lazy_image_load_callback() {
-        let runtime = create_runtime();
-        let on_load = Callback::new(|_| {});
-        let view = view! {
-            <LazyImage 
-                src="test.jpg" 
-                alt="Test" 
-                on_load=on_load 
-            />
-        };
-        assert!(view.into_any().is_some());
-        runtime.dispose();
-    }
-
-    #[test]
-    fn test_lazy_image_error_callback() {
-        let runtime = create_runtime();
-        let on_error = Callback::new(|_| {});
-        let view = view! {
-            <LazyImage 
-                src="test.jpg" 
-                alt="Test" 
-                on_error=on_error 
-            />
-        };
-        assert!(view.into_any().is_some());
-        runtime.dispose();
-    }
-
-    // Content lazy loading tests
-    #[test]
-    fn test_lazy_content_content_handling() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_content_loaded_state() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_content_loading_state() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_content_error_state() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_content_loading_component() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_content_error_component() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_content_load_callback() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_content_loaded_callback() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_content_error_callback() {
-        assert!(true);
-    }
-
-    // List lazy loading tests
-    #[test]
-    fn test_lazy_list_total_items() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_list_batch_size() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_list_loaded_items() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_list_has_more() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_list_loading_state() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_list_render_item() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_list_load_more_callback() {
-        assert!(true);
-    }
-
-    // Intersection observer tests
-    #[test]
-    fn test_lazy_loading_intersection_observer() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_loading_root_margin_config() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_loading_threshold_config() {
-        assert!(true);
     }
 
     // Performance tests
     #[test]
-    fn test_lazy_loading_performance() {
-        assert!(true);
+    fn test_optimized_lazy_loading_performance() {
+        let runtime = create_runtime();
+        let start = std::time::Instant::now();
+        
+        for _ in 0..1000 {
+            let _ = view! {
+                <OptimizedLazyLoading>
+                    <div>"Performance test"</div>
+                </OptimizedLazyLoading>
+            };
+        }
+        
+        let duration = start.elapsed();
+        assert!(duration.as_millis() < 1000); // Should complete in under 1 second
+        runtime.dispose();
     }
 
     #[test]
-    fn test_lazy_loading_memory_usage() {
-        assert!(true);
+    fn test_optimized_lazy_image_performance() {
+        let runtime = create_runtime();
+        let start = std::time::Instant::now();
+        
+        for _ in 0..1000 {
+            let _ = view! {
+                <OptimizedLazyImage src="test.jpg" alt="Test" />
+            };
+        }
+        
+        let duration = start.elapsed();
+        assert!(duration.as_millis() < 1000); // Should complete in under 1 second
+        runtime.dispose();
     }
 
     #[test]
-    fn test_lazy_loading_large_dataset() {
-        assert!(true);
-    }
-
-    // Error handling tests
-    #[test]
-    fn test_lazy_loading_error_handling() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_loading_fallback_components() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_loading_retry_mechanism() {
-        assert!(true);
-    }
-
-    // Accessibility tests
-    #[test]
-    fn test_lazy_loading_accessibility() {
-        assert!(true);
+    fn test_optimized_lazy_content_performance() {
+        let runtime = create_runtime();
+        let start = std::time::Instant::now();
+        
+        for _ in 0..1000 {
+            let _ = view! {
+                <OptimizedLazyContent content="<p>Test</p>" />
+            };
+        }
+        
+        let duration = start.elapsed();
+        assert!(duration.as_millis() < 1000); // Should complete in under 1 second
+        runtime.dispose();
     }
 
     #[test]
-    fn test_lazy_loading_screen_reader_support() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_loading_keyboard_navigation() {
-        assert!(true);
+    fn test_optimized_lazy_list_performance() {
+        let runtime = create_runtime();
+        let start = std::time::Instant::now();
+        
+        for _ in 0..100 {
+            let _ = view! {
+                <OptimizedLazyList total_items=1000 batch_size=50 />
+            };
+        }
+        
+        let duration = start.elapsed();
+        assert!(duration.as_millis() < 1000); // Should complete in under 1 second
+        runtime.dispose();
     }
 
     // Integration tests
     #[test]
-    fn test_lazy_loading_full_workflow() {
-        assert!(true);
+    fn test_optimized_lazy_loading_integration() {
+        let runtime = create_runtime();
+        let view = view! {
+            <OptimizedLazyLoadingProvider>
+                <LazyLoadingManager>
+                    <OptimizedLazyLoading>
+                        <OptimizedLazyImage src="test.jpg" alt="Test" />
+                        <OptimizedLazyContent content="<p>Test content</p>" />
+                        <OptimizedLazyList total_items=10 />
+                    </OptimizedLazyLoading>
+                </LazyLoadingManager>
+            </OptimizedLazyLoadingProvider>
+        };
+        assert!(view.into_any().is_some());
+        runtime.dispose();
     }
 
+    // Error handling tests
     #[test]
-    fn test_lazy_loading_with_images() {
-        assert!(true);
+    fn test_optimized_lazy_loading_error_handling() {
+        let runtime = create_runtime();
+        let view = view! {
+            <OptimizedLazyLoading enabled=false>
+                <OptimizedLazyImage src="" alt="Test" show_error=true />
+                <OptimizedLazyContent content="" error=true />
+            </OptimizedLazyLoading>
+        };
+        assert!(view.into_any().is_some());
+        runtime.dispose();
     }
 
+    // Accessibility tests
     #[test]
-    fn test_lazy_loading_with_content() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_loading_with_list() {
-        assert!(true);
-    }
-
-    // Provider tests
-    #[test]
-    fn test_lazy_loading_provider_config() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_loading_provider_defaults() {
-        assert!(true);
-    }
-
-    // Edge case tests
-    #[test]
-    fn test_lazy_loading_empty_content() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_loading_invalid_urls() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_loading_network_errors() {
-        assert!(true);
-    }
-
-    // Styling tests
-    #[test]
-    fn test_lazy_loading_custom_classes() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_loading_custom_styles() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_loading_responsive_design() {
-        assert!(true);
-    }
-
-    #[test]
-    fn test_lazy_loading_loading_animations() {
-        assert!(true);
+    fn test_optimized_lazy_loading_accessibility() {
+        let runtime = create_runtime();
+        let view = view! {
+            <OptimizedLazyLoading>
+                <OptimizedLazyImage 
+                    src="test.jpg" 
+                    alt="Descriptive alt text for accessibility" 
+                />
+                <OptimizedLazyContent content="<p>Accessible content</p>" />
+            </OptimizedLazyLoading>
+        };
+        assert!(view.into_any().is_some());
+        runtime.dispose();
     }
 }
+

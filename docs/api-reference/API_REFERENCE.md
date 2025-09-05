@@ -9,6 +9,8 @@ Complete API documentation for all 20+ components in the Radix-Leptos Primitives
 - [Media Components](#media-components)
 - [Navigation Components](#navigation-components)
 - [Advanced Components](#advanced-components)
+- [New Components (v0.7.0)](#new-components-v070)
+- [Mobile Touch Components](#mobile-touch-components)
 
 ---
 
@@ -918,6 +920,433 @@ Components are designed to work seamlessly with Tailwind CSS but can be styled w
 - **Optimized Rendering**: Efficient virtual DOM updates
 - **Bundle Size**: Minimal impact on application size
 - **Memory Management**: Efficient memory usage patterns
+
+---
+
+## New Components (v0.7.0)
+
+### AlertDialog
+
+Modal dialogs for important actions and confirmations.
+
+```rust
+#[component]
+pub fn AlertDialog(
+    #[prop(optional)] open: Option<bool>,
+    #[prop(optional)] on_open_change: Option<Callback<bool>>,
+    #[prop(optional)] class: Option<String>,
+    #[prop(optional)] style: Option<String>,
+    children: Children,
+) -> impl IntoView
+```
+
+**Props:**
+- `open`: `bool` - Whether dialog is open
+- `on_open_change`: `Callback<bool>` - Open state change handler
+- `class`: `String` - Additional CSS classes
+- `style`: `String` - Inline styles
+
+**Example:**
+```rust
+<AlertDialog open=true on_open_change=Callback::new(|open| println!("AlertDialog: {}", open))>
+    <AlertDialogTrigger>
+        <Button>"Delete Account"</Button>
+    </AlertDialogTrigger>
+    <AlertDialogContent>
+        <AlertDialogHeader>
+            <AlertDialogTitle>"Are you absolutely sure?"</AlertDialogTitle>
+            <AlertDialogDescription>
+                "This action cannot be undone. This will permanently delete your account."
+            </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+            <AlertDialogCancel>"Cancel"</AlertDialogCancel>
+            <AlertDialogAction>"Continue"</AlertDialogAction>
+        </AlertDialogFooter>
+    </AlertDialogContent>
+</AlertDialog>
+```
+
+### Sheet
+
+Slide-out panels and drawers for mobile-friendly interfaces.
+
+```rust
+#[component]
+pub fn Sheet(
+    #[prop(optional)] open: Option<bool>,
+    #[prop(optional)] on_open_change: Option<Callback<bool>>,
+    #[prop(optional)] side: Option<SheetSide>,
+    #[prop(optional)] class: Option<String>,
+    #[prop(optional)] style: Option<String>,
+    children: Children,
+) -> impl IntoView
+```
+
+**Props:**
+- `open`: `bool` - Whether sheet is open
+- `on_open_change`: `Callback<bool>` - Open state change handler
+- `side`: `SheetSide` - Which side to slide from (Top, Right, Bottom, Left)
+- `class`: `String` - Additional CSS classes
+- `style`: `String` - Inline styles
+
+**Example:**
+```rust
+<Sheet open=true on_open_change=Callback::new(|open| println!("Sheet: {}", open))>
+    <SheetTrigger>
+        <Button>"Open Sheet"</Button>
+    </SheetTrigger>
+    <SheetContent side=SheetSide::Right>
+        <SheetHeader>
+            <SheetTitle>"Edit Profile"</SheetTitle>
+            <SheetDescription>
+                "Make changes to your profile here. Click save when you're done."
+            </SheetDescription>
+        </SheetHeader>
+        <div class="grid gap-4 py-4">
+            <div class="grid grid-cols-4 items-center gap-4">
+                <Label for="name" class="text-right">"Name"</Label>
+                <Input id="name" value="Pedro Duarte" class="col-span-3" />
+            </div>
+        </div>
+        <SheetFooter>
+            <SheetClose>
+                <Button type="submit">"Save changes"</Button>
+            </SheetClose>
+        </SheetFooter>
+    </SheetContent>
+</Sheet>
+```
+
+### Skeleton
+
+Loading placeholders with multiple variants for better UX.
+
+```rust
+#[component]
+pub fn Skeleton(
+    #[prop(optional)] class: Option<String>,
+    #[prop(optional)] style: Option<String>,
+    #[prop(optional)] width: Option<usize>,
+    #[prop(optional)] height: Option<usize>,
+    #[prop(optional)] rounded: Option<bool>,
+    #[prop(optional)] animated: Option<bool>,
+) -> impl IntoView
+```
+
+**Props:**
+- `class`: `String` - Additional CSS classes
+- `style`: `String` - Inline styles
+- `width`: `usize` - Width in pixels
+- `height`: `usize` - Height in pixels
+- `rounded`: `bool` - Whether to apply rounded corners
+- `animated`: `bool` - Whether to show loading animation
+
+**Example:**
+```rust
+<div class="flex items-center space-x-4">
+    <Skeleton class="h-12 w-12 rounded-full" />
+    <div class="space-y-2">
+        <Skeleton class="h-4 w-[250px]" />
+        <Skeleton class="h-4 w-[200px]" />
+    </div>
+</div>
+```
+
+### DatePicker
+
+Calendar interface for date selection with validation.
+
+```rust
+#[component]
+pub fn DatePicker(
+    #[prop(optional)] value: Option<String>,
+    #[prop(optional)] placeholder: Option<String>,
+    #[prop(optional)] min_date: Option<String>,
+    #[prop(optional)] max_date: Option<String>,
+    #[prop(optional)] disabled: Option<bool>,
+    #[prop(optional)] required: Option<bool>,
+    #[prop(optional)] format: Option<String>,
+    #[prop(optional)] locale: Option<String>,
+    #[prop(optional)] on_change: Option<Callback<String>>,
+    #[prop(optional)] on_validation: Option<Callback<DateValidation>>,
+    #[prop(optional)] class: Option<String>,
+    #[prop(optional)] style: Option<String>,
+    children: Children,
+) -> impl IntoView
+```
+
+**Props:**
+- `value`: `String` - Selected date value
+- `placeholder`: `String` - Placeholder text
+- `min_date`: `String` - Minimum selectable date
+- `max_date`: `String` - Maximum selectable date
+- `disabled`: `bool` - Whether the picker is disabled
+- `required`: `bool` - Whether the field is required
+- `format`: `String` - Date format string
+- `locale`: `String` - Locale for date formatting
+- `on_change`: `Callback<String>` - Date change handler
+- `on_validation`: `Callback<DateValidation>` - Validation handler
+- `class`: `String` - Additional CSS classes
+- `style`: `String` - Inline styles
+
+**Example:**
+```rust
+<DatePicker 
+    placeholder="Select a date"
+    min_date="2024-01-01"
+    max_date="2024-12-31"
+    format="YYYY-MM-DD"
+    on_change=Callback::new(|date| println!("Selected: {}", date))
+/>
+```
+
+### MultiSelect
+
+Multi-selection dropdown with search functionality.
+
+```rust
+#[component]
+pub fn MultiSelect(
+    #[prop(optional)] options: Option<Vec<SelectOption>>,
+    #[prop(optional)] selected: Option<Vec<String>>,
+    #[prop(optional)] placeholder: Option<String>,
+    #[prop(optional)] searchable: Option<bool>,
+    #[prop(optional)] disabled: Option<bool>,
+    #[prop(optional)] on_change: Option<Callback<Vec<String>>>,
+    #[prop(optional)] class: Option<String>,
+    #[prop(optional)] style: Option<String>,
+    children: Children,
+) -> impl IntoView
+```
+
+**Props:**
+- `options`: `Vec<SelectOption>` - Available options
+- `selected`: `Vec<String>` - Currently selected values
+- `placeholder`: `String` - Placeholder text
+- `searchable`: `bool` - Whether to enable search
+- `disabled`: `bool` - Whether the select is disabled
+- `on_change`: `Callback<Vec<String>>` - Selection change handler
+- `class`: `String` - Additional CSS classes
+- `style`: `String` - Inline styles
+
+**Example:**
+```rust
+<MultiSelect 
+    options=vec![
+        SelectOption { value: "react".to_string(), label: "React".to_string() },
+        SelectOption { value: "vue".to_string(), label: "Vue".to_string() },
+        SelectOption { value: "angular".to_string(), label: "Angular".to_string() },
+    ]
+    selected=vec!["react".to_string()]
+    searchable=true
+    placeholder="Select frameworks"
+    on_change=Callback::new(|selected| println!("Selected: {:?}", selected))
+/>
+```
+
+### DataTable
+
+Data tables with sorting, filtering, and pagination capabilities.
+
+```rust
+#[component]
+pub fn DataTable<T>(
+    #[prop(optional)] data: Option<Vec<T>>,
+    #[prop(optional)] columns: Option<Vec<TableColumn>>,
+    #[prop(optional)] sortable: Option<bool>,
+    #[prop(optional)] filterable: Option<bool>,
+    #[prop(optional)] paginated: Option<bool>,
+    #[prop(optional)] page_size: Option<usize>,
+    #[prop(optional)] on_sort: Option<Callback<SortConfig>>,
+    #[prop(optional)] on_filter: Option<Callback<FilterConfig>>,
+    #[prop(optional)] class: Option<String>,
+    #[prop(optional)] style: Option<String>,
+) -> impl IntoView
+where
+    T: Clone + 'static,
+```
+
+**Props:**
+- `data`: `Vec<T>` - Table data
+- `columns`: `Vec<TableColumn>` - Column definitions
+- `sortable`: `bool` - Whether columns are sortable
+- `filterable`: `bool` - Whether table is filterable
+- `paginated`: `bool` - Whether to show pagination
+- `page_size`: `usize` - Number of items per page
+- `on_sort`: `Callback<SortConfig>` - Sort change handler
+- `on_filter`: `Callback<FilterConfig>` - Filter change handler
+- `class`: `String` - Additional CSS classes
+- `style`: `String` - Inline styles
+
+**Example:**
+```rust
+<DataTable 
+    data=users
+    columns=vec![
+        TableColumn { key: "name".to_string(), label: "Name".to_string(), sortable: true },
+        TableColumn { key: "email".to_string(), label: "Email".to_string(), sortable: true },
+        TableColumn { key: "role".to_string(), label: "Role".to_string(), sortable: false },
+    ]
+    sortable=true
+    filterable=true
+    paginated=true
+    page_size=10
+    on_sort=Callback::new(|config| println!("Sort: {:?}", config))
+/>
+```
+
+---
+
+## Mobile Touch Components
+
+### TouchButton
+
+Touch-optimized button with haptic feedback.
+
+```rust
+#[component]
+pub fn TouchButton(
+    #[prop(optional)] variant: Option<ButtonVariant>,
+    #[prop(optional)] size: Option<ButtonSize>,
+    #[prop(optional)] haptic_feedback: Option<bool>,
+    #[prop(optional)] touch_delay: Option<u32>,
+    #[prop(optional)] disabled: Option<bool>,
+    #[prop(optional)] on_click: Option<Callback<()>>,
+    #[prop(optional)] class: Option<String>,
+    #[prop(optional)] style: Option<String>,
+    children: Children,
+) -> impl IntoView
+```
+
+**Props:**
+- `variant`: `ButtonVariant` - Visual style variant
+- `size`: `ButtonSize` - Size variant
+- `haptic_feedback`: `bool` - Whether to provide haptic feedback
+- `touch_delay`: `u32` - Touch delay in milliseconds
+- `disabled`: `bool` - Whether the button is disabled
+- `on_click`: `Callback<()>` - Click event handler
+- `class`: `String` - Additional CSS classes
+- `style`: `String` - Inline styles
+
+### SwipeableCard
+
+Card component with swipe gestures for mobile interactions.
+
+```rust
+#[component]
+pub fn SwipeableCard(
+    #[prop(optional)] swipe_threshold: Option<f32>,
+    #[prop(optional)] on_swipe_left: Option<Callback<()>>,
+    #[prop(optional)] on_swipe_right: Option<Callback<()>>,
+    #[prop(optional)] on_swipe_up: Option<Callback<()>>,
+    #[prop(optional)] on_swipe_down: Option<Callback<()>>,
+    #[prop(optional)] class: Option<String>,
+    #[prop(optional)] style: Option<String>,
+    children: Children,
+) -> impl IntoView
+```
+
+**Props:**
+- `swipe_threshold`: `f32` - Minimum swipe distance to trigger action
+- `on_swipe_left`: `Callback<()>` - Left swipe handler
+- `on_swipe_right`: `Callback<()>` - Right swipe handler
+- `on_swipe_up`: `Callback<()>` - Up swipe handler
+- `on_swipe_down`: `Callback<()>` - Down swipe handler
+- `class`: `String` - Additional CSS classes
+- `style`: `String` - Inline styles
+
+### PullToRefresh
+
+Pull-to-refresh functionality for mobile lists.
+
+```rust
+#[component]
+pub fn PullToRefresh(
+    #[prop(optional)] threshold: Option<f32>,
+    #[prop(optional)] on_refresh: Option<Callback<()>>,
+    #[prop(optional)] refreshing: Option<bool>,
+    #[prop(optional)] class: Option<String>,
+    #[prop(optional)] style: Option<String>,
+    children: Children,
+) -> impl IntoView
+```
+
+**Props:**
+- `threshold`: `f32` - Pull distance threshold to trigger refresh
+- `on_refresh`: `Callback<()>` - Refresh handler
+- `refreshing`: `bool` - Whether currently refreshing
+- `class`: `String` - Additional CSS classes
+- `style`: `String` - Inline styles
+
+---
+
+## Common Types (Updated)
+
+### Sheet Side
+```rust
+pub enum SheetSide {
+    Top,
+    Right,
+    Bottom,
+    Left,
+}
+```
+
+### Date Validation
+```rust
+pub struct DateValidation {
+    pub is_valid: bool,
+    pub error_message: Option<String>,
+    pub parsed_date: Option<String>,
+}
+```
+
+### Select Option
+```rust
+pub struct SelectOption {
+    pub value: String,
+    pub label: String,
+}
+```
+
+### Table Column
+```rust
+pub struct TableColumn {
+    pub key: String,
+    pub label: String,
+    pub sortable: bool,
+}
+```
+
+### Sort Config
+```rust
+pub struct SortConfig {
+    pub column: String,
+    pub direction: SortDirection,
+}
+
+pub enum SortDirection {
+    Ascending,
+    Descending,
+}
+```
+
+### Filter Config
+```rust
+pub struct FilterConfig {
+    pub column: String,
+    pub value: String,
+    pub operator: FilterOperator,
+}
+
+pub enum FilterOperator {
+    Equals,
+    Contains,
+    StartsWith,
+    EndsWith,
+}
+```
 
 ---
 

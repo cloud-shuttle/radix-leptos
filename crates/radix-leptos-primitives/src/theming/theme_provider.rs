@@ -1,0 +1,360 @@
+use leptos::*;
+use leptos::prelude::*;
+use super::css_variables::CSSVariables;
+
+/// Theme provider component for managing global theme state
+#[component]
+pub fn ThemeProvider(
+    /// Theme configuration
+    #[prop(optional)] theme: Option<CSSVariables>,
+    /// Whether to use dark mode
+    #[prop(optional)] dark_mode: Option<bool>,
+    /// Whether to enable system theme detection
+    #[prop(optional)] system_theme: Option<bool>,
+    /// Additional CSS classes
+    #[prop(optional)] class: Option<String>,
+    /// Inline styles
+    #[prop(optional)] style: Option<String>,
+    /// Children content
+    children: Option<Children>,
+) -> impl IntoView {
+    let theme = theme.unwrap_or_default();
+    let dark_mode = dark_mode.unwrap_or(false);
+    let system_theme = system_theme.unwrap_or(true);
+    
+    let (current_theme, set_current_theme) = create_signal(theme.clone());
+    let (is_dark, set_is_dark) = create_signal(dark_mode);
+    let (system_preference, set_system_preference) = create_signal(false);
+    
+    // Apply theme changes
+    let apply_theme = move |new_theme: CSSVariables, dark: bool| {
+        let css_vars = if dark {
+            CSSVariables::dark_theme()
+        } else {
+            new_theme
+        };
+        
+        set_current_theme.set(css_vars.clone());
+        set_is_dark.set(dark);
+        
+        // Apply CSS variables to document root
+        let css_string = css_vars.to_css_string();
+        // In a real implementation, this would apply the CSS to the document
+        // For now, we'll just store the theme state
+    };
+    
+    // Toggle dark mode
+    let toggle_dark_mode = move |_| {
+        let new_dark = !is_dark.get();
+        apply_theme(current_theme.get(), new_dark);
+    };
+    
+    // Set theme
+    let set_theme = move |new_theme: CSSVariables| {
+        apply_theme(new_theme, is_dark.get());
+    };
+    
+    // Set dark mode
+    let set_dark_mode = move |dark: bool| {
+        apply_theme(current_theme.get(), dark);
+    };
+    
+    // Provide theme context
+    provide_context(ThemeContext {
+        theme: current_theme,
+        is_dark,
+        system_preference,
+        toggle_dark_mode: Callback::new(move |_| toggle_dark_mode(())),
+        set_theme: Callback::new(move |theme| set_theme(theme)),
+        set_dark_mode: Callback::new(move |dark| set_dark_mode(dark)),
+    });
+    
+    let class = format!(
+        "theme-provider {} {}",
+        if is_dark.get() { "dark" } else { "light" },
+        class.unwrap_or_default()
+    );
+    
+    let style = format!(
+        "{} {}",
+        current_theme.get().to_css_string(),
+        style.unwrap_or_default()
+    );
+    
+    view! {
+        <div class=class style=style>
+            {children.map(|c| c())}
+        </div>
+    }
+}
+
+/// Theme context for accessing theme state
+#[derive(Clone)]
+pub struct ThemeContext {
+    pub theme: ReadSignal<CSSVariables>,
+    pub is_dark: ReadSignal<bool>,
+    pub system_preference: ReadSignal<bool>,
+    pub toggle_dark_mode: Callback<()>,
+    pub set_theme: Callback<CSSVariables>,
+    pub set_dark_mode: Callback<bool>,
+}
+
+/// Hook for accessing theme context
+pub fn use_theme() -> Option<ThemeContext> {
+    use_context::<ThemeContext>()
+}
+
+/// Hook for toggling dark mode
+pub fn use_toggle_dark_mode() -> Option<Callback<()>> {
+    use_theme().map(|ctx| ctx.toggle_dark_mode)
+}
+
+/// Hook for getting current theme
+pub fn use_current_theme() -> Option<ReadSignal<CSSVariables>> {
+    use_theme().map(|ctx| ctx.theme)
+}
+
+/// Hook for getting dark mode state
+pub fn use_is_dark() -> Option<ReadSignal<bool>> {
+    use_theme().map(|ctx| ctx.is_dark)
+}
+
+/// Hook for setting theme
+pub fn use_set_theme() -> Option<Callback<CSSVariables>> {
+    use_theme().map(|ctx| ctx.set_theme)
+}
+
+/// Hook for setting dark mode
+pub fn use_set_dark_mode() -> Option<Callback<bool>> {
+    use_theme().map(|ctx| ctx.set_dark_mode)
+}
+
+/// Theme toggle button component
+#[component]
+pub fn ThemeToggle(
+    /// Button variant
+    #[prop(optional)] variant: Option<String>,
+    /// Button size
+    #[prop(optional)] size: Option<String>,
+    /// Additional CSS classes
+    #[prop(optional)] class: Option<String>,
+    /// Inline styles
+    #[prop(optional)] style: Option<String>,
+) -> impl IntoView {
+    let theme_context = use_theme();
+    let is_dark = theme_context.as_ref().map(|ctx| ctx.is_dark).unwrap_or_else(|| create_signal(false).0);
+    let toggle_dark_mode = theme_context.as_ref().map(|ctx| ctx.toggle_dark_mode).unwrap_or_else(|| Callback::new(|_| {}));
+    
+    let variant = variant.unwrap_or_else(|| "outline".to_string());
+    let size = size.unwrap_or_else(|| "md".to_string());
+    
+    let class = format!(
+        "theme-toggle variant-{} size-{} {}",
+        variant, size, class.unwrap_or_default()
+    );
+    
+    view! {
+        <button 
+            class=class 
+            style=style
+            on:click=move |_| toggle_dark_mode.run(())
+            aria-label=move || if is_dark.get() { "Switch to light mode" } else { "Switch to dark mode" }
+        >
+            {move || if is_dark.get() {
+                view! { <span>"☀️"</span> }.into_any()
+            } else {
+                view! { <span>"🌙"</span> }.into_any()
+            }}
+        </button>
+    }
+}
+
+/// Theme selector component
+#[component]
+pub fn ThemeSelector(
+    /// Available themes
+    #[prop(optional)] themes: Option<Vec<(String, CSSVariables)>>,
+    /// Current theme name
+    #[prop(optional)] current_theme: Option<String>,
+    /// Callback when theme changes
+    #[prop(optional)] on_theme_change: Option<Callback<String>>,
+    /// Additional CSS classes
+    #[prop(optional)] class: Option<String>,
+    /// Inline styles
+    #[prop(optional)] style: Option<String>,
+) -> impl IntoView {
+    let themes = themes.unwrap_or_else(|| vec![
+        ("Light".to_string(), CSSVariables::default()),
+        ("Dark".to_string(), CSSVariables::dark_theme()),
+    ]);
+    
+    let (selected_theme, set_selected_theme) = create_signal(
+        current_theme.unwrap_or_else(|| "Light".to_string())
+    );
+    
+    let theme_context = use_theme();
+    let set_theme = theme_context.map(|ctx| ctx.set_theme);
+    
+    let themes_for_closure = themes.clone();
+    let handle_theme_change = move |theme_name: String| {
+        set_selected_theme.set(theme_name.clone());
+        
+        if let Some(theme_vars) = themes_for_closure.iter().find(|(name, _)| name == &theme_name) {
+            if let Some(set_theme_fn) = set_theme {
+                set_theme_fn.run(theme_vars.1.clone());
+            }
+        }
+        
+        if let Some(callback) = on_theme_change {
+            callback.run(theme_name);
+        }
+    };
+    
+    let class = format!("theme-selector {}", class.unwrap_or_default());
+    
+    view! {
+        <div class=class style=style>
+            <select 
+                prop:value=selected_theme
+                on:change=move |ev| {
+                    let value = event_target_value(&ev);
+                    handle_theme_change(value);
+                }
+            >
+                {themes.clone().into_iter().map(|(name, _)| {
+                    view! {
+                        <option value=name.clone()>
+                            {name.clone()}
+                        </option>
+                    }
+                }).collect::<Vec<_>>()}
+            </select>
+        </div>
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use leptos::prelude::*;
+
+    #[test]
+    fn test_theme_provider_creation() {
+        let runtime = create_runtime();
+        let view = view! {
+            <ThemeProvider>
+                <div>"Test content"</div>
+            </ThemeProvider>
+        };
+        assert!(view.into_any().is_some());
+        runtime.dispose();
+    }
+
+    #[test]
+    fn test_theme_provider_with_custom_theme() {
+        let runtime = create_runtime();
+        let custom_theme = CSSVariables::default();
+        let view = view! {
+            <ThemeProvider theme=custom_theme>
+                <div>"Test content"</div>
+            </ThemeProvider>
+        };
+        assert!(view.into_any().is_some());
+        runtime.dispose();
+    }
+
+    #[test]
+    fn test_theme_provider_dark_mode() {
+        let runtime = create_runtime();
+        let view = view! {
+            <ThemeProvider dark_mode=true>
+                <div>"Test content"</div>
+            </ThemeProvider>
+        };
+        assert!(view.into_any().is_some());
+        runtime.dispose();
+    }
+
+    #[test]
+    fn test_theme_toggle_creation() {
+        let runtime = create_runtime();
+        let view = view! {
+            <ThemeProvider>
+                <ThemeToggle />
+            </ThemeProvider>
+        };
+        assert!(view.into_any().is_some());
+        runtime.dispose();
+    }
+
+    #[test]
+    fn test_theme_toggle_with_props() {
+        let runtime = create_runtime();
+        let view = view! {
+            <ThemeProvider>
+                <ThemeToggle 
+                    variant="primary"
+                    size="lg"
+                    class="custom-toggle"
+                />
+            </ThemeProvider>
+        };
+        assert!(view.into_any().is_some());
+        runtime.dispose();
+    }
+
+    #[test]
+    fn test_theme_selector_creation() {
+        let runtime = create_runtime();
+        let view = view! {
+            <ThemeProvider>
+                <ThemeSelector />
+            </ThemeProvider>
+        };
+        assert!(view.into_any().is_some());
+        runtime.dispose();
+    }
+
+    #[test]
+    fn test_theme_selector_with_custom_themes() {
+        let runtime = create_runtime();
+        let themes = vec![
+            ("Custom Light".to_string(), CSSVariables::default()),
+            ("Custom Dark".to_string(), CSSVariables::dark_theme()),
+        ];
+        let view = view! {
+            <ThemeProvider>
+                <ThemeSelector 
+                    themes=themes
+                    current_theme="Custom Light"
+                />
+            </ThemeProvider>
+        };
+        assert!(view.into_any().is_some());
+        runtime.dispose();
+    }
+
+    #[test]
+    fn test_theme_context_provided() {
+        let runtime = create_runtime();
+        let view = view! {
+            <ThemeProvider>
+                <div>"Test content"</div>
+            </ThemeProvider>
+        };
+        assert!(view.into_any().is_some());
+        runtime.dispose();
+    }
+
+    #[test]
+    fn test_theme_hooks() {
+        let runtime = create_runtime();
+        let view = view! {
+            <ThemeProvider>
+                <div>"Test content"</div>
+            </ThemeProvider>
+        };
+        assert!(view.into_any().is_some());
+        runtime.dispose();
+    }
+}

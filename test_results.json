@@ -1,0 +1,647 @@
+
+> examples@1.0.0 test /Users/peterhanssens/consulting/CloudShuttle/radix-leptos
+> playwright test tests/e2e/all-components-fixed.spec.ts --reporter=json
+
+{
+  "config": {
+    "configFile": "/Users/peterhanssens/consulting/CloudShuttle/radix-leptos/playwright.config.ts",
+    "rootDir": "/Users/peterhanssens/consulting/CloudShuttle/radix-leptos/tests",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "failures-only",
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/Users/peterhanssens/consulting/CloudShuttle/radix-leptos/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/peterhanssens/consulting/CloudShuttle/radix-leptos/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 90000
+      },
+      {
+        "outputDir": "/Users/peterhanssens/consulting/CloudShuttle/radix-leptos/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/Users/peterhanssens/consulting/CloudShuttle/radix-leptos/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 90000
+      },
+      {
+        "outputDir": "/Users/peterhanssens/consulting/CloudShuttle/radix-leptos/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/Users/peterhanssens/consulting/CloudShuttle/radix-leptos/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 90000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.55.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "e2e/all-components-fixed.spec.ts",
+      "file": "e2e/all-components-fixed.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Basic test",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 362,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2025-09-05T03:31:11.525Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ff6c441b299e3eac67d-03f3e2b01683e938bdd7",
+          "file": "e2e/all-components-fixed.spec.ts",
+          "line": 37,
+          "column": 5
+        },
+        {
+          "title": "All Components Load Without Errors - Comprehensive Test",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1403,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "\n🧪 Testing Tabs...\n"
+                    },
+                    {
+                      "text": "✅ Tabs loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Carousel...\n"
+                    },
+                    {
+                      "text": "✅ Carousel loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing DropdownMenu...\n"
+                    },
+                    {
+                      "text": "✅ DropdownMenu loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing ContextMenu...\n"
+                    },
+                    {
+                      "text": "✅ ContextMenu loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Menubar...\n"
+                    },
+                    {
+                      "text": "✅ Menubar loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing ScrollArea...\n"
+                    },
+                    {
+                      "text": "✅ ScrollArea loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Toast...\n"
+                    },
+                    {
+                      "text": "✅ Toast loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Alert...\n"
+                    },
+                    {
+                      "text": "✅ Alert loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Badge...\n"
+                    },
+                    {
+                      "text": "✅ Badge loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Avatar...\n"
+                    },
+                    {
+                      "text": "✅ Avatar loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Image...\n"
+                    },
+                    {
+                      "text": "✅ Image loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Video...\n"
+                    },
+                    {
+                      "text": "✅ Video loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Audio...\n"
+                    },
+                    {
+                      "text": "✅ Audio loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Timeline...\n"
+                    },
+                    {
+                      "text": "✅ Timeline loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing List...\n"
+                    },
+                    {
+                      "text": "✅ List loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Pagination...\n"
+                    },
+                    {
+                      "text": "✅ Pagination loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Component Showcase...\n"
+                    },
+                    {
+                      "text": "✅ Component Showcase loaded successfully\n"
+                    },
+                    {
+                      "text": "\n📊 Test Results Summary:\n"
+                    },
+                    {
+                      "text": "✅ Successful: 17/17\n"
+                    },
+                    {
+                      "text": "❌ Failed: 0/17\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2025-09-05T03:31:12.327Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ff6c441b299e3eac67d-aebae153ca012c6acfeb",
+          "file": "e2e/all-components-fixed.spec.ts",
+          "line": 41,
+          "column": 5
+        },
+        {
+          "title": "Basic test",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2912,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2025-09-05T03:31:16.230Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ff6c441b299e3eac67d-9ea90eab40a57cfbc952",
+          "file": "e2e/all-components-fixed.spec.ts",
+          "line": 37,
+          "column": 5
+        },
+        {
+          "title": "All Components Load Without Errors - Comprehensive Test",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3174,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "\n🧪 Testing Tabs...\n"
+                    },
+                    {
+                      "text": "✅ Tabs loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Carousel...\n"
+                    },
+                    {
+                      "text": "✅ Carousel loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing DropdownMenu...\n"
+                    },
+                    {
+                      "text": "✅ DropdownMenu loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing ContextMenu...\n"
+                    },
+                    {
+                      "text": "✅ ContextMenu loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Menubar...\n"
+                    },
+                    {
+                      "text": "✅ Menubar loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing ScrollArea...\n"
+                    },
+                    {
+                      "text": "✅ ScrollArea loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Toast...\n"
+                    },
+                    {
+                      "text": "✅ Toast loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Alert...\n"
+                    },
+                    {
+                      "text": "✅ Alert loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Badge...\n"
+                    },
+                    {
+                      "text": "✅ Badge loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Avatar...\n"
+                    },
+                    {
+                      "text": "✅ Avatar loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Image...\n"
+                    },
+                    {
+                      "text": "✅ Image loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Video...\n"
+                    },
+                    {
+                      "text": "✅ Video loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Audio...\n"
+                    },
+                    {
+                      "text": "✅ Audio loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Timeline...\n"
+                    },
+                    {
+                      "text": "✅ Timeline loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing List...\n"
+                    },
+                    {
+                      "text": "✅ List loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Pagination...\n"
+                    },
+                    {
+                      "text": "✅ Pagination loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Component Showcase...\n"
+                    },
+                    {
+                      "text": "✅ Component Showcase loaded successfully\n"
+                    },
+                    {
+                      "text": "\n📊 Test Results Summary:\n"
+                    },
+                    {
+                      "text": "✅ Successful: 17/17\n"
+                    },
+                    {
+                      "text": "❌ Failed: 0/17\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2025-09-05T03:31:22.046Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ff6c441b299e3eac67d-ce5ad22b79dc6bc0ee45",
+          "file": "e2e/all-components-fixed.spec.ts",
+          "line": 41,
+          "column": 5
+        },
+        {
+          "title": "Basic test",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 729,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2025-09-05T03:31:26.950Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ff6c441b299e3eac67d-8c9097fba417ee3d6af6",
+          "file": "e2e/all-components-fixed.spec.ts",
+          "line": 37,
+          "column": 5
+        },
+        {
+          "title": "All Components Load Without Errors - Comprehensive Test",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1249,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "\n🧪 Testing Tabs...\n"
+                    },
+                    {
+                      "text": "✅ Tabs loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Carousel...\n"
+                    },
+                    {
+                      "text": "✅ Carousel loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing DropdownMenu...\n"
+                    },
+                    {
+                      "text": "✅ DropdownMenu loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing ContextMenu...\n"
+                    },
+                    {
+                      "text": "✅ ContextMenu loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Menubar...\n"
+                    },
+                    {
+                      "text": "✅ Menubar loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing ScrollArea...\n"
+                    },
+                    {
+                      "text": "✅ ScrollArea loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Toast...\n"
+                    },
+                    {
+                      "text": "✅ Toast loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Alert...\n"
+                    },
+                    {
+                      "text": "✅ Alert loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Badge...\n"
+                    },
+                    {
+                      "text": "✅ Badge loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Avatar...\n"
+                    },
+                    {
+                      "text": "✅ Avatar loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Image...\n"
+                    },
+                    {
+                      "text": "✅ Image loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Video...\n"
+                    },
+                    {
+                      "text": "✅ Video loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Audio...\n"
+                    },
+                    {
+                      "text": "✅ Audio loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Timeline...\n"
+                    },
+                    {
+                      "text": "✅ Timeline loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing List...\n"
+                    },
+                    {
+                      "text": "✅ List loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Pagination...\n"
+                    },
+                    {
+                      "text": "✅ Pagination loaded successfully\n"
+                    },
+                    {
+                      "text": "\n🧪 Testing Component Showcase...\n"
+                    },
+                    {
+                      "text": "✅ Component Showcase loaded successfully\n"
+                    },
+                    {
+                      "text": "\n📊 Test Results Summary:\n"
+                    },
+                    {
+                      "text": "✅ Successful: 17/17\n"
+                    },
+                    {
+                      "text": "❌ Failed: 0/17\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2025-09-05T03:31:28.106Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ff6c441b299e3eac67d-7f444927435662d59c03",
+          "file": "e2e/all-components-fixed.spec.ts",
+          "line": 41,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-09-05T03:31:09.482Z",
+    "duration": 19914.882999999998,
+    "expected": 6,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

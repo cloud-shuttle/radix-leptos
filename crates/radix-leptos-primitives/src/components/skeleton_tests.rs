@@ -3,6 +3,7 @@ mod skeleton_tests {
     use super::*;
     use leptos::*;
     use proptest::prelude::*;
+    use crate::components::skeleton::*;
 
     // Test Skeleton component creation
     #[test]

@@ -3,6 +3,7 @@ mod alert_dialog_tests {
     use super::*;
     use leptos::*;
     use proptest::prelude::*;
+    use crate::components::alert_dialog::*;
 
     // Test AlertDialog component creation
     #[test]

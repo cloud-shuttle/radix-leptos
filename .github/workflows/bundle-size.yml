@@ -1,0 +1,84 @@
+name: Bundle Size Monitor
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  bundle-size:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Setup Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        components: rustfmt, clippy
+    
+    - name: Install dependencies
+      run: |
+        npm install -g pnpm
+        pnpm install
+    
+    - name: Build examples
+      run: |
+        cd examples
+        trunk build --release
+    
+    - name: Run bundle size analysis
+      run: pnpm bundle-analyze
+    
+    - name: Upload bundle size report
+      uses: actions/upload-artifact@v4
+      with:
+        name: bundle-size-report
+        path: bundle-size-report.json
+    
+    - name: Comment PR with bundle size
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          const report = JSON.parse(fs.readFileSync('bundle-size-report.json', 'utf8'));
+          
+          const formatBytes = (bytes) => {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+          };
+          
+          let comment = `## 📊 Bundle Size Report\n\n`;
+          comment += `**Total Bundle Size:** ${formatBytes(report.totalSize)}\n`;
+          comment += `**Status:** ${report.withinLimits ? '✅ Within limits' : '❌ Exceeds limits'}\n\n`;
+          
+          comment += `### File Analysis:\n`;
+          report.analysis.forEach(file => {
+            comment += `- **${file.file}**: ${file.formattedSize} ${file.status}\n`;
+          });
+          
+          if (!report.withinLimits) {
+            comment += `\n⚠️ **Bundle size exceeds recommended limits!**\n`;
+            comment += `Consider optimizing your changes to reduce bundle size.`;
+          }
+          
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: comment
+          });
+

@@ -3,6 +3,7 @@ mod sheet_tests {
     use super::*;
     use leptos::*;
     use proptest::prelude::*;
+    use crate::components::sheet::*;
 
     // Test Sheet component creation
     #[test]

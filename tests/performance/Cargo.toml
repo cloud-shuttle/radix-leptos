@@ -1,0 +1,17 @@
+[package]
+name = "radix-leptos-performance"
+version = "0.1.0"
+edition = "2021"
+
+[[bench]]
+name = "component_benchmarks"
+harness = false
+
+[dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+leptos = { version = "0.8", features = ["csr"] }
+radix-leptos = { path = "../../crates/radix-leptos" }
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+

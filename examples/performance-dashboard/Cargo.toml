@@ -1,0 +1,10 @@
+[package]
+name = "performance-dashboard"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+leptos = { version = "0.8.8", features = ["csr"] }
+radix-leptos = { path = "../../crates/radix-leptos" }
+chrono = { version = "0.4", features = ["serde"] }
+

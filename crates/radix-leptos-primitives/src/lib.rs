@@ -4,6 +4,8 @@
 //! These components provide the building blocks for accessible UI libraries.
 
 pub mod components;
+pub mod theming;
+pub mod utils;
 
 // Re-export all components at the crate root
 pub use components::*;

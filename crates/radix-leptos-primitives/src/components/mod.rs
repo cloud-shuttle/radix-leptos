@@ -67,9 +67,13 @@ pub mod otp_field;
 pub mod resizable;
 pub mod infinite_scroll;
 pub mod lazy_loading;
+pub mod lazy_loading_optimized;
 pub mod alert_dialog;
 pub mod sheet;
 pub mod skeleton;
+pub mod time_picker;
+pub mod range_slider;
+pub mod form_validation;
 
 // Test modules
 #[cfg(test)]
@@ -146,6 +150,10 @@ pub use otp_field::*;
 pub use resizable::*;
 pub use infinite_scroll::*;
 pub use lazy_loading::*;
+pub use lazy_loading_optimized::*;
 pub use alert_dialog::*;
 pub use sheet::*;
 pub use skeleton::*;
+pub use time_picker::*;
+pub use range_slider::*;
+pub use form_validation::*;
