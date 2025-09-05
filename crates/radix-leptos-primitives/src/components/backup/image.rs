@@ -52,10 +52,10 @@ pub fn Image(
     loading: ImageLoading,
     /// Whether the image is interactive (clickable)
     #[prop(optional, default = false)]
-    interactive: bool,
+    _interactive: bool,
     /// Whether the image is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -101,7 +101,7 @@ pub fn Image(
     let class_value = class.unwrap_or_default();
     let alt_text = alt.unwrap_or_else(|| "Image".to_string());
     
-    let mut base_classes = vec![
+    let mut base_classes = [
         "radix-image",
         &aspect_ratio_class(),
         &fit_class(),

@@ -1,8 +1,8 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// Toggle component for toggle button functionality
-/// 
+///
 /// Provides accessible toggle button with keyboard support and ARIA attributes
 #[component]
 pub fn Toggle(
@@ -20,9 +20,8 @@ pub fn Toggle(
     let variant = variant.unwrap_or_default();
     let size = size.unwrap_or_default();
     let disabled = disabled.unwrap_or(false);
-    let (is_pressed, set_is_pressed) = signal(
-        pressed.unwrap_or_else(|| default_pressed.unwrap_or(false))
-    );
+    let (is_pressed, set_is_pressed) =
+        signal(pressed.unwrap_or_else(|| default_pressed.unwrap_or(false)));
 
     // Handle external pressed state changes
     if let Some(external_pressed) = pressed {
@@ -38,7 +37,7 @@ pub fn Toggle(
         });
     }
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "toggle",
         &variant.to_class(),
         &size.to_class(),
@@ -139,79 +138,49 @@ mod tests {
 
     // Toggle Tests
     #[test]
-    fn test_toggle_creation() {
-        assert!(true);
-    }
+    fn test_toggle_creation() {}
 
     #[test]
-    fn test_toggle_with_class() {
-        assert!(true);
-    }
+    fn test_toggle_with_class() {}
 
     #[test]
-    fn test_toggle_with_style() {
-        assert!(true);
-    }
+    fn test_toggle_with_style() {}
 
     #[test]
-    fn test_toggle_default_variant() {
-        assert!(true);
-    }
+    fn test_toggle_default_variant() {}
 
     #[test]
-    fn test_toggle_outline_variant() {
-        assert!(true);
-    }
+    fn test_toggle_outline_variant() {}
 
     #[test]
-    fn test_toggle_ghost_variant() {
-        assert!(true);
-    }
+    fn test_toggle_ghost_variant() {}
 
     #[test]
-    fn test_toggle_destructive_variant() {
-        assert!(true);
-    }
+    fn test_toggle_destructive_variant() {}
 
     #[test]
-    fn test_toggle_default_size() {
-        assert!(true);
-    }
+    fn test_toggle_default_size() {}
 
     #[test]
-    fn test_toggle_small_size() {
-        assert!(true);
-    }
+    fn test_toggle_small_size() {}
 
     #[test]
-    fn test_toggle_large_size() {
-        assert!(true);
-    }
+    fn test_toggle_large_size() {}
 
     #[test]
-    fn test_toggle_pressed() {
-        assert!(true);
-    }
+    fn test_toggle_pressed() {}
 
     #[test]
-    fn test_toggle_default_pressed() {
-        assert!(true);
-    }
+    fn test_toggle_default_pressed() {}
 
     #[test]
-    fn test_toggle_disabled() {
-        assert!(true);
-    }
+    fn test_toggle_disabled() {}
 
     #[test]
-    fn test_toggle_on_pressed_change() {
-        assert!(true);
-    }
+    fn test_toggle_on_pressed_change() {}
 
     #[test]
-    fn test_toggle_on_click() {
-        assert!(true);
-    }
+    fn test_toggle_on_click() {}
 
     // Toggle Variant Tests
     #[test]
@@ -272,25 +241,25 @@ mod tests {
     // Helper Function Tests
     #[test]
     fn test_merge_classes_empty() {
-        let result = merge_classes(vec![]);
+        let result = merge_classes([]);
         assert_eq!(result, "");
     }
 
     #[test]
     fn test_merge_classes_single() {
-        let result = merge_classes(vec!["class1"]);
+        let result = merge_classes(["class1"]);
         assert_eq!(result, "class1");
     }
 
     #[test]
     fn test_merge_classes_multiple() {
-        let result = merge_classes(vec!["class1", "class2", "class3"]);
+        let result = merge_classes(["class1", "class2", "class3"]);
         assert_eq!(result, "class1 class2 class3");
     }
 
     #[test]
     fn test_merge_classes_with_empty() {
-        let result = merge_classes(vec!["class1", "", "class3"]);
+        let result = merge_classes(["class1", "", "class3"]);
         assert_eq!(result, "class1 class3");
     }
 
@@ -298,8 +267,8 @@ mod tests {
     #[test]
     fn test_toggle_property_based() {
         use proptest::prelude::*;
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*")| {
+
         });
     }
 }

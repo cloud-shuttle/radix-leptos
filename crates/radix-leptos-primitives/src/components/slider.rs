@@ -1,5 +1,5 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// Slider component with proper accessibility and styling variants
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -70,7 +70,7 @@ pub fn Slider(
     step: f64,
     /// Whether the slider is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// Slider styling variant
     #[prop(optional, default = SliderVariant::Default)]
     variant: SliderVariant,
@@ -89,26 +89,26 @@ pub fn Slider(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let slider_id = generate_id("slider");
-    let track_id = generate_id("slider-track");
-    let range_id = generate_id("slider-range");
-    let thumb_id = generate_id("slider-thumb");
-    
+    let _slider_id = generate_id("slider");
+    let _track_id = generate_id("slider-track");
+    let _range_id = generate_id("slider-range");
+    let _thumb_id = generate_id("slider-thumb");
+
     // Build data attributes for styling
     let data_variant = variant.as_str();
     let data_size = size.as_str();
-    
+
     // Merge classes with data attributes for CSS targeting
     let base_classes = "radix-slider";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     // Handle keyboard navigation
     let handle_keydown = move |e: web_sys::KeyboardEvent| {
         if disabled {
             return;
         }
-        
+
         match e.key().as_str() {
             "ArrowLeft" | "ArrowDown" => {
                 e.prevent_default();
@@ -153,16 +153,16 @@ pub fn Slider(
             _ => {}
         }
     };
-    
+
     // Calculate percentage for visual representation
     let percentage = if max > min {
         ((value - min) / (max - min) * 100.0).clamp(0.0, 100.0)
     } else {
         0.0
     };
-    
+
     view! {
-        <div 
+        <div
             class=combined_class
             style=style
             data-variant=data_variant
@@ -198,9 +198,9 @@ pub fn SliderTrack(
     let base_classes = "radix-slider-track";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     view! {
-        <div 
+        <div
             class=combined_class
             style=style
         >
@@ -221,9 +221,9 @@ pub fn SliderRange(
     let base_classes = "radix-slider-range";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     view! {
-        <div 
+        <div
             class=combined_class
             style=style
         >
@@ -244,9 +244,9 @@ pub fn SliderThumb(
     let base_classes = "radix-slider-thumb";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     view! {
-        <div 
+        <div
             class=combined_class
             style=style
         >
@@ -258,38 +258,34 @@ pub fn SliderThumb(
 mod tests {
     use super::*;
     use proptest::prelude::*;
-    
+
     // 1. Basic Rendering Tests
     #[test]
     fn test_slider_variants() {
         run_test(|| {
-            let variants = vec![
+            let variants = [
                 SliderVariant::Default,
                 SliderVariant::Destructive,
                 SliderVariant::Ghost,
             ];
-            
+
             for variant in variants {
                 assert!(!variant.as_str().is_empty());
             }
         });
     }
-    
+
     #[test]
     fn test_slider_sizes() {
         run_test(|| {
-            let sizes = vec![
-                SliderSize::Default,
-                SliderSize::Sm,
-                SliderSize::Lg,
-            ];
-            
+            let sizes = [SliderSize::Default, SliderSize::Sm, SliderSize::Lg];
+
             for size in sizes {
                 assert!(!size.as_str().is_empty());
             }
         });
     }
-    
+
     // 2. Props Validation Tests
     #[test]
     fn test_slider_default_values() {
@@ -301,7 +297,7 @@ mod tests {
             let disabled = false;
             let variant = SliderVariant::Default;
             let size = SliderSize::Default;
-            
+
             assert_eq!(value, 0.0);
             assert_eq!(min, 0.0);
             assert_eq!(max, 100.0);
@@ -311,7 +307,7 @@ mod tests {
             assert_eq!(size, SliderSize::Default);
         });
     }
-    
+
     #[test]
     fn test_slider_custom_values() {
         run_test(|| {
@@ -322,7 +318,7 @@ mod tests {
             let disabled = false;
             let variant = SliderVariant::Destructive;
             let size = SliderSize::Lg;
-            
+
             assert_eq!(value, 50.0);
             assert_eq!(min, 10.0);
             assert_eq!(max, 90.0);
@@ -332,7 +328,7 @@ mod tests {
             assert_eq!(size, SliderSize::Lg);
         });
     }
-    
+
     #[test]
     fn test_slider_disabled_state() {
         run_test(|| {
@@ -343,7 +339,7 @@ mod tests {
             let disabled = true;
             let variant = SliderVariant::Ghost;
             let size = SliderSize::Sm;
-            
+
             assert_eq!(value, 25.0);
             assert_eq!(min, 0.0);
             assert_eq!(max, 100.0);
@@ -353,7 +349,7 @@ mod tests {
             assert_eq!(size, SliderSize::Sm);
         });
     }
-    
+
     // 3. State Management Tests
     #[test]
     fn test_slider_value_calculation() {
@@ -362,40 +358,40 @@ mod tests {
             let min = 0.0;
             let max = 100.0;
             let step = 1.0;
-            
+
             // Test percentage calculation
             let percentage = if max > min {
                 ((value - min) / (max - min) * 100.0f64).clamp(0.0f64, 100.0f64)
             } else {
                 0.0
             };
-            
+
             assert_eq!(percentage, 50.0);
         });
     }
-    
+
     #[test]
     fn test_slider_value_bounds() {
         run_test(|| {
             let min = 10.0;
             let max = 90.0;
             let step = 5.0;
-            
+
             // Test value clamping
             let value_below_min: f64 = 5.0;
             let value_above_max: f64 = 95.0;
             let value_in_range: f64 = 50.0;
-            
+
             let clamped_below = value_below_min.max(min);
             let clamped_above = value_above_max.min(max);
             let clamped_in_range = value_in_range.clamp(min, max);
-            
+
             assert_eq!(clamped_below, 10.0);
             assert_eq!(clamped_above, 90.0);
             assert_eq!(clamped_in_range, 50.0);
         });
     }
-    
+
     // 4. Event Handling Tests
     #[test]
     fn test_slider_keyboard_navigation() {
@@ -405,28 +401,28 @@ mod tests {
             let max: f64 = 100.0;
             let step: f64 = 10.0;
             let disabled = false;
-            
+
             // Test arrow left/down
             let arrow_left_pressed = true;
             if arrow_left_pressed && !disabled {
                 value = (value - step).max(min);
             }
             assert_eq!(value, 40.0);
-            
+
             // Test arrow right/up
             let arrow_right_pressed = true;
             if arrow_right_pressed && !disabled {
                 value = (value + step).min(max);
             }
             assert_eq!(value, 50.0);
-            
+
             // Test home key
             let home_pressed = true;
             if home_pressed && !disabled {
                 value = min;
             }
             assert_eq!(value, 0.0);
-            
+
             // Test end key
             let end_pressed = true;
             if end_pressed && !disabled {
@@ -435,7 +431,7 @@ mod tests {
             assert_eq!(value, 100.0);
         });
     }
-    
+
     #[test]
     fn test_slider_page_navigation() {
         run_test(|| {
@@ -444,14 +440,14 @@ mod tests {
             let max: f64 = 100.0;
             let step: f64 = 1.0;
             let disabled = false;
-            
+
             // Test page down
             let page_down_pressed = true;
             if page_down_pressed && !disabled {
                 value = (value - step * 10.0f64).max(min);
             }
             assert_eq!(value, 40.0);
-            
+
             // Test page up
             let page_up_pressed = true;
             if page_up_pressed && !disabled {
@@ -460,7 +456,7 @@ mod tests {
             assert_eq!(value, 50.0);
         });
     }
-    
+
     // 5. Accessibility Tests
     #[test]
     fn test_slider_accessibility() {
@@ -471,7 +467,7 @@ mod tests {
             let aria_valuenow = 50.0;
             let aria_disabled = false;
             let tabindex = "0";
-            
+
             assert_eq!(role, "slider");
             assert_eq!(aria_valuemin, 0.0);
             assert_eq!(aria_valuemax, 100.0);
@@ -480,7 +476,7 @@ mod tests {
             assert_eq!(tabindex, "0");
         });
     }
-    
+
     // 6. Edge Case Tests
     #[test]
     fn test_slider_edge_cases() {
@@ -490,17 +486,17 @@ mod tests {
             let min = 0.0;
             let max = 0.0;
             let step = 1.0;
-            
+
             let percentage = if max > min {
                 ((value - min) / (max - min) * 100.0f64).clamp(0.0f64, 100.0f64)
             } else {
                 0.0
             };
-            
+
             assert_eq!(percentage, 0.0);
         });
     }
-    
+
     #[test]
     fn test_slider_negative_values() {
         run_test(|| {
@@ -508,17 +504,17 @@ mod tests {
             let min = -100.0;
             let max = 100.0;
             let step = 5.0;
-            
+
             let percentage = if max > min {
                 ((value - min) / (max - min) * 100.0f64).clamp(0.0f64, 100.0f64)
             } else {
                 0.0
             };
-            
+
             assert_eq!(percentage, 37.5);
         });
     }
-    
+
     #[test]
     fn test_slider_disabled_interaction() {
         run_test(|| {
@@ -527,7 +523,7 @@ mod tests {
             let max: f64 = 100.0;
             let step: f64 = 10.0;
             let disabled = true;
-            
+
             // Disabled slider should not respond to keyboard
             let arrow_left_pressed = true;
             let new_value: f64 = if !disabled && arrow_left_pressed {
@@ -535,21 +531,21 @@ mod tests {
             } else {
                 value
             };
-            
+
             assert_eq!(new_value, 50.0); // Should remain unchanged
         });
     }
-    
+
     // 7. Property-Based Tests
     proptest! {
         #[test]
         fn test_slider_properties(
-            variant in prop::sample::select(vec![
+            variant in prop::sample::select([
                 SliderVariant::Default,
                 SliderVariant::Destructive,
                 SliderVariant::Ghost,
             ]),
-            size in prop::sample::select(vec![
+            size in prop::sample::select([
                 SliderSize::Default,
                 SliderSize::Sm,
                 SliderSize::Lg,
@@ -557,32 +553,35 @@ mod tests {
             value in -1000.0..1000.0f64,
             min in -1000.0..1000.0f64,
             max in -1000.0..1000.0f64,
-            step in 0.1..100.0f64,
+            _step in 0.1..100.0f64,
             disabled in prop::bool::ANY
         ) {
             assert!(!variant.as_str().is_empty());
             assert!(!size.as_str().is_empty());
-            
-            assert!(disabled == true || disabled == false);
+
+            assert!(disabled  || disabled ! );
             assert!(step > 0.0);
-            
+
             // Test percentage calculation
             let percentage = if max > min {
                 ((value - min) / (max - min) * 100.0f64).clamp(0.0f64, 100.0f64)
             } else {
                 0.0
             };
-            
+
             assert!(percentage >= 0.0 && percentage <= 100.0);
-            
+
             if disabled {
                 // Disabled slider should not be interactive
             }
         }
     }
-    
+
     // Helper function for running tests
-    fn run_test<F>(f: F) where F: FnOnce() {
+    fn run_test<F>(f: F)
+    where
+        F: FnOnce(),
+    {
         f();
     }
 }

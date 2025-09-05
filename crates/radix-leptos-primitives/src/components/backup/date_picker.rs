@@ -17,7 +17,7 @@ pub struct DatePickerContext {
     pub on_change: Option<Callback<NaiveDate>>,
     pub on_calendar_open: Option<Callback<()>>,
     pub on_calendar_close: Option<Callback<()>>,
-    pub disabled: bool,
+    pub _disabled: bool,
     pub date_picker_id: String,
 }
 
@@ -70,14 +70,14 @@ pub fn DatePicker(
     on_calendar_close: Option<Callback<()>>,
     /// Whether the date picker is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
     /// Child content (trigger, calendar, etc.)
     children: Children,
 ) -> impl IntoView {
-    let date_picker_id = generate_id("date-picker");
+    let _date_picker_id = generate_id("date-picker");
     
     // Reactive state
     let (is_open, set_is_open) = signal(false);
@@ -129,7 +129,7 @@ pub fn DatePicker(
 pub fn DatePickerTrigger(
     /// Whether the trigger is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    __disabled: bool,
     /// Placeholder text
     #[prop(optional)]
     _placeholder: Option<String>,
@@ -143,7 +143,7 @@ pub fn DatePickerTrigger(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<DatePickerContext>().expect("DatePickerTrigger must be used within DatePicker");
-    let trigger_id = generate_id("date-picker-trigger");
+    let _trigger_id = generate_id("date-picker-trigger");
     
     let handle_click = move |_event: web_sys::MouseEvent| {
         if !context.disabled {
@@ -222,7 +222,7 @@ pub fn DatePickerTrigger(
 pub fn DatePickerCalendar(
     /// Whether the calendar is visible
     #[prop(optional, default = false)]
-    _open: bool,
+    __open: bool,
     /// Current month to display
     #[prop(optional)]
     _current_month: Option<NaiveDate>,
@@ -236,7 +236,7 @@ pub fn DatePickerCalendar(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<DatePickerContext>().expect("DatePickerCalendar must be used within DatePicker");
-    let calendar_id = generate_id("date-picker-calendar");
+    let _calendar_id = generate_id("date-picker-calendar");
     
     // Build base classes
     let base_classes = "radix-date-picker-calendar";
@@ -276,7 +276,7 @@ pub fn DatePickerGrid(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<DatePickerContext>().expect("DatePickerGrid must be used within DatePicker");
-    let grid_id = generate_id("date-picker-grid");
+    let _grid_id = generate_id("date-picker-grid");
     
     // Build base classes
     let base_classes = "radix-date-picker-grid";
@@ -360,16 +360,16 @@ pub fn DatePickerDay(
     _date: Option<NaiveDate>,
     /// Whether the day is selected
     #[prop(optional, default = false)]
-    _selected: bool,
+    __selected: bool,
     /// Whether the day is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    __disabled: bool,
     /// Whether the day is today
     #[prop(optional, default = false)]
-    _today: bool,
+    __today: bool,
     /// Whether the day is outside the current month
     #[prop(optional, default = false)]
-    _outside_month: bool,
+    __outside_month: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -379,7 +379,7 @@ pub fn DatePickerDay(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let day_id = generate_id("date-picker-day");
+    let _day_id = generate_id("date-picker-day");
     
     // Build base classes
     let base_classes = "radix-date-picker-day";
@@ -410,7 +410,7 @@ pub fn DatePickerInput(
     placeholder: Option<String>,
     /// Whether the input is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    __disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -419,7 +419,7 @@ pub fn DatePickerInput(
     style: Option<String>,
 ) -> impl IntoView {
     let context = use_context::<DatePickerContext>().expect("DatePickerInput must be used within DatePicker");
-    let input_id = generate_id("date-picker-input");
+    let _input_id = generate_id("date-picker-input");
     
     let handle_input = move |event: web_sys::Event| {
         if let Some(target) = event.target() {

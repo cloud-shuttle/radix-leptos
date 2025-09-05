@@ -21,7 +21,7 @@ pub fn ScatterPlot(
     let show_grid = show_grid.unwrap_or(true);
     let show_axes = show_axes.unwrap_or(true);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "scatter-plot",
         if show_trend_line { "show-trend-line" } else { "" },
         if show_grid { "show-grid" } else { "" },
@@ -59,7 +59,7 @@ impl Default for ScatterSeries {
     fn default() -> Self {
         Self {
             name: "Series".to_string(),
-            data: vec![],
+            data: [],
             color: "#3b82f6".to_string(),
             point_size: 4.0,
             opacity: 1.0,
@@ -193,7 +193,7 @@ pub fn ScatterPlotPoint(
     let point = point.unwrap_or_default();
     let size = size.unwrap_or(4.0);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "scatter-plot-point",
         class.as_deref().unwrap_or(""),
     ]);
@@ -225,7 +225,7 @@ pub fn ScatterPlotTrendLine(
     let trend_type = trend_type.unwrap_or_default();
     let opacity = opacity.unwrap_or(0.8);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "scatter-plot-trend-line",
         &trend_type.to_class(),
         class.as_deref().unwrap_or(""),
@@ -292,109 +292,109 @@ mod tests {
     wasm_bindgen_test_configure!(run_in_browser);
 
     // Unit Tests
-    #[test] fn test_scatterplot_creation() { assert!(true); }
-    #[test] fn test_scatterplot_with_class() { assert!(true); }
-    #[test] fn test_scatterplot_with_style() { assert!(true); }
-    #[test] fn test_scatterplot_with_data() { assert!(true); }
-    #[test] fn test_scatterplot_with_config() { assert!(true); }
-    #[test] fn test_scatterplot_show_trend_line() { assert!(true); }
-    #[test] fn test_scatterplot_show_grid() { assert!(true); }
-    #[test] fn test_scatterplot_show_axes() { assert!(true); }
-    #[test] fn test_scatterplot_on_point_click() { assert!(true); }
-    #[test] fn test_scatterplot_on_point_hover() { assert!(true); }
+    #[test] fn test_scatterplot_creation() { 
+    #[test] fn test_scatterplot_with_class() { 
+    #[test] fn test_scatterplot_with_style() { 
+    #[test] fn test_scatterplot_with_data() { 
+    #[test] fn test_scatterplot_with_config() { 
+    #[test] fn test_scatterplot_show_trend_line() { 
+    #[test] fn test_scatterplot_show_grid() { 
+    #[test] fn test_scatterplot_show_axes() { 
+    #[test] fn test_scatterplot_on_point_click() { 
+    #[test] fn test_scatterplot_on_point_hover() { 
 
     // Scatter Series tests
-    #[test] fn test_scatter_series_default() { assert!(true); }
-    #[test] fn test_scatter_series_creation() { assert!(true); }
+    #[test] fn test_scatter_series_default() { 
+    #[test] fn test_scatter_series_creation() { 
 
     // Scatter Point tests
-    #[test] fn test_scatter_point_creation() { assert!(true); }
+    #[test] fn test_scatter_point_creation() { 
 
     // Scatter Plot Config tests
-    #[test] fn test_scatterplot_config_default() { assert!(true); }
-    #[test] fn test_scatterplot_config_custom() { assert!(true); }
+    #[test] fn test_scatterplot_config_default() { 
+    #[test] fn test_scatterplot_config_custom() { 
 
     // Chart Margin tests
-    #[test] fn test_chart_margin_default() { assert!(true); }
+    #[test] fn test_chart_margin_default() { 
 
     // Axis Config tests
-    #[test] fn test_axis_config_default() { assert!(true); }
-    #[test] fn test_axis_config_custom() { assert!(true); }
+    #[test] fn test_axis_config_default() { 
+    #[test] fn test_axis_config_custom() { 
 
     // Point Size Range tests
-    #[test] fn test_point_size_range_default() { assert!(true); }
-    #[test] fn test_point_size_range_custom() { assert!(true); }
+    #[test] fn test_point_size_range_default() { 
+    #[test] fn test_point_size_range_custom() { 
 
     // Scale Type tests
-    #[test] fn test_scale_type_default() { assert!(true); }
-    #[test] fn test_scale_type_linear() { assert!(true); }
-    #[test] fn test_scale_type_logarithmic() { assert!(true); }
-    #[test] fn test_scale_type_square_root() { assert!(true); }
+    #[test] fn test_scale_type_default() { 
+    #[test] fn test_scale_type_linear() { 
+    #[test] fn test_scale_type_logarithmic() { 
+    #[test] fn test_scale_type_square_root() { 
 
     // Scatter Plot Point tests
-    #[test] fn test_scatterplot_point_creation() { assert!(true); }
-    #[test] fn test_scatterplot_point_with_class() { assert!(true); }
-    #[test] fn test_scatterplot_point_with_style() { assert!(true); }
-    #[test] fn test_scatterplot_point_with_point() { assert!(true); }
-    #[test] fn test_scatterplot_point_size() { assert!(true); }
-    #[test] fn test_scatterplot_point_on_click() { assert!(true); }
+    #[test] fn test_scatterplot_point_creation() { 
+    #[test] fn test_scatterplot_point_with_class() { 
+    #[test] fn test_scatterplot_point_with_style() { 
+    #[test] fn test_scatterplot_point_with_point() { 
+    #[test] fn test_scatterplot_point_size() { 
+    #[test] fn test_scatterplot_point_on_click() { 
 
     // Scatter Plot Trend Line tests
-    #[test] fn test_scatterplot_trend_line_creation() { assert!(true); }
-    #[test] fn test_scatterplot_trend_line_with_class() { assert!(true); }
-    #[test] fn test_scatterplot_trend_line_with_style() { assert!(true); }
-    #[test] fn test_scatterplot_trend_line_with_series() { assert!(true); }
-    #[test] fn test_scatterplot_trend_line_trend_type() { assert!(true); }
-    #[test] fn test_scatterplot_trend_line_opacity() { assert!(true); }
+    #[test] fn test_scatterplot_trend_line_creation() { 
+    #[test] fn test_scatterplot_trend_line_with_class() { 
+    #[test] fn test_scatterplot_trend_line_with_style() { 
+    #[test] fn test_scatterplot_trend_line_with_series() { 
+    #[test] fn test_scatterplot_trend_line_trend_type() { 
+    #[test] fn test_scatterplot_trend_line_opacity() { 
 
     // Trend Type tests
-    #[test] fn test_trend_type_default() { assert!(true); }
-    #[test] fn test_trend_type_linear() { assert!(true); }
-    #[test] fn test_trend_type_polynomial() { assert!(true); }
-    #[test] fn test_trend_type_exponential() { assert!(true); }
-    #[test] fn test_trend_type_logarithmic() { assert!(true); }
+    #[test] fn test_trend_type_default() { 
+    #[test] fn test_trend_type_linear() { 
+    #[test] fn test_trend_type_polynomial() { 
+    #[test] fn test_trend_type_exponential() { 
+    #[test] fn test_trend_type_logarithmic() { 
 
     // Helper function tests
-    #[test] fn test_merge_classes_empty() { assert!(true); }
-    #[test] fn test_merge_classes_single() { assert!(true); }
-    #[test] fn test_merge_classes_multiple() { assert!(true); }
-    #[test] fn test_merge_classes_with_empty() { assert!(true); }
+    #[test] fn test_merge_classes_empty() { 
+    #[test] fn test_merge_classes_single() { 
+    #[test] fn test_merge_classes_multiple() { 
+    #[test] fn test_merge_classes_with_empty() { 
 
     // Property-based Tests
     #[test] fn test_scatterplot_property_based() {
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*")| {
+            
         });
     }
 
     #[test] fn test_scatterplot_data_validation() {
-        proptest!(|(series_count in 0..10usize, points_per_series in 0..1000usize)| {
-            assert!(true);
+        proptest!(|(___series_count in 0..10usize, _points_per_series in 0..1000usize)| {
+            
         });
     }
 
     #[test] fn test_scatterplot_config_validation() {
-        proptest!(|(width in 100.0..2000.0f64, height in 100.0..2000.0f64)| {
-            assert!(true);
+        proptest!(|(__width in 100.0..2000.0f64, _height in 100.0..2000.0f64)| {
+            
         });
     }
 
     #[test] fn test_scatterplot_trend_property_based() {
-        proptest!(|(trend_type_index in 0..4usize)| {
-            assert!(true);
+        proptest!(|(__trend_type_index in 0..4usize)| {
+            
         });
     }
 
     // Integration Tests
-    #[test] fn test_scatterplot_tooltip_interaction() { assert!(true); }
-    #[test] fn test_scatterplot_legend_interaction() { assert!(true); }
-    #[test] fn test_scatterplot_user_workflow() { assert!(true); }
-    #[test] fn test_scatterplot_accessibility_workflow() { assert!(true); }
-    #[test] fn test_scatterplot_with_other_components() { assert!(true); }
+    #[test] fn test_scatterplot_tooltip_interaction() { 
+    #[test] fn test_scatterplot_legend_interaction() { 
+    #[test] fn test_scatterplot_user_workflow() { 
+    #[test] fn test_scatterplot_accessibility_workflow() { 
+    #[test] fn test_scatterplot_with_other_components() { 
 
     // Performance Tests
-    #[test] fn test_scatterplot_large_dataset() { assert!(true); }
-    #[test] fn test_scatterplot_render_performance() { assert!(true); }
-    #[test] fn test_scatterplot_memory_usage() { assert!(true); }
-    #[test] fn test_scatterplot_animation_performance() { assert!(true); }
+    #[test] fn test_scatterplot_large_dataset() { 
+    #[test] fn test_scatterplot_render_performance() { 
+    #[test] fn test_scatterplot_memory_usage() { 
+    #[test] fn test_scatterplot_animation_performance() { 
 }

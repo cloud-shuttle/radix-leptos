@@ -9,7 +9,7 @@ pub fn TouchButton(
     children: Children,
     /// Whether the button is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// Button type
     #[prop(optional, default = "button")]
     button_type: &'static str,
@@ -110,7 +110,7 @@ pub fn TouchIconButton(
     icon: Children,
     /// Whether the button is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// Button type
     #[prop(optional, default = "button")]
     button_type: &'static str,
@@ -211,7 +211,7 @@ pub fn FloatingActionButton(
     children: Children,
     /// Whether the button is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// Button type
     #[prop(optional, default = "button")]
     button_type: &'static str,

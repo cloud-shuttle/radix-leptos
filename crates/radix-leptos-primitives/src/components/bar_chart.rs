@@ -23,7 +23,7 @@ pub fn BarChart(
     let show_values = show_values.unwrap_or(false);
     let show_grid = show_grid.unwrap_or(true);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "bar-chart",
         &orientation.to_class(),
         if stacked { "stacked" } else { "" },
@@ -62,7 +62,7 @@ impl Default for BarSeries {
     fn default() -> Self {
         Self {
             name: "Series".to_string(),
-            data: vec![],
+            data: [],
             color: "#3b82f6".to_string(),
             opacity: 1.0,
         }
@@ -184,7 +184,7 @@ pub fn BarChartBar(
     let width = width.unwrap_or(20.0);
     let height = height.unwrap_or(100.0);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "bar-chart-bar",
         class.as_deref().unwrap_or(""),
     ]);
@@ -216,7 +216,7 @@ pub fn BarChartGroup(
     let category = category.unwrap_or_default();
     let bars = bars.unwrap_or_default();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "bar-chart-group",
         class.as_deref().unwrap_or(""),
     ]);
@@ -253,98 +253,98 @@ mod tests {
     wasm_bindgen_test_configure!(run_in_browser);
 
     // Unit Tests
-    #[test] fn test_barchart_creation() { assert!(true); }
-    #[test] fn test_barchart_with_class() { assert!(true); }
-    #[test] fn test_barchart_with_style() { assert!(true); }
-    #[test] fn test_barchart_with_data() { assert!(true); }
-    #[test] fn test_barchart_with_config() { assert!(true); }
-    #[test] fn test_barchart_orientation() { assert!(true); }
-    #[test] fn test_barchart_stacked() { assert!(true); }
-    #[test] fn test_barchart_show_values() { assert!(true); }
-    #[test] fn test_barchart_show_grid() { assert!(true); }
-    #[test] fn test_barchart_on_bar_click() { assert!(true); }
-    #[test] fn test_barchart_on_bar_hover() { assert!(true); }
+    #[test] fn test_barchart_creation() { 
+    #[test] fn test_barchart_with_class() { 
+    #[test] fn test_barchart_with_style() { 
+    #[test] fn test_barchart_with_data() { 
+    #[test] fn test_barchart_with_config() { 
+    #[test] fn test_barchart_orientation() { 
+    #[test] fn test_barchart_stacked() { 
+    #[test] fn test_barchart_show_values() { 
+    #[test] fn test_barchart_show_grid() { 
+    #[test] fn test_barchart_on_bar_click() { 
+    #[test] fn test_barchart_on_bar_hover() { 
 
     // Bar Series tests
-    #[test] fn test_bar_series_default() { assert!(true); }
-    #[test] fn test_bar_series_creation() { assert!(true); }
+    #[test] fn test_bar_series_default() { 
+    #[test] fn test_bar_series_creation() { 
 
     // Bar Data tests
-    #[test] fn test_bar_data_creation() { assert!(true); }
+    #[test] fn test_bar_data_creation() { 
 
     // Bar Chart Config tests
-    #[test] fn test_barchart_config_default() { assert!(true); }
-    #[test] fn test_barchart_config_custom() { assert!(true); }
+    #[test] fn test_barchart_config_default() { 
+    #[test] fn test_barchart_config_custom() { 
 
     // Chart Margin tests
-    #[test] fn test_chart_margin_default() { assert!(true); }
+    #[test] fn test_chart_margin_default() { 
 
     // Axis Config tests
-    #[test] fn test_axis_config_default() { assert!(true); }
-    #[test] fn test_axis_config_custom() { assert!(true); }
+    #[test] fn test_axis_config_default() { 
+    #[test] fn test_axis_config_custom() { 
 
     // Bar Orientation tests
-    #[test] fn test_bar_orientation_default() { assert!(true); }
-    #[test] fn test_bar_orientation_vertical() { assert!(true); }
-    #[test] fn test_bar_orientation_horizontal() { assert!(true); }
+    #[test] fn test_bar_orientation_default() { 
+    #[test] fn test_bar_orientation_vertical() { 
+    #[test] fn test_bar_orientation_horizontal() { 
 
     // Bar Chart Bar tests
-    #[test] fn test_barchart_bar_creation() { assert!(true); }
-    #[test] fn test_barchart_bar_with_class() { assert!(true); }
-    #[test] fn test_barchart_bar_with_style() { assert!(true); }
-    #[test] fn test_barchart_bar_with_data() { assert!(true); }
-    #[test] fn test_barchart_bar_width() { assert!(true); }
-    #[test] fn test_barchart_bar_height() { assert!(true); }
-    #[test] fn test_barchart_bar_on_click() { assert!(true); }
+    #[test] fn test_barchart_bar_creation() { 
+    #[test] fn test_barchart_bar_with_class() { 
+    #[test] fn test_barchart_bar_with_style() { 
+    #[test] fn test_barchart_bar_with_data() { 
+    #[test] fn test_barchart_bar_width() { 
+    #[test] fn test_barchart_bar_height() { 
+    #[test] fn test_barchart_bar_on_click() { 
 
     // Bar Chart Group tests
-    #[test] fn test_barchart_group_creation() { assert!(true); }
-    #[test] fn test_barchart_group_with_class() { assert!(true); }
-    #[test] fn test_barchart_group_with_style() { assert!(true); }
-    #[test] fn test_barchart_group_category() { assert!(true); }
-    #[test] fn test_barchart_group_bars() { assert!(true); }
+    #[test] fn test_barchart_group_creation() { 
+    #[test] fn test_barchart_group_with_class() { 
+    #[test] fn test_barchart_group_with_style() { 
+    #[test] fn test_barchart_group_category() { 
+    #[test] fn test_barchart_group_bars() { 
 
     // Helper function tests
-    #[test] fn test_merge_classes_empty() { assert!(true); }
-    #[test] fn test_merge_classes_single() { assert!(true); }
-    #[test] fn test_merge_classes_multiple() { assert!(true); }
-    #[test] fn test_merge_classes_with_empty() { assert!(true); }
+    #[test] fn test_merge_classes_empty() { 
+    #[test] fn test_merge_classes_single() { 
+    #[test] fn test_merge_classes_multiple() { 
+    #[test] fn test_merge_classes_with_empty() { 
 
     // Property-based Tests
     #[test] fn test_barchart_property_based() {
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*")| {
+            
         });
     }
 
     #[test] fn test_barchart_data_validation() {
-        proptest!(|(series_count in 0..10usize, bars_per_series in 0..50usize)| {
-            assert!(true);
+        proptest!(|(___series_count in 0..10usize, _bars_per_series in 0..50usize)| {
+            
         });
     }
 
     #[test] fn test_barchart_config_validation() {
-        proptest!(|(width in 100.0..2000.0f64, height in 100.0..2000.0f64)| {
-            assert!(true);
+        proptest!(|(__width in 100.0..2000.0f64, _height in 100.0..2000.0f64)| {
+            
         });
     }
 
     #[test] fn test_barchart_orientation_property_based() {
-        proptest!(|(orientation_index in 0..2usize)| {
-            assert!(true);
+        proptest!(|(__orientation_index in 0..2usize)| {
+            
         });
     }
 
     // Integration Tests
-    #[test] fn test_barchart_tooltip_interaction() { assert!(true); }
-    #[test] fn test_barchart_legend_interaction() { assert!(true); }
-    #[test] fn test_barchart_user_workflow() { assert!(true); }
-    #[test] fn test_barchart_accessibility_workflow() { assert!(true); }
-    #[test] fn test_barchart_with_other_components() { assert!(true); }
+    #[test] fn test_barchart_tooltip_interaction() { 
+    #[test] fn test_barchart_legend_interaction() { 
+    #[test] fn test_barchart_user_workflow() { 
+    #[test] fn test_barchart_accessibility_workflow() { 
+    #[test] fn test_barchart_with_other_components() { 
 
     // Performance Tests
-    #[test] fn test_barchart_large_dataset() { assert!(true); }
-    #[test] fn test_barchart_render_performance() { assert!(true); }
-    #[test] fn test_barchart_memory_usage() { assert!(true); }
-    #[test] fn test_barchart_animation_performance() { assert!(true); }
+    #[test] fn test_barchart_large_dataset() { 
+    #[test] fn test_barchart_render_performance() { 
+    #[test] fn test_barchart_memory_usage() { 
+    #[test] fn test_barchart_animation_performance() { 
 }

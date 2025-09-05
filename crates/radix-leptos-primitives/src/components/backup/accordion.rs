@@ -43,7 +43,7 @@ pub fn Accordion(
     accordion_type: AccordionType,
     /// Whether the accordion is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -53,7 +53,7 @@ pub fn Accordion(
     /// Child content (accordion items)
     children: Children,
 ) -> impl IntoView {
-    let accordion_id = generate_id("accordion");
+    let _accordion_id = generate_id("accordion");
     
     // Build base classes
     let base_classes = "radix-accordion";
@@ -81,7 +81,7 @@ pub fn AccordionItem(
     value: String,
     /// Whether this item is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -91,7 +91,7 @@ pub fn AccordionItem(
     /// Child content (trigger and content)
     children: Children,
 ) -> impl IntoView {
-    let item_id = generate_id("accordion-item");
+    let _item_id = generate_id("accordion-item");
     
     // Build base classes
     let base_classes = "radix-accordion-item";
@@ -116,7 +116,7 @@ pub fn AccordionItem(
 pub fn AccordionTrigger(
     /// Whether this trigger is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -129,7 +129,7 @@ pub fn AccordionTrigger(
     /// Child content (trigger content)
     children: Children,
 ) -> impl IntoView {
-    let trigger_id = generate_id("accordion-trigger");
+    let _trigger_id = generate_id("accordion-trigger");
     
     // Build base classes
     let base_classes = "radix-accordion-trigger";
@@ -199,7 +199,7 @@ pub fn AccordionContent(
     /// Child content (accordion content)
     children: Children,
 ) -> impl IntoView {
-    let content_id = generate_id("accordion-content");
+    let _content_id = generate_id("accordion-content");
     
     // Build base classes
     let base_classes = "radix-accordion-content";
@@ -233,7 +233,7 @@ pub fn AccordionHeader(
     /// Child content (header content)
     children: Children,
 ) -> impl IntoView {
-    let header_id = generate_id("accordion-header");
+    let _header_id = generate_id("accordion-header");
     
     // Build base classes
     let base_classes = "radix-accordion-header";

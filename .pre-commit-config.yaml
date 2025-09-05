@@ -1,0 +1,84 @@
+# Pre-commit hooks for Radix-Leptos
+# Install with: pip install pre-commit && pre-commit install
+
+repos:
+  # Rust-specific hooks
+  - repo: https://github.com/pre-commit/mirrors-rustfmt
+    rev: v1.7.0
+    hooks:
+      - id: rustfmt
+        args: [--edition, "2021"]
+        files: \.rs$
+
+  - repo: https://github.com/pre-commit/mirrors-clippy
+    rev: v0.1.78
+    hooks:
+      - id: clippy
+        args: [--all-targets, --all-features, --, -D, warnings]
+        files: \.rs$
+
+  # General file checks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: \.md$
+      - id: end-of-file-fixer
+        exclude: \.md$
+      - id: check-yaml
+        args: [--unsafe]
+      - id: check-toml
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: [--maxkb=1000]
+      - id: mixed-line-ending
+        args: [--fix=lf]
+
+  # Documentation
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v3.1.0
+    hooks:
+      - id: prettier
+        files: \.(js|ts|json|md|html|css)$
+        exclude: ^(node_modules/|target/|pkg/|\.git/)
+
+  # Security
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+      - id: detect-secrets
+        args: [--baseline, .secrets.baseline]
+        exclude: package.lock.json
+
+  # Custom Rust checks
+  - repo: local
+    hooks:
+      - id: cargo-check
+        name: cargo check
+        entry: cargo check --workspace
+        language: system
+        files: \.rs$
+        pass_filenames: false
+
+      - id: cargo-test
+        name: cargo test
+        entry: cargo test --workspace --lib --quiet
+        language: system
+        files: \.rs$
+        pass_filenames: false
+
+      - id: cargo-doc
+        name: cargo doc check
+        entry: cargo doc --workspace --no-deps
+        language: system
+        files: \.rs$
+        pass_filenames: false
+
+      - id: wasm-build-check
+        name: wasm build check
+        entry: bash -c 'cd examples && wasm-pack build --target web --out-dir pkg --dev'
+        language: system
+        files: \.rs$
+        pass_filenames: false
+        stages: [manual]  # Only run on explicit request

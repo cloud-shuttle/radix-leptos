@@ -1,5 +1,5 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// Skeleton component - Loading placeholder component for better UX
 ///
@@ -95,7 +95,7 @@ pub fn Skeleton(
     let lines = lines.unwrap_or(1);
     let animated = animated.unwrap_or(true);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "skeleton",
         variant.as_str(),
         size.as_str(),
@@ -104,7 +104,7 @@ pub fn Skeleton(
     ]);
 
     let mut style_attr = style.unwrap_or_default();
-    
+
     // Add custom dimensions if provided
     if let Some(w) = width {
         style_attr = format!("{}width: {};", style_attr, w);
@@ -114,46 +114,43 @@ pub fn Skeleton(
     }
 
     match variant {
-        SkeletonVariant::Text => {
-            view! {
-                <div class=class style=style_attr>
-                    {if lines > 1 {
-                        (0..lines).map(|i| {
-                            let line_class = if i == lines - 1 {
-                                "skeleton-line skeleton-line-last"
-                            } else {
-                                "skeleton-line"
-                            };
-                            view! {
-                                <div class=line_class></div>
-                            }
-                        }).collect::<Vec<_>>()
-                    } else {
-                        vec![view! { <div class="skeleton-line"></div> }]
-                    }}
-                </div>
-            }.into_any()
+        SkeletonVariant::Text => view! {
+            <div class=class style=style_attr>
+                {if lines > 1 {
+                    (0..lines).map(|i| {
+                        let line_class = if i == lines - 1 {
+                            "skeleton-line skeleton-line-last"
+                        } else {
+                            "skeleton-line"
+                        };
+                        view! {
+                            <div class=line_class></div>
+                        }
+                    }).collect::<Vec<_>>()
+                } else {
+                    [view! { <div class="skeleton-line"></div> }]
+                }}
+            </div>
         }
-        SkeletonVariant::Circular => {
-            view! {
-                <div
-                    class=class
-                    style=style_attr
-                    role="img"
-                    aria-label="Loading"
-                ></div>
-            }.into_any()
+        .into_any(),
+        SkeletonVariant::Circular => view! {
+            <div
+                class=class
+                style=style_attr
+                role="img"
+                aria-label="Loading"
+            ></div>
         }
-        SkeletonVariant::Rectangular => {
-            view! {
-                <div
-                    class=class
-                    style=style_attr
-                    role="img"
-                    aria-label="Loading"
-                ></div>
-            }.into_any()
+        .into_any(),
+        SkeletonVariant::Rectangular => view! {
+            <div
+                class=class
+                style=style_attr
+                role="img"
+                aria-label="Loading"
+            ></div>
         }
+        .into_any(),
     }
 }
 
@@ -166,11 +163,8 @@ pub fn SkeletonGroup(
     #[prop(optional)] spacing: Option<String>,
 ) -> impl IntoView {
     let spacing = spacing.unwrap_or_else(|| "1rem".to_string());
-    
-    let class = merge_classes(vec![
-        "skeleton-group",
-        class.as_deref().unwrap_or(""),
-    ]);
+
+    let class = merge_classes(["skeleton-group", class.as_deref().unwrap_or("")]);
 
     let style_attr = format!("{}gap: {};", style.unwrap_or_default(), spacing);
 
@@ -194,7 +188,7 @@ pub fn SkeletonText(
 ) -> impl IntoView {
     let lines = lines.unwrap_or(1);
     let animated = animated.unwrap_or(true);
-    
+
     view! {
         <Skeleton
             class=class.unwrap_or_default()
@@ -216,7 +210,7 @@ pub fn SkeletonAvatar(
 ) -> impl IntoView {
     let size = size.unwrap_or(SkeletonSize::Medium);
     let animated = animated.unwrap_or(true);
-    
+
     view! {
         <Skeleton
             class=class.unwrap_or_default()
@@ -238,7 +232,7 @@ pub fn SkeletonButton(
 ) -> impl IntoView {
     let size = size.unwrap_or(SkeletonSize::Medium);
     let animated = animated.unwrap_or(true);
-    
+
     view! {
         <Skeleton
             class=class.unwrap_or_default()
@@ -265,64 +259,60 @@ mod tests {
     use proptest::prelude::*;
 
     #[test]
-    fn test_skeleton_component_creation() {
-        assert!(true);
-    }
+    fn test_skeleton_component_creation() {}
 
     #[test]
-    fn test_skeleton_with_variant_component_creation() {
-        assert!(true);
-    }
+    fn test_skeleton_with_variant_component_creation() {}
 
     proptest! {
         #[test]
-        fn test_skeleton_props(_class in ".*", _style in ".*") {
-            assert!(true);
+        fn test_skeleton_props(__class in ".*", __style in ".*") {
+
         }
 
         #[test]
-        fn test_skeleton_variants(_variant_index in 0..3usize, _size_index in 0..4usize) {
-            assert!(true);
+        fn test_skeleton_variants(__variant_index in 0..3usize, __size_index in 0..4usize) {
+
         }
 
         #[test]
-        fn test_skeleton_sizes(_size_index in 0..4usize) {
-            assert!(true);
+        fn test_skeleton_sizes(__size_index in 0..4usize) {
+
         }
 
         #[test]
         fn test_skeleton_dimensions(_width in ".*", _height in ".*") {
-            assert!(true);
+
         }
 
         #[test]
-        fn test_skeleton_lines(_lines in 1..10usize) {
-            assert!(true);
+        fn test_skeleton_lines(__lines in 1..10usize) {
+
         }
 
         #[test]
-        fn test_skeleton_animation(_animated: bool) {
-            assert!(true);
+        fn test_skeleton_animation(__animated: bool) {
+
         }
 
         #[test]
-        fn test_skeleton_group_props(_class in ".*", _style in ".*", _spacing in ".*") {
-            assert!(true);
+        fn test_skeleton_group_props(__class in ".*", __style in ".*", _spacing in ".*") {
+
         }
 
         #[test]
-        fn test_skeleton_text_props(_class in ".*", _style in ".*", _lines in 1..5usize) {
-            assert!(true);
+        fn test_skeleton_text_props(__class in ".*", __style in ".*", __lines in 1..5usize) {
+
         }
 
         #[test]
-        fn test_skeleton_avatar_props(_class in ".*", _style in ".*", _size_index in 0..4usize) {
-            assert!(true);
+        fn test_skeleton_avatar_props(__class in ".*", __style in ".*", __size_index in 0..4usize) {
+
         }
 
         #[test]
-        fn test_skeleton_button_props(_class in ".*", _style in ".*", _size_index in 0..4usize) {
-            assert!(true);
+        fn test_skeleton_button_props(__class in ".*", __style in ".*", __size_index in 0..4usize) {
+
         }
     }
 }

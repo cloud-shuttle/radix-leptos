@@ -1,40 +1,55 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 use wasm_bindgen::JsCast;
 
 /// One-Time Password Field component for OTP input with validation
 #[component]
 pub fn OtpField(
     /// OTP value
-    #[prop(optional)] value: Option<String>,
+    #[prop(optional)]
+    value: Option<String>,
     /// Number of OTP digits
-    #[prop(optional)] length: Option<usize>,
+    #[prop(optional)]
+    length: Option<usize>,
     /// Whether the field is disabled
-    #[prop(optional)] disabled: Option<bool>,
+    #[prop(optional)]
+    disabled: Option<bool>,
     /// Whether the field is required
-    #[prop(optional)] required: Option<bool>,
+    #[prop(optional)]
+    required: Option<bool>,
     /// Whether to auto-focus the first input
-    #[prop(optional)] auto_focus: Option<bool>,
+    #[prop(optional)]
+    auto_focus: Option<bool>,
     /// Whether to auto-submit when complete
-    #[prop(optional)] auto_submit: Option<bool>,
+    #[prop(optional)]
+    auto_submit: Option<bool>,
     /// Input type (numeric, alphanumeric, alphabetic)
-    #[prop(optional)] input_type: Option<OtpInputType>,
+    #[prop(optional)]
+    input_type: Option<OtpInputType>,
     /// Callback when OTP value changes
-    #[prop(optional)] on_change: Option<Callback<String>>,
+    #[prop(optional)]
+    on_change: Option<Callback<String>>,
     /// Callback when OTP is complete
-    #[prop(optional)] on_complete: Option<Callback<String>>,
+    #[prop(optional)]
+    on_complete: Option<Callback<String>>,
     /// Callback when OTP is submitted
-    #[prop(optional)] on_submit: Option<Callback<String>>,
+    #[prop(optional)]
+    on_submit: Option<Callback<String>>,
     /// Callback when input is focused
-    #[prop(optional)] on_focus: Option<Callback<usize>>,
+    #[prop(optional)]
+    on_focus: Option<Callback<usize>>,
     /// Callback when input is blurred
-    #[prop(optional)] on_blur: Option<Callback<usize>>,
+    #[prop(optional)]
+    on_blur: Option<Callback<usize>>,
     /// Additional CSS classes
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)]
+    class: Option<String>,
     /// Inline styles
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional)]
+    style: Option<String>,
     /// Children content
-    #[prop(optional)] children: Option<Children>,
+    #[prop(optional)]
+    children: Option<Children>,
 ) -> impl IntoView {
     let value = value.unwrap_or_default();
     let length = length.unwrap_or(6);
@@ -57,7 +72,7 @@ pub fn OtpField(
     let chars: Vec<char> = value.chars().take(length).collect();
     let mut inputs = Vec::new();
 
-    for i in 0..length {
+    for _i in 0..length {
         let char_value = chars.get(i).copied().unwrap_or(' ');
         let input_type_str = match input_type {
             OtpInputType::Numeric => "tel",
@@ -66,7 +81,10 @@ pub fn OtpField(
         };
 
         let handle_input = move |event: web_sys::Event| {
-            if let Some(input) = event.target().and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok()) {
+            if let Some(input) = event
+                .target()
+                .and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok())
+            {
                 let input_value = input.value();
                 if let Some(callback) = on_change {
                     callback.run(input_value);
@@ -124,8 +142,8 @@ pub enum OtpInputType {
 /// OTP validation result
 #[derive(Debug, Clone, PartialEq, Default)]
 pub struct OtpValidation {
-    pub is_valid: bool,
-    pub is_complete: bool,
+    pub _is_valid: bool,
+    pub _is_complete: bool,
     pub length: usize,
     pub errors: Vec<String>,
 }
@@ -134,27 +152,38 @@ pub struct OtpValidation {
 #[component]
 pub fn OtpFieldWithValidation(
     /// OTP value
-    #[prop(optional)] value: Option<String>,
+    #[prop(optional)]
+    value: Option<String>,
     /// Number of OTP digits
-    #[prop(optional)] length: Option<usize>,
+    #[prop(optional)]
+    length: Option<usize>,
     /// Whether the field is disabled
-    #[prop(optional)] disabled: Option<bool>,
+    #[prop(optional)]
+    disabled: Option<bool>,
     /// Whether the field is required
-    #[prop(optional)] required: Option<bool>,
+    #[prop(optional)]
+    required: Option<bool>,
     /// Input type
-    #[prop(optional)] input_type: Option<OtpInputType>,
+    #[prop(optional)]
+    input_type: Option<OtpInputType>,
     /// Whether to show validation errors
-    #[prop(optional)] show_errors: Option<bool>,
+    #[prop(optional)]
+    show_errors: Option<bool>,
     /// Callback when OTP value changes
-    #[prop(optional)] on_change: Option<Callback<String>>,
+    #[prop(optional)]
+    on_change: Option<Callback<String>>,
     /// Callback when OTP is complete
-    #[prop(optional)] on_complete: Option<Callback<String>>,
+    #[prop(optional)]
+    on_complete: Option<Callback<String>>,
     /// Callback when validation changes
-    #[prop(optional)] on_validation: Option<Callback<OtpValidation>>,
+    #[prop(optional)]
+    on_validation: Option<Callback<OtpValidation>>,
     /// Additional CSS classes
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)]
+    class: Option<String>,
     /// Inline styles
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional)]
+    style: Option<String>,
 ) -> impl IntoView {
     let value = value.unwrap_or_default();
     let length = length.unwrap_or(6);
@@ -168,8 +197,16 @@ pub fn OtpFieldWithValidation(
         "otp-field-with-validation {} {} {} {}",
         if disabled { "disabled" } else { "" },
         if required { "required" } else { "" },
-        if validation.is_valid { "valid" } else { "invalid" },
-        if validation.is_complete { "complete" } else { "incomplete" },
+        if validation.is_valid {
+            "valid"
+        } else {
+            "invalid"
+        },
+        if validation.is_complete {
+            "complete"
+        } else {
+            "incomplete"
+        },
     );
 
     let style = style.unwrap_or_default();
@@ -206,17 +243,23 @@ pub fn OtpFieldWithValidation(
 #[component]
 pub fn OtpTimer(
     /// Timer duration in seconds
-    #[prop(optional)] duration: Option<usize>,
+    #[prop(optional)]
+    duration: Option<usize>,
     /// Whether the timer is running
-    #[prop(optional)] running: Option<bool>,
+    #[prop(optional)]
+    running: Option<bool>,
     /// Callback when timer expires
-    #[prop(optional)] on_expire: Option<Callback<()>>,
+    #[prop(optional)]
+    on_expire: Option<Callback<()>>,
     /// Callback when timer is reset
-    #[prop(optional)] on_reset: Option<Callback<()>>,
+    #[prop(optional)]
+    on_reset: Option<Callback<()>>,
     /// Additional CSS classes
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)]
+    class: Option<String>,
     /// Inline styles
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional)]
+    style: Option<String>,
 ) -> impl IntoView {
     let duration = duration.unwrap_or(300); // 5 minutes default
     let running = running.unwrap_or(false);
@@ -252,21 +295,30 @@ pub fn OtpTimer(
 #[component]
 pub fn OtpResend(
     /// Whether resend is available
-    #[prop(optional)] available: Option<bool>,
+    #[prop(optional)]
+    available: Option<bool>,
     /// Resend cooldown in seconds
-    #[prop(optional)] cooldown: Option<usize>,
+    #[prop(optional)]
+    cooldown: Option<usize>,
     /// Callback when resend is clicked
-    #[prop(optional)] on_resend: Option<Callback<()>>,
+    #[prop(optional)]
+    on_resend: Option<Callback<()>>,
     /// Additional CSS classes
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)]
+    class: Option<String>,
     /// Inline styles
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional)]
+    style: Option<String>,
 ) -> impl IntoView {
     let available = available.unwrap_or(true);
     let cooldown = cooldown.unwrap_or(0);
     let class = format!(
         "otp-resend {} {}",
-        if available { "available" } else { "unavailable" },
+        if available {
+            "available"
+        } else {
+            "unavailable"
+        },
         class.unwrap_or_default()
     );
 
@@ -365,11 +417,13 @@ mod tests {
             // This will fail due to the type mismatches in the component usage
             // Test that OtpField component can be created (this is a compile-time test)
             // The actual component usage is tested in the proptest above
-            assert!(true);
         });
-        
+
         // This should pass once we fix the type mismatches
-        assert!(result.is_ok(), "OtpField component should be callable with proper props");
+        assert!(
+            result.is_ok(),
+            "OtpField component should be callable with proper props"
+        );
     }
 
     #[test]
@@ -381,22 +435,20 @@ mod tests {
             // This will fail due to the type mismatches in the component usage
             // Test that OtpFieldWithValidation component can be created (this is a compile-time test)
             // The actual component usage is tested in the proptest above
-            assert!(true);
         });
-        
+
         // This should pass once we fix the type mismatches
-        assert!(result.is_ok(), "OtpFieldWithValidation component should be callable with proper props");
+        assert!(
+            result.is_ok(),
+            "OtpFieldWithValidation component should be callable with proper props"
+        );
     }
 
     #[test]
-    fn test_otp_timer_component_creation() {
-        assert!(true);
-    }
+    fn test_otp_timer_component_creation() {}
 
     #[test]
-    fn test_otp_resend_component_creation() {
-        assert!(true);
-    }
+    fn test_otp_resend_component_creation() {}
 
     // Data structure tests
     #[test]
@@ -412,7 +464,7 @@ mod tests {
             is_valid: true,
             is_complete: true,
             length: 6,
-            errors: vec![],
+            errors: [],
         };
         assert!(validation.is_valid);
         assert!(validation.is_complete);
@@ -431,247 +483,153 @@ mod tests {
 
     // Props and state tests
     #[test]
-    fn test_otp_field_props_handling() {
-        assert!(true);
-    }
+    fn test_otp_field_props_handling() {}
 
     #[test]
-    fn test_otp_field_value_handling() {
-        assert!(true);
-    }
+    fn test_otp_field_value_handling() {}
 
     #[test]
-    fn test_otp_field_length_handling() {
-        assert!(true);
-    }
+    fn test_otp_field_length_handling() {}
 
     #[test]
-    fn test_otp_field_disabled_state() {
-        assert!(true);
-    }
+    fn test_otp_field_disabled_state() {}
 
     #[test]
-    fn test_otp_field_required_state() {
-        assert!(true);
-    }
+    fn test_otp_field_required_state() {}
 
     #[test]
-    fn test_otp_field_auto_focus() {
-        assert!(true);
-    }
+    fn test_otp_field_auto_focus() {}
 
     #[test]
-    fn test_otp_field_auto_submit() {
-        assert!(true);
-    }
+    fn test_otp_field_auto_submit() {}
 
     #[test]
-    fn test_otp_field_input_type() {
-        assert!(true);
-    }
+    fn test_otp_field_input_type() {}
 
     // Event handling tests
     #[test]
-    fn test_otp_field_change_callback() {
-        assert!(true);
-    }
+    fn test_otp_field_change_callback() {}
 
     #[test]
-    fn test_otp_field_complete_callback() {
-        assert!(true);
-    }
+    fn test_otp_field_complete_callback() {}
 
     #[test]
-    fn test_otp_field_submit_callback() {
-        assert!(true);
-    }
+    fn test_otp_field_submit_callback() {}
 
     #[test]
-    fn test_otp_field_focus_callback() {
-        assert!(true);
-    }
+    fn test_otp_field_focus_callback() {}
 
     #[test]
-    fn test_otp_field_blur_callback() {
-        assert!(true);
-    }
+    fn test_otp_field_blur_callback() {}
 
     #[test]
-    fn test_otp_field_validation_callback() {
-        assert!(true);
-    }
+    fn test_otp_field_validation_callback() {}
 
     // Validation tests
     #[test]
-    fn test_otp_validation_numeric() {
-        assert!(true);
-    }
+    fn test_otp_validation_numeric() {}
 
     #[test]
-    fn test_otp_validation_alphanumeric() {
-        assert!(true);
-    }
+    fn test_otp_validation_alphanumeric() {}
 
     #[test]
-    fn test_otp_validation_alphabetic() {
-        assert!(true);
-    }
+    fn test_otp_validation_alphabetic() {}
 
     #[test]
-    fn test_otp_validation_length() {
-        assert!(true);
-    }
+    fn test_otp_validation_length() {}
 
     #[test]
-    fn test_otp_validation_duplicate_characters() {
-        assert!(true);
-    }
+    fn test_otp_validation_duplicate_characters() {}
 
     #[test]
-    fn test_otp_validation_empty_input() {
-        assert!(true);
-    }
+    fn test_otp_validation_empty_input() {}
 
     // Timer functionality tests
     #[test]
-    fn test_otp_timer_duration() {
-        assert!(true);
-    }
+    fn test_otp_timer_duration() {}
 
     #[test]
-    fn test_otp_timer_running_state() {
-        assert!(true);
-    }
+    fn test_otp_timer_running_state() {}
 
     #[test]
-    fn test_otp_timer_expire_callback() {
-        assert!(true);
-    }
+    fn test_otp_timer_expire_callback() {}
 
     #[test]
-    fn test_otp_timer_reset_callback() {
-        assert!(true);
-    }
+    fn test_otp_timer_reset_callback() {}
 
     // Resend functionality tests
     #[test]
-    fn test_otp_resend_availability() {
-        assert!(true);
-    }
+    fn test_otp_resend_availability() {}
 
     #[test]
-    fn test_otp_resend_cooldown() {
-        assert!(true);
-    }
+    fn test_otp_resend_cooldown() {}
 
     #[test]
-    fn test_otp_resend_callback() {
-        assert!(true);
-    }
+    fn test_otp_resend_callback() {}
 
     // Accessibility tests
     #[test]
-    fn test_otp_field_accessibility() {
-        assert!(true);
-    }
+    fn test_otp_field_accessibility() {}
 
     #[test]
-    fn test_otp_field_keyboard_navigation() {
-        assert!(true);
-    }
+    fn test_otp_field_keyboard_navigation() {}
 
     #[test]
-    fn test_otp_field_screen_reader_support() {
-        assert!(true);
-    }
+    fn test_otp_field_screen_reader_support() {}
 
     #[test]
-    fn test_otp_field_focus_management() {
-        assert!(true);
-    }
+    fn test_otp_field_focus_management() {}
 
     // Security tests
     #[test]
-    fn test_otp_field_security() {
-        assert!(true);
-    }
+    fn test_otp_field_security() {}
 
     #[test]
-    fn test_otp_field_input_restrictions() {
-        assert!(true);
-    }
+    fn test_otp_field_input_restrictions() {}
 
     #[test]
-    fn test_otp_field_autocomplete() {
-        assert!(true);
-    }
+    fn test_otp_field_autocomplete() {}
 
     // Integration tests
     #[test]
-    fn test_otp_field_full_workflow() {
-        assert!(true);
-    }
+    fn test_otp_field_full_workflow() {}
 
     #[test]
-    fn test_otp_field_with_timer() {
-        assert!(true);
-    }
+    fn test_otp_field_with_timer() {}
 
     #[test]
-    fn test_otp_field_with_resend() {
-        assert!(true);
-    }
+    fn test_otp_field_with_resend() {}
 
     // Edge case tests
     #[test]
-    fn test_otp_field_empty_input() {
-        assert!(true);
-    }
+    fn test_otp_field_empty_input() {}
 
     #[test]
-    fn test_otp_field_very_long_input() {
-        assert!(true);
-    }
+    fn test_otp_field_very_long_input() {}
 
     #[test]
-    fn test_otp_field_special_characters() {
-        assert!(true);
-    }
+    fn test_otp_field_special_characters() {}
 
     #[test]
-    fn test_otp_field_unicode_characters() {
-        assert!(true);
-    }
+    fn test_otp_field_unicode_characters() {}
 
     // Performance tests
     #[test]
-    fn test_otp_field_validation_performance() {
-        assert!(true);
-    }
+    fn test_otp_field_validation_performance() {}
 
     #[test]
-    fn test_otp_field_rendering_performance() {
-        assert!(true);
-    }
+    fn test_otp_field_rendering_performance() {}
 
     // Styling tests
     #[test]
-    fn test_otp_field_custom_classes() {
-        assert!(true);
-    }
+    fn test_otp_field_custom_classes() {}
 
     #[test]
-    fn test_otp_field_custom_styles() {
-        assert!(true);
-    }
+    fn test_otp_field_custom_styles() {}
 
     #[test]
-    fn test_otp_field_responsive_design() {
-        assert!(true);
-    }
+    fn test_otp_field_responsive_design() {}
 
     #[test]
-    fn test_otp_field_input_spacing() {
-        assert!(true);
-    }
+    fn test_otp_field_input_spacing() {}
 }

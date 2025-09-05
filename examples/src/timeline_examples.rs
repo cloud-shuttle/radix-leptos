@@ -1,5 +1,5 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 use radix_leptos_primitives::*;
 
 #[component]
@@ -14,7 +14,7 @@ pub fn TimelineExamples() -> impl IntoView {
         color: Some("green".to_string()),
         category: Some("milestone".to_string()),
     };
-    
+
     let project_event2 = TimelineEvent {
         id: "2".to_string(),
         title: "Design Phase".to_string(),
@@ -24,7 +24,7 @@ pub fn TimelineExamples() -> impl IntoView {
         color: Some("blue".to_string()),
         category: Some("design".to_string()),
     };
-    
+
     let project_event3 = TimelineEvent {
         id: "3".to_string(),
         title: "Development Phase".to_string(),
@@ -35,18 +35,22 @@ pub fn TimelineExamples() -> impl IntoView {
         category: Some("development".to_string()),
     };
 
-    let project_timeline_events = vec![project_event1.clone(), project_event2.clone(), project_event3.clone()];
+    let project_timeline_events = vec![
+        project_event1.clone(),
+        project_event2.clone(),
+        project_event3.clone(),
+    ];
 
     let empty_timeline_events: Vec<TimelineEvent> = vec![];
 
     view! {
         <div class="timeline-examples">
             <h1>"Timeline Component Examples"</h1>
-            
+
             <div class="example-section">
                 <h2>"Project Timeline"</h2>
                 <p>"A vertical timeline showing project milestones:"</p>
-                <Timeline 
+                <Timeline
                     events=project_timeline_events.clone()
                     orientation=TimelineOrientation::Vertical
                     show_dates=true
@@ -88,7 +92,7 @@ pub fn TimelineExamples() -> impl IntoView {
             <div class="example-section">
                 <h2>"Empty Timeline"</h2>
                 <p>"A timeline with no events:"</p>
-                <Timeline 
+                <Timeline
                     events=empty_timeline_events.clone()
                     orientation=TimelineOrientation::Vertical
                     show_dates=true
@@ -103,7 +107,7 @@ pub fn TimelineExamples() -> impl IntoView {
             <div class="example-section">
                 <h2>"Loading Timeline"</h2>
                 <p>"A timeline in loading state:"</p>
-                <Timeline 
+                <Timeline
                     events=empty_timeline_events
                     orientation=TimelineOrientation::Vertical
                     show_dates=true

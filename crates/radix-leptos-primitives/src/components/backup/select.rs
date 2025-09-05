@@ -45,10 +45,10 @@ pub fn Select(
     default_value: Option<String>,
     /// Whether the select is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// Whether the select is required
     #[prop(optional, default = false)]
-    required: bool,
+    _required: bool,
     /// Name attribute for form submission
     #[prop(optional)]
     name: Option<String>,
@@ -64,7 +64,7 @@ pub fn Select(
     /// Child content (trigger, content, and items)
     children: Children,
 ) -> impl IntoView {
-    let select_id = generate_id("select");
+    let _select_id = generate_id("select");
     
     // Build base classes
     let base_classes = "radix-select";
@@ -91,7 +91,7 @@ pub fn Select(
 pub fn SelectTrigger(
     /// Whether the trigger is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -104,7 +104,7 @@ pub fn SelectTrigger(
     /// Child content (trigger content)
     children: Children,
 ) -> impl IntoView {
-    let trigger_id = generate_id("select-trigger");
+    let _trigger_id = generate_id("select-trigger");
     
     // Build base classes
     let base_classes = "radix-select-trigger";
@@ -179,7 +179,7 @@ pub fn SelectValue(
     /// Child content (value display)
     children: Children,
 ) -> impl IntoView {
-    let value_id = generate_id("select-value");
+    let _value_id = generate_id("select-value");
     
     // Build base classes
     let base_classes = "radix-select-value";
@@ -203,7 +203,7 @@ pub fn SelectValue(
 pub fn SelectContent(
     /// Whether the content is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -213,7 +213,7 @@ pub fn SelectContent(
     /// Child content (select items)
     children: Children,
 ) -> impl IntoView {
-    let content_id = generate_id("select-content");
+    let _content_id = generate_id("select-content");
     
     // Build base classes
     let base_classes = "radix-select-content";
@@ -242,7 +242,7 @@ pub fn SelectItem(
     value: String,
     /// Whether this item is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -255,7 +255,7 @@ pub fn SelectItem(
     /// Child content (item content)
     children: Children,
 ) -> impl IntoView {
-    let item_id = generate_id("select-item");
+    let _item_id = generate_id("select-item");
     
     // Build base classes
     let base_classes = "radix-select-item";
@@ -308,7 +308,7 @@ pub fn SelectSeparator(
     #[prop(optional)]
     style: Option<String>,
 ) -> impl IntoView {
-    let separator_id = generate_id("select-separator");
+    let _separator_id = generate_id("select-separator");
     
     // Build base classes
     let base_classes = "radix-select-separator";
@@ -337,7 +337,7 @@ pub fn SelectGroup(
     /// Child content (group items)
     children: Children,
 ) -> impl IntoView {
-    let group_id = generate_id("select-group");
+    let _group_id = generate_id("select-group");
     
     // Build base classes
     let base_classes = "radix-select-group";
@@ -368,7 +368,7 @@ pub fn SelectLabel(
     /// Child content (label content)
     children: Children,
 ) -> impl IntoView {
-    let label_id = generate_id("select-label");
+    let _label_id = generate_id("select-label");
     
     // Build base classes
     let base_classes = "radix-select-label";

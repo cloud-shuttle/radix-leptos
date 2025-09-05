@@ -158,9 +158,9 @@ fn get_scrollbar_width() -> String {
 #[derive(Clone)]
 pub struct ScrollLockOptions {
     /// Whether to reserve space for scrollbar to prevent layout shift
-    pub reserve_scrollbar_gap: bool,
+    pub _reserve_scrollbar_gap: bool,
     /// Whether to prevent scroll position jumping
-    pub prevent_scroll_jump: bool,
+    pub _prevent_scroll_jump: bool,
     /// Custom padding to apply when locking
     pub custom_padding: Option<String>,
 }

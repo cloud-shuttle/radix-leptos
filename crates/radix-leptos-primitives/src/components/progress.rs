@@ -1,5 +1,5 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// Progress component with proper accessibility and styling variants
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -66,7 +66,7 @@ pub fn Progress(
     max: f64,
     /// Whether the progress is indeterminate
     #[prop(optional, default = false)]
-    indeterminate: bool,
+    _indeterminate: bool,
     /// Progress styling variant
     #[prop(optional, default = ProgressVariant::Default)]
     variant: ProgressVariant,
@@ -82,26 +82,26 @@ pub fn Progress(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let progress_id = generate_id("progress");
-    
+    let _progress_id = generate_id("progress");
+
     // Build data attributes for styling
     let data_variant = variant.as_str();
     let data_size = size.as_str();
-    
+
     // Merge classes with data attributes for CSS targeting
     let base_classes = "radix-progress";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     // Calculate percentage for visual representation
     let percentage = if max > 0.0 && !indeterminate {
         (value / max * 100.0).clamp(0.0, 100.0)
     } else {
         0.0
     };
-    
+
     view! {
-        <div 
+        <div
             class=combined_class
             style=style
             data-variant=data_variant
@@ -134,9 +134,9 @@ pub fn ProgressTrack(
     let base_classes = "radix-progress-track";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     view! {
-        <div 
+        <div
             class=combined_class
             style=style
         >
@@ -157,9 +157,9 @@ pub fn ProgressIndicator(
     let base_classes = "radix-progress-indicator";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     view! {
-        <div 
+        <div
             class=combined_class
             style=style
         >
@@ -171,39 +171,35 @@ pub fn ProgressIndicator(
 mod tests {
     use super::*;
     use proptest::prelude::*;
-    
+
     // 1. Basic Rendering Tests
     #[test]
     fn test_progress_variants() {
         run_test(|| {
-            let variants = vec![
+            let variants = [
                 ProgressVariant::Default,
                 ProgressVariant::Destructive,
                 ProgressVariant::Success,
                 ProgressVariant::Warning,
             ];
-            
+
             for variant in variants {
                 assert!(!variant.as_str().is_empty());
             }
         });
     }
-    
+
     #[test]
     fn test_progress_sizes() {
         run_test(|| {
-            let sizes = vec![
-                ProgressSize::Default,
-                ProgressSize::Sm,
-                ProgressSize::Lg,
-            ];
-            
+            let sizes = [ProgressSize::Default, ProgressSize::Sm, ProgressSize::Lg];
+
             for size in sizes {
                 assert!(!size.as_str().is_empty());
             }
         });
     }
-    
+
     // 2. Props Validation Tests
     #[test]
     fn test_progress_default_values() {
@@ -213,7 +209,7 @@ mod tests {
             let indeterminate = false;
             let variant = ProgressVariant::Default;
             let size = ProgressSize::Default;
-            
+
             assert_eq!(value, 0.0);
             assert_eq!(max, 100.0);
             assert!(!indeterminate);
@@ -221,7 +217,7 @@ mod tests {
             assert_eq!(size, ProgressSize::Default);
         });
     }
-    
+
     #[test]
     fn test_progress_custom_values() {
         run_test(|| {
@@ -230,7 +226,7 @@ mod tests {
             let indeterminate = false;
             let variant = ProgressVariant::Success;
             let size = ProgressSize::Lg;
-            
+
             assert_eq!(value, 50.0);
             assert_eq!(max, 200.0);
             assert!(!indeterminate);
@@ -238,7 +234,7 @@ mod tests {
             assert_eq!(size, ProgressSize::Lg);
         });
     }
-    
+
     #[test]
     fn test_progress_indeterminate_state() {
         run_test(|| {
@@ -247,7 +243,7 @@ mod tests {
             let indeterminate = true;
             let variant = ProgressVariant::Warning;
             let size = ProgressSize::Sm;
-            
+
             assert_eq!(value, 0.0);
             assert_eq!(max, 100.0);
             assert!(indeterminate);
@@ -255,7 +251,7 @@ mod tests {
             assert_eq!(size, ProgressSize::Sm);
         });
     }
-    
+
     // 3. State Management Tests
     #[test]
     fn test_progress_value_calculation() {
@@ -263,53 +259,53 @@ mod tests {
             let value = 50.0;
             let max = 100.0;
             let indeterminate = false;
-            
+
             // Test percentage calculation
             let percentage = if max > 0.0 && !indeterminate {
                 (value / max * 100.0f64).clamp(0.0f64, 100.0f64)
             } else {
                 0.0
             };
-            
+
             assert_eq!(percentage, 50.0);
         });
     }
-    
+
     #[test]
     fn test_progress_value_bounds() {
         run_test(|| {
             let max = 100.0;
             let indeterminate = false;
-            
+
             // Test value clamping
             let value_below_min = -10.0;
             let value_above_max = 150.0;
             let value_in_range = 50.0;
-            
+
             let percentage_below = if max > 0.0 && !indeterminate {
                 (value_below_min / max * 100.0f64).clamp(0.0f64, 100.0f64)
             } else {
                 0.0
             };
-            
+
             let percentage_above = if max > 0.0 && !indeterminate {
                 (value_above_max / max * 100.0f64).clamp(0.0f64, 100.0f64)
             } else {
                 0.0
             };
-            
+
             let percentage_in_range = if max > 0.0 && !indeterminate {
                 (value_in_range / max * 100.0f64).clamp(0.0f64, 100.0f64)
             } else {
                 0.0
             };
-            
+
             assert_eq!(percentage_below, 0.0);
             assert_eq!(percentage_above, 100.0);
             assert_eq!(percentage_in_range, 50.0);
         });
     }
-    
+
     // 4. Indeterminate State Tests
     #[test]
     fn test_progress_indeterminate_calculation() {
@@ -317,32 +313,32 @@ mod tests {
             let value = 50.0;
             let max = 100.0;
             let indeterminate = true;
-            
+
             // Test percentage calculation for indeterminate state
             let percentage = if max > 0.0 && !indeterminate {
                 (value / max * 100.0f64).clamp(0.0f64, 100.0f64)
             } else {
                 0.0
             };
-            
+
             assert_eq!(percentage, 0.0);
         });
     }
-    
+
     #[test]
     fn test_progress_indeterminate_aria() {
         run_test(|| {
             let value = 50.0;
             let max = 100.0;
             let indeterminate = true;
-            
+
             // Test ARIA attributes for indeterminate state
             let aria_valuenow = if indeterminate { None } else { Some(value) };
-            
+
             assert!(aria_valuenow.is_none());
         });
     }
-    
+
     // 5. Accessibility Tests
     #[test]
     fn test_progress_accessibility() {
@@ -352,7 +348,7 @@ mod tests {
             let aria_valuemax = 100.0;
             let aria_valuenow = Some(50.0);
             let aria_label = "Progress";
-            
+
             assert_eq!(role, "progressbar");
             assert_eq!(aria_valuemin, 0.0);
             assert_eq!(aria_valuemax, 100.0);
@@ -360,7 +356,7 @@ mod tests {
             assert_eq!(aria_label, "Progress");
         });
     }
-    
+
     // 6. Edge Case Tests
     #[test]
     fn test_progress_edge_cases() {
@@ -369,88 +365,88 @@ mod tests {
             let value = 50.0;
             let max = 0.0;
             let indeterminate = false;
-            
+
             let percentage = if max > 0.0 && !indeterminate {
                 (value / max * 100.0f64).clamp(0.0f64, 100.0f64)
             } else {
                 0.0
             };
-            
+
             assert_eq!(percentage, 0.0);
         });
     }
-    
+
     #[test]
     fn test_progress_negative_values() {
         run_test(|| {
             let value = -25.0;
             let max = 100.0;
             let indeterminate = false;
-            
+
             let percentage = if max > 0.0 && !indeterminate {
                 (value / max * 100.0f64).clamp(0.0f64, 100.0f64)
             } else {
                 0.0
             };
-            
+
             assert_eq!(percentage, 0.0);
         });
     }
-    
+
     #[test]
     fn test_progress_completion_state() {
         run_test(|| {
             let value = 100.0;
             let max = 100.0;
             let indeterminate = false;
-            
+
             let percentage = if max > 0.0 && !indeterminate {
                 (value / max * 100.0f64).clamp(0.0f64, 100.0f64)
             } else {
                 0.0
             };
-            
+
             assert_eq!(percentage, 100.0);
         });
     }
-    
+
     // 7. Property-Based Tests
     proptest! {
         #[test]
         fn test_progress_properties(
-            variant in prop::sample::select(vec![
+            variant in prop::sample::select([
                 ProgressVariant::Default,
                 ProgressVariant::Destructive,
                 ProgressVariant::Success,
                 ProgressVariant::Warning,
             ]),
-            size in prop::sample::select(vec![
+            size in prop::sample::select([
                 ProgressSize::Default,
                 ProgressSize::Sm,
                 ProgressSize::Lg,
             ]),
             value in -100.0..1000.0f64,
-            max in 0.1..1000.0f64,
+            _max in 0.1..1000.0f64,
             indeterminate in prop::bool::ANY
         ) {
             assert!(!variant.as_str().is_empty());
             assert!(!size.as_str().is_empty());
-            
-            assert!(indeterminate == true || indeterminate == false);
+
+            assert!(indeterminate  || indeterminate ! );
             assert!(max > 0.0);
-            
+
             // Test percentage calculation
             let percentage = if max > 0.0 && !indeterminate {
                 (value / max * 100.0f64).clamp(0.0f64, 100.0f64)
             } else {
                 0.0
             };
-            
+
             assert!(percentage >= 0.0 && percentage <= 100.0);
-            
+
             // Test ARIA attributes
             let aria_valuenow = if indeterminate { None } else { Some(value) };
-            
+
             if indeterminate {
                 assert!(aria_valuenow.is_none());
             } else {
@@ -458,9 +454,12 @@ mod tests {
             }
         }
     }
-    
+
     // Helper function for running tests
-    fn run_test<F>(f: F) where F: FnOnce() {
+    fn run_test<F>(f: F)
+    where
+        F: FnOnce(),
+    {
         f();
     }
 }

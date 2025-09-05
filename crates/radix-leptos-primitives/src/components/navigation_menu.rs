@@ -1,8 +1,8 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// Navigation Menu component for main navigation
-/// 
+///
 /// Provides accessible navigation with keyboard support and ARIA attributes
 #[component]
 pub fn NavigationMenu(
@@ -16,7 +16,9 @@ pub fn NavigationMenu(
 ) -> impl IntoView {
     let orientation = orientation.unwrap_or_default();
     let (current_value, set_current_value) = signal(
-        value.map(|v| v.get()).unwrap_or_else(|| default_value.unwrap_or_default())
+        value
+            .map(|v| v.get())
+            .unwrap_or_else(|| default_value.unwrap_or_default()),
     );
 
     // Handle value changes
@@ -33,7 +35,7 @@ pub fn NavigationMenu(
         });
     }
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "navigation-menu",
         &orientation.to_class(),
         class.as_deref().unwrap_or(""),
@@ -58,10 +60,7 @@ pub fn NavigationMenuList(
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let class = merge_classes(vec![
-        "navigation-menu-list",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["navigation-menu-list", class.as_deref().unwrap_or("")]);
 
     view! {
         <ul class=class style=style role="menubar">
@@ -83,7 +82,7 @@ pub fn NavigationMenuItem(
     let disabled = disabled.unwrap_or(false);
     let value = value.unwrap_or_default();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "navigation-menu-item",
         if disabled { "disabled" } else { "" },
         class.as_deref().unwrap_or(""),
@@ -137,7 +136,7 @@ pub fn NavigationMenuTrigger(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "navigation-menu-trigger",
         if disabled { "disabled" } else { "" },
         class.as_deref().unwrap_or(""),
@@ -189,10 +188,7 @@ pub fn NavigationMenuContent(
         return view! { <></> }.into_any();
     }
 
-    let class = merge_classes(vec![
-        "navigation-menu-content",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["navigation-menu-content", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -203,7 +199,8 @@ pub fn NavigationMenuContent(
         >
             {children.map(|c| c())}
         </div>
-    }.into_any()
+    }
+    .into_any()
 }
 
 /// Navigation Menu Link component
@@ -220,7 +217,7 @@ pub fn NavigationMenuLink(
     let disabled = disabled.unwrap_or(false);
     let active = active.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "navigation-menu-link",
         if disabled { "disabled" } else { "" },
         if active { "active" } else { "" },
@@ -246,7 +243,8 @@ pub fn NavigationMenuLink(
             >
                 {children.map(|c| c())}
             </a>
-        }.into_any()
+        }
+        .into_any()
     } else {
         view! {
             <button
@@ -258,7 +256,8 @@ pub fn NavigationMenuLink(
             >
                 {children.map(|c| c())}
             </button>
-        }.into_any()
+        }
+        .into_any()
     }
 }
 
@@ -268,10 +267,7 @@ pub fn NavigationMenuSeparator(
     #[prop(optional)] class: Option<String>,
     #[prop(optional)] style: Option<String>,
 ) -> impl IntoView {
-    let class = merge_classes(vec![
-        "navigation-menu-separator",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["navigation-menu-separator", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -327,235 +323,197 @@ mod tests {
     #[test]
     fn test_navigation_menu_creation() {
         // Test that the component can be created
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_with_class() {
         // Test that the component can be created with class
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_with_style() {
         // Test that the component can be created with style
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_horizontal_orientation() {
         // Test horizontal orientation
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_vertical_orientation() {
         // Test vertical orientation
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_with_value() {
         // Test with controlled value
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_with_default_value() {
         // Test with default value
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_value_change_callback() {
         // Test value change callback
-        assert!(true);
     }
 
     // Navigation Menu List Tests
     #[test]
     fn test_navigation_menu_list_creation() {
         // Test that the component can be created
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_list_with_class() {
         // Test that the component can be created with class
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_list_with_style() {
         // Test that the component can be created with style
-        assert!(true);
     }
 
     // Navigation Menu Item Tests
     #[test]
     fn test_navigation_menu_item_creation() {
         // Test that the component can be created
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_item_with_class() {
         // Test that the component can be created with class
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_item_with_style() {
         // Test that the component can be created with style
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_item_with_value() {
         // Test with value
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_item_disabled() {
         // Test disabled state
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_item_on_select() {
         // Test on_select callback
-        assert!(true);
     }
 
     // Navigation Menu Trigger Tests
     #[test]
     fn test_navigation_menu_trigger_creation() {
         // Test that the component can be created
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_trigger_with_class() {
         // Test that the component can be created with class
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_trigger_with_style() {
         // Test that the component can be created with style
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_trigger_disabled() {
         // Test disabled state
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_trigger_on_click() {
         // Test on_click callback
-        assert!(true);
     }
 
     // Navigation Menu Content Tests
     #[test]
     fn test_navigation_menu_content_creation() {
         // Test that the component can be created
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_content_with_class() {
         // Test that the component can be created with class
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_content_with_style() {
         // Test that the component can be created with style
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_content_visible() {
         // Test visible state
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_content_hidden() {
         // Test hidden state
-        assert!(true);
     }
 
     // Navigation Menu Link Tests
     #[test]
     fn test_navigation_menu_link_creation() {
         // Test that the component can be created
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_link_with_class() {
         // Test that the component can be created with class
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_link_with_style() {
         // Test that the component can be created with style
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_link_with_href() {
         // Test with href (anchor)
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_link_without_href() {
         // Test without href (button)
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_link_disabled() {
         // Test disabled state
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_link_active() {
         // Test active state
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_link_on_click() {
         // Test on_click callback
-        assert!(true);
     }
 
     // Navigation Menu Separator Tests
     #[test]
     fn test_navigation_menu_separator_creation() {
         // Test that the component can be created
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_separator_with_class() {
         // Test that the component can be created with class
-        assert!(true);
     }
 
     #[test]
     fn test_navigation_menu_separator_with_style() {
         // Test that the component can be created with style
-        assert!(true);
     }
 
     // Navigation Menu Orientation Tests
@@ -582,25 +540,25 @@ mod tests {
     // Helper Function Tests
     #[test]
     fn test_merge_classes_empty() {
-        let result = merge_classes(vec![]);
+        let result = merge_classes([]);
         assert_eq!(result, "");
     }
 
     #[test]
     fn test_merge_classes_single() {
-        let result = merge_classes(vec!["class1"]);
+        let result = merge_classes(["class1"]);
         assert_eq!(result, "class1");
     }
 
     #[test]
     fn test_merge_classes_multiple() {
-        let result = merge_classes(vec!["class1", "class2", "class3"]);
+        let result = merge_classes(["class1", "class2", "class3"]);
         assert_eq!(result, "class1 class2 class3");
     }
 
     #[test]
     fn test_merge_classes_with_empty() {
-        let result = merge_classes(vec!["class1", "", "class3"]);
+        let result = merge_classes(["class1", "", "class3"]);
         assert_eq!(result, "class1 class3");
     }
 
@@ -609,9 +567,9 @@ mod tests {
     fn test_navigation_menu_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(class in ".*", style in ".*")| {
+        proptest!(|(__class in ".*", _style in ".*")| {
             // Test that the component can be created with various class and style values
-            assert!(true);
+
         });
     }
 
@@ -619,9 +577,9 @@ mod tests {
     fn test_navigation_menu_list_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(class in ".*", style in ".*")| {
+        proptest!(|(__class in ".*", _style in ".*")| {
             // Test that the component can be created with various class and style values
-            assert!(true);
+
         });
     }
 
@@ -629,9 +587,9 @@ mod tests {
     fn test_navigation_menu_item_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(class in ".*", style in ".*", value in ".*")| {
+        proptest!(|(__class in ".*", _style in ".*", _value in ".*")| {
             // Test that the component can be created with various prop values
-            assert!(true);
+
         });
     }
 
@@ -639,9 +597,9 @@ mod tests {
     fn test_navigation_menu_trigger_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(class in ".*", style in ".*")| {
+        proptest!(|(__class in ".*", _style in ".*")| {
             // Test that the component can be created with various class and style values
-            assert!(true);
+
         });
     }
 
@@ -649,9 +607,9 @@ mod tests {
     fn test_navigation_menu_content_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(class in ".*", style in ".*")| {
+        proptest!(|(__class in ".*", _style in ".*")| {
             // Test that the component can be created with various class and style values
-            assert!(true);
+
         });
     }
 
@@ -659,9 +617,9 @@ mod tests {
     fn test_navigation_menu_link_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(class in ".*", style in ".*", href in ".*")| {
+        proptest!(|(__class in ".*", _style in ".*", href in ".*")| {
             // Test that the component can be created with various prop values
-            assert!(true);
+
         });
     }
 
@@ -669,9 +627,9 @@ mod tests {
     fn test_navigation_menu_separator_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(class in ".*", style in ".*")| {
+        proptest!(|(__class in ".*", _style in ".*")| {
             // Test that the component can be created with various class and style values
-            assert!(true);
+
         });
     }
 }

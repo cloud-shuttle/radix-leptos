@@ -1,5 +1,5 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// Form component with proper accessibility and validation
 ///
@@ -31,7 +31,7 @@ use leptos::prelude::*;
 ///     };
 ///
 ///     view! {
-///         <Form 
+///         <Form
 ///             on_submit=handle_submit
 ///             data=form_data
 ///             errors=errors
@@ -137,10 +137,10 @@ pub fn Form(
     style: Option<String>,
     /// Form data
     #[prop(optional)]
-    data: Option<FormData>,
+    _data: Option<FormData>,
     /// Form errors
     #[prop(optional)]
-    errors: Option<FormErrors>,
+    _errors: Option<FormErrors>,
     /// Submit event handler
     #[prop(optional)]
     on_submit: Option<Callback<web_sys::SubmitEvent>>,
@@ -151,16 +151,16 @@ pub fn Form(
     children: Children,
 ) -> impl IntoView {
     let form_id = generate_id("form");
-    
+
     // Build data attributes for styling
     let data_variant = variant.as_str();
     let data_size = size.as_str();
-    
+
     // Merge classes with data attributes for CSS targeting
     let base_classes = "radix-form";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     // Handle form submission
     let handle_submit = move |e: web_sys::SubmitEvent| {
         e.prevent_default();
@@ -168,16 +168,16 @@ pub fn Form(
             on_submit.run(e);
         }
     };
-    
+
     // Handle form reset
     let handle_reset = move |e: web_sys::Event| {
         if let Some(on_reset) = on_reset {
             on_reset.run(e);
         }
     };
-    
+
     view! {
-        <form 
+        <form
             id=form_id
             class=combined_class
             style=style
@@ -199,7 +199,7 @@ pub fn FormField(
     name: String,
     /// Whether the field is required
     #[prop(optional, default = false)]
-    required: bool,
+    _required: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -209,14 +209,14 @@ pub fn FormField(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let field_id = generate_id(&format!("field-{}", name));
-    
+    let _field_id = generate_id(&format!("field-{}", name));
+
     let base_classes = "radix-form-field";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     view! {
-        <div 
+        <div
             class=combined_class
             style=style
             data-field-name=name
@@ -242,7 +242,7 @@ pub fn FormLabel(
     let base_classes = "radix-form-label";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     view! {
         <label class=combined_class style=style>
             {children()}
@@ -267,10 +267,10 @@ pub fn FormInput(
     placeholder: Option<String>,
     /// Whether the input is required
     #[prop(optional, default = false)]
-    required: bool,
+    _required: bool,
     /// Whether the input is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -282,18 +282,18 @@ pub fn FormInput(
     on_change: Option<Callback<web_sys::Event>>,
 ) -> impl IntoView {
     let input_id = generate_id("input");
-    
+
     let base_classes = "radix-form-input";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     // Handle input change
     let handle_change = move |e: web_sys::Event| {
         if let Some(on_change) = on_change {
             on_change.run(e);
         }
     };
-    
+
     view! {
         <input
             id=input_id
@@ -326,7 +326,7 @@ pub fn FormError(
     let base_classes = "radix-form-error";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     view! {
         <div class=combined_class style=style role="alert">
             {message.unwrap_or_default()}
@@ -349,7 +349,7 @@ pub fn FormSubmit(
     let base_classes = "radix-form-submit";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     view! {
         <div class=combined_class style=style>
             {children()}
@@ -361,71 +361,84 @@ pub fn FormSubmit(
 mod tests {
     use super::*;
     use proptest::prelude::*;
-    
+
     // 1. Basic Rendering Tests
     #[test]
     fn test_form_variants() {
         run_test(|| {
             // Test form variant logic
-            let variants = vec![
+            let variants = [
                 FormVariant::Default,
                 FormVariant::Inline,
                 FormVariant::Stacked,
             ];
-            
+
             for variant in variants {
                 // Each variant should have a valid string representation
                 assert!(!variant.as_str().is_empty());
             }
         });
     }
-    
+
     #[test]
     fn test_form_sizes() {
         run_test(|| {
-            let sizes = vec![
-                FormSize::Default,
-                FormSize::Sm,
-                FormSize::Lg,
-            ];
-            
+            let sizes = [FormSize::Default, FormSize::Sm, FormSize::Lg];
+
             for size in sizes {
                 // Each size should have a valid string representation
                 assert!(!size.as_str().is_empty());
             }
         });
     }
-    
+
     // 2. Props Validation Tests
     #[test]
     fn test_form_data_structure() {
         run_test(|| {
             // Test form data structure
             let mut form_data = FormData::default();
-            form_data.fields.insert("email".to_string(), "test@example.com".to_string());
-            form_data.fields.insert("password".to_string(), "password123".to_string());
-            
+            form_data
+                .fields
+                .insert("email".to_string(), "test@example.com".to_string());
+            form_data
+                .fields
+                .insert("password".to_string(), "password123".to_string());
+
             assert_eq!(form_data.fields.len(), 2);
-            assert_eq!(form_data.fields.get("email"), Some(&"test@example.com".to_string()));
-            assert_eq!(form_data.fields.get("password"), Some(&"password123".to_string()));
+            assert_eq!(
+                form_data.fields.get("email"),
+                Some(&"test@example.com".to_string())
+            );
+            assert_eq!(
+                form_data.fields.get("password"),
+                Some(&"password123".to_string())
+            );
         });
     }
-    
+
     #[test]
     fn test_form_errors_structure() {
         run_test(|| {
             // Test form errors structure
             let mut errors = FormErrors::default();
-            errors.field_errors.insert("email".to_string(), "Invalid email".to_string());
-            errors.global_errors.push("Form submission failed".to_string());
-            
+            errors
+                .field_errors
+                .insert("email".to_string(), "Invalid email".to_string());
+            errors
+                .global_errors
+                .push("Form submission failed".to_string());
+
             assert_eq!(errors.field_errors.len(), 1);
             assert_eq!(errors.global_errors.len(), 1);
-            assert_eq!(errors.field_errors.get("email"), Some(&"Invalid email".to_string()));
+            assert_eq!(
+                errors.field_errors.get("email"),
+                Some(&"Invalid email".to_string())
+            );
             assert_eq!(errors.global_errors[0], "Form submission failed");
         });
     }
-    
+
     // 3. State Management Tests
     #[test]
     fn test_form_field_management() {
@@ -434,14 +447,14 @@ mod tests {
             let field_name = "email";
             let field_value = "test@example.com";
             let is_required = true;
-            
+
             // Field should have proper attributes
             assert_eq!(field_name, "email");
             assert_eq!(field_value, "test@example.com");
             assert!(is_required);
         });
     }
-    
+
     // 4. Event Handling Tests
     #[test]
     fn test_form_submission() {
@@ -451,17 +464,17 @@ mod tests {
             let form_data = FormData {
                 fields: std::collections::HashMap::new(),
             };
-            
+
             // Initial state
             assert!(!submitted);
             assert!(form_data.fields.is_empty());
-            
+
             // Simulate form submission
             submitted = true;
             assert!(submitted);
         });
     }
-    
+
     #[test]
     fn test_form_validation() {
         run_test(|| {
@@ -469,22 +482,26 @@ mod tests {
             let email = "test@example.com";
             let password = "password123";
             let mut errors = FormErrors::default();
-            
+
             // Validate email
             if !email.contains('@') {
-                errors.field_errors.insert("email".to_string(), "Invalid email".to_string());
+                errors
+                    .field_errors
+                    .insert("email".to_string(), "Invalid email".to_string());
             }
-            
+
             // Validate password
             if password.len() < 8 {
-                errors.field_errors.insert("password".to_string(), "Password too short".to_string());
+                errors
+                    .field_errors
+                    .insert("password".to_string(), "Password too short".to_string());
             }
-            
+
             // Should have no errors for valid input
             assert!(errors.field_errors.is_empty());
         });
     }
-    
+
     // 5. Accessibility Tests
     #[test]
     fn test_form_accessibility() {
@@ -494,7 +511,7 @@ mod tests {
             let field_name = "email";
             let is_required = true;
             let has_error = false;
-            
+
             // Form should have proper accessibility attributes
             assert!(!form_id.is_empty());
             assert!(!field_name.is_empty());
@@ -502,7 +519,7 @@ mod tests {
             assert!(!has_error);
         });
     }
-    
+
     // 6. Edge Case Tests
     #[test]
     fn test_form_edge_cases() {
@@ -510,48 +527,51 @@ mod tests {
             // Test edge case: empty form
             let form_data = FormData::default();
             let errors = FormErrors::default();
-            
+
             // Empty form should be handled gracefully
             assert!(form_data.fields.is_empty());
             assert!(errors.field_errors.is_empty());
             assert!(errors.global_errors.is_empty());
         });
     }
-    
+
     // 7. Property-Based Tests
     proptest! {
         #[test]
         fn test_form_properties(
-            variant in prop::sample::select(vec![
+            variant in prop::sample::select([
                 FormVariant::Default,
                 FormVariant::Inline,
                 FormVariant::Stacked,
             ]),
-            size in prop::sample::select(vec![
+            size in prop::sample::select([
                 FormSize::Default,
                 FormSize::Sm,
                 FormSize::Lg,
             ]),
             field_name in "[a-zA-Z][a-zA-Z0-9_]*",
-            field_value in ".*"
+            field__value in ".*"
         ) {
             // Property: Form should always render without panicking
             // Property: All variants should have valid string representations
             assert!(!variant.as_str().is_empty());
             assert!(!size.as_str().is_empty());
-            
+
             // Property: Field names should be valid
             assert!(!field_name.is_empty());
             assert!(field_name.chars().next().unwrap().is_alphabetic());
-            
+
             // Property: Field values can be any string
             // (This is just to ensure no panics with any input)
             let _ = field_value;
         }
     }
-    
+
     // Helper function for running tests
-    fn run_test<F>(f: F) where F: FnOnce() {
+    fn run_test<F>(f: F)
+    where
+        F: FnOnce(),
+    {
         // Simplified test runner for Leptos 0.8
         f();
     }

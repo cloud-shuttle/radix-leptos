@@ -189,17 +189,17 @@ mod tests {
             let history = use_history(value.into(), 3);
             
             // Should start with just the initial value
-            assert_eq!(history.get(), vec![1]);
+            assert_eq!(history.get(), [1]);
             
             set_value.set(2);
-            assert_eq!(history.get(), vec![1, 2]);
+            assert_eq!(history.get(), [1, 2]);
             
             set_value.set(3);
-            assert_eq!(history.get(), vec![1, 2, 3]);
+            assert_eq!(history.get(), [1, 2, 3]);
             
             set_value.set(4);
             // Should maintain max history size
-            assert_eq!(history.get(), vec![2, 3, 4]);
+            assert_eq!(history.get(), [2, 3, 4]);
         });
     }
     

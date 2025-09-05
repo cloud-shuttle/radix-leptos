@@ -47,13 +47,13 @@ pub fn Carousel(
     autoplay: CarouselAutoplay,
     /// Whether the carousel should loop
     #[prop(optional, default = true)]
-    loop_carousel: bool,
+    _loop_carousel: bool,
     /// Whether the carousel is interactive (clickable)
     #[prop(optional, default = false)]
-    interactive: bool,
+    _interactive: bool,
     /// Whether the carousel is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -131,7 +131,7 @@ pub fn Carousel(
 
     let class_value = class.unwrap_or_default();
 
-    let mut base_classes = vec![
+    let mut base_classes = [
         "radix-carousel",
         &size_class(),
         &navigation_class(),
@@ -244,13 +244,13 @@ pub fn CarouselWithCustomNavigation(
     size: CarouselSize,
     /// Whether the carousel should loop
     #[prop(optional, default = true)]
-    loop_carousel: bool,
+    _loop_carousel: bool,
     /// Whether the carousel is interactive (clickable)
     #[prop(optional, default = false)]
-    interactive: bool,
+    _interactive: bool,
     /// Whether the carousel is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -282,7 +282,7 @@ pub fn CarouselWithCustomNavigation(
 
     let class_value = class.unwrap_or_default();
 
-    let mut base_classes = vec![
+    let mut base_classes = [
         "radix-carousel-custom",
         &size_class(),
         &class_value,

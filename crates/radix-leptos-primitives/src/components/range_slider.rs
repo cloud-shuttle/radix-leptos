@@ -32,7 +32,7 @@ pub fn RangeSlider(
     let size = size.unwrap_or(SliderSize::Default);
     let variant = variant.unwrap_or(SliderVariant::Default);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "range-slider",
         if disabled { "disabled" } else { "" },
         orientation.as_str(),
@@ -137,7 +137,7 @@ pub fn RangeSliderTrack(
     let size = size.unwrap_or(SliderSize::Default);
     let variant = variant.unwrap_or(SliderVariant::Default);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "range-slider-track",
         if disabled { "disabled" } else { "" },
         orientation.as_str(),
@@ -218,7 +218,7 @@ pub fn RangeSliderThumb(
     let variant = variant.unwrap_or(SliderVariant::Default);
     let thumb_type = thumb_type.unwrap_or(ThumbType::Min);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "range-slider-thumb",
         if disabled { "disabled" } else { "" },
         orientation.as_str(),
@@ -380,7 +380,7 @@ pub fn RangeSliderLabel(
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] for_id: Option<String>,
 ) -> impl IntoView {
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "range-slider-label",
         class.as_deref().unwrap_or(""),
     ]);
@@ -411,7 +411,7 @@ pub fn RangeSliderValueDisplay(
     let format = format.unwrap_or(ValueFormat::Number);
     let show_both = show_both.unwrap_or(true);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "range-slider-value-display",
         class.as_deref().unwrap_or(""),
     ]);
@@ -473,7 +473,7 @@ pub fn RangeSliderMarks(
     let min = min.unwrap_or(0.0);
     let max = max.unwrap_or(100.0);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "range-slider-marks",
         orientation.as_str(),
         class.as_deref().unwrap_or(""),
@@ -534,89 +534,89 @@ mod range_slider_tests {
 
     #[test]
     fn test_range_slider_component_creation() {
-        let runtime = create_runtime();
+        // let runtime = create_runtime();
         let _view = view! {
             <RangeSlider />
         };
         runtime.dispose();
-        assert!(true); // Component compiles successfully
+        
     }
 
     #[test]
     fn test_range_slider_with_custom_range() {
-        let runtime = create_runtime();
+        // let runtime = create_runtime();
         let _view = view! {
             <RangeSlider min=0.0 max=1000.0 min_value=100.0 max_value=900.0 />
         };
         runtime.dispose();
-        assert!(true); // Component compiles successfully
+        
     }
 
     #[test]
     fn test_range_slider_vertical_orientation() {
-        let runtime = create_runtime();
+        // let runtime = create_runtime();
         let _view = view! {
             <RangeSlider orientation=SliderOrientation::Vertical />
         };
         runtime.dispose();
-        assert!(true); // Component compiles successfully
+        
     }
 
     #[test]
     fn test_range_slider_with_callback() {
-        let runtime = create_runtime();
+        // let runtime = create_runtime();
         let callback = Callback::new(|_value: RangeSliderValue| {});
         let _view = view! {
             <RangeSlider on_change=callback />
         };
         runtime.dispose();
-        assert!(true); // Component compiles successfully
+        
     }
 
     #[test]
     fn test_range_slider_track_component() {
-        let runtime = create_runtime();
+        // let runtime = create_runtime();
         let _view = view! {
             <RangeSliderTrack />
         };
         runtime.dispose();
-        assert!(true); // Component compiles successfully
+        
     }
 
     #[test]
     fn test_range_slider_thumb_component() {
-        let runtime = create_runtime();
+        // let runtime = create_runtime();
         let _view = view! {
             <RangeSliderThumb />
         };
         runtime.dispose();
-        assert!(true); // Component compiles successfully
+        
     }
 
     #[test]
     fn test_range_slider_label_component() {
-        let runtime = create_runtime();
+        // let runtime = create_runtime();
         let _view = view! {
             <RangeSliderLabel>"Price Range"</RangeSliderLabel>
         };
         runtime.dispose();
-        assert!(true); // Component compiles successfully
+        
     }
 
     #[test]
     fn test_range_slider_value_display_component() {
-        let runtime = create_runtime();
+        // let runtime = create_runtime();
         let _view = view! {
             <RangeSliderValueDisplay min_value=10.0 max_value=90.0 />
         };
         runtime.dispose();
-        assert!(true); // Component compiles successfully
+        
     }
 
     #[test]
     fn test_range_slider_marks_component() {
-        let runtime = create_runtime();
-        let marks = vec![
+        // let runtime = create_runtime();
+        let marks = [
             SliderMark { value: 0.0, label: "Min".to_string() },
             SliderMark { value: 50.0, label: "Mid".to_string() },
             SliderMark { value: 100.0, label: "Max".to_string() },
@@ -625,7 +625,7 @@ mod range_slider_tests {
             <RangeSliderMarks marks=marks />
         };
         runtime.dispose();
-        assert!(true); // Component compiles successfully
+        
     }
 
     #[test]
@@ -678,7 +678,7 @@ mod range_slider_tests {
     // Property-based tests
     #[test]
     fn test_range_slider_property_based() {
-        proptest!(|(min in -1000.0..1000.0, max in -1000.0..1000.0)| {
+        proptest!(|(_min in -1000.0..1000.0, max in -1000.0..1000.0)| {
             if min < max {
                 let value = RangeSliderValue { min, max };
                 assert!(value.min <= value.max);
@@ -688,7 +688,7 @@ mod range_slider_tests {
 
     #[test]
     fn test_slider_orientation_property_based() {
-        proptest!(|(orientation in prop::sample::select(vec![SliderOrientation::Horizontal, SliderOrientation::Vertical]))| {
+        proptest!(|(orientation in prop::sample::select([SliderOrientation::Horizontal, SliderOrientation::Vertical]))| {
             let orientation_str = orientation.as_str();
             assert!(!orientation_str.is_empty());
         });
@@ -698,38 +698,38 @@ mod range_slider_tests {
     #[test]
     fn test_range_slider_user_interaction() {
         // Test RangeSlider user interaction workflows
-        assert!(true);
+        
     }
 
     #[test]
     fn test_range_slider_accessibility() {
         // Test RangeSlider accessibility features
-        assert!(true);
+        
     }
 
     #[test]
     fn test_range_slider_keyboard_navigation() {
         // Test RangeSlider keyboard navigation
-        assert!(true);
+        
     }
 
     #[test]
     fn test_range_slider_drag_interaction() {
         // Test RangeSlider drag interaction
-        assert!(true);
+        
     }
 
     #[test]
     fn test_range_slider_touch_interaction() {
         // Test RangeSlider touch interaction
-        assert!(true);
+        
     }
 
     // Performance Tests
     #[test]
     fn test_range_slider_large_ranges() {
         // Test RangeSlider with large ranges
-        assert!(true);
+        
     }
 
     #[test]
@@ -744,12 +744,12 @@ mod range_slider_tests {
     #[test]
     fn test_range_slider_memory_usage() {
         // Test RangeSlider memory usage
-        assert!(true);
+        
     }
 
     #[test]
     fn test_range_slider_update_performance() {
         // Test RangeSlider update performance
-        assert!(true);
+        
     }
 }

@@ -38,7 +38,7 @@ pub fn Presence(
     present: Signal<bool>,
     /// Whether to force mount regardless of present state
     #[prop(optional, default = false)]
-    force_mount: bool,
+    _force_mount: bool,
     /// Content to render with presence control
     children: Children,
 ) -> impl IntoView {

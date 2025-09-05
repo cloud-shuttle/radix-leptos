@@ -23,7 +23,7 @@ fn generate_id(prefix: &str) -> String {
 pub fn DialogRoot(
     /// Default open state for uncontrolled usage
     #[prop(optional, default = false)]
-    default_open: bool,
+    _default_open: bool,
     /// Callback when open state changes
     #[prop(optional)]
     on_open_change: Option<Callback<bool>>,
@@ -31,8 +31,8 @@ pub fn DialogRoot(
     children: Children,
 ) -> impl IntoView {
     // Generate unique IDs for accessibility
-    let trigger_id = generate_id("dialog-trigger");
-    let content_id = generate_id("dialog-content");
+    let _trigger_id = generate_id("dialog-trigger");
+    let _content_id = generate_id("dialog-content");
     
     // Simple state management
     let (open_signal, set_open_signal) = signal(default_open);
@@ -64,7 +64,7 @@ pub fn DialogRoot(
 pub fn DialogTrigger(
     /// Whether the trigger is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -148,7 +148,7 @@ pub fn DialogTitle(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let title_id = generate_id("dialog-title");
+    let _title_id = generate_id("dialog-title");
     let class_value = class.unwrap_or_default();
     let children_view = children();
     
@@ -169,7 +169,7 @@ pub fn DialogDescription(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let description_id = generate_id("dialog-description");
+    let _description_id = generate_id("dialog-description");
     let class_value = class.unwrap_or_default();
     let children_view = children();
     

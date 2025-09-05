@@ -1,7 +1,10 @@
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::theming::{ButtonVariants, InputVariants, SizeVariant, StyleVariant, StateVariant, InputTypeVariant, ComponentVariants};
+    use crate::theming::{
+        ButtonVariants, ComponentVariants, InputTypeVariant, InputVariants, SizeVariant,
+        StateVariant, StyleVariant,
+    };
 
     #[test]
     fn test_button_variants_creation() {

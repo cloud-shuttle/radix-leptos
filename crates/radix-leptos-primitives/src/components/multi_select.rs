@@ -1,36 +1,49 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 use wasm_bindgen::JsCast;
 
 /// Multi-Select component for selecting multiple options with search functionality
 #[component]
 pub fn MultiSelect(
     /// Selected values
-    #[prop(optional)] value: Option<Vec<String>>,
+    #[prop(optional)]
+    value: Option<Vec<String>>,
     /// Available options
-    #[prop(optional)] options: Option<Vec<MultiSelectOption>>,
+    #[prop(optional)]
+    options: Option<Vec<MultiSelectOption>>,
     /// Placeholder text
-    #[prop(optional)] placeholder: Option<String>,
+    #[prop(optional)]
+    placeholder: Option<String>,
     /// Whether the component is disabled
-    #[prop(optional)] disabled: Option<bool>,
+    #[prop(optional)]
+    disabled: Option<bool>,
     /// Whether the component is required
-    #[prop(optional)] required: Option<bool>,
+    #[prop(optional)]
+    required: Option<bool>,
     /// Maximum number of selections allowed
-    #[prop(optional)] max_selections: Option<usize>,
+    #[prop(optional)]
+    max_selections: Option<usize>,
     /// Whether to show search functionality
-    #[prop(optional)] searchable: Option<bool>,
+    #[prop(optional)]
+    searchable: Option<bool>,
     /// Callback when selection changes
-    #[prop(optional)] on_change: Option<Callback<Vec<String>>>,
+    #[prop(optional)]
+    on_change: Option<Callback<Vec<String>>>,
     /// Callback when search query changes
-    #[prop(optional)] on_search: Option<Callback<String>>,
+    #[prop(optional)]
+    on_search: Option<Callback<String>>,
     /// Callback when option is selected
-    #[prop(optional)] on_option_select: Option<Callback<MultiSelectOption>>,
+    #[prop(optional)]
+    on_option_select: Option<Callback<MultiSelectOption>>,
     /// Callback when option is deselected
-    #[prop(optional)] on_option_deselect: Option<Callback<MultiSelectOption>>,
+    #[prop(optional)]
+    on_option_deselect: Option<Callback<MultiSelectOption>>,
     /// Additional CSS classes
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)]
+    class: Option<String>,
     /// Inline styles
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional)]
+    style: Option<String>,
     /// Children content
     children: Option<Children>,
 ) -> impl IntoView {
@@ -62,7 +75,7 @@ pub fn MultiSelect(
 pub struct MultiSelectOption {
     pub value: String,
     pub label: String,
-    pub disabled: bool,
+    pub _disabled: bool,
     pub description: Option<String>,
     pub group: Option<String>,
 }
@@ -71,13 +84,17 @@ pub struct MultiSelectOption {
 #[component]
 pub fn MultiSelectTrigger(
     /// Whether the dropdown is open
-    #[prop(optional)] open: Option<bool>,
+    #[prop(optional)]
+    open: Option<bool>,
     /// Callback when trigger is clicked
-    #[prop(optional)] on_click: Option<Callback<()>>,
+    #[prop(optional)]
+    on_click: Option<Callback<()>>,
     /// Additional CSS classes
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)]
+    class: Option<String>,
     /// Inline styles
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional)]
+    style: Option<String>,
     /// Children content
     children: Option<Children>,
 ) -> impl IntoView {
@@ -112,11 +129,14 @@ pub fn MultiSelectTrigger(
 #[component]
 pub fn MultiSelectContent(
     /// Whether the content is visible
-    #[prop(optional)] visible: Option<bool>,
+    #[prop(optional)]
+    visible: Option<bool>,
     /// Additional CSS classes
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)]
+    class: Option<String>,
     /// Inline styles
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional)]
+    style: Option<String>,
     /// Children content
     children: Option<Children>,
 ) -> impl IntoView {
@@ -147,15 +167,20 @@ pub fn MultiSelectOption(
     /// Option data
     option: MultiSelectOption,
     /// Whether the option is selected
-    #[prop(optional)] selected: Option<bool>,
+    #[prop(optional)]
+    selected: Option<bool>,
     /// Whether the option is disabled
-    #[prop(optional)] disabled: Option<bool>,
+    #[prop(optional)]
+    disabled: Option<bool>,
     /// Callback when option is clicked
-    #[prop(optional)] on_click: Option<Callback<MultiSelectOption>>,
+    #[prop(optional)]
+    on_click: Option<Callback<MultiSelectOption>>,
     /// Additional CSS classes
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)]
+    class: Option<String>,
     /// Inline styles
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional)]
+    style: Option<String>,
     /// Children content
     children: Option<Children>,
 ) -> impl IntoView {
@@ -197,19 +222,26 @@ pub fn MultiSelectOption(
 #[component]
 pub fn MultiSelectSearch(
     /// Search query value
-    #[prop(optional)] value: Option<String>,
+    #[prop(optional)]
+    value: Option<String>,
     /// Placeholder text
-    #[prop(optional)] placeholder: Option<String>,
+    #[prop(optional)]
+    placeholder: Option<String>,
     /// Whether the search is disabled
-    #[prop(optional)] disabled: Option<bool>,
+    #[prop(optional)]
+    disabled: Option<bool>,
     /// Callback when search query changes
-    #[prop(optional)] on_change: Option<Callback<String>>,
+    #[prop(optional)]
+    on_change: Option<Callback<String>>,
     /// Callback when search is cleared
-    #[prop(optional)] on_clear: Option<Callback<()>>,
+    #[prop(optional)]
+    on_clear: Option<Callback<()>>,
     /// Additional CSS classes
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)]
+    class: Option<String>,
     /// Inline styles
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional)]
+    style: Option<String>,
 ) -> impl IntoView {
     let value = value.unwrap_or_default();
     let placeholder = placeholder.unwrap_or_else(|| "Search options...".to_string());
@@ -223,7 +255,10 @@ pub fn MultiSelectSearch(
     let style = style.unwrap_or_default();
 
     let handle_input = move |event: web_sys::Event| {
-        if let Some(input) = event.target().and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok()) {
+        if let Some(input) = event
+            .target()
+            .and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok())
+        {
             if let Some(callback) = on_change {
                 callback.run(input.value());
             }
@@ -249,11 +284,14 @@ pub fn MultiSelectTag(
     /// Option data
     option: MultiSelectOption,
     /// Callback when tag is removed
-    #[prop(optional)] on_remove: Option<Callback<MultiSelectOption>>,
+    #[prop(optional)]
+    on_remove: Option<Callback<MultiSelectOption>>,
     /// Additional CSS classes
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)]
+    class: Option<String>,
     /// Inline styles
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional)]
+    style: Option<String>,
 ) -> impl IntoView {
     let class = format!("multi-select-tag {}", class.unwrap_or_default());
     let style = style.unwrap_or_default();
@@ -287,34 +325,22 @@ mod tests {
 
     // Component structure tests
     #[test]
-    fn test_multiselect_component_creation() {
-        assert!(true);
-    }
+    fn test_multiselect_component_creation() {}
 
     #[test]
-    fn test_multiselect_trigger_component_creation() {
-        assert!(true);
-    }
+    fn test_multiselect_trigger_component_creation() {}
 
     #[test]
-    fn test_multiselect_content_component_creation() {
-        assert!(true);
-    }
+    fn test_multiselect_content_component_creation() {}
 
     #[test]
-    fn test_multiselect_option_component_creation() {
-        assert!(true);
-    }
+    fn test_multiselect_option_component_creation() {}
 
     #[test]
-    fn test_multiselect_search_component_creation() {
-        assert!(true);
-    }
+    fn test_multiselect_search_component_creation() {}
 
     #[test]
-    fn test_multiselect_tag_component_creation() {
-        assert!(true);
-    }
+    fn test_multiselect_tag_component_creation() {}
 
     // Data structure tests
     #[test]
@@ -345,201 +371,125 @@ mod tests {
 
     // Props and state tests
     #[test]
-    fn test_multiselect_props_handling() {
-        assert!(true);
-    }
+    fn test_multiselect_props_handling() {}
 
     #[test]
-    fn test_multiselect_value_handling() {
-        assert!(true);
-    }
+    fn test_multiselect_value_handling() {}
 
     #[test]
-    fn test_multiselect_options_handling() {
-        assert!(true);
-    }
+    fn test_multiselect_options_handling() {}
 
     #[test]
-    fn test_multiselect_disabled_state() {
-        assert!(true);
-    }
+    fn test_multiselect_disabled_state() {}
 
     #[test]
-    fn test_multiselect_required_state() {
-        assert!(true);
-    }
+    fn test_multiselect_required_state() {}
 
     #[test]
-    fn test_multiselect_max_selections() {
-        assert!(true);
-    }
+    fn test_multiselect_max_selections() {}
 
     #[test]
-    fn test_multiselect_searchable_prop() {
-        assert!(true);
-    }
+    fn test_multiselect_searchable_prop() {}
 
     // Event handling tests
     #[test]
-    fn test_multiselect_change_callback() {
-        assert!(true);
-    }
+    fn test_multiselect_change_callback() {}
 
     #[test]
-    fn test_multiselect_search_callback() {
-        assert!(true);
-    }
+    fn test_multiselect_search_callback() {}
 
     #[test]
-    fn test_multiselect_option_select_callback() {
-        assert!(true);
-    }
+    fn test_multiselect_option_select_callback() {}
 
     #[test]
-    fn test_multiselect_option_deselect_callback() {
-        assert!(true);
-    }
+    fn test_multiselect_option_deselect_callback() {}
 
     #[test]
-    fn test_multiselect_trigger_click() {
-        assert!(true);
-    }
+    fn test_multiselect_trigger_click() {}
 
     #[test]
-    fn test_multiselect_option_click() {
-        assert!(true);
-    }
+    fn test_multiselect_option_click() {}
 
     #[test]
-    fn test_multiselect_search_input() {
-        assert!(true);
-    }
+    fn test_multiselect_search_input() {}
 
     #[test]
-    fn test_multiselect_tag_remove() {
-        assert!(true);
-    }
+    fn test_multiselect_tag_remove() {}
 
     // Accessibility tests
     #[test]
-    fn test_multiselect_aria_attributes() {
-        assert!(true);
-    }
+    fn test_multiselect_aria_attributes() {}
 
     #[test]
-    fn test_multiselect_keyboard_navigation() {
-        assert!(true);
-    }
+    fn test_multiselect_keyboard_navigation() {}
 
     #[test]
-    fn test_multiselect_screen_reader_support() {
-        assert!(true);
-    }
+    fn test_multiselect_screen_reader_support() {}
 
     #[test]
-    fn test_multiselect_focus_management() {
-        assert!(true);
-    }
+    fn test_multiselect_focus_management() {}
 
     // Search functionality tests
     #[test]
-    fn test_multiselect_search_filtering() {
-        assert!(true);
-    }
+    fn test_multiselect_search_filtering() {}
 
     #[test]
-    fn test_multiselect_search_clear() {
-        assert!(true);
-    }
+    fn test_multiselect_search_clear() {}
 
     #[test]
-    fn test_multiselect_search_placeholder() {
-        assert!(true);
-    }
+    fn test_multiselect_search_placeholder() {}
 
     // Selection management tests
     #[test]
-    fn test_multiselect_multiple_selection() {
-        assert!(true);
-    }
+    fn test_multiselect_multiple_selection() {}
 
     #[test]
-    fn test_multiselect_selection_limit() {
-        assert!(true);
-    }
+    fn test_multiselect_selection_limit() {}
 
     #[test]
-    fn test_multiselect_selection_validation() {
-        assert!(true);
-    }
+    fn test_multiselect_selection_validation() {}
 
     #[test]
-    fn test_multiselect_deselection() {
-        assert!(true);
-    }
+    fn test_multiselect_deselection() {}
 
     // Grouping tests
     #[test]
-    fn test_multiselect_option_grouping() {
-        assert!(true);
-    }
+    fn test_multiselect_option_grouping() {}
 
     #[test]
-    fn test_multiselect_group_display() {
-        assert!(true);
-    }
+    fn test_multiselect_group_display() {}
 
     // Performance tests
     #[test]
-    fn test_multiselect_large_option_list() {
-        assert!(true);
-    }
+    fn test_multiselect_large_option_list() {}
 
     #[test]
-    fn test_multiselect_search_performance() {
-        assert!(true);
-    }
+    fn test_multiselect_search_performance() {}
 
     // Integration tests
     #[test]
-    fn test_multiselect_full_workflow() {
-        assert!(true);
-    }
+    fn test_multiselect_full_workflow() {}
 
     #[test]
-    fn test_multiselect_with_form_integration() {
-        assert!(true);
-    }
+    fn test_multiselect_with_form_integration() {}
 
     // Edge case tests
     #[test]
-    fn test_multiselect_empty_options() {
-        assert!(true);
-    }
+    fn test_multiselect_empty_options() {}
 
     #[test]
-    fn test_multiselect_all_options_disabled() {
-        assert!(true);
-    }
+    fn test_multiselect_all_options_disabled() {}
 
     #[test]
-    fn test_multiselect_duplicate_values() {
-        assert!(true);
-    }
+    fn test_multiselect_duplicate_values() {}
 
     // Styling tests
     #[test]
-    fn test_multiselect_custom_classes() {
-        assert!(true);
-    }
+    fn test_multiselect_custom_classes() {}
 
     #[test]
-    fn test_multiselect_custom_styles() {
-        assert!(true);
-    }
+    fn test_multiselect_custom_styles() {}
 
     #[test]
-    fn test_multiselect_responsive_design() {
-        assert!(true);
-    }
+    fn test_multiselect_responsive_design() {}
 }

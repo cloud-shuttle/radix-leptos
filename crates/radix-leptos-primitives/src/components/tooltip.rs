@@ -1,5 +1,5 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// Tooltip component with proper accessibility and positioning
 ///
@@ -30,7 +30,7 @@ use leptos::prelude::*;
 ///     let (duration, set_duration) = create_signal(300);
 ///
 ///     view! {
-///         <Tooltip 
+///         <Tooltip
 ///             open=is_open
 ///             on_open_change=move |open| set_is_open.set(open)
 ///             delay=delay
@@ -125,10 +125,10 @@ fn merge_classes(existing: Option<&str>, additional: Option<&str>) -> Option<Str
 pub fn Tooltip(
     /// Whether the tooltip is open
     #[prop(optional, default = false)]
-    open: bool,
+    _open: bool,
     /// Whether the tooltip is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// Tooltip styling variant
     #[prop(optional, default = TooltipVariant::Default)]
     variant: TooltipVariant,
@@ -156,43 +156,41 @@ pub fn Tooltip(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let tooltip_id = generate_id("tooltip");
+    let _tooltip_id = generate_id("tooltip");
     let trigger_id = generate_id("tooltip-trigger");
     let content_id = generate_id("tooltip-content");
-    
+
     // Build data attributes for styling
     let data_variant = variant.as_str();
     let data_size = size.as_str();
     let data_position = position.as_str();
-    
+
     // Merge classes with data attributes for CSS targeting
     let base_classes = "radix-tooltip";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     // Handle keyboard navigation
-    let handle_keydown = move |e: web_sys::KeyboardEvent| {
-        match e.key().as_str() {
-            "Enter" | " " => {
-                e.prevent_default();
-                if !disabled {
-                    if let Some(on_open_change) = on_open_change {
-                        on_open_change.run(!open);
-                    }
-                }
-            }
-            "Escape" => {
-                e.prevent_default();
+    let handle_keydown = move |e: web_sys::KeyboardEvent| match e.key().as_str() {
+        "Enter" | " " => {
+            e.prevent_default();
+            if !disabled {
                 if let Some(on_open_change) = on_open_change {
-                    on_open_change.run(false);
+                    on_open_change.run(!open);
                 }
             }
-            _ => {}
         }
+        "Escape" => {
+            e.prevent_default();
+            if let Some(on_open_change) = on_open_change {
+                on_open_change.run(false);
+            }
+        }
+        _ => {}
     };
-    
+
     view! {
-        <div 
+        <div
             class=combined_class
             style=style
             data-variant=data_variant
@@ -222,35 +220,35 @@ pub fn TooltipTrigger(
     children: Children,
 ) -> impl IntoView {
     let trigger_id = generate_id("tooltip-trigger");
-    
+
     let base_classes = "radix-tooltip-trigger";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     // Handle mouse events
     let handle_mouse_enter = move |e: web_sys::MouseEvent| {
         e.prevent_default();
         // In a real implementation, this would show the tooltip after delay
     };
-    
+
     let handle_mouse_leave = move |e: web_sys::MouseEvent| {
         e.prevent_default();
         // In a real implementation, this would hide the tooltip after duration
     };
-    
+
     // Handle focus events
     let handle_focus = move |e: web_sys::FocusEvent| {
         e.prevent_default();
         // In a real implementation, this would show the tooltip
     };
-    
+
     let handle_blur = move |e: web_sys::FocusEvent| {
         e.prevent_default();
         // In a real implementation, this would hide the tooltip
     };
-    
+
     view! {
-        <div 
+        <div
             class=combined_class
             style=style
             id=trigger_id
@@ -278,13 +276,13 @@ pub fn TooltipContent(
     children: Children,
 ) -> impl IntoView {
     let content_id = generate_id("tooltip-content");
-    
+
     let base_classes = "radix-tooltip-content";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     view! {
-        <div 
+        <div
             class=combined_class
             style=style
             id=content_id
@@ -309,9 +307,9 @@ pub fn TooltipArrow(
     let base_classes = "radix-tooltip-arrow";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     view! {
-        <div 
+        <div
             class=combined_class
             style=style
             data-popper-arrow=""
@@ -324,59 +322,55 @@ pub fn TooltipArrow(
 mod tests {
     use super::*;
     use proptest::prelude::*;
-    
+
     // 1. Basic Rendering Tests
     #[test]
     fn test_tooltip_variants() {
         run_test(|| {
             // Test tooltip variant logic
-            let variants = vec![
+            let variants = [
                 TooltipVariant::Default,
                 TooltipVariant::Destructive,
                 TooltipVariant::Warning,
                 TooltipVariant::Info,
             ];
-            
+
             for variant in variants {
                 // Each variant should have a valid string representation
                 assert!(!variant.as_str().is_empty());
             }
         });
     }
-    
+
     #[test]
     fn test_tooltip_sizes() {
         run_test(|| {
-            let sizes = vec![
-                TooltipSize::Default,
-                TooltipSize::Sm,
-                TooltipSize::Lg,
-            ];
-            
+            let sizes = [TooltipSize::Default, TooltipSize::Sm, TooltipSize::Lg];
+
             for size in sizes {
                 // Each size should have a valid string representation
                 assert!(!size.as_str().is_empty());
             }
         });
     }
-    
+
     #[test]
     fn test_tooltip_positions() {
         run_test(|| {
-            let positions = vec![
+            let positions = [
                 TooltipPosition::Top,
                 TooltipPosition::Bottom,
                 TooltipPosition::Left,
                 TooltipPosition::Right,
             ];
-            
+
             for position in positions {
                 // Each position should have a valid string representation
                 assert!(!position.as_str().is_empty());
             }
         });
     }
-    
+
     // 2. Props Validation Tests
     #[test]
     fn test_tooltip_open_state() {
@@ -389,7 +383,7 @@ mod tests {
             let position = TooltipPosition::Top;
             let delay = 500;
             let duration = 300;
-            
+
             // When open, tooltip should be open
             assert!(open);
             assert!(!disabled);
@@ -400,7 +394,7 @@ mod tests {
             assert_eq!(duration, 300);
         });
     }
-    
+
     #[test]
     fn test_tooltip_closed_state() {
         run_test(|| {
@@ -412,7 +406,7 @@ mod tests {
             let position = TooltipPosition::Bottom;
             let delay = 1000;
             let duration = 500;
-            
+
             // When closed, tooltip should be closed
             assert!(!open);
             assert!(disabled);
@@ -423,7 +417,7 @@ mod tests {
             assert_eq!(duration, 500);
         });
     }
-    
+
     // 3. State Management Tests
     #[test]
     fn test_tooltip_state_changes() {
@@ -433,31 +427,31 @@ mod tests {
             let disabled = false;
             let delay = 500;
             let duration = 300;
-            
+
             // Initial state
             assert!(!open);
             assert!(!disabled);
             assert_eq!(delay, 500);
             assert_eq!(duration, 300);
-            
+
             // Show tooltip
             open = true;
-            
+
             assert!(open);
             assert!(!disabled);
             assert_eq!(delay, 500);
             assert_eq!(duration, 300);
-            
+
             // Hide tooltip
             open = false;
-            
+
             assert!(!open);
             assert!(!disabled);
             assert_eq!(delay, 500);
             assert_eq!(duration, 300);
         });
     }
-    
+
     // 4. Event Handling Tests
     #[test]
     fn test_tooltip_keyboard_navigation() {
@@ -467,25 +461,24 @@ mod tests {
             let space_pressed = false;
             let escape_pressed = false;
             let disabled = false;
-            
+
             // Initial state
             assert!(enter_pressed);
             assert!(!space_pressed);
             assert!(!escape_pressed);
             assert!(!disabled);
-            
+
             // Handle enter key
             if enter_pressed && !disabled {
                 // In a real implementation, this would toggle the tooltip
-                assert!(true);
             }
-            
+
             // Handle space key
             if space_pressed && !disabled {
                 // In a real implementation, this would toggle the tooltip
                 assert!(false); // Space not pressed
             }
-            
+
             // Handle escape key
             if escape_pressed {
                 // In a real implementation, this would close the tooltip
@@ -493,7 +486,7 @@ mod tests {
             }
         });
     }
-    
+
     #[test]
     fn test_tooltip_mouse_events() {
         run_test(|| {
@@ -502,19 +495,18 @@ mod tests {
             let mouse_leave = false;
             let disabled = false;
             let delay = 500;
-            
+
             // Initial state
             assert!(mouse_enter);
             assert!(!mouse_leave);
             assert!(!disabled);
             assert_eq!(delay, 500);
-            
+
             // Handle mouse enter
             if mouse_enter && !disabled {
                 // In a real implementation, this would show tooltip after delay
-                assert!(true);
             }
-            
+
             // Handle mouse leave
             if mouse_leave && !disabled {
                 // In a real implementation, this would hide tooltip after duration
@@ -522,7 +514,7 @@ mod tests {
             }
         });
     }
-    
+
     #[test]
     fn test_tooltip_focus_events() {
         run_test(|| {
@@ -530,18 +522,17 @@ mod tests {
             let focus = true;
             let blur = false;
             let disabled = false;
-            
+
             // Initial state
             assert!(focus);
             assert!(!blur);
             assert!(!disabled);
-            
+
             // Handle focus
             if focus && !disabled {
                 // In a real implementation, this would show the tooltip
-                assert!(true);
             }
-            
+
             // Handle blur
             if blur && !disabled {
                 // In a real implementation, this would hide the tooltip
@@ -549,7 +540,7 @@ mod tests {
             }
         });
     }
-    
+
     // 5. Accessibility Tests
     #[test]
     fn test_tooltip_accessibility() {
@@ -558,14 +549,14 @@ mod tests {
             let role = "tooltip";
             let aria_describedby = "tooltip-content";
             let data_state = "closed";
-            
+
             // Tooltip should have proper accessibility attributes
             assert_eq!(role, "tooltip");
             assert_eq!(aria_describedby, "tooltip-content");
             assert_eq!(data_state, "closed");
         });
     }
-    
+
     // 6. Edge Case Tests
     #[test]
     fn test_tooltip_edge_cases() {
@@ -575,7 +566,7 @@ mod tests {
             let delay = 0;
             let duration = 0;
             let disabled = false;
-            
+
             // Tooltip should handle zero delays gracefully
             assert!(!open);
             assert_eq!(delay, 0);
@@ -583,7 +574,7 @@ mod tests {
             assert!(!disabled);
         });
     }
-    
+
     #[test]
     fn test_tooltip_disabled_state() {
         run_test(|| {
@@ -592,17 +583,17 @@ mod tests {
             let open = false;
             let delay = 500;
             let duration = 300;
-            
+
             // Disabled tooltip should not respond to interactions
             assert!(disabled);
             assert!(!open);
             assert_eq!(delay, 500);
             assert_eq!(duration, 300);
-            
+
             // In a real implementation, disabled tooltip would ignore all interactions
         });
     }
-    
+
     #[test]
     fn test_tooltip_positioning() {
         run_test(|| {
@@ -610,41 +601,41 @@ mod tests {
             let position = TooltipPosition::Top;
             let open = true;
             let disabled = false;
-            
+
             // Tooltip should be positioned correctly
             assert_eq!(position, TooltipPosition::Top);
             assert!(open);
             assert!(!disabled);
-            
+
             // Test other positions
-            let positions = vec![
+            let positions = [
                 TooltipPosition::Bottom,
                 TooltipPosition::Left,
                 TooltipPosition::Right,
             ];
-            
+
             for pos in positions {
                 assert!(!pos.as_str().is_empty());
             }
         });
     }
-    
+
     // 7. Property-Based Tests
     proptest! {
         #[test]
         fn test_tooltip_properties(
-            variant in prop::sample::select(vec![
+            variant in prop::sample::select([
                 TooltipVariant::Default,
                 TooltipVariant::Destructive,
                 TooltipVariant::Warning,
                 TooltipVariant::Info,
             ]),
-            size in prop::sample::select(vec![
+            size in prop::sample::select([
                 TooltipSize::Default,
                 TooltipSize::Sm,
                 TooltipSize::Lg,
             ]),
-            position in prop::sample::select(vec![
+            position in prop::sample::select([
                 TooltipPosition::Top,
                 TooltipPosition::Bottom,
                 TooltipPosition::Left,
@@ -652,29 +643,29 @@ mod tests {
             ]),
             open in prop::bool::ANY,
             disabled in prop::bool::ANY,
-            delay in 0..2000u32,
-            duration in 0..2000u32
+            _delay in 0..2000u32,
+            _duration in 0..2000u32
         ) {
             // Property: Tooltip should always render without panicking
             // Property: All variants should have valid string representations
             assert!(!variant.as_str().is_empty());
             assert!(!size.as_str().is_empty());
             assert!(!position.as_str().is_empty());
-            
+
             // Property: Open and disabled should be boolean
-            assert!(open == true || open == false);
-            assert!(disabled == true || disabled == false);
-            
+            assert!(open  || open ! );
+            assert!(disabled  || disabled ! );
+
             // Property: Delay and duration should be reasonable values
             assert!(delay <= 2000);
             assert!(duration <= 2000);
-            
+
             // Property: Disabled tooltip should not be open
             if disabled {
                 // In a real implementation, disabled tooltips might not open
                 // This is a business rule that could be enforced
             }
-            
+
             // Property: Delay should be reasonable for UX
             if delay > 1000 {
                 // Very long delays might not be good UX
@@ -682,9 +673,12 @@ mod tests {
             }
         }
     }
-    
+
     // Helper function for running tests
-    fn run_test<F>(f: F) where F: FnOnce() {
+    fn run_test<F>(f: F)
+    where
+        F: FnOnce(),
+    {
         // Simplified test runner for Leptos 0.8
         f();
     }

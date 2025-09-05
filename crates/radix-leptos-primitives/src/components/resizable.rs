@@ -1,40 +1,55 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 use wasm_bindgen::JsCast;
 
 /// Resizable component for resizable panels with constraints
 #[component]
 pub fn Resizable(
     /// Initial width
-    #[prop(optional)] width: Option<f64>,
+    #[prop(optional)]
+    width: Option<f64>,
     /// Initial height
-    #[prop(optional)] height: Option<f64>,
+    #[prop(optional)]
+    height: Option<f64>,
     /// Minimum width
-    #[prop(optional)] min_width: Option<f64>,
+    #[prop(optional)]
+    min_width: Option<f64>,
     /// Minimum height
-    #[prop(optional)] min_height: Option<f64>,
+    #[prop(optional)]
+    min_height: Option<f64>,
     /// Maximum width
-    #[prop(optional)] max_width: Option<f64>,
+    #[prop(optional)]
+    max_width: Option<f64>,
     /// Maximum height
-    #[prop(optional)] max_height: Option<f64>,
+    #[prop(optional)]
+    max_height: Option<f64>,
     /// Whether resizing is enabled
-    #[prop(optional)] enabled: Option<bool>,
+    #[prop(optional)]
+    enabled: Option<bool>,
     /// Resize handles to show
-    #[prop(optional)] handles: Option<Vec<ResizeHandle>>,
+    #[prop(optional)]
+    handles: Option<Vec<ResizeHandle>>,
     /// Whether to maintain aspect ratio
-    #[prop(optional)] maintain_aspect_ratio: Option<bool>,
+    #[prop(optional)]
+    maintain_aspect_ratio: Option<bool>,
     /// Aspect ratio to maintain
-    #[prop(optional)] aspect_ratio: Option<f64>,
+    #[prop(optional)]
+    aspect_ratio: Option<f64>,
     /// Callback when resize starts
-    #[prop(optional)] on_resize_start: Option<Callback<ResizeEvent>>,
+    #[prop(optional)]
+    on_resize_start: Option<Callback<ResizeEvent>>,
     /// Callback during resize
-    #[prop(optional)] on_resize: Option<Callback<ResizeEvent>>,
+    #[prop(optional)]
+    on_resize: Option<Callback<ResizeEvent>>,
     /// Callback when resize ends
-    #[prop(optional)] on_resize_end: Option<Callback<ResizeEvent>>,
+    #[prop(optional)]
+    on_resize_end: Option<Callback<ResizeEvent>>,
     /// Additional CSS classes
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)]
+    class: Option<String>,
     /// Inline styles
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional)]
+    style: Option<String>,
     /// Children content
     children: Option<Children>,
 ) -> impl IntoView {
@@ -45,7 +60,7 @@ pub fn Resizable(
     let max_width = max_width.unwrap_or(f64::INFINITY);
     let max_height = max_height.unwrap_or(f64::INFINITY);
     let enabled = enabled.unwrap_or(true);
-    let handles = handles.unwrap_or_else(|| vec![ResizeHandle::BottomRight]);
+    let handles = handles.unwrap_or_else(|| [ResizeHandle::BottomRight]);
     let maintain_aspect_ratio = maintain_aspect_ratio.unwrap_or(false);
     let aspect_ratio = aspect_ratio.unwrap_or(1.0);
 
@@ -136,15 +151,20 @@ pub fn ResizeHandle(
     /// Handle type
     handle: ResizeHandle,
     /// Callback when resize starts
-    #[prop(optional)] on_resize_start: Option<Callback<ResizeEvent>>,
+    #[prop(optional)]
+    on_resize_start: Option<Callback<ResizeEvent>>,
     /// Callback during resize
-    #[prop(optional)] on_resize: Option<Callback<ResizeEvent>>,
+    #[prop(optional)]
+    on_resize: Option<Callback<ResizeEvent>>,
     /// Callback when resize ends
-    #[prop(optional)] on_resize_end: Option<Callback<ResizeEvent>>,
+    #[prop(optional)]
+    on_resize_end: Option<Callback<ResizeEvent>>,
     /// Additional CSS classes
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)]
+    class: Option<String>,
     /// Inline styles
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional)]
+    style: Option<String>,
 ) -> impl IntoView {
     let class = format!(
         "resize-handle {} {}",
@@ -241,19 +261,26 @@ pub struct ResizeEvent {
 #[component]
 pub fn ResizablePanel(
     /// Panel content
-    #[prop(optional)] content: Option<String>,
+    #[prop(optional)]
+    content: Option<String>,
     /// Panel title
-    #[prop(optional)] title: Option<String>,
+    #[prop(optional)]
+    title: Option<String>,
     /// Whether the panel is collapsible
-    #[prop(optional)] collapsible: Option<bool>,
+    #[prop(optional)]
+    collapsible: Option<bool>,
     /// Whether the panel is collapsed
-    #[prop(optional)] collapsed: Option<bool>,
+    #[prop(optional)]
+    collapsed: Option<bool>,
     /// Callback when panel is collapsed/expanded
-    #[prop(optional)] on_toggle: Option<Callback<bool>>,
+    #[prop(optional)]
+    on_toggle: Option<Callback<bool>>,
     /// Additional CSS classes
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)]
+    class: Option<String>,
     /// Inline styles
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional)]
+    style: Option<String>,
     /// Children content
     children: Option<Children>,
 ) -> impl IntoView {
@@ -324,19 +351,26 @@ pub fn ResizablePanel(
 #[component]
 pub fn ResizableSplitter(
     /// Splitter orientation
-    #[prop(optional)] orientation: Option<SplitterOrientation>,
+    #[prop(optional)]
+    orientation: Option<SplitterOrientation>,
     /// Splitter position (0.0 to 1.0)
-    #[prop(optional)] position: Option<f64>,
+    #[prop(optional)]
+    position: Option<f64>,
     /// Minimum position
-    #[prop(optional)] min_position: Option<f64>,
+    #[prop(optional)]
+    min_position: Option<f64>,
     /// Maximum position
-    #[prop(optional)] max_position: Option<f64>,
+    #[prop(optional)]
+    max_position: Option<f64>,
     /// Callback when position changes
-    #[prop(optional)] on_position_change: Option<Callback<f64>>,
+    #[prop(optional)]
+    on_position_change: Option<Callback<f64>>,
     /// Additional CSS classes
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)]
+    class: Option<String>,
     /// Inline styles
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional)]
+    style: Option<String>,
 ) -> impl IntoView {
     let orientation = orientation.unwrap_or_default();
     let position = position.unwrap_or(0.5);
@@ -404,24 +438,16 @@ mod tests {
 
     // Component structure tests
     #[test]
-    fn test_resizable_component_creation() {
-        assert!(true);
-    }
+    fn test_resizable_component_creation() {}
 
     #[test]
-    fn test_resize_handle_component_creation() {
-        assert!(true);
-    }
+    fn test_resize_handle_component_creation() {}
 
     #[test]
-    fn test_resizable_panel_component_creation() {
-        assert!(true);
-    }
+    fn test_resizable_panel_component_creation() {}
 
     #[test]
-    fn test_resizable_splitter_component_creation() {
-        assert!(true);
-    }
+    fn test_resizable_splitter_component_creation() {}
 
     // Data structure tests
     #[test]
@@ -464,225 +490,149 @@ mod tests {
 
     #[test]
     fn test_splitter_orientation_enum() {
-        assert_eq!(SplitterOrientation::Vertical, SplitterOrientation::default());
-        assert_eq!(SplitterOrientation::Horizontal, SplitterOrientation::Horizontal);
+        assert_eq!(
+            SplitterOrientation::Vertical,
+            SplitterOrientation::default()
+        );
+        assert_eq!(
+            SplitterOrientation::Horizontal,
+            SplitterOrientation::Horizontal
+        );
         assert_eq!(SplitterOrientation::Vertical, SplitterOrientation::Vertical);
     }
 
     // Props and state tests
     #[test]
-    fn test_resizable_props_handling() {
-        assert!(true);
-    }
+    fn test_resizable_props_handling() {}
 
     #[test]
-    fn test_resizable_dimensions() {
-        assert!(true);
-    }
+    fn test_resizable_dimensions() {}
 
     #[test]
-    fn test_resizable_constraints() {
-        assert!(true);
-    }
+    fn test_resizable_constraints() {}
 
     #[test]
-    fn test_resizable_enabled_state() {
-        assert!(true);
-    }
+    fn test_resizable_enabled_state() {}
 
     #[test]
-    fn test_resizable_handles() {
-        assert!(true);
-    }
+    fn test_resizable_handles() {}
 
     #[test]
-    fn test_resizable_aspect_ratio() {
-        assert!(true);
-    }
+    fn test_resizable_aspect_ratio() {}
 
     // Event handling tests
     #[test]
-    fn test_resizable_resize_start() {
-        assert!(true);
-    }
+    fn test_resizable_resize_start() {}
 
     #[test]
-    fn test_resizable_resize() {
-        assert!(true);
-    }
+    fn test_resizable_resize() {}
 
     #[test]
-    fn test_resizable_resize_end() {
-        assert!(true);
-    }
+    fn test_resizable_resize_end() {}
 
     #[test]
-    fn test_resize_handle_events() {
-        assert!(true);
-    }
+    fn test_resize_handle_events() {}
 
     // Panel functionality tests
     #[test]
-    fn test_resizable_panel_content() {
-        assert!(true);
-    }
+    fn test_resizable_panel_content() {}
 
     #[test]
-    fn test_resizable_panel_title() {
-        assert!(true);
-    }
+    fn test_resizable_panel_title() {}
 
     #[test]
-    fn test_resizable_panel_collapsible() {
-        assert!(true);
-    }
+    fn test_resizable_panel_collapsible() {}
 
     #[test]
-    fn test_resizable_panel_collapsed() {
-        assert!(true);
-    }
+    fn test_resizable_panel_collapsed() {}
 
     #[test]
-    fn test_resizable_panel_toggle() {
-        assert!(true);
-    }
+    fn test_resizable_panel_toggle() {}
 
     // Splitter functionality tests
     #[test]
-    fn test_resizable_splitter_orientation() {
-        assert!(true);
-    }
+    fn test_resizable_splitter_orientation() {}
 
     #[test]
-    fn test_resizable_splitter_position() {
-        assert!(true);
-    }
+    fn test_resizable_splitter_position() {}
 
     #[test]
-    fn test_resizable_splitter_constraints() {
-        assert!(true);
-    }
+    fn test_resizable_splitter_constraints() {}
 
     #[test]
-    fn test_resizable_splitter_drag() {
-        assert!(true);
-    }
+    fn test_resizable_splitter_drag() {}
 
     // Constraint validation tests
     #[test]
-    fn test_resizable_min_width_constraint() {
-        assert!(true);
-    }
+    fn test_resizable_min_width_constraint() {}
 
     #[test]
-    fn test_resizable_min_height_constraint() {
-        assert!(true);
-    }
+    fn test_resizable_min_height_constraint() {}
 
     #[test]
-    fn test_resizable_max_width_constraint() {
-        assert!(true);
-    }
+    fn test_resizable_max_width_constraint() {}
 
     #[test]
-    fn test_resizable_max_height_constraint() {
-        assert!(true);
-    }
+    fn test_resizable_max_height_constraint() {}
 
     // Aspect ratio tests
     #[test]
-    fn test_resizable_maintain_aspect_ratio() {
-        assert!(true);
-    }
+    fn test_resizable_maintain_aspect_ratio() {}
 
     #[test]
-    fn test_resizable_custom_aspect_ratio() {
-        assert!(true);
-    }
+    fn test_resizable_custom_aspect_ratio() {}
 
     // Handle positioning tests
     #[test]
-    fn test_resize_handle_positioning() {
-        assert!(true);
-    }
+    fn test_resize_handle_positioning() {}
 
     #[test]
-    fn test_resize_handle_cursor_styles() {
-        assert!(true);
-    }
+    fn test_resize_handle_cursor_styles() {}
 
     // Accessibility tests
     #[test]
-    fn test_resizable_accessibility() {
-        assert!(true);
-    }
+    fn test_resizable_accessibility() {}
 
     #[test]
-    fn test_resizable_keyboard_navigation() {
-        assert!(true);
-    }
+    fn test_resizable_keyboard_navigation() {}
 
     #[test]
-    fn test_resizable_screen_reader_support() {
-        assert!(true);
-    }
+    fn test_resizable_screen_reader_support() {}
 
     // Performance tests
     #[test]
-    fn test_resizable_performance() {
-        assert!(true);
-    }
+    fn test_resizable_performance() {}
 
     #[test]
-    fn test_resizable_large_content() {
-        assert!(true);
-    }
+    fn test_resizable_large_content() {}
 
     // Integration tests
     #[test]
-    fn test_resizable_full_workflow() {
-        assert!(true);
-    }
+    fn test_resizable_full_workflow() {}
 
     #[test]
-    fn test_resizable_with_panel() {
-        assert!(true);
-    }
+    fn test_resizable_with_panel() {}
 
     #[test]
-    fn test_resizable_with_splitter() {
-        assert!(true);
-    }
+    fn test_resizable_with_splitter() {}
 
     // Edge case tests
     #[test]
-    fn test_resizable_zero_dimensions() {
-        assert!(true);
-    }
+    fn test_resizable_zero_dimensions() {}
 
     #[test]
-    fn test_resizable_negative_dimensions() {
-        assert!(true);
-    }
+    fn test_resizable_negative_dimensions() {}
 
     #[test]
-    fn test_resizable_invalid_constraints() {
-        assert!(true);
-    }
+    fn test_resizable_invalid_constraints() {}
 
     // Styling tests
     #[test]
-    fn test_resizable_custom_classes() {
-        assert!(true);
-    }
+    fn test_resizable_custom_classes() {}
 
     #[test]
-    fn test_resizable_custom_styles() {
-        assert!(true);
-    }
+    fn test_resizable_custom_styles() {}
 
     #[test]
-    fn test_resizable_responsive_design() {
-        assert!(true);
-    }
+    fn test_resizable_responsive_design() {}
 }

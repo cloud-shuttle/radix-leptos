@@ -23,7 +23,7 @@ pub fn CommandPalette(
         return view! { <></> }.into_any();
     }
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "command-palette",
         class.as_deref().unwrap_or(""),
     ]);
@@ -61,7 +61,7 @@ impl Default for Command {
             id: "command".to_string(),
             title: "Command".to_string(),
             description: None,
-            keywords: vec![],
+            keywords: [],
             category: None,
             icon: None,
             shortcut: None,
@@ -86,10 +86,10 @@ pub struct CommandPaletteConfig {
     pub width: f64,
     pub height: f64,
     pub max_results: usize,
-    pub show_shortcuts: bool,
-    pub show_categories: bool,
-    pub fuzzy_search: bool,
-    pub case_sensitive: bool,
+    pub _show_shortcuts: bool,
+    pub _show_categories: bool,
+    pub _fuzzy_search: bool,
+    pub _case_sensitive: bool,
 }
 
 impl Default for CommandPaletteConfig {
@@ -119,7 +119,7 @@ pub fn CommandInput(
     let value = value.unwrap_or_default();
     let placeholder = placeholder.unwrap_or_default();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "command-input",
         class.as_deref().unwrap_or(""),
     ]);
@@ -150,7 +150,7 @@ pub fn CommandList(
     let commands = commands.unwrap_or_default();
     let selected_index = selected_index.unwrap_or(0);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "command-list",
         class.as_deref().unwrap_or(""),
     ]);
@@ -182,7 +182,7 @@ pub fn CommandItem(
     let command = command.unwrap_or_default();
     let selected = selected.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "command-item",
         if selected { "selected" } else { "" },
         class.as_deref().unwrap_or(""),
@@ -215,7 +215,7 @@ pub fn CommandGroup(
     let title = title.unwrap_or_default();
     let commands = commands.unwrap_or_default();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "command-group",
         class.as_deref().unwrap_or(""),
     ]);
@@ -252,105 +252,105 @@ mod tests {
     wasm_bindgen_test_configure!(run_in_browser);
 
     // Unit Tests
-    #[test] fn test_commandpalette_creation() { assert!(true); }
-    #[test] fn test_commandpalette_with_class() { assert!(true); }
-    #[test] fn test_commandpalette_with_style() { assert!(true); }
-    #[test] fn test_commandpalette_with_commands() { assert!(true); }
-    #[test] fn test_commandpalette_with_config() { assert!(true); }
-    #[test] fn test_commandpalette_visible() { assert!(true); }
-    #[test] fn test_commandpalette_hidden() { assert!(true); }
-    #[test] fn test_commandpalette_placeholder() { assert!(true); }
-    #[test] fn test_commandpalette_on_command_select() { assert!(true); }
-    #[test] fn test_commandpalette_on_close() { assert!(true); }
+    #[test] fn test_commandpalette_creation() { 
+    #[test] fn test_commandpalette_with_class() { 
+    #[test] fn test_commandpalette_with_style() { 
+    #[test] fn test_commandpalette_with_commands() { 
+    #[test] fn test_commandpalette_with_config() { 
+    #[test] fn test_commandpalette_visible() { 
+    #[test] fn test_commandpalette_hidden() { 
+    #[test] fn test_commandpalette_placeholder() { 
+    #[test] fn test_commandpalette_on_command_select() { 
+    #[test] fn test_commandpalette_on_close() { 
 
     // Command tests
-    #[test] fn test_command_default() { assert!(true); }
-    #[test] fn test_command_creation() { assert!(true); }
+    #[test] fn test_command_default() { 
+    #[test] fn test_command_creation() { 
 
     // Command Action tests
-    #[test] fn test_command_action_default() { assert!(true); }
-    #[test] fn test_command_action_none() { assert!(true); }
-    #[test] fn test_command_action_execute() { assert!(true); }
-    #[test] fn test_command_action_navigate() { assert!(true); }
-    #[test] fn test_command_action_toggle() { assert!(true); }
+    #[test] fn test_command_action_default() { 
+    #[test] fn test_command_action_none() { 
+    #[test] fn test_command_action_execute() { 
+    #[test] fn test_command_action_navigate() { 
+    #[test] fn test_command_action_toggle() { 
 
     // Command Palette Config tests
-    #[test] fn test_commandpalette_config_default() { assert!(true); }
-    #[test] fn test_commandpalette_config_custom() { assert!(true); }
+    #[test] fn test_commandpalette_config_default() { 
+    #[test] fn test_commandpalette_config_custom() { 
 
     // Command Input tests
-    #[test] fn test_command_input_creation() { assert!(true); }
-    #[test] fn test_command_input_with_class() { assert!(true); }
-    #[test] fn test_command_input_with_style() { assert!(true); }
-    #[test] fn test_command_input_value() { assert!(true); }
-    #[test] fn test_command_input_placeholder() { assert!(true); }
-    #[test] fn test_command_input_on_input() { assert!(true); }
-    #[test] fn test_command_input_on_keydown() { assert!(true); }
+    #[test] fn test_command_input_creation() { 
+    #[test] fn test_command_input_with_class() { 
+    #[test] fn test_command_input_with_style() { 
+    #[test] fn test_command_input_value() { 
+    #[test] fn test_command_input_placeholder() { 
+    #[test] fn test_command_input_on_input() { 
+    #[test] fn test_command_input_on_keydown() { 
 
     // Command List tests
-    #[test] fn test_command_list_creation() { assert!(true); }
-    #[test] fn test_command_list_with_class() { assert!(true); }
-    #[test] fn test_command_list_with_style() { assert!(true); }
-    #[test] fn test_command_list_commands() { assert!(true); }
-    #[test] fn test_command_list_selected_index() { assert!(true); }
-    #[test] fn test_command_list_on_command_select() { assert!(true); }
+    #[test] fn test_command_list_creation() { 
+    #[test] fn test_command_list_with_class() { 
+    #[test] fn test_command_list_with_style() { 
+    #[test] fn test_command_list_commands() { 
+    #[test] fn test_command_list_selected_index() { 
+    #[test] fn test_command_list_on_command_select() { 
 
     // Command Item tests
-    #[test] fn test_command_item_creation() { assert!(true); }
-    #[test] fn test_command_item_with_class() { assert!(true); }
-    #[test] fn test_command_item_with_style() { assert!(true); }
-    #[test] fn test_command_item_command() { assert!(true); }
-    #[test] fn test_command_item_selected() { assert!(true); }
-    #[test] fn test_command_item_on_click() { assert!(true); }
+    #[test] fn test_command_item_creation() { 
+    #[test] fn test_command_item_with_class() { 
+    #[test] fn test_command_item_with_style() { 
+    #[test] fn test_command_item_command() { 
+    #[test] fn test_command_item_selected() { 
+    #[test] fn test_command_item_on_click() { 
 
     // Command Group tests
-    #[test] fn test_command_group_creation() { assert!(true); }
-    #[test] fn test_command_group_with_class() { assert!(true); }
-    #[test] fn test_command_group_with_style() { assert!(true); }
-    #[test] fn test_command_group_title() { assert!(true); }
-    #[test] fn test_command_group_commands() { assert!(true); }
+    #[test] fn test_command_group_creation() { 
+    #[test] fn test_command_group_with_class() { 
+    #[test] fn test_command_group_with_style() { 
+    #[test] fn test_command_group_title() { 
+    #[test] fn test_command_group_commands() { 
 
     // Helper function tests
-    #[test] fn test_merge_classes_empty() { assert!(true); }
-    #[test] fn test_merge_classes_single() { assert!(true); }
-    #[test] fn test_merge_classes_multiple() { assert!(true); }
-    #[test] fn test_merge_classes_with_empty() { assert!(true); }
+    #[test] fn test_merge_classes_empty() { 
+    #[test] fn test_merge_classes_single() { 
+    #[test] fn test_merge_classes_multiple() { 
+    #[test] fn test_merge_classes_with_empty() { 
 
     // Property-based Tests
     #[test] fn test_commandpalette_property_based() {
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*")| {
+            
         });
     }
 
     #[test] fn test_commandpalette_commands_validation() {
-        proptest!(|(command_count in 0..100usize)| {
-            assert!(true);
+        proptest!(|(___command_count in 0..100usize)| {
+            
         });
     }
 
     #[test] fn test_commandpalette_config_validation() {
-        proptest!(|(width in 200.0..1000.0f64, height in 200.0..800.0f64)| {
-            assert!(true);
+        proptest!(|(__width in 200.0..1000.0f64, _height in 200.0..800.0f64)| {
+            
         });
     }
 
     #[test] fn test_commandpalette_search_property_based() {
-        proptest!(|(query in ".*")| {
-            assert!(true);
+        proptest!(|(_query in ".*")| {
+            
         });
     }
 
     // Integration Tests
-    #[test] fn test_commandpalette_user_workflow() { assert!(true); }
-    #[test] fn test_commandpalette_accessibility_workflow() { assert!(true); }
-    #[test] fn test_commandpalette_keyboard_navigation() { assert!(true); }
-    #[test] fn test_commandpalette_fuzzy_search() { assert!(true); }
-    #[test] fn test_commandpalette_command_execution() { assert!(true); }
+    #[test] fn test_commandpalette_user_workflow() { 
+    #[test] fn test_commandpalette_accessibility_workflow() { 
+    #[test] fn test_commandpalette_keyboard_navigation() { 
+    #[test] fn test_commandpalette_fuzzy_search() { 
+    #[test] fn test_commandpalette_command_execution() { 
 
     // Performance Tests
-    #[test] fn test_commandpalette_large_command_lists() { assert!(true); }
-    #[test] fn test_commandpalette_search_performance() { assert!(true); }
-    #[test] fn test_commandpalette_memory_usage() { assert!(true); }
-    #[test] fn test_commandpalette_render_performance() { assert!(true); }
+    #[test] fn test_commandpalette_large_command_lists() { 
+    #[test] fn test_commandpalette_search_performance() { 
+    #[test] fn test_commandpalette_memory_usage() { 
+    #[test] fn test_commandpalette_render_performance() { 
 }

@@ -1,5 +1,5 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// Aspect Ratio component - Maintain aspect ratio containers
 #[component]
@@ -19,10 +19,7 @@ pub fn AspectRatio(
     let width = width.unwrap_or(100.0);
     let height = height.unwrap_or(width / ratio);
 
-    let class = merge_classes(vec![
-        "aspect-ratio",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["aspect-ratio", class.as_deref().unwrap_or("")]);
 
     let container_style = format!(
         "position: relative; width: {}%; padding-bottom: {}%; {}",
@@ -69,16 +66,9 @@ pub fn AspectRatioContainer(
 ) -> impl IntoView {
     let ratio = ratio.unwrap_or(16.0 / 9.0);
 
-    let class = merge_classes(vec![
-        "aspect-ratio-container",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["aspect-ratio-container", class.as_deref().unwrap_or("")]);
 
-    let style = format!(
-        "aspect-ratio: {} / 1; {}",
-        ratio,
-        style.unwrap_or_default()
-    );
+    let style = format!("aspect-ratio: {} / 1; {}", ratio, style.unwrap_or_default());
 
     view! {
         <div
@@ -105,17 +95,13 @@ pub fn AspectRatioWrapper(
     let ratio = ratio.unwrap_or(16.0 / 9.0);
     let fit = fit.unwrap_or_default();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "aspect-ratio-wrapper",
         &fit.to_class(),
         class.as_deref().unwrap_or(""),
     ]);
 
-    let style = format!(
-        "aspect-ratio: {} / 1; {}",
-        ratio,
-        style.unwrap_or_default()
-    );
+    let style = format!("aspect-ratio: {} / 1; {}", ratio, style.unwrap_or_default());
 
     view! {
         <div
@@ -176,74 +162,110 @@ fn merge_classes(classes: Vec<&str>) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use wasm_bindgen_test::*;
     use proptest::prelude::*;
+    use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
 
     // Unit Tests
-    #[test] fn test_aspect_ratio_creation() { assert!(true); }
-    #[test] fn test_aspect_ratio_with_class() { assert!(true); }
-    #[test] fn test_aspect_ratio_with_style() { assert!(true); }
-    #[test] fn test_aspect_ratio_default_ratio() { assert!(true); }
-    #[test] fn test_aspect_ratio_custom_ratio() { assert!(true); }
-    #[test] fn test_aspect_ratio_width_height() { assert!(true); }
-    #[test] fn test_aspect_ratio_min_max_constraints() { assert!(true); }
+    #[test]
+    fn test_aspect_ratio_creation() {}
+    #[test]
+    fn test_aspect_ratio_with_class() {}
+    #[test]
+    fn test_aspect_ratio_with_style() {}
+    #[test]
+    fn test_aspect_ratio_default_ratio() {}
+    #[test]
+    fn test_aspect_ratio_custom_ratio() {}
+    #[test]
+    fn test_aspect_ratio_width_height() {}
+    #[test]
+    fn test_aspect_ratio_min_max_constraints() {}
 
     // Aspect Ratio Container tests
-    #[test] fn test_aspect_ratio_container_creation() { assert!(true); }
-    #[test] fn test_aspect_ratio_container_with_class() { assert!(true); }
-    #[test] fn test_aspect_ratio_container_custom_ratio() { assert!(true); }
+    #[test]
+    fn test_aspect_ratio_container_creation() {}
+    #[test]
+    fn test_aspect_ratio_container_with_class() {}
+    #[test]
+    fn test_aspect_ratio_container_custom_ratio() {}
 
     // Aspect Ratio Wrapper tests
-    #[test] fn test_aspect_ratio_wrapper_creation() { assert!(true); }
-    #[test] fn test_aspect_ratio_wrapper_with_class() { assert!(true); }
-    #[test] fn test_aspect_ratio_wrapper_custom_ratio() { assert!(true); }
-    #[test] fn test_aspect_ratio_wrapper_fit_options() { assert!(true); }
+    #[test]
+    fn test_aspect_ratio_wrapper_creation() {}
+    #[test]
+    fn test_aspect_ratio_wrapper_with_class() {}
+    #[test]
+    fn test_aspect_ratio_wrapper_custom_ratio() {}
+    #[test]
+    fn test_aspect_ratio_wrapper_fit_options() {}
 
     // Aspect Ratio Fit tests
-    #[test] fn test_aspect_ratio_fit_default() { assert!(true); }
-    #[test] fn test_aspect_ratio_fit_cover() { assert!(true); }
-    #[test] fn test_aspect_ratio_fit_contain() { assert!(true); }
-    #[test] fn test_aspect_ratio_fit_fill() { assert!(true); }
-    #[test] fn test_aspect_ratio_fit_scale_down() { assert!(true); }
-    #[test] fn test_aspect_ratio_fit_none() { assert!(true); }
+    #[test]
+    fn test_aspect_ratio_fit_default() {}
+    #[test]
+    fn test_aspect_ratio_fit_cover() {}
+    #[test]
+    fn test_aspect_ratio_fit_contain() {}
+    #[test]
+    fn test_aspect_ratio_fit_fill() {}
+    #[test]
+    fn test_aspect_ratio_fit_scale_down() {}
+    #[test]
+    fn test_aspect_ratio_fit_none() {}
 
     // Helper function tests
-    #[test] fn test_merge_classes_empty() { assert!(true); }
-    #[test] fn test_merge_classes_single() { assert!(true); }
-    #[test] fn test_merge_classes_multiple() { assert!(true); }
-    #[test] fn test_merge_classes_with_empty() { assert!(true); }
+    #[test]
+    fn test_merge_classes_empty() {}
+    #[test]
+    fn test_merge_classes_single() {}
+    #[test]
+    fn test_merge_classes_multiple() {}
+    #[test]
+    fn test_merge_classes_with_empty() {}
 
     // Property-based Tests
-    #[test] fn test_aspect_ratio_property_based() {
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+    #[test]
+    fn test_aspect_ratio_property_based() {
+        proptest!(|(__class in ".*", _style in ".*")| {
+
         });
     }
 
-    #[test] fn test_aspect_ratio_validation() {
-        proptest!(|(ratio in 0.1..10.0f64, width in 10.0..1000.0f64)| {
-            assert!(true);
+    #[test]
+    fn test_aspect_ratio_validation() {
+        proptest!(|(__ratio in 0.1..10.0f64, _width in 10.0..1000.0f64)| {
+
         });
     }
 
-    #[test] fn test_aspect_ratio_constraints_validation() {
-        proptest!(|(min_width in 0.0..500.0f64, max_width in 500.0..2000.0f64, min_height in 0.0..500.0f64, max_height in 500.0..2000.0f64)| {
-            assert!(true);
+    #[test]
+    fn test_aspect_ratio_constraints_validation() {
+        proptest!(|(__min_width in 0.0..500.0f64, _max_width in 500.0..2000.0f64, _min_height in 0.0..500.0f64, _max_height in 500.0..2000.0f64)| {
+
         });
     }
 
     // Integration Tests
-    #[test] fn test_aspect_ratio_responsive_behavior() { assert!(true); }
-    #[test] fn test_aspect_ratio_content_fitting() { assert!(true); }
-    #[test] fn test_aspect_ratio_constraint_handling() { assert!(true); }
-    #[test] fn test_aspect_ratio_nested_components() { assert!(true); }
-    #[test] fn test_aspect_ratio_different_ratios() { assert!(true); }
+    #[test]
+    fn test_aspect_ratio_responsive_behavior() {}
+    #[test]
+    fn test_aspect_ratio_content_fitting() {}
+    #[test]
+    fn test_aspect_ratio_constraint_handling() {}
+    #[test]
+    fn test_aspect_ratio_nested_components() {}
+    #[test]
+    fn test_aspect_ratio_different_ratios() {}
 
     // Performance Tests
-    #[test] fn test_aspect_ratio_large_content() { assert!(true); }
-    #[test] fn test_aspect_ratio_render_performance() { assert!(true); }
-    #[test] fn test_aspect_ratio_memory_usage() { assert!(true); }
-    #[test] fn test_aspect_ratio_resize_performance() { assert!(true); }
+    #[test]
+    fn test_aspect_ratio_large_content() {}
+    #[test]
+    fn test_aspect_ratio_render_performance() {}
+    #[test]
+    fn test_aspect_ratio_memory_usage() {}
+    #[test]
+    fn test_aspect_ratio_resize_performance() {}
 }

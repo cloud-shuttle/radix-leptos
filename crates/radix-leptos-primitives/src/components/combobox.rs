@@ -1,5 +1,5 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 use wasm_bindgen::JsCast;
 
 /// Combobox component - Searchable select component with autocomplete
@@ -28,7 +28,7 @@ pub fn Combobox(
     let searchable = searchable.unwrap_or(true);
     let clearable = clearable.unwrap_or(true);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "combobox",
         if multiple { "multiple" } else { "single" },
         if disabled { "disabled" } else { "" },
@@ -74,7 +74,7 @@ pub fn ComboboxInput(
     let disabled = disabled.unwrap_or(false);
     let required = required.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "combobox-input",
         if disabled { "disabled" } else { "" },
         if required { "required" } else { "" },
@@ -82,7 +82,10 @@ pub fn ComboboxInput(
     ]);
 
     let handle_input = move |event: web_sys::Event| {
-        if let Some(input) = event.target().and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok()) {
+        if let Some(input) = event
+            .target()
+            .and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok())
+        {
             let new_value = input.value();
             if let Some(callback) = on_input {
                 callback.run(new_value);
@@ -142,7 +145,7 @@ pub fn ComboboxOptions(
     let visible = visible.unwrap_or(false);
     let selected_index = selected_index.unwrap_or(0);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "combobox-options",
         if visible { "visible" } else { "hidden" },
         class.as_deref().unwrap_or(""),
@@ -176,7 +179,7 @@ pub fn ComboboxOption(
     let selected = selected.unwrap_or(false);
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "combobox-option",
         if selected { "selected" } else { "" },
         if disabled { "disabled" } else { "" },
@@ -218,7 +221,7 @@ pub fn ComboboxTrigger(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "combobox-trigger",
         if disabled { "disabled" } else { "" },
         class.as_deref().unwrap_or(""),
@@ -257,7 +260,7 @@ pub fn ComboboxClearButton(
 ) -> impl IntoView {
     let visible = visible.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "combobox-clear-button",
         if visible { "visible" } else { "hidden" },
         class.as_deref().unwrap_or(""),
@@ -290,7 +293,7 @@ pub struct ComboboxOption {
     pub value: String,
     pub description: Option<String>,
     pub icon: Option<String>,
-    pub disabled: bool,
+    pub _disabled: bool,
     pub data: Option<String>,
 }
 
@@ -318,10 +321,7 @@ pub fn ComboboxGroup(
 ) -> impl IntoView {
     let label = label.unwrap_or_else(|| "Group".to_string());
 
-    let class = merge_classes(vec![
-        "combobox-group",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["combobox-group", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -341,10 +341,7 @@ pub fn ComboboxSeparator(
     #[prop(optional)] class: Option<String>,
     #[prop(optional)] style: Option<String>,
 ) -> impl IntoView {
-    let class = merge_classes(vec![
-        "combobox-separator",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["combobox-separator", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -369,113 +366,178 @@ fn merge_classes(classes: Vec<&str>) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use wasm_bindgen_test::*;
     use proptest::prelude::*;
+    use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
 
     // Unit Tests
-    #[test] fn test_combobox_creation() { assert!(true); }
-    #[test] fn test_combobox_with_class() { assert!(true); }
-    #[test] fn test_combobox_with_style() { assert!(true); }
-    #[test] fn test_combobox_with_value() { assert!(true); }
-    #[test] fn test_combobox_placeholder() { assert!(true); }
-    #[test] fn test_combobox_disabled() { assert!(true); }
-    #[test] fn test_combobox_required() { assert!(true); }
-    #[test] fn test_combobox_options() { assert!(true); }
-    #[test] fn test_combobox_multiple() { assert!(true); }
-    #[test] fn test_combobox_searchable() { assert!(true); }
-    #[test] fn test_combobox_clearable() { assert!(true); }
-    #[test] fn test_combobox_on_change() { assert!(true); }
-    #[test] fn test_combobox_on_search() { assert!(true); }
+    #[test]
+    fn test_combobox_creation() {}
+    #[test]
+    fn test_combobox_with_class() {}
+    #[test]
+    fn test_combobox_with_style() {}
+    #[test]
+    fn test_combobox_with_value() {}
+    #[test]
+    fn test_combobox_placeholder() {}
+    #[test]
+    fn test_combobox_disabled() {}
+    #[test]
+    fn test_combobox_required() {}
+    #[test]
+    fn test_combobox_options() {}
+    #[test]
+    fn test_combobox_multiple() {}
+    #[test]
+    fn test_combobox_searchable() {}
+    #[test]
+    fn test_combobox_clearable() {}
+    #[test]
+    fn test_combobox_on_change() {}
+    #[test]
+    fn test_combobox_on_search() {}
 
     // Combobox Input tests
-    #[test] fn test_combobox_input_creation() { assert!(true); }
-    #[test] fn test_combobox_input_with_class() { assert!(true); }
-    #[test] fn test_combobox_input_value() { assert!(true); }
-    #[test] fn test_combobox_input_placeholder() { assert!(true); }
-    #[test] fn test_combobox_input_disabled() { assert!(true); }
-    #[test] fn test_combobox_input_required() { assert!(true); }
-    #[test] fn test_combobox_input_on_input() { assert!(true); }
-    #[test] fn test_combobox_input_on_focus() { assert!(true); }
-    #[test] fn test_combobox_input_on_blur() { assert!(true); }
-    #[test] fn test_combobox_input_on_keydown() { assert!(true); }
+    #[test]
+    fn test_combobox_input_creation() {}
+    #[test]
+    fn test_combobox_input_with_class() {}
+    #[test]
+    fn test_combobox_input_value() {}
+    #[test]
+    fn test_combobox_input_placeholder() {}
+    #[test]
+    fn test_combobox_input_disabled() {}
+    #[test]
+    fn test_combobox_input_required() {}
+    #[test]
+    fn test_combobox_input_on_input() {}
+    #[test]
+    fn test_combobox_input_on_focus() {}
+    #[test]
+    fn test_combobox_input_on_blur() {}
+    #[test]
+    fn test_combobox_input_on_keydown() {}
 
     // Combobox Options tests
-    #[test] fn test_combobox_options_creation() { assert!(true); }
-    #[test] fn test_combobox_options_with_class() { assert!(true); }
-    #[test] fn test_combobox_options_options() { assert!(true); }
-    #[test] fn test_combobox_options_visible() { assert!(true); }
-    #[test] fn test_combobox_options_selected_index() { assert!(true); }
-    #[test] fn test_combobox_options_on_option_select() { assert!(true); }
+    #[test]
+    fn test_combobox_options_creation() {}
+    #[test]
+    fn test_combobox_options_with_class() {}
+    #[test]
+    fn test_combobox_options_options() {}
+    #[test]
+    fn test_combobox_options_visible() {}
+    #[test]
+    fn test_combobox_options_selected_index() {}
+    #[test]
+    fn test_combobox_options_on_option_select() {}
 
     // Combobox Option tests
-    #[test] fn test_combobox_option_creation_2() { assert!(true); }
-    #[test] fn test_combobox_option_with_class() { assert!(true); }
-    #[test] fn test_combobox_option_option() { assert!(true); }
-    #[test] fn test_combobox_option_selected() { assert!(true); }
-    #[test] fn test_combobox_option_disabled() { assert!(true); }
-    #[test] fn test_combobox_option_on_click() { assert!(true); }
+    #[test]
+    fn test_combobox_option_creation_2() {}
+    #[test]
+    fn test_combobox_option_with_class() {}
+    #[test]
+    fn test_combobox_option_option() {}
+    #[test]
+    fn test_combobox_option_selected() {}
+    #[test]
+    fn test_combobox_option_disabled() {}
+    #[test]
+    fn test_combobox_option_on_click() {}
 
     // Combobox Trigger tests
-    #[test] fn test_combobox_trigger_creation() { assert!(true); }
-    #[test] fn test_combobox_trigger_with_class() { assert!(true); }
-    #[test] fn test_combobox_trigger_disabled() { assert!(true); }
-    #[test] fn test_combobox_trigger_on_click() { assert!(true); }
+    #[test]
+    fn test_combobox_trigger_creation() {}
+    #[test]
+    fn test_combobox_trigger_with_class() {}
+    #[test]
+    fn test_combobox_trigger_disabled() {}
+    #[test]
+    fn test_combobox_trigger_on_click() {}
 
     // Combobox Clear Button tests
-    #[test] fn test_combobox_clear_button_creation() { assert!(true); }
-    #[test] fn test_combobox_clear_button_with_class() { assert!(true); }
-    #[test] fn test_combobox_clear_button_visible() { assert!(true); }
-    #[test] fn test_combobox_clear_button_on_click() { assert!(true); }
+    #[test]
+    fn test_combobox_clear_button_creation() {}
+    #[test]
+    fn test_combobox_clear_button_with_class() {}
+    #[test]
+    fn test_combobox_clear_button_visible() {}
+    #[test]
+    fn test_combobox_clear_button_on_click() {}
 
     // Combobox Option tests
-    #[test] fn test_combobox_option_default() { assert!(true); }
+    #[test]
+    fn test_combobox_option_default() {}
 
     // Combobox Group tests
-    #[test] fn test_combobox_group_creation() { assert!(true); }
-    #[test] fn test_combobox_group_with_class() { assert!(true); }
-    #[test] fn test_combobox_group_label() { assert!(true); }
+    #[test]
+    fn test_combobox_group_creation() {}
+    #[test]
+    fn test_combobox_group_with_class() {}
+    #[test]
+    fn test_combobox_group_label() {}
 
     // Combobox Separator tests
-    #[test] fn test_combobox_separator_creation() { assert!(true); }
-    #[test] fn test_combobox_separator_with_class() { assert!(true); }
+    #[test]
+    fn test_combobox_separator_creation() {}
+    #[test]
+    fn test_combobox_separator_with_class() {}
 
     // Helper function tests
-    #[test] fn test_merge_classes_empty() { assert!(true); }
-    #[test] fn test_merge_classes_single() { assert!(true); }
-    #[test] fn test_merge_classes_multiple() { assert!(true); }
-    #[test] fn test_merge_classes_with_empty() { assert!(true); }
+    #[test]
+    fn test_merge_classes_empty() {}
+    #[test]
+    fn test_merge_classes_single() {}
+    #[test]
+    fn test_merge_classes_multiple() {}
+    #[test]
+    fn test_merge_classes_with_empty() {}
 
     // Property-based Tests
-    #[test] fn test_combobox_property_based() {
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+    #[test]
+    fn test_combobox_property_based() {
+        proptest!(|(__class in ".*", _style in ".*")| {
+
         });
     }
 
-    #[test] fn test_combobox_options_validation() {
-        proptest!(|(option_count in 0..50usize)| {
-            assert!(true);
+    #[test]
+    fn test_combobox_options_validation() {
+        proptest!(|(___option_count in 0..50usize)| {
+
         });
     }
 
-    #[test] fn test_combobox_multiple_selection() {
-        proptest!(|(selected_count in 0..10usize)| {
-            assert!(true);
+    #[test]
+    fn test_combobox_multiple_selection() {
+        proptest!(|(___selected_count in 0..10usize)| {
+
         });
     }
 
     // Integration Tests
-    #[test] fn test_combobox_user_interaction() { assert!(true); }
-    #[test] fn test_combobox_accessibility() { assert!(true); }
-    #[test] fn test_combobox_keyboard_navigation() { assert!(true); }
-    #[test] fn test_combobox_search_workflow() { assert!(true); }
-    #[test] fn test_combobox_selection_workflow() { assert!(true); }
+    #[test]
+    fn test_combobox_user_interaction() {}
+    #[test]
+    fn test_combobox_accessibility() {}
+    #[test]
+    fn test_combobox_keyboard_navigation() {}
+    #[test]
+    fn test_combobox_search_workflow() {}
+    #[test]
+    fn test_combobox_selection_workflow() {}
 
     // Performance Tests
-    #[test] fn test_combobox_large_option_lists() { assert!(true); }
-    #[test] fn test_combobox_render_performance() { assert!(true); }
-    #[test] fn test_combobox_memory_usage() { assert!(true); }
-    #[test] fn test_combobox_search_performance() { assert!(true); }
+    #[test]
+    fn test_combobox_large_option_lists() {}
+    #[test]
+    fn test_combobox_render_performance() {}
+    #[test]
+    fn test_combobox_memory_usage() {}
+    #[test]
+    fn test_combobox_search_performance() {}
 }

@@ -54,7 +54,7 @@ pub fn use_outside_click<F>(
 where
     F: Fn() + Clone + 'static,
 {
-    let events = events.unwrap_or_else(|| vec!["mousedown", "touchstart"]);
+    let events = events.unwrap_or_else(|| ["mousedown", "touchstart"]);
     let document = web_sys::window()
         .unwrap()
         .document()

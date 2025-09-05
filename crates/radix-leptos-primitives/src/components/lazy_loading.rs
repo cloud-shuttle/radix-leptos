@@ -275,7 +275,7 @@ pub fn LazyList(
                         view! { <div class="lazy-item">"Item"</div> }
                     }).collect::<Vec<_>>()
                 } else {
-                    vec![]
+                    []
                 }}
             </div>
             {if has_more {
@@ -494,22 +494,22 @@ mod tests {
     // Event handling tests
     #[test]
     fn test_lazy_loading_intersect_callback() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_loading_load_start_callback() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_loading_load_complete_callback() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_loading_load_error_callback() {
-        assert!(true);
+        
     }
 
     // Image lazy loading tests
@@ -623,215 +623,215 @@ mod tests {
     // Content lazy loading tests
     #[test]
     fn test_lazy_content_content_handling() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_content_loaded_state() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_content_loading_state() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_content_error_state() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_content_loading_component() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_content_error_component() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_content_load_callback() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_content_loaded_callback() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_content_error_callback() {
-        assert!(true);
+        
     }
 
     // List lazy loading tests
     #[test]
     fn test_lazy_list_total_items() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_list_batch_size() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_list_loaded_items() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_list_has_more() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_list_loading_state() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_list_render_item() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_list_load_more_callback() {
-        assert!(true);
+        
     }
 
     // Intersection observer tests
     #[test]
     fn test_lazy_loading_intersection_observer() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_loading_root_margin_config() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_loading_threshold_config() {
-        assert!(true);
+        
     }
 
     // Performance tests
     #[test]
     fn test_lazy_loading_performance() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_loading_memory_usage() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_loading_large_dataset() {
-        assert!(true);
+        
     }
 
     // Error handling tests
     #[test]
     fn test_lazy_loading_error_handling() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_loading_fallback_components() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_loading_retry_mechanism() {
-        assert!(true);
+        
     }
 
     // Accessibility tests
     #[test]
     fn test_lazy_loading_accessibility() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_loading_screen_reader_support() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_loading_keyboard_navigation() {
-        assert!(true);
+        
     }
 
     // Integration tests
     #[test]
     fn test_lazy_loading_full_workflow() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_loading_with_images() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_loading_with_content() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_loading_with_list() {
-        assert!(true);
+        
     }
 
     // Provider tests
     #[test]
     fn test_lazy_loading_provider_config() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_loading_provider_defaults() {
-        assert!(true);
+        
     }
 
     // Edge case tests
     #[test]
     fn test_lazy_loading_empty_content() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_loading_invalid_urls() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_loading_network_errors() {
-        assert!(true);
+        
     }
 
     // Styling tests
     #[test]
     fn test_lazy_loading_custom_classes() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_loading_custom_styles() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_loading_responsive_design() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_lazy_loading_loading_animations() {
-        assert!(true);
+        
     }
 }

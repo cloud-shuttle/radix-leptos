@@ -9,13 +9,13 @@ mod sheet_tests {
     // Test Sheet component creation
     #[test]
     fn test_sheet_component_creation() {
-        assert!(true); // Component compiles successfully
+        
     }
 
     // Test Sheet with different positions
     #[test]
     fn test_sheet_positions() {
-        assert!(true); // Component compiles successfully
+        
     }
 
     // Property-based test for Sheet
@@ -23,13 +23,13 @@ mod sheet_tests {
         #[test]
         fn test_sheet_properties(
             open in any::<bool>(),
-            position in prop::sample::select(vec![
+            position in prop::sample::select([
                 SheetPosition::Left,
                 SheetPosition::Right,
                 SheetPosition::Top,
                 SheetPosition::Bottom,
             ]),
-            size in prop::sample::select(vec![
+            size in prop::sample::select([
                 SheetSize::Small,
                 SheetSize::Medium,
                 SheetSize::Large,
@@ -56,19 +56,19 @@ mod sheet_tests {
                     </SheetContent>
                 </Sheet>
             };
-            assert!(true);
+            
         }
     }
 
     // Test Sheet accessibility
     #[test]
     fn test_sheet_accessibility() {
-        assert!(true); // Component has proper ARIA attributes
+        
     }
 
     // Test Sheet animations
     #[test]
     fn test_sheet_animations() {
-        assert!(true); // Component has smooth animations
+        
     }
 }

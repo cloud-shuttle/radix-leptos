@@ -1,18 +1,18 @@
-use leptos::*;
 use leptos::prelude::*;
+// use leptos::*;  // Unused import
 
 /// Portal component for rendering content in different DOM locations
-/// 
+///
 /// The Portal component is essential for overlays, modals, tooltips, and any content
 /// that needs to escape the normal document flow. It renders its children into a
 /// different DOM location while maintaining the component tree relationship.
-/// 
+///
 /// # Example
-/// 
+///
 /// ```rust
 /// use leptos::*;
 /// use radix_leptos_core::Portal;
-/// 
+///
 /// #[component]
 /// fn MyModal() -> impl IntoView {
 ///     view! {
@@ -31,7 +31,7 @@ use leptos::prelude::*;
 pub fn Portal(
     /// Whether to force mount the portal regardless of hydration state
     #[prop(optional, default = false)]
-    _force_mount: bool,
+    __force_mount: bool,
     /// Content to render in the portal
     children: Children,
 ) -> impl IntoView {
@@ -45,7 +45,7 @@ pub fn Portal(
 }
 
 /// Portal root context for managing multiple portals
-/// 
+///
 /// Note: Temporarily simplified for Leptos 0.8 compatibility
 #[derive(Clone)]
 pub struct PortalContext {
@@ -54,9 +54,7 @@ pub struct PortalContext {
 
 /// Provider for portal context
 #[component]
-pub fn PortalProvider(
-    children: Children,
-) -> impl IntoView {
+pub fn PortalProvider(children: Children) -> impl IntoView {
     // Context management for portal state
     children()
 }
@@ -69,12 +67,12 @@ pub fn use_portal_context() -> Option<PortalContext> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    
+
     #[test]
     fn test_portal_context() {
         // Test portal context creation
-        let context = PortalContext {};
+        let _context = PortalContext {};
         // Portal context should be created without errors
-        assert!(true); // Placeholder assertion
+        // Portal context should be created without errors
     }
 }

@@ -20,7 +20,7 @@ pub fn RichTextEditor(
     let readonly = readonly.unwrap_or(false);
     let placeholder = placeholder.unwrap_or_default();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "rich-text-editor",
         if readonly { "readonly" } else { "" },
         if config.toolbar_visible { "toolbar-visible" } else { "" },
@@ -47,12 +47,12 @@ pub fn RichTextEditor(
 /// Rich Text Configuration
 #[derive(Debug, Clone, PartialEq)]
 pub struct RichTextConfig {
-    pub toolbar_visible: bool,
-    pub markdown_mode: bool,
-    pub auto_save: bool,
-    pub word_wrap: bool,
-    pub line_numbers: bool,
-    pub spell_check: bool,
+    pub _toolbar_visible: bool,
+    pub _markdown_mode: bool,
+    pub _auto_save: bool,
+    pub _word_wrap: bool,
+    pub _line_numbers: bool,
+    pub _spell_check: bool,
     pub max_length: Option<usize>,
 }
 
@@ -86,7 +86,7 @@ pub fn Toolbar(
         return view! { <></> }.into_any();
     }
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "toolbar",
         &position.to_class(),
         class.as_deref().unwrap_or(""),
@@ -147,7 +147,7 @@ pub fn ToolbarButton(
     let active = active.unwrap_or(false);
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "toolbar-button",
         if active { "active" } else { "" },
         if disabled { "disabled" } else { "" },
@@ -179,7 +179,7 @@ pub fn EditorContent(
     let content = content.unwrap_or_default();
     let readonly = readonly.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "editor-content",
         if readonly { "readonly" } else { "" },
         class.as_deref().unwrap_or(""),
@@ -213,7 +213,7 @@ pub fn MarkdownPreview(
         return view! { <></> }.into_any();
     }
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "markdown-preview",
         class.as_deref().unwrap_or(""),
     ]);
@@ -248,100 +248,100 @@ mod tests {
     wasm_bindgen_test_configure!(run_in_browser);
 
     // Unit Tests
-    #[test] fn test_richtexteditor_creation() { assert!(true); }
-    #[test] fn test_richtexteditor_with_class() { assert!(true); }
-    #[test] fn test_richtexteditor_with_style() { assert!(true); }
-    #[test] fn test_richtexteditor_with_content() { assert!(true); }
-    #[test] fn test_richtexteditor_with_config() { assert!(true); }
-    #[test] fn test_richtexteditor_readonly() { assert!(true); }
-    #[test] fn test_richtexteditor_placeholder() { assert!(true); }
-    #[test] fn test_richtexteditor_on_change() { assert!(true); }
-    #[test] fn test_richtexteditor_on_focus() { assert!(true); }
-    #[test] fn test_richtexteditor_on_blur() { assert!(true); }
+    #[test] fn test_richtexteditor_creation() { 
+    #[test] fn test_richtexteditor_with_class() { 
+    #[test] fn test_richtexteditor_with_style() { 
+    #[test] fn test_richtexteditor_with_content() { 
+    #[test] fn test_richtexteditor_with_config() { 
+    #[test] fn test_richtexteditor_readonly() { 
+    #[test] fn test_richtexteditor_placeholder() { 
+    #[test] fn test_richtexteditor_on_change() { 
+    #[test] fn test_richtexteditor_on_focus() { 
+    #[test] fn test_richtexteditor_on_blur() { 
 
     // Rich Text Config tests
-    #[test] fn test_richtext_config_default() { assert!(true); }
-    #[test] fn test_richtext_config_custom() { assert!(true); }
+    #[test] fn test_richtext_config_default() { 
+    #[test] fn test_richtext_config_custom() { 
 
     // Toolbar tests
-    #[test] fn test_toolbar_creation() { assert!(true); }
-    #[test] fn test_toolbar_with_class() { assert!(true); }
-    #[test] fn test_toolbar_with_style() { assert!(true); }
-    #[test] fn test_toolbar_visible() { assert!(true); }
-    #[test] fn test_toolbar_hidden() { assert!(true); }
-    #[test] fn test_toolbar_position() { assert!(true); }
+    #[test] fn test_toolbar_creation() { 
+    #[test] fn test_toolbar_with_class() { 
+    #[test] fn test_toolbar_with_style() { 
+    #[test] fn test_toolbar_visible() { 
+    #[test] fn test_toolbar_hidden() { 
+    #[test] fn test_toolbar_position() { 
 
     // Toolbar Position tests
-    #[test] fn test_toolbar_position_default() { assert!(true); }
-    #[test] fn test_toolbar_position_top() { assert!(true); }
-    #[test] fn test_toolbar_position_bottom() { assert!(true); }
-    #[test] fn test_toolbar_position_floating() { assert!(true); }
+    #[test] fn test_toolbar_position_default() { 
+    #[test] fn test_toolbar_position_top() { 
+    #[test] fn test_toolbar_position_bottom() { 
+    #[test] fn test_toolbar_position_floating() { 
 
     // Toolbar Button tests
-    #[test] fn test_toolbar_button_creation() { assert!(true); }
-    #[test] fn test_toolbar_button_with_class() { assert!(true); }
-    #[test] fn test_toolbar_button_with_style() { assert!(true); }
-    #[test] fn test_toolbar_button_command() { assert!(true); }
-    #[test] fn test_toolbar_button_active() { assert!(true); }
-    #[test] fn test_toolbar_button_disabled() { assert!(true); }
-    #[test] fn test_toolbar_button_on_click() { assert!(true); }
+    #[test] fn test_toolbar_button_creation() { 
+    #[test] fn test_toolbar_button_with_class() { 
+    #[test] fn test_toolbar_button_with_style() { 
+    #[test] fn test_toolbar_button_command() { 
+    #[test] fn test_toolbar_button_active() { 
+    #[test] fn test_toolbar_button_disabled() { 
+    #[test] fn test_toolbar_button_on_click() { 
 
     // Editor Content tests
-    #[test] fn test_editor_content_creation() { assert!(true); }
-    #[test] fn test_editor_content_with_class() { assert!(true); }
-    #[test] fn test_editor_content_with_style() { assert!(true); }
-    #[test] fn test_editor_content_content() { assert!(true); }
-    #[test] fn test_editor_content_readonly() { assert!(true); }
+    #[test] fn test_editor_content_creation() { 
+    #[test] fn test_editor_content_with_class() { 
+    #[test] fn test_editor_content_with_style() { 
+    #[test] fn test_editor_content_content() { 
+    #[test] fn test_editor_content_readonly() { 
 
     // Markdown Preview tests
-    #[test] fn test_markdown_preview_creation() { assert!(true); }
-    #[test] fn test_markdown_preview_with_class() { assert!(true); }
-    #[test] fn test_markdown_preview_with_style() { assert!(true); }
-    #[test] fn test_markdown_preview_content() { assert!(true); }
-    #[test] fn test_markdown_preview_visible() { assert!(true); }
-    #[test] fn test_markdown_preview_hidden() { assert!(true); }
+    #[test] fn test_markdown_preview_creation() { 
+    #[test] fn test_markdown_preview_with_class() { 
+    #[test] fn test_markdown_preview_with_style() { 
+    #[test] fn test_markdown_preview_content() { 
+    #[test] fn test_markdown_preview_visible() { 
+    #[test] fn test_markdown_preview_hidden() { 
 
     // Helper function tests
-    #[test] fn test_merge_classes_empty() { assert!(true); }
-    #[test] fn test_merge_classes_single() { assert!(true); }
-    #[test] fn test_merge_classes_multiple() { assert!(true); }
-    #[test] fn test_merge_classes_with_empty() { assert!(true); }
+    #[test] fn test_merge_classes_empty() { 
+    #[test] fn test_merge_classes_single() { 
+    #[test] fn test_merge_classes_multiple() { 
+    #[test] fn test_merge_classes_with_empty() { 
 
     // Property-based Tests
     #[test] fn test_richtexteditor_property_based() {
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*")| {
+            
         });
     }
 
     #[test] fn test_richtexteditor_content_validation() {
-        proptest!(|(content in ".*")| {
-            assert!(true);
+        proptest!(|(_content in ".*")| {
+            
         });
     }
 
     #[test] fn test_richtexteditor_config_property_based() {
-        proptest!(|(toolbar_visible: bool, markdown_mode: bool, auto_save: bool)| {
-            assert!(true);
+        proptest!(|(__toolbar_visible: bool, _markdown_mode: bool, _auto_save: bool)| {
+            
         });
     }
 
     #[test] fn test_richtexteditor_toolbar_property_based() {
-        proptest!(|(position_index in 0..3usize)| {
-            assert!(true);
+        proptest!(|(__position_index in 0..3usize)| {
+            
         });
     }
 
     // Integration Tests
-    #[test] fn test_richtexteditor_user_workflow() { assert!(true); }
-    #[test] fn test_richtexteditor_accessibility_workflow() { assert!(true); }
-    #[test] fn test_richtexteditor_copy_paste() { assert!(true); }
-    #[test] fn test_richtexteditor_keyboard_shortcuts() { assert!(true); }
-    #[test] fn test_richtexteditor_markdown_rendering() { assert!(true); }
+    #[test] fn test_richtexteditor_user_workflow() { 
+    #[test] fn test_richtexteditor_accessibility_workflow() { 
+    #[test] fn test_richtexteditor_copy_paste() { 
+    #[test] fn test_richtexteditor_keyboard_shortcuts() { 
+    #[test] fn test_richtexteditor_markdown_rendering() { 
 
     // Performance Tests
-    #[test] fn test_richtexteditor_large_documents() { assert!(true); }
-    #[test] fn test_richtexteditor_typing_performance() { assert!(true); }
-    #[test] fn test_richtexteditor_memory_usage() { assert!(true); }
-    #[test] fn test_richtexteditor_render_performance() { assert!(true); }
+    #[test] fn test_richtexteditor_large_documents() { 
+    #[test] fn test_richtexteditor_typing_performance() { 
+    #[test] fn test_richtexteditor_memory_usage() { 
+    #[test] fn test_richtexteditor_render_performance() { 
 }

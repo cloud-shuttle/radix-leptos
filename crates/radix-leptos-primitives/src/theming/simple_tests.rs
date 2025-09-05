@@ -1,8 +1,9 @@
 // Simple tests for theming system that don't rely on complex proptest infrastructure
 #[cfg(test)]
+#[allow(clippy::module_inception)]
 mod simple_tests {
     use super::*;
-    use crate::theming::{CSSVariables, Size, PrebuiltThemes, ButtonVariants, LayoutSystem};
+    use crate::theming::{ButtonVariants, CSSVariables, LayoutSystem, PrebuiltThemes, Size};
 
     #[test]
     fn test_css_variables_basic() {
@@ -70,7 +71,13 @@ mod simple_tests {
     fn test_theme_differences() {
         let light_theme = CSSVariables::default();
         let dark_theme = CSSVariables::dark_theme();
-        assert_ne!(light_theme.neutral.neutral_50, dark_theme.neutral.neutral_50);
-        assert_eq!(light_theme.primary.primary_500, dark_theme.primary.primary_500);
+        assert_ne!(
+            light_theme.neutral.neutral_50,
+            dark_theme.neutral.neutral_50
+        );
+        assert_eq!(
+            light_theme.primary.primary_500,
+            dark_theme.primary.primary_500
+        );
     }
 }

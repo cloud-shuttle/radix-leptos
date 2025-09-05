@@ -45,10 +45,10 @@ pub fn Checkbox(
     state: CheckboxState,
     /// Whether the checkbox is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// Whether the checkbox is required
     #[prop(optional, default = false)]
-    required: bool,
+    _required: bool,
     /// Name attribute for form submission
     #[prop(optional)]
     name: Option<String>,
@@ -70,7 +70,7 @@ pub fn Checkbox(
     /// Child content (label)
     children: Children,
 ) -> impl IntoView {
-    let checkbox_id = generate_id("checkbox");
+    let _checkbox_id = generate_id("checkbox");
     
     // Build base classes
     let base_classes = "radix-checkbox";
@@ -187,10 +187,10 @@ pub fn CheckboxWithLabel(
     state: CheckboxState,
     /// Whether the checkbox is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// Whether the checkbox is required
     #[prop(optional, default = false)]
-    required: bool,
+    _required: bool,
     /// Name attribute for form submission
     #[prop(optional)]
     name: Option<String>,
@@ -206,7 +206,7 @@ pub fn CheckboxWithLabel(
     /// Child content (label)
     children: Children,
 ) -> impl IntoView {
-    let checkbox_id = generate_id("checkbox");
+    let _checkbox_id = generate_id("checkbox");
     
     view! {
         <div style="display: flex; align-items: center; gap: 8px;">

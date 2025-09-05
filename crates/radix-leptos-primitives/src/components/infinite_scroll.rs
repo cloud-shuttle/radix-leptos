@@ -261,7 +261,7 @@ pub fn VirtualInfiniteScroll(
                         view! { <div class="virtual-item">"Item"</div> }
                     }).collect::<Vec<_>>()
                 } else {
-                    vec![]
+                    []
                 }}
             </div>
         </div>
@@ -301,27 +301,27 @@ mod tests {
     // Component structure tests
     #[test]
     fn test_infinite_scroll_component_creation() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_item_component_creation() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_container_component_creation() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_virtual_infinite_scroll_component_creation() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_hook_component_creation() {
-        assert!(true);
+        
     }
 
     // Data structure tests
@@ -364,222 +364,222 @@ mod tests {
     // Props and state tests
     #[test]
     fn test_infinite_scroll_props_handling() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_enabled_state() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_threshold() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_has_more() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_loading_state() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_loading_component() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_end_component() {
-        assert!(true);
+        
     }
 
     // Event handling tests
     #[test]
     fn test_infinite_scroll_load_more_callback() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_scroll_callback() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_item_render_callback() {
-        assert!(true);
+        
     }
 
     // Scroll detection tests
     #[test]
     fn test_infinite_scroll_threshold_detection() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_bottom_detection() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_scroll_position() {
-        assert!(true);
+        
     }
 
     // Item management tests
     #[test]
     fn test_infinite_scroll_item_index() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_item_data() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_item_visibility() {
-        assert!(true);
+        
     }
 
     // Container tests
     #[test]
     fn test_infinite_scroll_container_dimensions() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_container_scrollbar() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_container_behavior() {
-        assert!(true);
+        
     }
 
     // Virtual scrolling tests
     #[test]
     fn test_virtual_infinite_scroll_item_count() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_virtual_infinite_scroll_item_height() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_virtual_infinite_scroll_container_height() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_virtual_infinite_scroll_overscan() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_virtual_infinite_scroll_visible_range() {
-        assert!(true);
+        
     }
 
     // Performance tests
     #[test]
     fn test_infinite_scroll_performance() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_large_dataset() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_virtual_infinite_scroll_performance() {
-        assert!(true);
+        
     }
 
     // Loading states tests
     #[test]
     fn test_infinite_scroll_loading_indicator() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_end_indicator() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_custom_indicators() {
-        assert!(true);
+        
     }
 
     // Accessibility tests
     #[test]
     fn test_infinite_scroll_accessibility() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_keyboard_navigation() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_screen_reader_support() {
-        assert!(true);
+        
     }
 
     // Integration tests
     #[test]
     fn test_infinite_scroll_full_workflow() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_with_container() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_with_items() {
-        assert!(true);
+        
     }
 
     // Edge case tests
     #[test]
     fn test_infinite_scroll_empty_data() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_zero_threshold() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_negative_threshold() {
-        assert!(true);
+        
     }
 
     // Styling tests
     #[test]
     fn test_infinite_scroll_custom_classes() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_custom_styles() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_infinite_scroll_responsive_design() {
-        assert!(true);
+        
     }
 }

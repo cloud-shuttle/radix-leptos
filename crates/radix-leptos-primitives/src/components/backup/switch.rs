@@ -43,10 +43,10 @@ pub fn Switch(
     state: SwitchState,
     /// Whether the switch is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// Whether the switch is required
     #[prop(optional, default = false)]
-    required: bool,
+    _required: bool,
     /// Name attribute for form submission
     #[prop(optional)]
     name: Option<String>,
@@ -68,7 +68,7 @@ pub fn Switch(
     /// Child content (label)
     children: Children,
 ) -> impl IntoView {
-    let switch_id = generate_id("switch");
+    let _switch_id = generate_id("switch");
     
     // Build base classes
     let base_classes = "radix-switch";
@@ -180,10 +180,10 @@ pub fn SwitchWithLabel(
     state: SwitchState,
     /// Whether the switch is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// Whether the switch is required
     #[prop(optional, default = false)]
-    required: bool,
+    _required: bool,
     /// Name attribute for form submission
     #[prop(optional)]
     name: Option<String>,
@@ -199,7 +199,7 @@ pub fn SwitchWithLabel(
     /// Child content (label)
     children: Children,
 ) -> impl IntoView {
-    let switch_id = generate_id("switch");
+    let _switch_id = generate_id("switch");
     
     view! {
         <div style="display: flex; align-items: center; gap: 8px;">

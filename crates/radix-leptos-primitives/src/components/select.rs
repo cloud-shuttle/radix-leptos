@@ -1,5 +1,5 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// Select component with proper accessibility and styling variants
 ///
@@ -26,14 +26,14 @@ use leptos::prelude::*;
 ///     let (selected_value, set_selected_value) = create_signal("option1".to_string());
 ///     let (is_open, set_is_open) = create_signal(false);
 ///
-///     let options = vec![
+///     let options = [
 ///         ("option1", "Option 1"),
 ///         ("option2", "Option 2"),
 ///         ("option3", "Option 3"),
 ///     ];
 ///
 ///     view! {
-///         <Select 
+///         <Select
 ///             value=selected_value
 ///             on_value_change=move |value| set_selected_value.set(value)
 ///             open=is_open
@@ -115,10 +115,10 @@ pub fn Select(
     value: Option<String>,
     /// Whether the select is open
     #[prop(optional, default = false)]
-    open: bool,
+    _open: bool,
     /// Whether the select is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// Select styling variant
     #[prop(optional, default = SelectVariant::Default)]
     variant: SelectVariant,
@@ -140,48 +140,46 @@ pub fn Select(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let select_id = generate_id("select");
-    let trigger_id = generate_id("select-trigger");
-    let content_id = generate_id("select-content");
-    
+    let _select_id = generate_id("select");
+    let _trigger_id = generate_id("select-trigger");
+    let _content_id = generate_id("select-content");
+
     // Build data attributes for styling
     let data_variant = variant.as_str();
     let data_size = size.as_str();
-    
+
     // Merge classes with data attributes for CSS targeting
     let base_classes = "radix-select";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     // Handle keyboard navigation
-    let handle_keydown = move |e: web_sys::KeyboardEvent| {
-        match e.key().as_str() {
-            "ArrowDown" | "ArrowUp" => {
-                e.prevent_default();
-                if !open {
-                    if let Some(on_open_change) = on_open_change {
-                        on_open_change.run(true);
-                    }
-                }
-            }
-            "Enter" | " " => {
-                e.prevent_default();
+    let handle_keydown = move |e: web_sys::KeyboardEvent| match e.key().as_str() {
+        "ArrowDown" | "ArrowUp" => {
+            e.prevent_default();
+            if !open {
                 if let Some(on_open_change) = on_open_change {
-                    on_open_change.run(!open);
+                    on_open_change.run(true);
                 }
             }
-            "Escape" => {
-                e.prevent_default();
-                if let Some(on_open_change) = on_open_change {
-                    on_open_change.run(false);
-                }
-            }
-            _ => {}
         }
+        "Enter" | " " => {
+            e.prevent_default();
+            if let Some(on_open_change) = on_open_change {
+                on_open_change.run(!open);
+            }
+        }
+        "Escape" => {
+            e.prevent_default();
+            if let Some(on_open_change) = on_open_change {
+                on_open_change.run(false);
+            }
+        }
+        _ => {}
     };
-    
+
     view! {
-        <div 
+        <div
             class=combined_class
             style=style
             data-variant=data_variant
@@ -210,9 +208,9 @@ pub fn SelectTrigger(
     let base_classes = "radix-select-trigger";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     view! {
-        <button 
+        <button
             class=combined_class
             style=style
             type="button"
@@ -241,7 +239,7 @@ pub fn SelectValue(
     let base_classes = "radix-select-value";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     view! {
         <span class=combined_class style=style>
             {placeholder.unwrap_or_else(|| "Select an option".to_string())}
@@ -264,9 +262,9 @@ pub fn SelectContent(
     let base_classes = "radix-select-content";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     view! {
-        <div 
+        <div
             class=combined_class
             style=style
             role="listbox"
@@ -284,7 +282,7 @@ pub fn SelectItem(
     value: String,
     /// Whether the item is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -297,15 +295,15 @@ pub fn SelectItem(
     let base_classes = "radix-select-item";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     // Handle item click
     let handle_click = move |e: web_sys::MouseEvent| {
         e.prevent_default();
         // In a real implementation, this would trigger value change
     };
-    
+
     view! {
-        <div 
+        <div
             class=combined_class
             style=style
             data-value=value
@@ -323,41 +321,37 @@ pub fn SelectItem(
 mod tests {
     use super::*;
     use proptest::prelude::*;
-    
+
     // 1. Basic Rendering Tests
     #[test]
     fn test_select_variants() {
         run_test(|| {
             // Test select variant logic
-            let variants = vec![
+            let variants = [
                 SelectVariant::Default,
                 SelectVariant::Destructive,
                 SelectVariant::Ghost,
             ];
-            
+
             for variant in variants {
                 // Each variant should have a valid string representation
                 assert!(!variant.as_str().is_empty());
             }
         });
     }
-    
+
     #[test]
     fn test_select_sizes() {
         run_test(|| {
-            let sizes = vec![
-                SelectSize::Default,
-                SelectSize::Sm,
-                SelectSize::Lg,
-            ];
-            
+            let sizes = [SelectSize::Default, SelectSize::Sm, SelectSize::Lg];
+
             for size in sizes {
                 // Each size should have a valid string representation
                 assert!(!size.as_str().is_empty());
             }
         });
     }
-    
+
     // 2. Props Validation Tests
     #[test]
     fn test_select_open_state() {
@@ -367,7 +361,7 @@ mod tests {
             let disabled = false;
             let variant = SelectVariant::Default;
             let size = SelectSize::Default;
-            
+
             // When open, select should be open
             assert!(open);
             assert!(!disabled);
@@ -375,7 +369,7 @@ mod tests {
             assert_eq!(size, SelectSize::Default);
         });
     }
-    
+
     #[test]
     fn test_select_closed_state() {
         run_test(|| {
@@ -384,7 +378,7 @@ mod tests {
             let disabled = true;
             let variant = SelectVariant::Destructive;
             let size = SelectSize::Lg;
-            
+
             // When closed, select should be closed
             assert!(!open);
             assert!(disabled);
@@ -392,7 +386,7 @@ mod tests {
             assert_eq!(size, SelectSize::Lg);
         });
     }
-    
+
     // 3. State Management Tests
     #[test]
     fn test_select_state_changes() {
@@ -401,29 +395,29 @@ mod tests {
             let mut open = false;
             let mut selected_value = None;
             let disabled = false;
-            
+
             // Initial state
             assert!(!open);
             assert!(selected_value.is_none());
             assert!(!disabled);
-            
+
             // Open select
             open = true;
             selected_value = Some("option1".to_string());
-            
+
             assert!(open);
             assert_eq!(selected_value, Some("option1".to_string()));
             assert!(!disabled);
-            
+
             // Close select
             open = false;
-            
+
             assert!(!open);
             assert_eq!(selected_value, Some("option1".to_string()));
             assert!(!disabled);
         });
     }
-    
+
     // 4. Event Handling Tests
     #[test]
     fn test_select_keyboard_navigation() {
@@ -433,34 +427,34 @@ mod tests {
             let arrow_down_pressed = true;
             let enter_pressed = false;
             let escape_pressed = false;
-            
+
             // Initial state
             assert!(!open);
             assert!(arrow_down_pressed);
-            
+
             // Handle arrow down
             if arrow_down_pressed {
                 open = true;
             }
-            
+
             assert!(open);
-            
+
             // Handle enter
             if enter_pressed {
                 open = !open;
             }
-            
+
             assert!(open); // Should still be open since enter wasn't pressed
-            
+
             // Handle escape
             if escape_pressed {
                 open = false;
             }
-            
+
             assert!(open); // Should still be open since escape wasn't pressed
         });
     }
-    
+
     #[test]
     fn test_select_item_selection() {
         run_test(|| {
@@ -468,21 +462,21 @@ mod tests {
             let mut selected_value = None;
             let item_value = "option1".to_string();
             let item_disabled = false;
-            
+
             // Initial state
             assert!(selected_value.is_none());
             assert_eq!(item_value, "option1");
             assert!(!item_disabled);
-            
+
             // Select item
             if !item_disabled {
                 selected_value = Some(item_value.clone());
             }
-            
+
             assert_eq!(selected_value, Some("option1".to_string()));
         });
     }
-    
+
     // 5. Accessibility Tests
     #[test]
     fn test_select_accessibility() {
@@ -493,7 +487,7 @@ mod tests {
             let role = "combobox";
             let aria_expanded = "true";
             let aria_haspopup = "listbox";
-            
+
             // Select should have proper accessibility attributes
             assert!(open);
             assert!(!disabled);
@@ -502,7 +496,7 @@ mod tests {
             assert_eq!(aria_haspopup, "listbox");
         });
     }
-    
+
     // 6. Edge Case Tests
     #[test]
     fn test_select_edge_cases() {
@@ -511,24 +505,24 @@ mod tests {
             let open = true;
             let has_options = false;
             let selected_value: Option<String> = None;
-            
+
             // Select should handle empty options gracefully
             assert!(open);
             assert!(!has_options);
             assert!(selected_value.is_none());
         });
     }
-    
+
     // 7. Property-Based Tests
     proptest! {
         #[test]
         fn test_select_properties(
-            variant in prop::sample::select(vec![
+            variant in prop::sample::select([
                 SelectVariant::Default,
                 SelectVariant::Destructive,
                 SelectVariant::Ghost,
             ]),
-            size in prop::sample::select(vec![
+            size in prop::sample::select([
                 SelectSize::Default,
                 SelectSize::Sm,
                 SelectSize::Lg,
@@ -541,17 +535,17 @@ mod tests {
             // Property: All variants should have valid string representations
             assert!(!variant.as_str().is_empty());
             assert!(!size.as_str().is_empty());
-            
+
             // Property: Open and disabled states should be boolean
-            assert!(open == true || open == false);
-            assert!(disabled == true || disabled == false);
-            
+            assert!(open  || open ! );
+            assert!(disabled  || disabled ! );
+
             // Property: Value should be optional string
             match &value {
                 Some(v) => assert!(!v.is_empty()),
                 None => assert!(true), // None is valid
             }
-            
+
             // Property: Disabled select should not be open
             if disabled {
                 // In a real implementation, disabled selects might not open
@@ -559,9 +553,12 @@ mod tests {
             }
         }
     }
-    
+
     // Helper function for running tests
-    fn run_test<F>(f: F) where F: FnOnce() {
+    fn run_test<F>(f: F)
+    where
+        F: FnOnce(),
+    {
         // Simplified test runner for Leptos 0.8
         f();
     }

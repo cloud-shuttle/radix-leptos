@@ -1,27 +1,32 @@
-use leptos::*;
-use leptos::prelude::*;
 use super::css_variables::CSSVariables;
+use leptos::prelude::*;
+use leptos::*;
 
 /// Dark mode toggle component
 #[component]
 pub fn DarkModeToggle(
     /// Whether dark mode is enabled
-    #[prop(optional)] enabled: Option<bool>,
+    #[prop(optional)]
+    enabled: Option<bool>,
     /// Whether to use system preference
-    #[prop(optional)] use_system: Option<bool>,
+    #[prop(optional)]
+    use_system: Option<bool>,
     /// Callback when dark mode changes
-    #[prop(optional)] on_toggle: Option<Callback<bool>>,
+    #[prop(optional)]
+    on_toggle: Option<Callback<bool>>,
     /// Additional CSS classes
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)]
+    class: Option<String>,
     /// Inline styles
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional)]
+    style: Option<String>,
 ) -> impl IntoView {
     let enabled = enabled.unwrap_or(false);
     let use_system = use_system.unwrap_or(true);
-    
-    let (is_dark, set_is_dark) = create_signal(enabled);
-    let (system_preference, set_system_preference) = create_signal(false);
-    
+
+    let (is_dark, set_is_dark) = signal(enabled);
+    let (system_preference, set_system_preference) = signal(false);
+
     // Detect system preference
     let detect_system_preference = move || {
         // In a real implementation, this would check the system preference
@@ -32,58 +37,58 @@ pub fn DarkModeToggle(
             set_is_dark.set(prefers_dark);
         }
     };
-    
+
     // Apply dark mode styles
-    let apply_dark_mode_styles = move |dark: bool| {
+    let apply_dark_mode_styles = move |_dark: bool| {
         let theme = if dark {
             CSSVariables::dark_theme()
         } else {
             CSSVariables::default()
         };
-        
+
         let css_vars = theme.to_css_string();
         // In a real implementation, this would apply the CSS to the document
         // For now, we'll just store the state
     };
-    
+
     // Toggle dark mode
     let toggle_dark_mode = move |_| {
         let new_dark = !is_dark.get();
         set_is_dark.set(new_dark);
-        
+
         if let Some(callback) = on_toggle {
             callback.run(new_dark);
         }
-        
+
         // Apply dark mode to document
         apply_dark_mode_styles(new_dark);
     };
-    
+
     // Initialize system preference detection
-    create_effect(move |_| {
+    Effect::new(move |_| {
         detect_system_preference();
     });
-    
+
     let class = format!(
         "dark-mode-toggle {} {}",
         if is_dark.get() { "dark" } else { "light" },
         class.unwrap_or_default()
     );
-    
+
     view! {
-        <button 
-            class=class 
+        <button
+            class=class
             style=style
             on:click=toggle_dark_mode
             aria-label=move || if is_dark.get() { "Switch to light mode" } else { "Switch to dark mode" }
             title=move || if is_dark.get() { "Switch to light mode" } else { "Switch to dark mode" }
         >
             {move || if is_dark.get() {
-                view! { 
+                view! {
                     <span class="sun-icon" aria-hidden="true">"☀️"</span>
                 }.into_any()
             } else {
-                view! { 
+                view! {
                     <span class="moon-icon" aria-hidden="true">"🌙"</span>
                 }.into_any()
             }}
@@ -98,13 +103,17 @@ pub fn DarkModeToggle(
 #[component]
 pub fn DarkModeProvider(
     /// Whether dark mode is enabled by default
-    #[prop(optional)] default_dark: Option<bool>,
+    #[prop(optional)]
+    default_dark: Option<bool>,
     /// Whether to use system preference
-    #[prop(optional)] use_system: Option<bool>,
+    #[prop(optional)]
+    use_system: Option<bool>,
     /// Whether to persist dark mode preference
-    #[prop(optional)] persist: Option<bool>,
+    #[prop(optional)]
+    persist: Option<bool>,
     /// Storage key for persistence
-    #[prop(optional)] storage_key: Option<String>,
+    #[prop(optional)]
+    storage_key: Option<String>,
     /// Children content
     children: Option<Children>,
 ) -> impl IntoView {
@@ -112,10 +121,10 @@ pub fn DarkModeProvider(
     let use_system = use_system.unwrap_or(true);
     let persist = persist.unwrap_or(true);
     let storage_key = storage_key.unwrap_or_else(|| "dark-mode".to_string());
-    
-    let (is_dark, set_is_dark) = create_signal(default_dark);
-    let (system_preference, set_system_preference) = create_signal(false);
-    
+
+    let (is_dark, set_is_dark) = signal(default_dark);
+    let (system_preference, set_system_preference) = signal(false);
+
     // Load saved preference
     let load_saved_preference = move || {
         if persist {
@@ -127,15 +136,15 @@ pub fn DarkModeProvider(
             }
         }
     };
-    
+
     // Save preference
-    let save_preference = move |dark: bool| {
+    let save_preference = move |_dark: bool| {
         if persist {
             // In a real implementation, this would save to localStorage
             // For now, we'll just store the state
         }
     };
-    
+
     // Detect system preference
     let detect_system_preference = move || {
         // In a real implementation, this would check the system preference
@@ -146,41 +155,41 @@ pub fn DarkModeProvider(
             set_is_dark.set(prefers_dark);
         }
     };
-    
+
     // Apply dark mode
-    let apply_dark_mode_styles = move |dark: bool| {
+    let apply_dark_mode_styles = move |_dark: bool| {
         let theme = if dark {
             CSSVariables::dark_theme()
         } else {
             CSSVariables::default()
         };
-        
+
         let css_vars = theme.to_css_string();
         // In a real implementation, this would apply the CSS to the document
         // For now, we'll just store the state
-        
+
         save_preference(dark);
     };
-    
+
     // Toggle dark mode
     let toggle_dark_mode = move |_| {
         let new_dark = !is_dark.get();
         set_is_dark.set(new_dark);
         apply_dark_mode_styles(new_dark);
     };
-    
+
     // Set dark mode
-    let set_dark_mode = move |dark: bool| {
+    let set_dark_mode = move |_dark: bool| {
         set_is_dark.set(dark);
         apply_dark_mode_styles(dark);
     };
-    
+
     // Initialize
-    create_effect(move |_| {
+    Effect::new(move |_| {
         load_saved_preference();
         detect_system_preference();
     });
-    
+
     // Provide dark mode context
     provide_context(DarkModeContext {
         is_dark,
@@ -188,12 +197,12 @@ pub fn DarkModeProvider(
         toggle_dark_mode: Callback::new(move |_| toggle_dark_mode(())),
         set_dark_mode: Callback::new(move |dark| set_dark_mode(dark)),
     });
-    
+
     let class = format!(
         "dark-mode-provider {}",
         if is_dark.get() { "dark" } else { "light" }
     );
-    
+
     view! {
         <div class=class>
             {children.map(|c| c())}
@@ -234,42 +243,47 @@ pub fn use_set_dark_mode() -> Option<Callback<bool>> {
 #[component]
 pub fn DarkModeSwitch(
     /// Whether the switch is enabled
-    #[prop(optional)] enabled: Option<bool>,
+    #[prop(optional)]
+    enabled: Option<bool>,
     /// Whether the switch is disabled
-    #[prop(optional)] disabled: Option<bool>,
+    #[prop(optional)]
+    disabled: Option<bool>,
     /// Callback when switch changes
-    #[prop(optional)] on_change: Option<Callback<bool>>,
+    #[prop(optional)]
+    on_change: Option<Callback<bool>>,
     /// Additional CSS classes
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)]
+    class: Option<String>,
     /// Inline styles
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional)]
+    style: Option<String>,
 ) -> impl IntoView {
     let enabled = enabled.unwrap_or(false);
     let disabled = disabled.unwrap_or(false);
-    
-    let (is_dark, set_is_dark) = create_signal(enabled);
-    
+
+    let (is_dark, set_is_dark) = signal(enabled);
+
     let handle_change = move |_| {
         if !disabled {
             let new_dark = !is_dark.get();
             set_is_dark.set(new_dark);
-            
+
             if let Some(callback) = on_change {
                 callback.run(new_dark);
             }
         }
     };
-    
+
     let class = format!(
         "dark-mode-switch {} {} {}",
         if is_dark.get() { "dark" } else { "light" },
         if disabled { "disabled" } else { "enabled" },
         class.unwrap_or_default()
     );
-    
+
     view! {
         <label class=class style=style>
-            <input 
+            <input
                 type="checkbox"
                 checked=is_dark
                 disabled=disabled
@@ -290,23 +304,33 @@ pub fn DarkModeSwitch(
 #[component]
 pub fn DarkModeIndicator(
     /// Whether to show the current mode
-    #[prop(optional)] show_mode: Option<bool>,
+    #[prop(optional)]
+    show_mode: Option<bool>,
     /// Whether to show system preference
-    #[prop(optional)] show_system: Option<bool>,
+    #[prop(optional)]
+    show_system: Option<bool>,
     /// Additional CSS classes
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)]
+    class: Option<String>,
     /// Inline styles
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional)]
+    style: Option<String>,
 ) -> impl IntoView {
     let show_mode = show_mode.unwrap_or(true);
     let show_system = show_system.unwrap_or(false);
-    
+
     let dark_mode_context = use_dark_mode();
-    let is_dark = dark_mode_context.as_ref().map(|ctx| ctx.is_dark).unwrap_or_else(|| create_signal(false).0);
-    let system_preference = dark_mode_context.as_ref().map(|ctx| ctx.system_preference).unwrap_or_else(|| create_signal(false).0);
-    
+    let is_dark = dark_mode_context
+        .as_ref()
+        .map(|ctx| ctx.is_dark)
+        .unwrap_or_else(|| create_signal(false).0);
+    let system_preference = dark_mode_context
+        .as_ref()
+        .map(|ctx| ctx.system_preference)
+        .unwrap_or_else(|| create_signal(false).0);
+
     let class = format!("dark-mode-indicator {}", class.unwrap_or_default());
-    
+
     view! {
         <div class=class style=style>
             {if show_mode {
@@ -323,7 +347,7 @@ pub fn DarkModeIndicator(
             } else {
                 view! { <></> }.into_any()
             }}
-            
+
             {if show_system {
                 view! {
                     <div class="system-preference">
@@ -349,11 +373,11 @@ mod tests {
         // Test that dark mode toggle logic works
         let is_dark = true;
         let is_light = false;
-        
+
         // Test dark mode state logic
         assert!(is_dark != is_light);
-        assert!(is_dark == true);
-        assert!(is_light == false);
+        assert!(is_dark);
+        assert!(is_light ! );
     }
 
     #[test]
@@ -363,12 +387,12 @@ mod tests {
         let disabled = false;
         let use_system = false;
         let custom_class = "custom-toggle";
-        
+
         // Test toggle state logic
         assert!(enabled != disabled);
-        assert!(enabled == true);
-        assert!(disabled == false);
-        assert!(use_system == false);
+        assert!(enabled);
+        assert!(disabled ! );
+        assert!(use_system ! );
         assert!(!custom_class.is_empty());
     }
 
@@ -377,9 +401,9 @@ mod tests {
         // Test dark mode provider logic
         let default_dark = true;
         let storage_key = "dark-mode";
-        
+
         // Test provider configuration
-        assert!(default_dark == true);
+        assert!(default_dark);
         assert!(!storage_key.is_empty());
     }
 
@@ -390,11 +414,11 @@ mod tests {
         let use_system = false;
         let persist = true;
         let storage_key = "custom-dark-mode";
-        
+
         // Test provider state logic
-        assert!(default_dark == true);
-        assert!(use_system == false);
-        assert!(persist == true);
+        assert!(default_dark);
+        assert!(use_system ! );
+        assert!(persist);
         assert!(storage_key == "custom-dark-mode");
     }
 
@@ -404,7 +428,8 @@ mod tests {
         // Test component logic
         let enabled = true;
         let disabled = false;
-        assert!(enabled != disabled);        assert!(enabled == true);
+        assert!(enabled != disabled);
+        assert!(enabled);
         // Test completed
     }
 
@@ -414,7 +439,8 @@ mod tests {
         // Test component logic
         let enabled = true;
         let disabled = false;
-        assert!(enabled != disabled);        assert!(enabled == true);
+        assert!(enabled != disabled);
+        assert!(enabled);
         // Test completed
     }
 
@@ -424,7 +450,8 @@ mod tests {
         // Test component logic
         let enabled = true;
         let disabled = false;
-        assert!(enabled != disabled);        assert!(enabled == true);
+        assert!(enabled != disabled);
+        assert!(enabled);
         // Test completed
     }
 
@@ -434,7 +461,8 @@ mod tests {
         // Test component logic
         let enabled = true;
         let disabled = false;
-        assert!(enabled != disabled);        assert!(enabled == true);
+        assert!(enabled != disabled);
+        assert!(enabled);
         // Test completed
     }
 
@@ -444,7 +472,8 @@ mod tests {
         // Test component logic
         let enabled = true;
         let disabled = false;
-        assert!(enabled != disabled);        assert!(enabled == true);
+        assert!(enabled != disabled);
+        assert!(enabled);
         // Test completed
     }
 
@@ -454,7 +483,8 @@ mod tests {
         // Test component logic
         let enabled = true;
         let disabled = false;
-        assert!(enabled != disabled);        assert!(enabled == true);
+        assert!(enabled != disabled);
+        assert!(enabled);
         // Test completed
     }
 }

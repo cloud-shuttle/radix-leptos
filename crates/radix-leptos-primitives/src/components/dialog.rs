@@ -1,5 +1,5 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 use wasm_bindgen::JsCast;
 
 /// Dialog component with proper accessibility and styling variants
@@ -31,7 +31,7 @@ use wasm_bindgen::JsCast;
 ///             "Open Dialog"
 ///         </Button>
 ///         
-///         <Dialog 
+///         <Dialog
 ///             open=is_open
 ///             on_open_change=move |open| set_is_open.set(open)
 ///         >
@@ -109,7 +109,7 @@ fn merge_classes(existing: Option<&str>, additional: Option<&str>) -> Option<Str
 pub fn Dialog(
     /// Whether the dialog is open
     #[prop(optional, default = false)]
-    open: bool,
+    _open: bool,
     /// Dialog styling variant
     #[prop(optional, default = DialogVariant::Default)]
     variant: DialogVariant,
@@ -128,19 +128,19 @@ pub fn Dialog(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let dialog_id = generate_id("dialog");
+    let __dialog_id = generate_id("dialog");
     let title_id = generate_id("dialog-title");
     let description_id = generate_id("dialog-description");
-    
+
     // Build data attributes for styling
     let data_variant = variant.as_str();
     let data_size = size.as_str();
-    
+
     // Merge classes with data attributes for CSS targeting
     let base_classes = "radix-dialog";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     // Handle escape key
     let handle_keydown = move |e: web_sys::KeyboardEvent| {
         if e.key() == "Escape" {
@@ -149,7 +149,7 @@ pub fn Dialog(
             }
         }
     };
-    
+
     // Handle backdrop click
     let handle_backdrop_click = move |e: web_sys::MouseEvent| {
         if let Some(target) = e.target() {
@@ -162,9 +162,9 @@ pub fn Dialog(
             }
         }
     };
-    
+
     view! {
-        <div 
+        <div
             class=if open { "radix-dialog-overlay" } else { "radix-dialog-overlay hidden" }
             data-open=open
             data-variant=data_variant
@@ -174,7 +174,7 @@ pub fn Dialog(
             on:click=handle_backdrop_click
         >
             <div class="radix-dialog-backdrop"></div>
-            <div 
+            <div
                 class=combined_class
                 role="dialog"
                 aria-modal="true"
@@ -203,7 +203,7 @@ pub fn DialogContent(
     let base_classes = "radix-dialog-content";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     view! {
         <div class=combined_class style=style>
             {children()}
@@ -226,7 +226,7 @@ pub fn DialogHeader(
     let base_classes = "radix-dialog-header";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     view! {
         <div class=combined_class style=style>
             {children()}
@@ -249,7 +249,7 @@ pub fn DialogTitle(
     let base_classes = "radix-dialog-title";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     view! {
         <h2 class=combined_class style=style>
             {children()}
@@ -272,7 +272,7 @@ pub fn DialogDescription(
     let base_classes = "radix-dialog-description";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     view! {
         <p class=combined_class style=style>
             {children()}
@@ -295,7 +295,7 @@ pub fn DialogFooter(
     let base_classes = "radix-dialog-footer";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     view! {
         <div class=combined_class style=style>
             {children()}
@@ -307,41 +307,38 @@ pub fn DialogFooter(
 mod tests {
     use super::*;
     use proptest::prelude::*;
-    
+
     // 1. Basic Rendering Tests
     #[test]
     fn test_dialog_variants() {
         run_test(|| {
             // Test dialog variant logic
-            let variants = vec![
-                DialogVariant::Default,
-                DialogVariant::Destructive,
-            ];
-            
+            let variants = [DialogVariant::Default, DialogVariant::Destructive];
+
             for variant in variants {
                 // Each variant should have a valid string representation
                 assert!(!variant.as_str().is_empty());
             }
         });
     }
-    
+
     #[test]
     fn test_dialog_sizes() {
         run_test(|| {
-            let sizes = vec![
+            let sizes = [
                 DialogSize::Default,
                 DialogSize::Sm,
                 DialogSize::Lg,
                 DialogSize::Xl,
             ];
-            
+
             for size in sizes {
                 // Each size should have a valid string representation
                 assert!(!size.as_str().is_empty());
             }
         });
     }
-    
+
     // 2. Props Validation Tests
     #[test]
     fn test_dialog_open_state() {
@@ -350,14 +347,14 @@ mod tests {
             let open = true;
             let variant = DialogVariant::Default;
             let size = DialogSize::Default;
-            
+
             // When open, dialog should be open
             assert!(open);
             assert_eq!(variant, DialogVariant::Default);
             assert_eq!(size, DialogSize::Default);
         });
     }
-    
+
     #[test]
     fn test_dialog_closed_state() {
         run_test(|| {
@@ -365,14 +362,14 @@ mod tests {
             let open = false;
             let variant = DialogVariant::Destructive;
             let size = DialogSize::Lg;
-            
+
             // When closed, dialog should be closed
             assert!(!open);
             assert_eq!(variant, DialogVariant::Destructive);
             assert_eq!(size, DialogSize::Lg);
         });
     }
-    
+
     // 3. State Management Tests
     #[test]
     fn test_dialog_state_changes() {
@@ -381,30 +378,30 @@ mod tests {
             let mut open = false;
             let mut variant = DialogVariant::Default;
             let mut size = DialogSize::Default;
-            
+
             // Initial state
             assert!(!open);
             assert_eq!(variant, DialogVariant::Default);
             assert_eq!(size, DialogSize::Default);
-            
+
             // Open dialog
             open = true;
             variant = DialogVariant::Destructive;
             size = DialogSize::Lg;
-            
+
             assert!(open);
             assert_eq!(variant, DialogVariant::Destructive);
             assert_eq!(size, DialogSize::Lg);
-            
+
             // Close dialog
             open = false;
-            
+
             assert!(!open);
             assert_eq!(variant, DialogVariant::Destructive);
             assert_eq!(size, DialogSize::Lg);
         });
     }
-    
+
     // 4. Event Handling Tests
     #[test]
     fn test_dialog_escape_key() {
@@ -412,40 +409,40 @@ mod tests {
             // Test escape key handling logic
             let mut open = true;
             let escape_pressed = true;
-            
+
             // Initial state
             assert!(open);
             assert!(escape_pressed);
-            
+
             // Handle escape key
             if escape_pressed {
                 open = false;
             }
-            
+
             assert!(!open);
         });
     }
-    
+
     #[test]
     fn test_dialog_backdrop_click() {
         run_test(|| {
             // Test backdrop click handling logic
             let mut open = true;
             let backdrop_clicked = true;
-            
+
             // Initial state
             assert!(open);
             assert!(backdrop_clicked);
-            
+
             // Handle backdrop click
             if backdrop_clicked {
                 open = false;
             }
-            
+
             assert!(!open);
         });
     }
-    
+
     // 5. Accessibility Tests
     #[test]
     fn test_dialog_accessibility() {
@@ -455,7 +452,7 @@ mod tests {
             let role = "dialog";
             let aria_modal = "true";
             let tabindex = "-1";
-            
+
             // Dialog should have proper accessibility attributes
             assert!(open);
             assert_eq!(role, "dialog");
@@ -463,7 +460,7 @@ mod tests {
             assert_eq!(tabindex, "-1");
         });
     }
-    
+
     // 6. Edge Case Tests
     #[test]
     fn test_dialog_edge_cases() {
@@ -471,22 +468,22 @@ mod tests {
             // Test edge case: dialog with no content
             let open = true;
             let has_content = false;
-            
+
             // Dialog should handle empty content gracefully
             assert!(open);
             assert!(!has_content);
         });
     }
-    
+
     // 7. Property-Based Tests
     proptest! {
         #[test]
         fn test_dialog_properties(
-            variant in prop::sample::select(vec![
+            variant in prop::sample::select([
                 DialogVariant::Default,
                 DialogVariant::Destructive,
             ]),
-            size in prop::sample::select(vec![
+            size in prop::sample::select([
                 DialogSize::Default,
                 DialogSize::Sm,
                 DialogSize::Lg,
@@ -498,10 +495,10 @@ mod tests {
             // Property: All variants should have valid string representations
             assert!(!variant.as_str().is_empty());
             assert!(!size.as_str().is_empty());
-            
+
             // Property: Open state should be boolean
-            assert!(open == true || open == false);
-            
+            assert!(open  || open ! );
+
             // Property: Dialog should handle all size combinations
             match size {
                 DialogSize::Default => assert_eq!(size.as_str(), "default"),
@@ -511,9 +508,12 @@ mod tests {
             }
         }
     }
-    
+
     // Helper function for running tests
-    fn run_test<F>(f: F) where F: FnOnce() {
+    fn run_test<F>(f: F)
+    where
+        F: FnOnce(),
+    {
         // Simplified test runner for Leptos 0.8
         f();
     }

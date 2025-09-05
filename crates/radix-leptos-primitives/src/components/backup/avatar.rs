@@ -34,10 +34,10 @@ pub fn Avatar(
     shape: AvatarShape,
     /// Whether the avatar is interactive (clickable)
     #[prop(optional, default = false)]
-    interactive: bool,
+    _interactive: bool,
     /// Whether the avatar is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -75,7 +75,7 @@ pub fn Avatar(
     let class_value = class.unwrap_or_default();
     let children_view = children();
     
-    let mut base_classes = vec![
+    let mut base_classes = [
         "radix-avatar",
         &size_class(),
         &shape_class(),

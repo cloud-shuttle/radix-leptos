@@ -1,6 +1,6 @@
-use leptos::*;
-use leptos::prelude::*;
 use crate::utils::merge_classes;
+use leptos::prelude::*;
+use leptos::*;
 
 /// Sheet component - Side panel/drawer component for mobile and desktop
 ///
@@ -31,7 +31,7 @@ use crate::utils::merge_classes;
 ///             "Open Sheet"
 ///         </Button>
 ///         
-///         <Sheet 
+///         <Sheet
 ///             open=show_sheet
 ///             on_open_change=move |open| set_show_sheet.set(open)
 ///             position=SheetPosition::Right
@@ -114,7 +114,7 @@ pub fn Sheet(
     let size = size.unwrap_or(SheetSize::Medium);
     let on_open_change = on_open_change.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "sheet",
         position.as_str(),
         size.as_str(),
@@ -144,10 +144,7 @@ pub fn SheetContent(
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let class = merge_classes(vec![
-        "sheet-content",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["sheet-content", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -166,10 +163,7 @@ pub fn SheetHeader(
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let class = merge_classes(vec![
-        "sheet-header",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["sheet-header", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -188,10 +182,7 @@ pub fn SheetTitle(
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let class = merge_classes(vec![
-        "sheet-title",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["sheet-title", class.as_deref().unwrap_or("")]);
 
     view! {
         <h2
@@ -210,10 +201,7 @@ pub fn SheetDescription(
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let class = merge_classes(vec![
-        "sheet-description",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["sheet-description", class.as_deref().unwrap_or("")]);
 
     view! {
         <p
@@ -232,10 +220,7 @@ pub fn SheetBody(
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let class = merge_classes(vec![
-        "sheet-body",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["sheet-body", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -254,10 +239,7 @@ pub fn SheetFooter(
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let class = merge_classes(vec![
-        "sheet-footer",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["sheet-footer", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -279,10 +261,7 @@ pub fn SheetClose(
 ) -> impl IntoView {
     let on_click = on_click.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes(vec![
-        "sheet-close",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["sheet-close", class.as_deref().unwrap_or("")]);
 
     view! {
         <button
@@ -296,76 +275,71 @@ pub fn SheetClose(
     }
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
     use proptest::prelude::*;
 
     #[test]
-    fn test_sheet_component_creation() {
-        assert!(true);
-    }
+    fn test_sheet_component_creation() {}
 
     #[test]
-    fn test_sheet_with_position_component_creation() {
-        assert!(true);
-    }
+    fn test_sheet_with_position_component_creation() {}
 
     proptest! {
         #[test]
-        fn test_sheet_props(_class in ".*", _style in ".*") {
-            assert!(true);
+        fn test_sheet_props(__class in ".*", __style in ".*") {
+
         }
 
         #[test]
-        fn test_sheet_open_state(_open: bool, _position_index in 0..4usize, _size_index in 0..5usize) {
-            assert!(true);
+        fn test_sheet_open_state(__open: bool, __position_index in 0..4usize, __size_index in 0..5usize) {
+
         }
 
         #[test]
-        fn test_sheet_positions(_position_index in 0..4usize) {
-            assert!(true);
+        fn test_sheet_positions(__position_index in 0..4usize) {
+
         }
 
         #[test]
-        fn test_sheet_sizes(_size_index in 0..5usize) {
-            assert!(true);
+        fn test_sheet_sizes(__size_index in 0..5usize) {
+
         }
 
         #[test]
-        fn test_sheet_content_props(_class in ".*", _style in ".*") {
-            assert!(true);
+        fn test_sheet_content_props(__class in ".*", __style in ".*") {
+
         }
 
         #[test]
-        fn test_sheet_header_props(_class in ".*", _style in ".*") {
-            assert!(true);
+        fn test_sheet_header_props(__class in ".*", __style in ".*") {
+
         }
 
         #[test]
-        fn test_sheet_title_props(_class in ".*", _style in ".*") {
-            assert!(true);
+        fn test_sheet_title_props(__class in ".*", __style in ".*") {
+
         }
 
         #[test]
-        fn test_sheet_description_props(_class in ".*", _style in ".*") {
-            assert!(true);
+        fn test_sheet_description_props(__class in ".*", __style in ".*") {
+
         }
 
         #[test]
-        fn test_sheet_body_props(_class in ".*", _style in ".*") {
-            assert!(true);
+        fn test_sheet_body_props(__class in ".*", __style in ".*") {
+
         }
 
         #[test]
-        fn test_sheet_footer_props(_class in ".*", _style in ".*") {
-            assert!(true);
+        fn test_sheet_footer_props(__class in ".*", __style in ".*") {
+
         }
 
         #[test]
-        fn test_sheet_close_props(_class in ".*", _style in ".*") {
-            assert!(true);
+        fn test_sheet_close_props(__class in ".*", __style in ".*") {
+
         }
     }
 }

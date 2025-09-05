@@ -1,34 +1,46 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 use wasm_bindgen::JsCast;
 
 /// Tree View component for displaying hierarchical data
 #[component]
 pub fn TreeView(
     /// Tree data
-    #[prop(optional)] data: Option<Vec<TreeNode>>,
+    #[prop(optional)]
+    data: Option<Vec<TreeNode>>,
     /// Whether to show expand/collapse icons
-    #[prop(optional)] show_icons: Option<bool>,
+    #[prop(optional)]
+    show_icons: Option<bool>,
     /// Whether to allow multiple selection
-    #[prop(optional)] multiple: Option<bool>,
+    #[prop(optional)]
+    multiple: Option<bool>,
     /// Whether to allow checkbox selection
-    #[prop(optional)] checkable: Option<bool>,
+    #[prop(optional)]
+    checkable: Option<bool>,
     /// Whether to show lines connecting nodes
-    #[prop(optional)] show_lines: Option<bool>,
+    #[prop(optional)]
+    show_lines: Option<bool>,
     /// Whether to show node icons
-    #[prop(optional)] show_node_icons: Option<bool>,
+    #[prop(optional)]
+    show_node_icons: Option<bool>,
     /// Callback when node is selected
-    #[prop(optional)] on_select: Option<Callback<TreeNode>>,
+    #[prop(optional)]
+    on_select: Option<Callback<TreeNode>>,
     /// Callback when node is expanded/collapsed
-    #[prop(optional)] on_expand: Option<Callback<TreeNode>>,
+    #[prop(optional)]
+    on_expand: Option<Callback<TreeNode>>,
     /// Callback when node is checked/unchecked
-    #[prop(optional)] on_check: Option<Callback<TreeNode>>,
+    #[prop(optional)]
+    on_check: Option<Callback<TreeNode>>,
     /// Additional CSS classes
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)]
+    class: Option<String>,
     /// Inline styles
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional)]
+    style: Option<String>,
     /// Children content
-    #[prop(optional)] children: Option<Children>,
+    #[prop(optional)]
+    children: Option<Children>,
 ) -> impl IntoView {
     let data = data.unwrap_or_default();
     let show_icons = show_icons.unwrap_or(true);
@@ -62,10 +74,10 @@ pub struct TreeNode {
     pub value: Option<String>,
     pub icon: Option<String>,
     pub children: Option<Vec<TreeNode>>,
-    pub expanded: bool,
-    pub selected: bool,
-    pub checked: bool,
-    pub disabled: bool,
+    pub _expanded: bool,
+    pub _selected: bool,
+    pub _checked: bool,
+    pub _disabled: bool,
     pub level: usize,
     pub parent_id: Option<String>,
 }
@@ -76,27 +88,38 @@ pub fn TreeNode(
     /// Node data
     node: TreeNode,
     /// Whether to show expand/collapse icons
-    #[prop(optional)] show_icons: Option<bool>,
+    #[prop(optional)]
+    show_icons: Option<bool>,
     /// Whether to allow multiple selection
-    #[prop(optional)] multiple: Option<bool>,
+    #[prop(optional)]
+    multiple: Option<bool>,
     /// Whether to allow checkbox selection
-    #[prop(optional)] checkable: Option<bool>,
+    #[prop(optional)]
+    checkable: Option<bool>,
     /// Whether to show lines connecting nodes
-    #[prop(optional)] show_lines: Option<bool>,
+    #[prop(optional)]
+    show_lines: Option<bool>,
     /// Whether to show node icons
-    #[prop(optional)] show_node_icons: Option<bool>,
+    #[prop(optional)]
+    show_node_icons: Option<bool>,
     /// Callback when node is selected
-    #[prop(optional)] on_select: Option<Callback<TreeNode>>,
+    #[prop(optional)]
+    on_select: Option<Callback<TreeNode>>,
     /// Callback when node is expanded/collapsed
-    #[prop(optional)] on_expand: Option<Callback<TreeNode>>,
+    #[prop(optional)]
+    on_expand: Option<Callback<TreeNode>>,
     /// Callback when node is checked/unchecked
-    #[prop(optional)] on_check: Option<Callback<TreeNode>>,
+    #[prop(optional)]
+    on_check: Option<Callback<TreeNode>>,
     /// Additional CSS classes
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)]
+    class: Option<String>,
     /// Inline styles
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional)]
+    style: Option<String>,
     /// Children content
-    #[prop(optional)] children: Option<Children>,
+    #[prop(optional)]
+    children: Option<Children>,
 ) -> impl IntoView {
     let show_icons = show_icons.unwrap_or(true);
     let multiple = multiple.unwrap_or(false);
@@ -106,7 +129,11 @@ pub fn TreeNode(
 
     let class = format!(
         "tree-node {} {} {} {} {}",
-        if node.expanded { "expanded" } else { "collapsed" },
+        if node.expanded {
+            "expanded"
+        } else {
+            "collapsed"
+        },
         if node.selected { "selected" } else { "" },
         if node.checked { "checked" } else { "" },
         if node.disabled { "disabled" } else { "" },
@@ -226,21 +253,29 @@ pub fn TreeNode(
 #[component]
 pub fn TreeViewSearch(
     /// Search query value
-    #[prop(optional)] value: Option<String>,
+    #[prop(optional)]
+    value: Option<String>,
     /// Placeholder text
-    #[prop(optional)] placeholder: Option<String>,
+    #[prop(optional)]
+    placeholder: Option<String>,
     /// Whether the search is disabled
-    #[prop(optional)] disabled: Option<bool>,
+    #[prop(optional)]
+    disabled: Option<bool>,
     /// Callback when search query changes
-    #[prop(optional)] on_change: Option<Callback<String>>,
+    #[prop(optional)]
+    on_change: Option<Callback<String>>,
     /// Callback when search is cleared
-    #[prop(optional)] on_clear: Option<Callback<()>>,
+    #[prop(optional)]
+    on_clear: Option<Callback<()>>,
     /// Additional CSS classes
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)]
+    class: Option<String>,
     /// Inline styles
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional)]
+    style: Option<String>,
     /// Children content
-    #[prop(optional)] children: Option<Children>,
+    #[prop(optional)]
+    children: Option<Children>,
 ) -> impl IntoView {
     let value = value.unwrap_or_default();
     let placeholder = placeholder.unwrap_or_else(|| "Search tree...".to_string());
@@ -254,7 +289,10 @@ pub fn TreeViewSearch(
     let style = style.unwrap_or_default();
 
     let handle_input = move |event: web_sys::Event| {
-        if let Some(input) = event.target().and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok()) {
+        if let Some(input) = event
+            .target()
+            .and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok())
+        {
             if let Some(callback) = on_change {
                 callback.run(input.value());
             }
@@ -278,19 +316,26 @@ pub fn TreeViewSearch(
 #[component]
 pub fn TreeViewActions(
     /// Callback when expand all is clicked
-    #[prop(optional)] on_expand_all: Option<Callback<()>>,
+    #[prop(optional)]
+    on_expand_all: Option<Callback<()>>,
     /// Callback when collapse all is clicked
-    #[prop(optional)] on_collapse_all: Option<Callback<()>>,
+    #[prop(optional)]
+    on_collapse_all: Option<Callback<()>>,
     /// Callback when select all is clicked
-    #[prop(optional)] on_select_all: Option<Callback<()>>,
+    #[prop(optional)]
+    on_select_all: Option<Callback<()>>,
     /// Callback when deselect all is clicked
-    #[prop(optional)] on_deselect_all: Option<Callback<()>>,
+    #[prop(optional)]
+    on_deselect_all: Option<Callback<()>>,
     /// Additional CSS classes
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)]
+    class: Option<String>,
     /// Inline styles
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional)]
+    style: Option<String>,
     /// Children content
-    #[prop(optional)] children: Option<Children>,
+    #[prop(optional)]
+    children: Option<Children>,
 ) -> impl IntoView {
     let class = format!("tree-actions {}", class.unwrap_or_default());
     let style = style.unwrap_or_default();
@@ -309,24 +354,16 @@ mod tests {
 
     // Component structure tests
     #[test]
-    fn test_treeview_component_creation() {
-        assert!(true);
-    }
+    fn test_treeview_component_creation() {}
 
     #[test]
-    fn test_treenode_component_creation() {
-        assert!(true);
-    }
+    fn test_treenode_component_creation() {}
 
     #[test]
-    fn test_treeview_search_component_creation() {
-        assert!(true);
-    }
+    fn test_treeview_search_component_creation() {}
 
     #[test]
-    fn test_treeview_actions_component_creation() {
-        assert!(true);
-    }
+    fn test_treeview_actions_component_creation() {}
 
     // Data structure tests
     #[test]
@@ -336,7 +373,7 @@ mod tests {
             label: "Node 1".to_string(),
             value: Some("value1".to_string()),
             icon: Some("📁".to_string()),
-            children: Some(vec![]),
+            children: Some([]),
             expanded: false,
             selected: false,
             checked: false,
@@ -375,252 +412,156 @@ mod tests {
 
     // Props and state tests
     #[test]
-    fn test_treeview_props_handling() {
-        assert!(true);
-    }
+    fn test_treeview_props_handling() {}
 
     #[test]
-    fn test_treeview_data_handling() {
-        assert!(true);
-    }
+    fn test_treeview_data_handling() {}
 
     #[test]
-    fn test_treeview_show_icons() {
-        assert!(true);
-    }
+    fn test_treeview_show_icons() {}
 
     #[test]
-    fn test_treeview_multiple_selection_2() {
-        assert!(true);
-    }
+    fn test_treeview_multiple_selection_2() {}
 
     #[test]
-    fn test_treeview_checkable() {
-        assert!(true);
-    }
+    fn test_treeview_checkable() {}
 
     #[test]
-    fn test_treeview_show_lines() {
-        assert!(true);
-    }
+    fn test_treeview_show_lines() {}
 
     #[test]
-    fn test_treeview_show_node_icons() {
-        assert!(true);
-    }
+    fn test_treeview_show_node_icons() {}
 
     // Event handling tests
     #[test]
-    fn test_treeview_node_select() {
-        assert!(true);
-    }
+    fn test_treeview_node_select() {}
 
     #[test]
-    fn test_treeview_node_expand() {
-        assert!(true);
-    }
+    fn test_treeview_node_expand() {}
 
     #[test]
-    fn test_treeview_node_check() {
-        assert!(true);
-    }
+    fn test_treeview_node_check() {}
 
     #[test]
-    fn test_treeview_search_change() {
-        assert!(true);
-    }
+    fn test_treeview_search_change() {}
 
     #[test]
-    fn test_treeview_search_clear() {
-        assert!(true);
-    }
+    fn test_treeview_search_clear() {}
 
     #[test]
-    fn test_treeview_expand_all() {
-        assert!(true);
-    }
+    fn test_treeview_expand_all() {}
 
     #[test]
-    fn test_treeview_collapse_all() {
-        assert!(true);
-    }
+    fn test_treeview_collapse_all() {}
 
     #[test]
-    fn test_treeview_select_all() {
-        assert!(true);
-    }
+    fn test_treeview_select_all() {}
 
     #[test]
-    fn test_treeview_deselect_all() {
-        assert!(true);
-    }
+    fn test_treeview_deselect_all() {}
 
     // Accessibility tests
     #[test]
-    fn test_treeview_aria_attributes() {
-        assert!(true);
-    }
+    fn test_treeview_aria_attributes() {}
 
     #[test]
-    fn test_treeview_keyboard_navigation() {
-        assert!(true);
-    }
+    fn test_treeview_keyboard_navigation() {}
 
     #[test]
-    fn test_treeview_screen_reader_support() {
-        assert!(true);
-    }
+    fn test_treeview_screen_reader_support() {}
 
     #[test]
-    fn test_treeview_focus_management() {
-        assert!(true);
-    }
+    fn test_treeview_focus_management() {}
 
     // Hierarchical data tests
     #[test]
-    fn test_treeview_nested_structure() {
-        assert!(true);
-    }
+    fn test_treeview_nested_structure() {}
 
     #[test]
-    fn test_treeview_node_levels() {
-        assert!(true);
-    }
+    fn test_treeview_node_levels() {}
 
     #[test]
-    fn test_treeview_parent_child_relationships() {
-        assert!(true);
-    }
+    fn test_treeview_parent_child_relationships() {}
 
     // Expand/collapse tests
     #[test]
-    fn test_treeview_expand_node() {
-        assert!(true);
-    }
+    fn test_treeview_expand_node() {}
 
     #[test]
-    fn test_treeview_collapse_node() {
-        assert!(true);
-    }
+    fn test_treeview_collapse_node() {}
 
     #[test]
-    fn test_treeview_expand_all_nodes() {
-        assert!(true);
-    }
+    fn test_treeview_expand_all_nodes() {}
 
     #[test]
-    fn test_treeview_collapse_all_nodes() {
-        assert!(true);
-    }
+    fn test_treeview_collapse_all_nodes() {}
 
     // Selection tests
     #[test]
-    fn test_treeview_single_selection() {
-        assert!(true);
-    }
+    fn test_treeview_single_selection() {}
 
     #[test]
-    fn test_treeview_checkbox_selection() {
-        assert!(true);
-    }
+    fn test_treeview_checkbox_selection() {}
 
     #[test]
-    fn test_treeview_selection_state() {
-        assert!(true);
-    }
+    fn test_treeview_selection_state() {}
 
     // Search functionality tests
     #[test]
-    fn test_treeview_search_filtering() {
-        assert!(true);
-    }
+    fn test_treeview_search_filtering() {}
 
     #[test]
-    fn test_treeview_search_highlighting() {
-        assert!(true);
-    }
+    fn test_treeview_search_highlighting() {}
 
     #[test]
-    fn test_treeview_search_expand_matches() {
-        assert!(true);
-    }
+    fn test_treeview_search_expand_matches() {}
 
     // Performance tests
     #[test]
-    fn test_treeview_large_dataset() {
-        assert!(true);
-    }
+    fn test_treeview_large_dataset() {}
 
     #[test]
-    fn test_treeview_deep_nesting() {
-        assert!(true);
-    }
+    fn test_treeview_deep_nesting() {}
 
     #[test]
-    fn test_treeview_rendering_performance() {
-        assert!(true);
-    }
+    fn test_treeview_rendering_performance() {}
 
     // Integration tests
     #[test]
-    fn test_treeview_full_workflow() {
-        assert!(true);
-    }
+    fn test_treeview_full_workflow() {}
 
     #[test]
-    fn test_treeview_with_search() {
-        assert!(true);
-    }
+    fn test_treeview_with_search() {}
 
     #[test]
-    fn test_treeview_with_actions() {
-        assert!(true);
-    }
+    fn test_treeview_with_actions() {}
 
     // Edge case tests
     #[test]
-    fn test_treeview_empty_data() {
-        assert!(true);
-    }
+    fn test_treeview_empty_data() {}
 
     #[test]
-    fn test_treeview_single_node() {
-        assert!(true);
-    }
+    fn test_treeview_single_node() {}
 
     #[test]
-    fn test_treeview_disabled_nodes() {
-        assert!(true);
-    }
+    fn test_treeview_disabled_nodes() {}
 
     #[test]
-    fn test_treeview_duplicate_ids() {
-        assert!(true);
-    }
+    fn test_treeview_duplicate_ids() {}
 
     // Styling tests
     #[test]
-    fn test_treeview_custom_classes() {
-        assert!(true);
-    }
+    fn test_treeview_custom_classes() {}
 
     #[test]
-    fn test_treeview_custom_styles() {
-        assert!(true);
-    }
+    fn test_treeview_custom_styles() {}
 
     #[test]
-    fn test_treeview_responsive_design() {
-        assert!(true);
-    }
+    fn test_treeview_responsive_design() {}
 
     #[test]
-    fn test_treeview_icon_display() {
-        assert!(true);
-    }
+    fn test_treeview_icon_display() {}
 
     #[test]
-    fn test_treeview_line_display() {
-        assert!(true);
-    }
+    fn test_treeview_line_display() {}
 }

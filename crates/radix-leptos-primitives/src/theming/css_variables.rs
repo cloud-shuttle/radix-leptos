@@ -1,4 +1,3 @@
-
 /// CSS variable system for theming
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct CSSVariables {
@@ -348,10 +347,14 @@ impl Default for ShadowVariables {
     fn default() -> Self {
         Self {
             shadow_sm: "0 1px 2px 0 rgb(0 0 0 / 0.05)".to_string(),
-            shadow_base: "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)".to_string(),
-            shadow_md: "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)".to_string(),
-            shadow_lg: "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)".to_string(),
-            shadow_xl: "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)".to_string(),
+            shadow_base: "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)"
+                .to_string(),
+            shadow_md: "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)"
+                .to_string(),
+            shadow_lg: "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)"
+                .to_string(),
+            shadow_xl: "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)"
+                .to_string(),
             shadow_2xl: "0 25px 50px -12px rgb(0 0 0 / 0.25)".to_string(),
             shadow_inner: "inset 0 2px 4px 0 rgb(0 0 0 / 0.05)".to_string(),
             shadow_none: "0 0 #0000".to_string(),
@@ -409,7 +412,7 @@ impl CSSVariables {
     /// Convert CSS variables to CSS string
     pub fn to_css_string(&self) -> String {
         let mut css = String::new();
-        
+
         // Primary colors
         css.push_str(&format!("--primary-50: {};", self.primary.primary_50));
         css.push_str(&format!("--primary-100: {};", self.primary.primary_100));
@@ -422,20 +425,50 @@ impl CSSVariables {
         css.push_str(&format!("--primary-800: {};", self.primary.primary_800));
         css.push_str(&format!("--primary-900: {};", self.primary.primary_900));
         css.push_str(&format!("--primary-950: {};", self.primary.primary_950));
-        
+
         // Secondary colors
         css.push_str(&format!("--secondary-50: {};", self.secondary.secondary_50));
-        css.push_str(&format!("--secondary-100: {};", self.secondary.secondary_100));
-        css.push_str(&format!("--secondary-200: {};", self.secondary.secondary_200));
-        css.push_str(&format!("--secondary-300: {};", self.secondary.secondary_300));
-        css.push_str(&format!("--secondary-400: {};", self.secondary.secondary_400));
-        css.push_str(&format!("--secondary-500: {};", self.secondary.secondary_500));
-        css.push_str(&format!("--secondary-600: {};", self.secondary.secondary_600));
-        css.push_str(&format!("--secondary-700: {};", self.secondary.secondary_700));
-        css.push_str(&format!("--secondary-800: {};", self.secondary.secondary_800));
-        css.push_str(&format!("--secondary-900: {};", self.secondary.secondary_900));
-        css.push_str(&format!("--secondary-950: {};", self.secondary.secondary_950));
-        
+        css.push_str(&format!(
+            "--secondary-100: {};",
+            self.secondary.secondary_100
+        ));
+        css.push_str(&format!(
+            "--secondary-200: {};",
+            self.secondary.secondary_200
+        ));
+        css.push_str(&format!(
+            "--secondary-300: {};",
+            self.secondary.secondary_300
+        ));
+        css.push_str(&format!(
+            "--secondary-400: {};",
+            self.secondary.secondary_400
+        ));
+        css.push_str(&format!(
+            "--secondary-500: {};",
+            self.secondary.secondary_500
+        ));
+        css.push_str(&format!(
+            "--secondary-600: {};",
+            self.secondary.secondary_600
+        ));
+        css.push_str(&format!(
+            "--secondary-700: {};",
+            self.secondary.secondary_700
+        ));
+        css.push_str(&format!(
+            "--secondary-800: {};",
+            self.secondary.secondary_800
+        ));
+        css.push_str(&format!(
+            "--secondary-900: {};",
+            self.secondary.secondary_900
+        ));
+        css.push_str(&format!(
+            "--secondary-950: {};",
+            self.secondary.secondary_950
+        ));
+
         // Neutral colors
         css.push_str(&format!("--neutral-50: {};", self.neutral.neutral_50));
         css.push_str(&format!("--neutral-100: {};", self.neutral.neutral_100));
@@ -448,42 +481,123 @@ impl CSSVariables {
         css.push_str(&format!("--neutral-800: {};", self.neutral.neutral_800));
         css.push_str(&format!("--neutral-900: {};", self.neutral.neutral_900));
         css.push_str(&format!("--neutral-950: {};", self.neutral.neutral_950));
-        
+
         // Semantic colors
         css.push_str(&format!("--success: {};", self.semantic.success));
         css.push_str(&format!("--warning: {};", self.semantic.warning));
         css.push_str(&format!("--error: {};", self.semantic.error));
         css.push_str(&format!("--info: {};", self.semantic.info));
-        
+
         // Typography
-        css.push_str(&format!("--font-family-sans: {};", self.typography.font_family_sans));
-        css.push_str(&format!("--font-family-serif: {};", self.typography.font_family_serif));
-        css.push_str(&format!("--font-family-mono: {};", self.typography.font_family_mono));
-        css.push_str(&format!("--font-size-xs: {};", self.typography.font_size_xs));
-        css.push_str(&format!("--font-size-sm: {};", self.typography.font_size_sm));
-        css.push_str(&format!("--font-size-base: {};", self.typography.font_size_base));
-        css.push_str(&format!("--font-size-lg: {};", self.typography.font_size_lg));
-        css.push_str(&format!("--font-size-xl: {};", self.typography.font_size_xl));
-        css.push_str(&format!("--font-size-2xl: {};", self.typography.font_size_2xl));
-        css.push_str(&format!("--font-size-3xl: {};", self.typography.font_size_3xl));
-        css.push_str(&format!("--font-size-4xl: {};", self.typography.font_size_4xl));
-        css.push_str(&format!("--font-size-5xl: {};", self.typography.font_size_5xl));
-        css.push_str(&format!("--font-size-6xl: {};", self.typography.font_size_6xl));
-        css.push_str(&format!("--font-weight-thin: {};", self.typography.font_weight_thin));
-        css.push_str(&format!("--font-weight-light: {};", self.typography.font_weight_light));
-        css.push_str(&format!("--font-weight-normal: {};", self.typography.font_weight_normal));
-        css.push_str(&format!("--font-weight-medium: {};", self.typography.font_weight_medium));
-        css.push_str(&format!("--font-weight-semibold: {};", self.typography.font_weight_semibold));
-        css.push_str(&format!("--font-weight-bold: {};", self.typography.font_weight_bold));
-        css.push_str(&format!("--font-weight-extrabold: {};", self.typography.font_weight_extrabold));
-        css.push_str(&format!("--font-weight-black: {};", self.typography.font_weight_black));
-        css.push_str(&format!("--line-height-none: {};", self.typography.line_height_none));
-        css.push_str(&format!("--line-height-tight: {};", self.typography.line_height_tight));
-        css.push_str(&format!("--line-height-snug: {};", self.typography.line_height_snug));
-        css.push_str(&format!("--line-height-normal: {};", self.typography.line_height_normal));
-        css.push_str(&format!("--line-height-relaxed: {};", self.typography.line_height_relaxed));
-        css.push_str(&format!("--line-height-loose: {};", self.typography.line_height_loose));
-        
+        css.push_str(&format!(
+            "--font-family-sans: {};",
+            self.typography.font_family_sans
+        ));
+        css.push_str(&format!(
+            "--font-family-serif: {};",
+            self.typography.font_family_serif
+        ));
+        css.push_str(&format!(
+            "--font-family-mono: {};",
+            self.typography.font_family_mono
+        ));
+        css.push_str(&format!(
+            "--font-size-xs: {};",
+            self.typography.font_size_xs
+        ));
+        css.push_str(&format!(
+            "--font-size-sm: {};",
+            self.typography.font_size_sm
+        ));
+        css.push_str(&format!(
+            "--font-size-base: {};",
+            self.typography.font_size_base
+        ));
+        css.push_str(&format!(
+            "--font-size-lg: {};",
+            self.typography.font_size_lg
+        ));
+        css.push_str(&format!(
+            "--font-size-xl: {};",
+            self.typography.font_size_xl
+        ));
+        css.push_str(&format!(
+            "--font-size-2xl: {};",
+            self.typography.font_size_2xl
+        ));
+        css.push_str(&format!(
+            "--font-size-3xl: {};",
+            self.typography.font_size_3xl
+        ));
+        css.push_str(&format!(
+            "--font-size-4xl: {};",
+            self.typography.font_size_4xl
+        ));
+        css.push_str(&format!(
+            "--font-size-5xl: {};",
+            self.typography.font_size_5xl
+        ));
+        css.push_str(&format!(
+            "--font-size-6xl: {};",
+            self.typography.font_size_6xl
+        ));
+        css.push_str(&format!(
+            "--font-weight-thin: {};",
+            self.typography.font_weight_thin
+        ));
+        css.push_str(&format!(
+            "--font-weight-light: {};",
+            self.typography.font_weight_light
+        ));
+        css.push_str(&format!(
+            "--font-weight-normal: {};",
+            self.typography.font_weight_normal
+        ));
+        css.push_str(&format!(
+            "--font-weight-medium: {};",
+            self.typography.font_weight_medium
+        ));
+        css.push_str(&format!(
+            "--font-weight-semibold: {};",
+            self.typography.font_weight_semibold
+        ));
+        css.push_str(&format!(
+            "--font-weight-bold: {};",
+            self.typography.font_weight_bold
+        ));
+        css.push_str(&format!(
+            "--font-weight-extrabold: {};",
+            self.typography.font_weight_extrabold
+        ));
+        css.push_str(&format!(
+            "--font-weight-black: {};",
+            self.typography.font_weight_black
+        ));
+        css.push_str(&format!(
+            "--line-height-none: {};",
+            self.typography.line_height_none
+        ));
+        css.push_str(&format!(
+            "--line-height-tight: {};",
+            self.typography.line_height_tight
+        ));
+        css.push_str(&format!(
+            "--line-height-snug: {};",
+            self.typography.line_height_snug
+        ));
+        css.push_str(&format!(
+            "--line-height-normal: {};",
+            self.typography.line_height_normal
+        ));
+        css.push_str(&format!(
+            "--line-height-relaxed: {};",
+            self.typography.line_height_relaxed
+        ));
+        css.push_str(&format!(
+            "--line-height-loose: {};",
+            self.typography.line_height_loose
+        ));
+
         // Spacing
         css.push_str(&format!("--space-0: {};", self.spacing.space_0));
         css.push_str(&format!("--space-1: {};", self.spacing.space_1));
@@ -503,23 +617,65 @@ impl CSSVariables {
         css.push_str(&format!("--space-48: {};", self.spacing.space_48));
         css.push_str(&format!("--space-56: {};", self.spacing.space_56));
         css.push_str(&format!("--space-64: {};", self.spacing.space_64));
-        
+
         // Border
-        css.push_str(&format!("--border-width-0: {};", self.border.border_width_0));
-        css.push_str(&format!("--border-width-1: {};", self.border.border_width_1));
-        css.push_str(&format!("--border-width-2: {};", self.border.border_width_2));
-        css.push_str(&format!("--border-width-4: {};", self.border.border_width_4));
-        css.push_str(&format!("--border-width-8: {};", self.border.border_width_8));
-        css.push_str(&format!("--border-radius-none: {};", self.border.border_radius_none));
-        css.push_str(&format!("--border-radius-sm: {};", self.border.border_radius_sm));
-        css.push_str(&format!("--border-radius-base: {};", self.border.border_radius_base));
-        css.push_str(&format!("--border-radius-md: {};", self.border.border_radius_md));
-        css.push_str(&format!("--border-radius-lg: {};", self.border.border_radius_lg));
-        css.push_str(&format!("--border-radius-xl: {};", self.border.border_radius_xl));
-        css.push_str(&format!("--border-radius-2xl: {};", self.border.border_radius_2xl));
-        css.push_str(&format!("--border-radius-3xl: {};", self.border.border_radius_3xl));
-        css.push_str(&format!("--border-radius-full: {};", self.border.border_radius_full));
-        
+        css.push_str(&format!(
+            "--border-width-0: {};",
+            self.border.border_width_0
+        ));
+        css.push_str(&format!(
+            "--border-width-1: {};",
+            self.border.border_width_1
+        ));
+        css.push_str(&format!(
+            "--border-width-2: {};",
+            self.border.border_width_2
+        ));
+        css.push_str(&format!(
+            "--border-width-4: {};",
+            self.border.border_width_4
+        ));
+        css.push_str(&format!(
+            "--border-width-8: {};",
+            self.border.border_width_8
+        ));
+        css.push_str(&format!(
+            "--border-radius-none: {};",
+            self.border.border_radius_none
+        ));
+        css.push_str(&format!(
+            "--border-radius-sm: {};",
+            self.border.border_radius_sm
+        ));
+        css.push_str(&format!(
+            "--border-radius-base: {};",
+            self.border.border_radius_base
+        ));
+        css.push_str(&format!(
+            "--border-radius-md: {};",
+            self.border.border_radius_md
+        ));
+        css.push_str(&format!(
+            "--border-radius-lg: {};",
+            self.border.border_radius_lg
+        ));
+        css.push_str(&format!(
+            "--border-radius-xl: {};",
+            self.border.border_radius_xl
+        ));
+        css.push_str(&format!(
+            "--border-radius-2xl: {};",
+            self.border.border_radius_2xl
+        ));
+        css.push_str(&format!(
+            "--border-radius-3xl: {};",
+            self.border.border_radius_3xl
+        ));
+        css.push_str(&format!(
+            "--border-radius-full: {};",
+            self.border.border_radius_full
+        ));
+
         // Shadow
         css.push_str(&format!("--shadow-sm: {};", self.shadow.shadow_sm));
         css.push_str(&format!("--shadow-base: {};", self.shadow.shadow_base));
@@ -529,7 +685,7 @@ impl CSSVariables {
         css.push_str(&format!("--shadow-2xl: {};", self.shadow.shadow_2xl));
         css.push_str(&format!("--shadow-inner: {};", self.shadow.shadow_inner));
         css.push_str(&format!("--shadow-none: {};", self.shadow.shadow_none));
-        
+
         // Animation
         css.push_str(&format!("--duration-75: {};", self.animation.duration_75));
         css.push_str(&format!("--duration-100: {};", self.animation.duration_100));
@@ -538,12 +694,15 @@ impl CSSVariables {
         css.push_str(&format!("--duration-300: {};", self.animation.duration_300));
         css.push_str(&format!("--duration-500: {};", self.animation.duration_500));
         css.push_str(&format!("--duration-700: {};", self.animation.duration_700));
-        css.push_str(&format!("--duration-1000: {};", self.animation.duration_1000));
+        css.push_str(&format!(
+            "--duration-1000: {};",
+            self.animation.duration_1000
+        ));
         css.push_str(&format!("--ease-linear: {};", self.animation.ease_linear));
         css.push_str(&format!("--ease-in: {};", self.animation.ease_in));
         css.push_str(&format!("--ease-out: {};", self.animation.ease_out));
         css.push_str(&format!("--ease-in-out: {};", self.animation.ease_in_out));
-        
+
         css
     }
 }
@@ -563,7 +722,10 @@ mod tests {
         assert_eq!(css_vars.typography.font_size_base, "1rem");
         assert_eq!(css_vars.spacing.space_4, "1rem");
         assert_eq!(css_vars.border.border_radius_base, "0.25rem");
-        assert_eq!(css_vars.shadow.shadow_base, "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)");
+        assert_eq!(
+            css_vars.shadow.shadow_base,
+            "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)"
+        );
         assert_eq!(css_vars.animation.duration_300, "300ms");
     }
 
@@ -571,7 +733,7 @@ mod tests {
     fn test_css_variables_to_css_string() {
         let css_vars = CSSVariables::default();
         let css_string = css_vars.to_css_string();
-        
+
         assert!(css_string.contains("--primary-500: #3b82f6;"));
         assert!(css_string.contains("--secondary-500: #64748b;"));
         assert!(css_string.contains("--neutral-500: #737373;"));
@@ -579,7 +741,9 @@ mod tests {
         assert!(css_string.contains("--font-size-base: 1rem;"));
         assert!(css_string.contains("--space-4: 1rem;"));
         assert!(css_string.contains("--border-radius-base: 0.25rem;"));
-        assert!(css_string.contains("--shadow-base: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);"));
+        assert!(css_string.contains(
+            "--shadow-base: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);"
+        ));
         assert!(css_string.contains("--duration-300: 300ms;"));
     }
 
@@ -588,7 +752,10 @@ mod tests {
         let css_vars = CSSVariables::default();
         let cloned = css_vars.clone();
         assert_eq!(css_vars.primary.primary_500, cloned.primary.primary_500);
-        assert_eq!(css_vars.secondary.secondary_500, cloned.secondary.secondary_500);
+        assert_eq!(
+            css_vars.secondary.secondary_500,
+            cloned.secondary.secondary_500
+        );
     }
 
     #[test]

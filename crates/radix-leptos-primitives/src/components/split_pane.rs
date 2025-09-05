@@ -15,12 +15,12 @@ pub fn SplitPane(
     #[prop(optional)] on_resize: Option<Callback<ResizeEvent>>,
 ) -> impl IntoView {
     let direction = direction.unwrap_or_default();
-    let initial_sizes = initial_sizes.unwrap_or(vec![50.0, 50.0]);
-    let min_sizes = min_sizes.unwrap_or(vec![20.0, 20.0]);
-    let max_sizes = max_sizes.unwrap_or(vec![80.0, 80.0]);
+    let initial_sizes = initial_sizes.unwrap_or([50.0, 50.0]);
+    let min_sizes = min_sizes.unwrap_or([20.0, 20.0]);
+    let max_sizes = max_sizes.unwrap_or([80.0, 80.0]);
     let resizable = resizable.unwrap_or(true);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "split-pane",
         &direction.to_class(),
         if resizable { "resizable" } else { "" },
@@ -94,7 +94,7 @@ pub fn SplitPanePanel(
     let collapsible = collapsible.unwrap_or(false);
     let collapsed = collapsed.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "split-pane-panel",
         if resizable { "resizable" } else { "" },
         if collapsible { "collapsible" } else { "" },
@@ -132,7 +132,7 @@ pub fn SplitPaneResizer(
 ) -> impl IntoView {
     let direction = direction.unwrap_or_default();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "split-pane-resizer",
         &direction.to_class(),
         class.as_deref().unwrap_or(""),
@@ -168,78 +168,78 @@ mod tests {
     wasm_bindgen_test_configure!(run_in_browser);
 
     // Unit Tests
-    #[test] fn test_splitpane_creation() { assert!(true); }
-    #[test] fn test_splitpane_with_class() { assert!(true); }
-    #[test] fn test_splitpane_with_style() { assert!(true); }
-    #[test] fn test_splitpane_direction() { assert!(true); }
-    #[test] fn test_splitpane_initial_sizes() { assert!(true); }
-    #[test] fn test_splitpane_min_sizes() { assert!(true); }
-    #[test] fn test_splitpane_max_sizes() { assert!(true); }
-    #[test] fn test_splitpane_resizable() { assert!(true); }
-    #[test] fn test_splitpane_on_resize() { assert!(true); }
+    #[test] fn test_splitpane_creation() { 
+    #[test] fn test_splitpane_with_class() { 
+    #[test] fn test_splitpane_with_style() { 
+    #[test] fn test_splitpane_direction() { 
+    #[test] fn test_splitpane_initial_sizes() { 
+    #[test] fn test_splitpane_min_sizes() { 
+    #[test] fn test_splitpane_max_sizes() { 
+    #[test] fn test_splitpane_resizable() { 
+    #[test] fn test_splitpane_on_resize() { 
 
     // Split Direction tests
-    #[test] fn test_split_direction_default() { assert!(true); }
-    #[test] fn test_split_direction_horizontal() { assert!(true); }
-    #[test] fn test_split_direction_vertical() { assert!(true); }
+    #[test] fn test_split_direction_default() { 
+    #[test] fn test_split_direction_horizontal() { 
+    #[test] fn test_split_direction_vertical() { 
 
     // Resize Event tests
-    #[test] fn test_resize_event_creation() { assert!(true); }
+    #[test] fn test_resize_event_creation() { 
 
     // Split Pane Panel tests
-    #[test] fn test_splitpane_panel_creation() { assert!(true); }
-    #[test] fn test_splitpane_panel_with_class() { assert!(true); }
-    #[test] fn test_splitpane_panel_with_style() { assert!(true); }
-    #[test] fn test_splitpane_panel_size() { assert!(true); }
-    #[test] fn test_splitpane_panel_min_size() { assert!(true); }
-    #[test] fn test_splitpane_panel_max_size() { assert!(true); }
-    #[test] fn test_splitpane_panel_resizable() { assert!(true); }
-    #[test] fn test_splitpane_panel_collapsible() { assert!(true); }
-    #[test] fn test_splitpane_panel_collapsed() { assert!(true); }
+    #[test] fn test_splitpane_panel_creation() { 
+    #[test] fn test_splitpane_panel_with_class() { 
+    #[test] fn test_splitpane_panel_with_style() { 
+    #[test] fn test_splitpane_panel_size() { 
+    #[test] fn test_splitpane_panel_min_size() { 
+    #[test] fn test_splitpane_panel_max_size() { 
+    #[test] fn test_splitpane_panel_resizable() { 
+    #[test] fn test_splitpane_panel_collapsible() { 
+    #[test] fn test_splitpane_panel_collapsed() { 
 
     // Split Pane Resizer tests
-    #[test] fn test_splitpane_resizer_creation() { assert!(true); }
-    #[test] fn test_splitpane_resizer_with_class() { assert!(true); }
-    #[test] fn test_splitpane_resizer_with_style() { assert!(true); }
-    #[test] fn test_splitpane_resizer_direction() { assert!(true); }
-    #[test] fn test_splitpane_resizer_on_resize_start() { assert!(true); }
-    #[test] fn test_splitpane_resizer_on_resize() { assert!(true); }
-    #[test] fn test_splitpane_resizer_on_resize_end() { assert!(true); }
+    #[test] fn test_splitpane_resizer_creation() { 
+    #[test] fn test_splitpane_resizer_with_class() { 
+    #[test] fn test_splitpane_resizer_with_style() { 
+    #[test] fn test_splitpane_resizer_direction() { 
+    #[test] fn test_splitpane_resizer_on_resize_start() { 
+    #[test] fn test_splitpane_resizer_on_resize() { 
+    #[test] fn test_splitpane_resizer_on_resize_end() { 
 
     // Helper function tests
-    #[test] fn test_merge_classes_empty() { assert!(true); }
-    #[test] fn test_merge_classes_single() { assert!(true); }
-    #[test] fn test_merge_classes_multiple() { assert!(true); }
-    #[test] fn test_merge_classes_with_empty() { assert!(true); }
+    #[test] fn test_merge_classes_empty() { 
+    #[test] fn test_merge_classes_single() { 
+    #[test] fn test_merge_classes_multiple() { 
+    #[test] fn test_merge_classes_with_empty() { 
 
     // Property-based Tests
     #[test] fn test_splitpane_property_based() {
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*")| {
+            
         });
     }
 
     #[test] fn test_splitpane_resize_validation() {
         proptest!(|(sizes in prop::collection::vec(10.0..90.0f64, 2..5))| {
-            assert!(true);
+            
         });
     }
 
     #[test] fn test_splitpane_direction_property_based() {
-        proptest!(|(direction_index in 0..2usize)| {
-            assert!(true);
+        proptest!(|(__direction_index in 0..2usize)| {
+            
         });
     }
 
     // Integration Tests
-    #[test] fn test_splitpane_user_interaction() { assert!(true); }
-    #[test] fn test_splitpane_accessibility() { assert!(true); }
-    #[test] fn test_splitpane_keyboard_navigation() { assert!(true); }
-    #[test] fn test_splitpane_resize_behavior() { assert!(true); }
-    #[test] fn test_splitpane_collapse_behavior() { assert!(true); }
+    #[test] fn test_splitpane_user_interaction() { 
+    #[test] fn test_splitpane_accessibility() { 
+    #[test] fn test_splitpane_keyboard_navigation() { 
+    #[test] fn test_splitpane_resize_behavior() { 
+    #[test] fn test_splitpane_collapse_behavior() { 
 
     // Performance Tests
-    #[test] fn test_splitpane_nested_performance() { assert!(true); }
-    #[test] fn test_splitpane_animation_smooth() { assert!(true); }
-    #[test] fn test_splitpane_resize_performance() { assert!(true); }
+    #[test] fn test_splitpane_nested_performance() { 
+    #[test] fn test_splitpane_animation_smooth() { 
+    #[test] fn test_splitpane_resize_performance() { 
 }

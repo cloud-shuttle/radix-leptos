@@ -1,5 +1,5 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 use wasm_bindgen::JsCast;
 
 /// Search component - Search input with suggestions and filtering
@@ -27,7 +27,7 @@ pub fn Search(
     let max_suggestions = max_suggestions.unwrap_or(10);
     let debounce_ms = debounce_ms.unwrap_or(300);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "search",
         if disabled { "disabled" } else { "" },
         if required { "required" } else { "" },
@@ -67,7 +67,7 @@ pub fn SearchInput(
     let disabled = disabled.unwrap_or(false);
     let required = required.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "search-input",
         if disabled { "disabled" } else { "" },
         if required { "required" } else { "" },
@@ -75,7 +75,10 @@ pub fn SearchInput(
     ]);
 
     let handle_input = move |event: web_sys::Event| {
-        if let Some(input) = event.target().and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok()) {
+        if let Some(input) = event
+            .target()
+            .and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok())
+        {
             let new_value = input.value();
             if let Some(callback) = on_input {
                 callback.run(new_value);
@@ -135,7 +138,7 @@ pub fn SearchSuggestions(
     let visible = visible.unwrap_or(false);
     let selected_index = selected_index.unwrap_or(0);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "search-suggestions",
         if visible { "visible" } else { "hidden" },
         class.as_deref().unwrap_or(""),
@@ -167,7 +170,7 @@ pub fn SearchSuggestionItem(
     let suggestion = suggestion.unwrap_or_default();
     let selected = selected.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "search-suggestion-item",
         if selected { "selected" } else { "" },
         class.as_deref().unwrap_or(""),
@@ -205,7 +208,7 @@ pub fn SearchClearButton(
 ) -> impl IntoView {
     let visible = visible.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "search-clear-button",
         if visible { "visible" } else { "hidden" },
         class.as_deref().unwrap_or(""),
@@ -267,10 +270,7 @@ pub fn SearchFilter(
     let filters = filters.unwrap_or_default();
     let selected_filters = selected_filters.unwrap_or_default();
 
-    let class = merge_classes(vec![
-        "search-filter",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["search-filter", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -316,109 +316,172 @@ fn merge_classes(classes: Vec<&str>) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use wasm_bindgen_test::*;
     use proptest::prelude::*;
+    use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
 
     // Unit Tests
-    #[test] fn test_search_creation() { assert!(true); }
-    #[test] fn test_search_with_class() { assert!(true); }
-    #[test] fn test_search_with_style() { assert!(true); }
-    #[test] fn test_search_with_value() { assert!(true); }
-    #[test] fn test_search_placeholder() { assert!(true); }
-    #[test] fn test_search_disabled() { assert!(true); }
-    #[test] fn test_search_required() { assert!(true); }
-    #[test] fn test_search_suggestions() { assert!(true); }
-    #[test] fn test_search_max_suggestions() { assert!(true); }
-    #[test] fn test_search_debounce_ms() { assert!(true); }
-    #[test] fn test_search_on_search() { assert!(true); }
-    #[test] fn test_search_on_suggestion_select() { assert!(true); }
-    #[test] fn test_search_on_clear() { assert!(true); }
+    #[test]
+    fn test_search_creation() {}
+    #[test]
+    fn test_search_with_class() {}
+    #[test]
+    fn test_search_with_style() {}
+    #[test]
+    fn test_search_with_value() {}
+    #[test]
+    fn test_search_placeholder() {}
+    #[test]
+    fn test_search_disabled() {}
+    #[test]
+    fn test_search_required() {}
+    #[test]
+    fn test_search_suggestions() {}
+    #[test]
+    fn test_search_max_suggestions() {}
+    #[test]
+    fn test_search_debounce_ms() {}
+    #[test]
+    fn test_search_on_search() {}
+    #[test]
+    fn test_search_on_suggestion_select() {}
+    #[test]
+    fn test_search_on_clear() {}
 
     // Search Input tests
-    #[test] fn test_search_input_creation() { assert!(true); }
-    #[test] fn test_search_input_with_class() { assert!(true); }
-    #[test] fn test_search_input_value() { assert!(true); }
-    #[test] fn test_search_input_placeholder() { assert!(true); }
-    #[test] fn test_search_input_disabled() { assert!(true); }
-    #[test] fn test_search_input_required() { assert!(true); }
-    #[test] fn test_search_input_on_input() { assert!(true); }
-    #[test] fn test_search_input_on_focus() { assert!(true); }
-    #[test] fn test_search_input_on_blur() { assert!(true); }
-    #[test] fn test_search_input_on_keydown() { assert!(true); }
+    #[test]
+    fn test_search_input_creation() {}
+    #[test]
+    fn test_search_input_with_class() {}
+    #[test]
+    fn test_search_input_value() {}
+    #[test]
+    fn test_search_input_placeholder() {}
+    #[test]
+    fn test_search_input_disabled() {}
+    #[test]
+    fn test_search_input_required() {}
+    #[test]
+    fn test_search_input_on_input() {}
+    #[test]
+    fn test_search_input_on_focus() {}
+    #[test]
+    fn test_search_input_on_blur() {}
+    #[test]
+    fn test_search_input_on_keydown() {}
 
     // Search Suggestions tests
-    #[test] fn test_search_suggestions_creation() { assert!(true); }
-    #[test] fn test_search_suggestions_with_class() { assert!(true); }
-    #[test] fn test_search_suggestions_suggestions() { assert!(true); }
-    #[test] fn test_search_suggestions_visible() { assert!(true); }
-    #[test] fn test_search_suggestions_selected_index() { assert!(true); }
-    #[test] fn test_search_suggestions_on_suggestion_select() { assert!(true); }
+    #[test]
+    fn test_search_suggestions_creation() {}
+    #[test]
+    fn test_search_suggestions_with_class() {}
+    #[test]
+    fn test_search_suggestions_suggestions() {}
+    #[test]
+    fn test_search_suggestions_visible() {}
+    #[test]
+    fn test_search_suggestions_selected_index() {}
+    #[test]
+    fn test_search_suggestions_on_suggestion_select() {}
 
     // Search Suggestion Item tests
-    #[test] fn test_search_suggestion_item_creation() { assert!(true); }
-    #[test] fn test_search_suggestion_item_with_class() { assert!(true); }
-    #[test] fn test_search_suggestion_item_suggestion() { assert!(true); }
-    #[test] fn test_search_suggestion_item_selected() { assert!(true); }
-    #[test] fn test_search_suggestion_item_on_click() { assert!(true); }
+    #[test]
+    fn test_search_suggestion_item_creation() {}
+    #[test]
+    fn test_search_suggestion_item_with_class() {}
+    #[test]
+    fn test_search_suggestion_item_suggestion() {}
+    #[test]
+    fn test_search_suggestion_item_selected() {}
+    #[test]
+    fn test_search_suggestion_item_on_click() {}
 
     // Search Clear Button tests
-    #[test] fn test_search_clear_button_creation() { assert!(true); }
-    #[test] fn test_search_clear_button_with_class() { assert!(true); }
-    #[test] fn test_search_clear_button_visible() { assert!(true); }
-    #[test] fn test_search_clear_button_on_click() { assert!(true); }
+    #[test]
+    fn test_search_clear_button_creation() {}
+    #[test]
+    fn test_search_clear_button_with_class() {}
+    #[test]
+    fn test_search_clear_button_visible() {}
+    #[test]
+    fn test_search_clear_button_on_click() {}
 
     // Search Suggestion tests
-    #[test] fn test_search_suggestion_default() { assert!(true); }
-    #[test] fn test_search_suggestion_creation() { assert!(true); }
+    #[test]
+    fn test_search_suggestion_default() {}
+    #[test]
+    fn test_search_suggestion_creation() {}
 
     // Search Filter tests
-    #[test] fn test_search_filter_creation() { assert!(true); }
-    #[test] fn test_search_filter_with_class() { assert!(true); }
-    #[test] fn test_search_filter_filters() { assert!(true); }
-    #[test] fn test_search_filter_selected_filters() { assert!(true); }
-    #[test] fn test_search_filter_on_filter_change() { assert!(true); }
+    #[test]
+    fn test_search_filter_creation() {}
+    #[test]
+    fn test_search_filter_with_class() {}
+    #[test]
+    fn test_search_filter_filters() {}
+    #[test]
+    fn test_search_filter_selected_filters() {}
+    #[test]
+    fn test_search_filter_on_filter_change() {}
 
     // Search Filter Option tests
-    #[test] fn test_search_filter_option_default() { assert!(true); }
-    #[test] fn test_search_filter_option_creation() { assert!(true); }
+    #[test]
+    fn test_search_filter_option_default() {}
+    #[test]
+    fn test_search_filter_option_creation() {}
 
     // Helper function tests
-    #[test] fn test_merge_classes_empty() { assert!(true); }
-    #[test] fn test_merge_classes_single() { assert!(true); }
-    #[test] fn test_merge_classes_multiple() { assert!(true); }
-    #[test] fn test_merge_classes_with_empty() { assert!(true); }
+    #[test]
+    fn test_merge_classes_empty() {}
+    #[test]
+    fn test_merge_classes_single() {}
+    #[test]
+    fn test_merge_classes_multiple() {}
+    #[test]
+    fn test_merge_classes_with_empty() {}
 
     // Property-based Tests
-    #[test] fn test_search_property_based() {
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+    #[test]
+    fn test_search_property_based() {
+        proptest!(|(__class in ".*", _style in ".*")| {
+
         });
     }
 
-    #[test] fn test_search_suggestions_validation() {
-        proptest!(|(suggestion_count in 0..50usize)| {
-            assert!(true);
+    #[test]
+    fn test_search_suggestions_validation() {
+        proptest!(|(___suggestion_count in 0..50usize)| {
+
         });
     }
 
-    #[test] fn test_search_debounce_validation() {
-        proptest!(|(debounce_ms in 100..2000u64)| {
-            assert!(true);
+    #[test]
+    fn test_search_debounce_validation() {
+        proptest!(|(__debounce_ms in 100..2000u64)| {
+
         });
     }
 
     // Integration Tests
-    #[test] fn test_search_user_interaction() { assert!(true); }
-    #[test] fn test_search_accessibility() { assert!(true); }
-    #[test] fn test_search_keyboard_navigation() { assert!(true); }
-    #[test] fn test_search_suggestions_workflow() { assert!(true); }
-    #[test] fn test_search_filtering_workflow() { assert!(true); }
+    #[test]
+    fn test_search_user_interaction() {}
+    #[test]
+    fn test_search_accessibility() {}
+    #[test]
+    fn test_search_keyboard_navigation() {}
+    #[test]
+    fn test_search_suggestions_workflow() {}
+    #[test]
+    fn test_search_filtering_workflow() {}
 
     // Performance Tests
-    #[test] fn test_search_large_suggestion_lists() { assert!(true); }
-    #[test] fn test_search_render_performance() { assert!(true); }
-    #[test] fn test_search_memory_usage() { assert!(true); }
-    #[test] fn test_search_debounce_performance() { assert!(true); }
+    #[test]
+    fn test_search_large_suggestion_lists() {}
+    #[test]
+    fn test_search_render_performance() {}
+    #[test]
+    fn test_search_memory_usage() {}
+    #[test]
+    fn test_search_debounce_performance() {}
 }

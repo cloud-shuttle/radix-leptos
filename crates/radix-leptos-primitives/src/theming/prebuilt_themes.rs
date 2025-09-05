@@ -1,8 +1,8 @@
-use leptos::*;
-use leptos::prelude::*;
-use serde::{Deserialize, Serialize};
 use crate::theming::css_variables::*;
 use crate::utils::merge_classes;
+use leptos::prelude::*;
+use leptos::*;
+use serde::{Deserialize, Serialize};
 
 /// Pre-built theme collection with industry-specific themes
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -48,16 +48,15 @@ pub fn ThemeSelector(
 ) -> impl IntoView {
     let current_theme = current_theme.unwrap_or_else(|| "light".to_string());
     let show_preview = show_preview.unwrap_or(true);
-    let categories = categories.unwrap_or_else(|| vec![
-        ThemeCategory::Basic,
-        ThemeCategory::Industry,
-        ThemeCategory::Style,
-    ]);
+    let categories = categories.unwrap_or_else(|| {
+        [
+            ThemeCategory::Basic,
+            ThemeCategory::Industry,
+            ThemeCategory::Style,
+        ]
+    });
 
-    let class = merge_classes(vec![
-        "theme-selector",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["theme-selector", class.as_deref().unwrap_or("")]);
 
     let handle_theme_change = Callback::new(move |theme_name: String| {
         if let Some(callback) = on_theme_change {
@@ -78,7 +77,7 @@ pub fn ThemeSelector(
                 <h3>"Choose a Theme"</h3>
                 <p>"Select from our pre-built themes or create your own"</p>
             </div>
-            
+
             <div class="theme-categories">
                 {categories.into_iter().map(|category| {
                     let category_themes = themes.get(&category).cloned().unwrap_or_default();
@@ -114,7 +113,7 @@ pub fn ThemeCategorySection(
     let show_preview = show_preview.unwrap_or(true);
     let on_theme_change = on_theme_change.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "theme-category-section",
         category.as_str(),
         class.as_deref().unwrap_or(""),
@@ -160,7 +159,7 @@ pub fn ThemeCard(
     let show_preview = show_preview.unwrap_or(true);
     let on_select = on_select.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "theme-card",
         if selected { "selected" } else { "" },
         if show_preview { "with-preview" } else { "" },
@@ -198,7 +197,7 @@ pub fn ThemeCard(
             } else {
                 view! { <></> }.into_any()
             }}
-            
+
             <div class="theme-info">
                 <h5 class="theme-name">{theme.name.clone()}</h5>
                 <p class="theme-description">{theme.description.clone()}</p>
@@ -223,10 +222,7 @@ pub fn ThemePreview(
 ) -> impl IntoView {
     let colors = colors.unwrap_or_default();
 
-    let class = merge_classes(vec![
-        "theme-preview",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["theme-preview", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -300,7 +296,7 @@ impl Default for ThemeInfo {
             description: "Default theme".to_string(),
             category: ThemeCategory::Basic,
             colors: ThemeColors::default(),
-            tags: vec!["default".to_string()],
+            tags: ["default".to_string()],
             css_variables: CSSVariables::default(),
         }
     }
@@ -341,12 +337,14 @@ impl Default for ThemeColors {
 }
 
 /// Get themes organized by categories
-fn get_themes_by_categories(categories: &[ThemeCategory]) -> std::collections::HashMap<ThemeCategory, Vec<ThemeInfo>> {
+fn get_themes_by_categories(
+    categories: &[ThemeCategory],
+) -> std::collections::HashMap<ThemeCategory, Vec<ThemeInfo>> {
     let mut themes_map = std::collections::HashMap::new();
-    
+
     for category in categories {
         let themes = match category {
-            ThemeCategory::Basic => vec![
+            ThemeCategory::Basic => [
                 ThemeInfo {
                     name: "Light".to_string(),
                     description: "Clean and bright theme for everyday use".to_string(),
@@ -364,7 +362,11 @@ fn get_themes_by_categories(categories: &[ThemeCategory]) -> std::collections::H
                         success: "#22c55e".to_string(),
                         info: "#06b6d4".to_string(),
                     },
-                    tags: vec!["light".to_string(), "clean".to_string(), "modern".to_string()],
+                    tags: [
+                        "light".to_string(),
+                        "clean".to_string(),
+                        "modern".to_string(),
+                    ],
                     css_variables: create_light_theme(),
                 },
                 ThemeInfo {
@@ -384,7 +386,11 @@ fn get_themes_by_categories(categories: &[ThemeCategory]) -> std::collections::H
                         success: "#4ade80".to_string(),
                         info: "#22d3ee".to_string(),
                     },
-                    tags: vec!["dark".to_string(), "night".to_string(), "modern".to_string()],
+                    tags: [
+                        "dark".to_string(),
+                        "night".to_string(),
+                        "modern".to_string(),
+                    ],
                     css_variables: create_dark_theme(),
                 },
                 ThemeInfo {
@@ -404,11 +410,15 @@ fn get_themes_by_categories(categories: &[ThemeCategory]) -> std::collections::H
                         success: "#008000".to_string(),
                         info: "#0000ff".to_string(),
                     },
-                    tags: vec!["accessibility".to_string(), "high-contrast".to_string(), "wcag".to_string()],
+                    tags: [
+                        "accessibility".to_string(),
+                        "high-contrast".to_string(),
+                        "wcag".to_string(),
+                    ],
                     css_variables: create_high_contrast_theme(),
                 },
             ],
-            ThemeCategory::Industry => vec![
+            ThemeCategory::Industry => [
                 ThemeInfo {
                     name: "Finance".to_string(),
                     description: "Professional theme for financial applications".to_string(),
@@ -426,7 +436,11 @@ fn get_themes_by_categories(categories: &[ThemeCategory]) -> std::collections::H
                         success: "#059669".to_string(),
                         info: "#0284c7".to_string(),
                     },
-                    tags: vec!["finance".to_string(), "professional".to_string(), "corporate".to_string()],
+                    tags: [
+                        "finance".to_string(),
+                        "professional".to_string(),
+                        "corporate".to_string(),
+                    ],
                     css_variables: create_finance_theme(),
                 },
                 ThemeInfo {
@@ -446,7 +460,11 @@ fn get_themes_by_categories(categories: &[ThemeCategory]) -> std::collections::H
                         success: "#059669".to_string(),
                         info: "#0284c7".to_string(),
                     },
-                    tags: vec!["healthcare".to_string(), "medical".to_string(), "calming".to_string()],
+                    tags: [
+                        "healthcare".to_string(),
+                        "medical".to_string(),
+                        "calming".to_string(),
+                    ],
                     css_variables: create_healthcare_theme(),
                 },
                 ThemeInfo {
@@ -466,11 +484,15 @@ fn get_themes_by_categories(categories: &[ThemeCategory]) -> std::collections::H
                         success: "#059669".to_string(),
                         info: "#0284c7".to_string(),
                     },
-                    tags: vec!["education".to_string(), "learning".to_string(), "engaging".to_string()],
+                    tags: [
+                        "education".to_string(),
+                        "learning".to_string(),
+                        "engaging".to_string(),
+                    ],
                     css_variables: create_education_theme(),
                 },
             ],
-            ThemeCategory::Style => vec![
+            ThemeCategory::Style => [
                 ThemeInfo {
                     name: "Minimal".to_string(),
                     description: "Minimalist theme with clean lines".to_string(),
@@ -488,7 +510,11 @@ fn get_themes_by_categories(categories: &[ThemeCategory]) -> std::collections::H
                         success: "#059669".to_string(),
                         info: "#6b7280".to_string(),
                     },
-                    tags: vec!["minimal".to_string(), "clean".to_string(), "simple".to_string()],
+                    tags: [
+                        "minimal".to_string(),
+                        "clean".to_string(),
+                        "simple".to_string(),
+                    ],
                     css_variables: create_minimal_theme(),
                 },
                 ThemeInfo {
@@ -508,16 +534,20 @@ fn get_themes_by_categories(categories: &[ThemeCategory]) -> std::collections::H
                         success: "#27ae60".to_string(),
                         info: "#3498db".to_string(),
                     },
-                    tags: vec!["vibrant".to_string(), "colorful".to_string(), "bold".to_string()],
+                    tags: [
+                        "vibrant".to_string(),
+                        "colorful".to_string(),
+                        "bold".to_string(),
+                    ],
                     css_variables: create_vibrant_theme(),
                 },
             ],
-            _ => vec![],
+            _ => [],
         };
-        
+
         themes_map.insert(*category, themes);
     }
-    
+
     themes_map
 }
 
@@ -618,8 +648,7 @@ mod prebuilt_themes_tests {
         // Test logic without runtime
         // Test component logic
         let theme_name = "test-theme";
-        assert!(!theme_name.is_empty());        // Test completed
-        assert!(true); // Component compiles successfully
+        assert!(!theme_name.is_empty()); // Test completed
     }
 
     #[test]
@@ -628,18 +657,16 @@ mod prebuilt_themes_tests {
         let callback = Callback::new(|_theme: String| {});
         // Test component logic
         let theme_name = "test-theme";
-        assert!(!theme_name.is_empty());        // Test completed
-        assert!(true); // Component compiles successfully
+        assert!(!theme_name.is_empty()); // Test completed
     }
 
     #[test]
     fn test_theme_category_section_component() {
         // Test logic without runtime
-        let themes = vec![ThemeInfo::default()];
+        let themes = [ThemeInfo::default()];
         // Test component logic
         let theme_name = "test-theme";
-        assert!(!theme_name.is_empty());        // Test completed
-        assert!(true); // Component compiles successfully
+        assert!(!theme_name.is_empty()); // Test completed
     }
 
     #[test]
@@ -648,8 +675,7 @@ mod prebuilt_themes_tests {
         let theme = ThemeInfo::default();
         // Test component logic
         let theme_name = "test-theme";
-        assert!(!theme_name.is_empty());        // Test completed
-        assert!(true); // Component compiles successfully
+        assert!(!theme_name.is_empty()); // Test completed
     }
 
     #[test]
@@ -658,8 +684,7 @@ mod prebuilt_themes_tests {
         let colors = ThemeColors::default();
         // Test component logic
         let theme_name = "test-theme";
-        assert!(!theme_name.is_empty());        // Test completed
-        assert!(true); // Component compiles successfully
+        assert!(!theme_name.is_empty()); // Test completed
     }
 
     #[test]
@@ -677,7 +702,10 @@ mod prebuilt_themes_tests {
         assert_eq!(ThemeCategory::Industry.display_name(), "Industry Themes");
         assert_eq!(ThemeCategory::Style.display_name(), "Style Themes");
         assert_eq!(ThemeCategory::Seasonal.display_name(), "Seasonal Themes");
-        assert_eq!(ThemeCategory::Accessibility.display_name(), "Accessibility Themes");
+        assert_eq!(
+            ThemeCategory::Accessibility.display_name(),
+            "Accessibility Themes"
+        );
     }
 
     #[test]
@@ -686,7 +714,7 @@ mod prebuilt_themes_tests {
         assert_eq!(theme.name, "Default");
         assert_eq!(theme.description, "Default theme");
         assert_eq!(theme.category, ThemeCategory::Basic);
-        assert_eq!(theme.tags, vec!["default"]);
+        assert_eq!(theme.tags, ["default"]);
     }
 
     #[test]
@@ -702,16 +730,16 @@ mod prebuilt_themes_tests {
 
     #[test]
     fn test_get_themes_by_categories() {
-        let categories = vec![ThemeCategory::Basic, ThemeCategory::Industry];
+        let categories = [ThemeCategory::Basic, ThemeCategory::Industry];
         let themes_map = get_themes_by_categories(&categories);
-        
+
         assert!(themes_map.contains_key(&ThemeCategory::Basic));
         assert!(themes_map.contains_key(&ThemeCategory::Industry));
         assert!(!themes_map.contains_key(&ThemeCategory::Style));
-        
+
         let basic_themes = themes_map.get(&ThemeCategory::Basic).unwrap();
         assert_eq!(basic_themes.len(), 3); // Light, Dark, High Contrast
-        
+
         let industry_themes = themes_map.get(&ThemeCategory::Industry).unwrap();
         assert_eq!(industry_themes.len(), 3); // Finance, Healthcare, Education
     }
@@ -745,7 +773,7 @@ mod prebuilt_themes_tests {
     // Property-based tests
     #[test]
     fn test_theme_category_property_based() {
-        proptest!(|(category in prop::sample::select(vec![
+        proptest!(|(category in prop::sample::select([
             ThemeCategory::Basic,
             ThemeCategory::Industry,
             ThemeCategory::Style,
@@ -761,7 +789,7 @@ mod prebuilt_themes_tests {
 
     #[test]
     fn test_theme_colors_property_based() {
-        proptest!(|(color in ".*")| {
+        proptest!(|(_color in ".*")| {
             let colors = ThemeColors {
                 primary: color.clone(),
                 secondary: color.clone(),
@@ -783,19 +811,16 @@ mod prebuilt_themes_tests {
     #[test]
     fn test_theme_selector_integration() {
         // Test complete theme selector workflow
-        assert!(true);
     }
 
     #[test]
     fn test_theme_preview_integration() {
         // Test theme preview functionality
-        assert!(true);
     }
 
     #[test]
     fn test_theme_switching_integration() {
         // Test theme switching workflow
-        assert!(true);
     }
 
     // Performance Tests
@@ -820,6 +845,5 @@ mod prebuilt_themes_tests {
     #[test]
     fn test_theme_memory_usage() {
         // Test theme memory usage
-        assert!(true);
     }
 }

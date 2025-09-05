@@ -1,7 +1,7 @@
-use leptos::*;
-use leptos::prelude::*;
-use wasm_bindgen::JsCast;
 use crate::utils::merge_classes;
+use leptos::prelude::*;
+use leptos::*;
+use wasm_bindgen::JsCast;
 
 /// Date Picker component - Date selection with validation
 #[component]
@@ -29,7 +29,7 @@ pub fn DatePicker(
     let format = format.unwrap_or_else(|| "YYYY-MM-DD".to_string());
     let locale = locale.unwrap_or_else(|| "en-US".to_string());
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "date-picker",
         if disabled { "disabled" } else { "" },
         if required { "required" } else { "" },
@@ -78,7 +78,7 @@ pub fn DatePickerInput(
     let required = required.unwrap_or(false);
     let format = format.unwrap_or_else(|| "YYYY-MM-DD".to_string());
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "date-picker-input",
         if disabled { "disabled" } else { "" },
         if required { "required" } else { "" },
@@ -86,7 +86,10 @@ pub fn DatePickerInput(
     ]);
 
     let handle_change = move |event: web_sys::Event| {
-        if let Some(input) = event.target().and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok()) {
+        if let Some(input) = event
+            .target()
+            .and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok())
+        {
             let new_value = input.value();
             if let Some(callback) = on_change {
                 callback.run(new_value);
@@ -134,7 +137,7 @@ pub fn DatePickerTrigger(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "date-picker-trigger",
         if disabled { "disabled" } else { "" },
         class.as_deref().unwrap_or(""),
@@ -177,10 +180,7 @@ pub fn DatePickerCalendar(
     let min_date = min_date.unwrap_or_default();
     let max_date = max_date.unwrap_or_default();
 
-    let class = merge_classes(vec![
-        "date-picker-calendar",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["date-picker-calendar", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -200,7 +200,7 @@ pub fn DatePickerCalendar(
 /// Date Validation structure
 #[derive(Debug, Clone, PartialEq)]
 pub struct DateValidation {
-    pub is_valid: bool,
+    pub _is_valid: bool,
     pub error_message: Option<String>,
     pub parsed_date: Option<String>,
 }
@@ -215,7 +215,6 @@ impl Default for DateValidation {
     }
 }
 
-
 /// Date Picker Validation component
 #[component]
 pub fn DatePickerValidation(
@@ -225,9 +224,13 @@ pub fn DatePickerValidation(
 ) -> impl IntoView {
     let validation = validation.unwrap_or_default();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "date-picker-validation",
-        if validation.is_valid { "valid" } else { "invalid" },
+        if validation.is_valid {
+            "valid"
+        } else {
+            "invalid"
+        },
         class.as_deref().unwrap_or(""),
     ]);
 
@@ -251,13 +254,12 @@ pub fn DatePickerValidation(
     }
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
-    use wasm_bindgen_test::*;
-    use proptest::prelude::*;
     use leptos::prelude::*;
+    use proptest::prelude::*;
+    use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
 
@@ -265,190 +267,159 @@ mod tests {
     #[test]
     fn test_date_picker_creation() {
         // Test that DatePicker component can be created with default props
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_with_class() {
         // Test DatePicker with custom class
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_with_style() {
         // Test DatePicker with custom style
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_with_value() {
         // Test DatePicker with initial value
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_placeholder() {
         // Test DatePicker with custom placeholder
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_min_max_dates() {
         // Test DatePicker with min/max date constraints
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_disabled() {
         // Test DatePicker in disabled state
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_required() {
         // Test DatePicker in required state
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_format() {
         // Test DatePicker with custom date format
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_locale() {
         // Test DatePicker with custom locale
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_on_change() {
         // Test DatePicker with change callback
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_on_validation() {
         // Test DatePicker with validation callback
-        assert!(true);
     }
 
     // Date Picker Input tests
     #[test]
     fn test_date_picker_input_creation() {
         // Test DatePickerInput component creation
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_input_with_class() {
         // Test DatePickerInput with custom class
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_input_value() {
         // Test DatePickerInput with initial value
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_input_placeholder() {
         // Test DatePickerInput with custom placeholder
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_input_disabled() {
         // Test DatePickerInput in disabled state
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_input_required() {
         // Test DatePickerInput in required state
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_input_format() {
         // Test DatePickerInput with custom format
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_input_on_change() {
         // Test DatePickerInput with change callback
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_input_on_focus() {
         // Test DatePickerInput with focus callback
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_input_on_blur() {
         // Test DatePickerInput with blur callback
-        assert!(true);
     }
 
     // Date Picker Trigger tests
     #[test]
     fn test_date_picker_trigger_creation() {
         // Test DatePickerTrigger component creation
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_trigger_with_class() {
         // Test DatePickerTrigger with custom class
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_trigger_disabled() {
         // Test DatePickerTrigger in disabled state
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_trigger_on_click() {
         // Test DatePickerTrigger with click callback
-        assert!(true);
     }
 
     // Date Picker Calendar tests
     #[test]
     fn test_date_picker_calendar_creation() {
         // Test DatePickerCalendar component creation
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_calendar_with_class() {
         // Test DatePickerCalendar with custom class
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_calendar_value() {
         // Test DatePickerCalendar with initial value
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_calendar_min_max_dates() {
         // Test DatePickerCalendar with min/max date constraints
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_calendar_on_date_select() {
         // Test DatePickerCalendar with date selection callback
-        assert!(true);
     }
 
     // Date Validation tests
@@ -500,64 +471,60 @@ mod tests {
     #[test]
     fn test_date_picker_validation_creation() {
         // Test DatePickerValidation component creation
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_validation_with_class() {
         // Test DatePickerValidation with custom class
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_validation_valid() {
         // Test DatePickerValidation with valid date
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_validation_invalid() {
         // Test DatePickerValidation with invalid date
-        assert!(true);
     }
 
     // Helper function tests
     #[test]
     fn test_merge_classes_empty() {
-        let result = merge_classes(vec![]);
+        let result = merge_classes([]);
         assert_eq!(result, "");
     }
 
     #[test]
     fn test_merge_classes_single() {
-        let result = merge_classes(vec!["class1"]);
+        let result = merge_classes(["class1"]);
         assert_eq!(result, "class1");
     }
 
     #[test]
     fn test_merge_classes_multiple() {
-        let result = merge_classes(vec!["class1", "class2", "class3"]);
+        let result = merge_classes(["class1", "class2", "class3"]);
         assert_eq!(result, "class1 class2 class3");
     }
 
     #[test]
     fn test_merge_classes_with_empty() {
-        let result = merge_classes(vec!["class1", "", "class2", ""]);
+        let result = merge_classes(["class1", "", "class2", ""]);
         assert_eq!(result, "class1 class2");
     }
 
     // Property-based Tests
     #[test]
     fn test_date_picker_property_based() {
-        proptest!(|(class in ".*", style in ".*")| {
+        proptest!(|(__class in ".*", _style in ".*")| {
             // Test DatePicker with various class and style combinations
-            assert!(true);
+
         });
     }
 
     #[test]
     fn test_date_picker_date_validation() {
-        proptest!(|(date in ".*")| {
+        proptest!(|(_date in ".*")| {
             let is_empty = date.is_empty();
             let validation = DateValidation {
                 is_valid: !is_empty,
@@ -570,9 +537,9 @@ mod tests {
 
     #[test]
     fn test_date_picker_format_validation() {
-        proptest!(|(format in ".*")| {
+        proptest!(|(__format in ".*")| {
             // Test DatePicker with various format strings
-            assert!(true);
+
         });
     }
 
@@ -580,38 +547,32 @@ mod tests {
     #[test]
     fn test_date_picker_user_interaction() {
         // Test DatePicker user interaction workflows
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_accessibility() {
         // Test DatePicker accessibility features
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_keyboard_navigation() {
         // Test DatePicker keyboard navigation
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_validation_workflow() {
         // Test DatePicker validation workflow
-        assert!(true);
     }
 
     #[test]
     fn test_date_picker_calendar_integration() {
         // Test DatePicker calendar integration
-        assert!(true);
     }
 
     // Performance Tests
     #[test]
     fn test_date_picker_large_date_ranges() {
         // Test DatePicker with large date ranges
-        assert!(true);
     }
 
     #[test]
@@ -626,7 +587,6 @@ mod tests {
     #[test]
     fn test_date_picker_memory_usage() {
         // Test DatePicker memory usage
-        assert!(true);
     }
 
     #[test]

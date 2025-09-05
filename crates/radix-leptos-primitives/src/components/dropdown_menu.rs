@@ -1,7 +1,7 @@
-use leptos::*;
 use leptos::prelude::*;
-use web_sys::{MouseEvent, KeyboardEvent};
+use leptos::*;
 use wasm_bindgen::JsCast;
+use web_sys::{KeyboardEvent, MouseEvent};
 
 #[derive(Clone, Debug, PartialEq)]
 pub enum DropdownMenuSize {
@@ -30,7 +30,11 @@ impl Default for DropdownMenuItemVariant {
 }
 
 fn merge_classes(classes: Vec<&str>) -> String {
-    classes.into_iter().filter(|s| !s.is_empty()).collect::<Vec<_>>().join(" ")
+    classes
+        .into_iter()
+        .filter(|s| !s.is_empty())
+        .collect::<Vec<_>>()
+        .join(" ")
 }
 
 #[component]
@@ -47,31 +51,27 @@ pub fn DropdownMenu(
         if let (Some(trigger_el), Some(content_el)) = (trigger_ref.get(), content_ref.get()) {
             let target = e.target().unwrap();
             let target_element = target.dyn_ref::<web_sys::Element>().unwrap();
-            
-            if !trigger_el.contains(Some(target_element)) && !content_el.contains(Some(target_element)) {
+
+            if !trigger_el.contains(Some(target_element))
+                && !content_el.contains(Some(target_element))
+            {
                 set_is_open.set(false);
             }
         }
     };
 
-    let handle_keydown = move |e: KeyboardEvent| {
-        match e.key().as_str() {
-            "Escape" => {
-                set_is_open.set(false);
-            }
-            "Enter" | " " => {
-                e.prevent_default();
-                set_is_open.update(|open| *open = !*open);
-            }
-            _ => {}
+    let handle_keydown = move |e: KeyboardEvent| match e.key().as_str() {
+        "Escape" => {
+            set_is_open.set(false);
         }
+        "Enter" | " " => {
+            e.prevent_default();
+            set_is_open.update(|open| *open = !*open);
+        }
+        _ => {}
     };
 
-    let base_classes = vec![
-        "radix-dropdown-menu",
-        "relative",
-        "inline-block",
-    ];
+    let base_classes = ["radix-dropdown-menu", "relative", "inline-block"];
 
     let class_value = class.unwrap_or_default();
     let classes = merge_classes(base_classes);
@@ -123,7 +123,7 @@ pub fn DropdownMenuTrigger(
         }
     };
 
-    let base_classes = vec![
+    let base_classes = [
         "radix-dropdown-menu-trigger",
         "inline-flex",
         "items-center",
@@ -172,7 +172,7 @@ pub fn DropdownMenuContent(
     let align_class = align.unwrap_or("start");
     let side_class = side.unwrap_or("bottom");
 
-    let base_classes = vec![
+    let base_classes = [
         "radix-dropdown-menu-content",
         "z-50",
         "min-w-[8rem]",
@@ -247,12 +247,12 @@ pub fn DropdownMenuItem(
 
     let variant = variant.unwrap_or_default();
     let variant_classes = match variant {
-        DropdownMenuItemVariant::Default => vec!["hover:bg-accent", "hover:text-accent-foreground"],
-        DropdownMenuItemVariant::Destructive => vec!["text-destructive", "focus:text-destructive"],
-        DropdownMenuItemVariant::Disabled => vec!["opacity-50", "pointer-events-none"],
+        DropdownMenuItemVariant::Default => ["hover:bg-accent", "hover:text-accent-foreground"],
+        DropdownMenuItemVariant::Destructive => ["text-destructive", "focus:text-destructive"],
+        DropdownMenuItemVariant::Disabled => ["opacity-50", "pointer-events-none"],
     };
 
-    let base_classes = vec![
+    let base_classes = [
         "radix-dropdown-menu-item",
         "relative",
         "flex",
@@ -298,7 +298,7 @@ pub fn DropdownMenuSeparator(
     #[prop(optional)] class: Option<String>,
     #[prop(optional)] style: Option<String>,
 ) -> impl IntoView {
-    let base_classes = vec![
+    let base_classes = [
         "radix-dropdown-menu-separator",
         "-mx-1",
         "my-1",
@@ -325,7 +325,7 @@ pub fn DropdownMenuLabel(
     #[prop(optional)] style: Option<String>,
     children: Children,
 ) -> impl IntoView {
-    let base_classes = vec![
+    let base_classes = [
         "radix-dropdown-menu-label",
         "px-2",
         "py-1.5",
@@ -389,7 +389,7 @@ pub fn DropdownMenuCheckboxItem(
         }
     };
 
-    let base_classes = vec![
+    let base_classes = [
         "radix-dropdown-menu-checkbox-item",
         "relative",
         "flex",
@@ -497,7 +497,7 @@ pub fn DropdownMenuRadioItem(
         }
     };
 
-    let base_classes = vec![
+    let base_classes = [
         "radix-dropdown-menu-radio-item",
         "relative",
         "flex",
@@ -558,75 +558,65 @@ pub fn DropdownMenuRadioItem(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use wasm_bindgen_test::*;
-    use std::rc::Rc;
     use std::cell::RefCell;
+    use std::rc::Rc;
+    use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
 
     #[test]
     fn test_dropdown_menu_creation() {
         // Test that the component can be created
-        assert!(true);
     }
 
     #[test]
     fn test_dropdown_menu_with_class() {
         // Test that the component can be created with class
-        assert!(true);
     }
 
     #[test]
     fn test_dropdown_menu_with_style() {
         // Test that the component can be created with style
-        assert!(true);
     }
 
     #[test]
     fn test_dropdown_menu_trigger_creation() {
         // Test that the trigger component can be created
-        assert!(true);
     }
 
     #[test]
     fn test_dropdown_menu_trigger_disabled() {
         // Test that the trigger component can be created disabled
-        assert!(true);
     }
 
     #[test]
     fn test_dropdown_menu_content_creation() {
         // Test that the content component can be created
-        assert!(true);
     }
 
     #[test]
     fn test_dropdown_menu_content_with_align() {
         // Test that the content component can be created with align
-        assert!(true);
     }
 
     #[test]
     fn test_dropdown_menu_content_with_side() {
         // Test that the content component can be created with side
-        assert!(true);
     }
 
     #[test]
     fn test_dropdown_menu_item_creation() {
         // Test that the item component can be created
-        assert!(true);
     }
 
     #[test]
     fn test_dropdown_menu_item_disabled() {
         // Test that the item component can be created disabled
-        assert!(true);
     }
 
     #[test]
     fn test_dropdown_menu_item_variants() {
-        let variants = vec![
+        let variants = [
             DropdownMenuItemVariant::Default,
             DropdownMenuItemVariant::Destructive,
             DropdownMenuItemVariant::Disabled,
@@ -634,87 +624,72 @@ mod tests {
 
         for variant in variants {
             // Test that each variant can be created
-            assert!(true);
         }
-        assert!(true);
     }
 
     #[test]
     fn test_dropdown_menu_item_with_callback() {
         // Test that the item component can be created with callback
-        assert!(true);
     }
 
     #[test]
     fn test_dropdown_menu_separator_creation() {
         // Test that the separator component can be created
-        assert!(true);
     }
 
     #[test]
     fn test_dropdown_menu_separator_with_class() {
         // Test that the separator component can be created with class
-        assert!(true);
     }
 
     #[test]
     fn test_dropdown_menu_label_creation() {
         // Test that the label component can be created
-        assert!(true);
     }
 
     #[test]
     fn test_dropdown_menu_checkbox_item_creation() {
         // Test that the checkbox item component can be created
-        assert!(true);
     }
 
     #[test]
     fn test_dropdown_menu_checkbox_item_checked() {
         // Test that the checkbox item component can be created checked
-        assert!(true);
     }
 
     #[test]
     fn test_dropdown_menu_checkbox_item_disabled() {
         // Test that the checkbox item component can be created disabled
-        assert!(true);
     }
 
     #[test]
     fn test_dropdown_menu_checkbox_item_with_callback() {
         // Test that the checkbox item component can be created with callback
-        assert!(true);
     }
 
     #[test]
     fn test_dropdown_menu_radio_item_creation() {
         // Test that the radio item component can be created
-        assert!(true);
     }
 
     #[test]
     fn test_dropdown_menu_radio_item_with_value() {
         // Test that the radio item component can be created with value
-        assert!(true);
     }
 
     #[test]
     fn test_dropdown_menu_radio_item_checked() {
         // Test that the radio item component can be created checked
-        assert!(true);
     }
 
     #[test]
     fn test_dropdown_menu_radio_item_disabled() {
         // Test that the radio item component can be created disabled
-        assert!(true);
     }
 
     #[test]
     fn test_dropdown_menu_radio_item_with_callback() {
         // Test that the radio item component can be created with callback
-        assert!(true);
     }
 
     #[test]
@@ -731,25 +706,25 @@ mod tests {
 
     #[test]
     fn test_merge_classes_empty() {
-        let result = merge_classes(vec![]);
+        let result = merge_classes([]);
         assert_eq!(result, "");
     }
 
     #[test]
     fn test_merge_classes_single() {
-        let result = merge_classes(vec!["class1"]);
+        let result = merge_classes(["class1"]);
         assert_eq!(result, "class1");
     }
 
     #[test]
     fn test_merge_classes_multiple() {
-        let result = merge_classes(vec!["class1", "class2", "class3"]);
+        let result = merge_classes(["class1", "class2", "class3"]);
         assert_eq!(result, "class1 class2 class3");
     }
 
     #[test]
     fn test_merge_classes_with_empty() {
-        let result = merge_classes(vec!["class1", "", "class3"]);
+        let result = merge_classes(["class1", "", "class3"]);
         assert_eq!(result, "class1 class3");
     }
 
@@ -758,9 +733,9 @@ mod tests {
     fn test_dropdown_menu_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(class in ".*", style in ".*")| {
+        proptest!(|(__class in ".*", _style in ".*")| {
             // Test that the component can be created with various class and style values
-            assert!(true);
+
         });
     }
 
@@ -768,9 +743,9 @@ mod tests {
     fn test_dropdown_menu_trigger_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(class in ".*", style in ".*", disabled: bool)| {
+        proptest!(|(__class in ".*", _style in ".*", _disabled: bool)| {
             // Test that the trigger component can be created with various properties
-            assert!(true);
+
         });
     }
 
@@ -778,9 +753,9 @@ mod tests {
     fn test_dropdown_menu_item_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(class in ".*", style in ".*", disabled: bool)| {
+        proptest!(|(__class in ".*", _style in ".*", _disabled: bool)| {
             // Test that the item component can be created with various properties
-            assert!(true);
+
         });
     }
 
@@ -788,9 +763,9 @@ mod tests {
     fn test_dropdown_menu_checkbox_item_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(class in ".*", style in ".*", checked: bool, disabled: bool)| {
+        proptest!(|(__class in ".*", _style in ".*", _checked: bool, _disabled: bool)| {
             // Test that the checkbox item component can be created with various properties
-            assert!(true);
+
         });
     }
 
@@ -798,9 +773,9 @@ mod tests {
     fn test_dropdown_menu_radio_item_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(class in ".*", style in ".*", value in ".*", checked: bool, disabled: bool)| {
+        proptest!(|(__class in ".*", _style in ".*", _value in ".*", _checked: bool, _disabled: bool)| {
             // Test that the radio item component can be created with various properties
-            assert!(true);
+
         });
     }
 }

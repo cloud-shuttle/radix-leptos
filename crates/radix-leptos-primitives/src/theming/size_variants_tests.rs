@@ -5,7 +5,7 @@ mod tests {
 
     #[test]
     fn test_size_variants_creation() {
-        let sizes = vec![
+        let sizes = [
             Size::Xs,
             Size::Sm,
             Size::Md,
@@ -79,7 +79,7 @@ mod tests {
 
     #[test]
     fn test_size_variants_all_have_valid_classes() {
-        let sizes = vec![Size::Xs, Size::Sm, Size::Md, Size::Lg, Size::Xl, Size::Xxl];
+        let sizes = [Size::Xs, Size::Sm, Size::Md, Size::Lg, Size::Xl, Size::Xxl];
         
         for size in sizes {
             let class = size.class();
@@ -91,7 +91,7 @@ mod tests {
 
     #[test]
     fn test_size_variants_all_have_valid_spacing() {
-        let sizes = vec![Size::Xs, Size::Sm, Size::Md, Size::Lg, Size::Xl, Size::Xxl];
+        let sizes = [Size::Xs, Size::Sm, Size::Md, Size::Lg, Size::Xl, Size::Xxl];
         
         for size in sizes {
             let spacing = size.spacing();
@@ -103,7 +103,7 @@ mod tests {
 
     #[test]
     fn test_size_variants_all_have_valid_font_sizes() {
-        let sizes = vec![Size::Xs, Size::Sm, Size::Md, Size::Lg, Size::Xl, Size::Xxl];
+        let sizes = [Size::Xs, Size::Sm, Size::Md, Size::Lg, Size::Xl, Size::Xxl];
         
         for size in sizes {
             let font_size = size.font_size();

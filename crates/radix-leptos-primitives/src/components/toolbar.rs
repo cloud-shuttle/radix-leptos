@@ -1,8 +1,8 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// Toolbar component for action toolbar functionality
-/// 
+///
 /// Provides accessible toolbar with keyboard support and ARIA attributes
 #[component]
 pub fn Toolbar(
@@ -15,7 +15,7 @@ pub fn Toolbar(
     let orientation = orientation.unwrap_or_default();
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "toolbar",
         &orientation.to_class(),
         if disabled { "disabled" } else { "" },
@@ -54,7 +54,9 @@ pub fn ToolbarToggleGroup(
     let type_ = type_.unwrap_or_default();
     let disabled = disabled.unwrap_or(false);
     let (current_value, set_current_value) = signal(
-        value.clone().unwrap_or_else(|| default_value.unwrap_or_default())
+        value
+            .clone()
+            .unwrap_or_else(|| default_value.unwrap_or_default()),
     );
 
     // Handle external value changes
@@ -71,7 +73,7 @@ pub fn ToolbarToggleGroup(
         });
     }
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "toolbar-toggle-group",
         &variant.to_class(),
         &size.to_class(),
@@ -105,7 +107,7 @@ pub fn ToolbarToggleItem(
     let disabled = disabled.unwrap_or(false);
     let value = value.unwrap_or_default();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "toolbar-toggle-item",
         if disabled { "disabled" } else { "" },
         class.as_deref().unwrap_or(""),
@@ -152,7 +154,7 @@ pub fn ToolbarSeparator(
 ) -> impl IntoView {
     let orientation = orientation.unwrap_or_default();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "toolbar-separator",
         &orientation.to_class(),
         class.as_deref().unwrap_or(""),
@@ -183,7 +185,7 @@ pub fn ToolbarButton(
     let size = size.unwrap_or_default();
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "toolbar-button",
         &variant.to_class(),
         &size.to_class(),
@@ -392,233 +394,143 @@ mod tests {
 
     // Toolbar Tests
     #[test]
-    fn test_toolbar_creation() {
-        assert!(true);
-    }
+    fn test_toolbar_creation() {}
 
     #[test]
-    fn test_toolbar_with_class() {
-        assert!(true);
-    }
+    fn test_toolbar_with_class() {}
 
     #[test]
-    fn test_toolbar_with_style() {
-        assert!(true);
-    }
+    fn test_toolbar_with_style() {}
 
     #[test]
-    fn test_toolbar_horizontal_orientation() {
-        assert!(true);
-    }
+    fn test_toolbar_horizontal_orientation() {}
 
     #[test]
-    fn test_toolbar_vertical_orientation() {
-        assert!(true);
-    }
+    fn test_toolbar_vertical_orientation() {}
 
     #[test]
-    fn test_toolbar_disabled() {
-        assert!(true);
-    }
+    fn test_toolbar_disabled() {}
 
     // Toolbar Toggle Group Tests
     #[test]
-    fn test_toolbar_toggle_group_creation() {
-        assert!(true);
-    }
+    fn test_toolbar_toggle_group_creation() {}
 
     #[test]
-    fn test_toolbar_toggle_group_with_class() {
-        assert!(true);
-    }
+    fn test_toolbar_toggle_group_with_class() {}
 
     #[test]
-    fn test_toolbar_toggle_group_with_style() {
-        assert!(true);
-    }
+    fn test_toolbar_toggle_group_with_style() {}
 
     #[test]
-    fn test_toolbar_toggle_group_default_variant() {
-        assert!(true);
-    }
+    fn test_toolbar_toggle_group_default_variant() {}
 
     #[test]
-    fn test_toolbar_toggle_group_outline_variant() {
-        assert!(true);
-    }
+    fn test_toolbar_toggle_group_outline_variant() {}
 
     #[test]
-    fn test_toolbar_toggle_group_ghost_variant() {
-        assert!(true);
-    }
+    fn test_toolbar_toggle_group_ghost_variant() {}
 
     #[test]
-    fn test_toolbar_toggle_group_destructive_variant() {
-        assert!(true);
-    }
+    fn test_toolbar_toggle_group_destructive_variant() {}
 
     #[test]
-    fn test_toolbar_toggle_group_default_size() {
-        assert!(true);
-    }
+    fn test_toolbar_toggle_group_default_size() {}
 
     #[test]
-    fn test_toolbar_toggle_group_small_size() {
-        assert!(true);
-    }
+    fn test_toolbar_toggle_group_small_size() {}
 
     #[test]
-    fn test_toolbar_toggle_group_large_size() {
-        assert!(true);
-    }
+    fn test_toolbar_toggle_group_large_size() {}
 
     #[test]
-    fn test_toolbar_toggle_group_single_type() {
-        assert!(true);
-    }
+    fn test_toolbar_toggle_group_single_type() {}
 
     #[test]
-    fn test_toolbar_toggle_group_multiple_type() {
-        assert!(true);
-    }
+    fn test_toolbar_toggle_group_multiple_type() {}
 
     #[test]
-    fn test_toolbar_toggle_group_with_value() {
-        assert!(true);
-    }
+    fn test_toolbar_toggle_group_with_value() {}
 
     #[test]
-    fn test_toolbar_toggle_group_with_default_value() {
-        assert!(true);
-    }
+    fn test_toolbar_toggle_group_with_default_value() {}
 
     #[test]
-    fn test_toolbar_toggle_group_disabled() {
-        assert!(true);
-    }
+    fn test_toolbar_toggle_group_disabled() {}
 
     #[test]
-    fn test_toolbar_toggle_group_on_value_change() {
-        assert!(true);
-    }
+    fn test_toolbar_toggle_group_on_value_change() {}
 
     // Toolbar Toggle Item Tests
     #[test]
-    fn test_toolbar_toggle_item_creation() {
-        assert!(true);
-    }
+    fn test_toolbar_toggle_item_creation() {}
 
     #[test]
-    fn test_toolbar_toggle_item_with_class() {
-        assert!(true);
-    }
+    fn test_toolbar_toggle_item_with_class() {}
 
     #[test]
-    fn test_toolbar_toggle_item_with_style() {
-        assert!(true);
-    }
+    fn test_toolbar_toggle_item_with_style() {}
 
     #[test]
-    fn test_toolbar_toggle_item_with_value() {
-        assert!(true);
-    }
+    fn test_toolbar_toggle_item_with_value() {}
 
     #[test]
-    fn test_toolbar_toggle_item_disabled() {
-        assert!(true);
-    }
+    fn test_toolbar_toggle_item_disabled() {}
 
     #[test]
-    fn test_toolbar_toggle_item_on_click() {
-        assert!(true);
-    }
+    fn test_toolbar_toggle_item_on_click() {}
 
     // Toolbar Separator Tests
     #[test]
-    fn test_toolbar_separator_creation() {
-        assert!(true);
-    }
+    fn test_toolbar_separator_creation() {}
 
     #[test]
-    fn test_toolbar_separator_with_class() {
-        assert!(true);
-    }
+    fn test_toolbar_separator_with_class() {}
 
     #[test]
-    fn test_toolbar_separator_with_style() {
-        assert!(true);
-    }
+    fn test_toolbar_separator_with_style() {}
 
     #[test]
-    fn test_toolbar_separator_vertical_orientation() {
-        assert!(true);
-    }
+    fn test_toolbar_separator_vertical_orientation() {}
 
     #[test]
-    fn test_toolbar_separator_horizontal_orientation() {
-        assert!(true);
-    }
+    fn test_toolbar_separator_horizontal_orientation() {}
 
     // Toolbar Button Tests
     #[test]
-    fn test_toolbar_button_creation() {
-        assert!(true);
-    }
+    fn test_toolbar_button_creation() {}
 
     #[test]
-    fn test_toolbar_button_with_class() {
-        assert!(true);
-    }
+    fn test_toolbar_button_with_class() {}
 
     #[test]
-    fn test_toolbar_button_with_style() {
-        assert!(true);
-    }
+    fn test_toolbar_button_with_style() {}
 
     #[test]
-    fn test_toolbar_button_default_variant() {
-        assert!(true);
-    }
+    fn test_toolbar_button_default_variant() {}
 
     #[test]
-    fn test_toolbar_button_outline_variant() {
-        assert!(true);
-    }
+    fn test_toolbar_button_outline_variant() {}
 
     #[test]
-    fn test_toolbar_button_ghost_variant() {
-        assert!(true);
-    }
+    fn test_toolbar_button_ghost_variant() {}
 
     #[test]
-    fn test_toolbar_button_destructive_variant() {
-        assert!(true);
-    }
+    fn test_toolbar_button_destructive_variant() {}
 
     #[test]
-    fn test_toolbar_button_default_size() {
-        assert!(true);
-    }
+    fn test_toolbar_button_default_size() {}
 
     #[test]
-    fn test_toolbar_button_small_size() {
-        assert!(true);
-    }
+    fn test_toolbar_button_small_size() {}
 
     #[test]
-    fn test_toolbar_button_large_size() {
-        assert!(true);
-    }
+    fn test_toolbar_button_large_size() {}
 
     #[test]
-    fn test_toolbar_button_disabled() {
-        assert!(true);
-    }
+    fn test_toolbar_button_disabled() {}
 
     #[test]
-    fn test_toolbar_button_on_click() {
-        assert!(true);
-    }
+    fn test_toolbar_button_on_click() {}
 
     // Toolbar Orientation Tests
     #[test]
@@ -798,25 +710,25 @@ mod tests {
     // Helper Function Tests
     #[test]
     fn test_merge_classes_empty() {
-        let result = merge_classes(vec![]);
+        let result = merge_classes([]);
         assert_eq!(result, "");
     }
 
     #[test]
     fn test_merge_classes_single() {
-        let result = merge_classes(vec!["class1"]);
+        let result = merge_classes(["class1"]);
         assert_eq!(result, "class1");
     }
 
     #[test]
     fn test_merge_classes_multiple() {
-        let result = merge_classes(vec!["class1", "class2", "class3"]);
+        let result = merge_classes(["class1", "class2", "class3"]);
         assert_eq!(result, "class1 class2 class3");
     }
 
     #[test]
     fn test_merge_classes_with_empty() {
-        let result = merge_classes(vec!["class1", "", "class3"]);
+        let result = merge_classes(["class1", "", "class3"]);
         assert_eq!(result, "class1 class3");
     }
 
@@ -824,40 +736,40 @@ mod tests {
     #[test]
     fn test_toolbar_property_based() {
         use proptest::prelude::*;
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*")| {
+
         });
     }
 
     #[test]
     fn test_toolbar_toggle_group_property_based() {
         use proptest::prelude::*;
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*")| {
+
         });
     }
 
     #[test]
     fn test_toolbar_toggle_item_property_based() {
         use proptest::prelude::*;
-        proptest!(|(class in ".*", style in ".*", value in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*", _value in ".*")| {
+
         });
     }
 
     #[test]
     fn test_toolbar_separator_property_based() {
         use proptest::prelude::*;
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*")| {
+
         });
     }
 
     #[test]
     fn test_toolbar_button_property_based() {
         use proptest::prelude::*;
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*")| {
+
         });
     }
 }

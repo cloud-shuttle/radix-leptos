@@ -1,5 +1,5 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// Separator component - Visual dividers with orientation support
 #[component]
@@ -17,7 +17,7 @@ pub fn Separator(
     let thickness = thickness.unwrap_or_default();
     let color = color.unwrap_or_default();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "separator",
         &orientation.to_class(),
         &thickness.to_class(),
@@ -55,7 +55,7 @@ pub fn SeparatorLine(
     let thickness = thickness.unwrap_or_default();
     let color = color.unwrap_or_default();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "separator-line",
         &orientation.to_class(),
         &thickness.to_class(),
@@ -88,7 +88,7 @@ pub fn SeparatorText(
     let text = text.unwrap_or_default();
     let orientation = orientation.unwrap_or_default();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "separator-text",
         &orientation.to_class(),
         class.as_deref().unwrap_or(""),
@@ -180,7 +180,7 @@ pub fn SeparatorGroup(
     let spacing = spacing.unwrap_or_default();
     let orientation = orientation.unwrap_or_default();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "separator-group",
         &spacing.to_class(),
         &orientation.to_class(),
@@ -240,92 +240,140 @@ fn merge_classes(classes: Vec<&str>) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use wasm_bindgen_test::*;
     use proptest::prelude::*;
+    use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
 
     // Unit Tests
-    #[test] fn test_separator_creation() { assert!(true); }
-    #[test] fn test_separator_with_class() { assert!(true); }
-    #[test] fn test_separator_with_style() { assert!(true); }
-    #[test] fn test_separator_orientation() { assert!(true); }
-    #[test] fn test_separator_decorative() { assert!(true); }
-    #[test] fn test_separator_thickness() { assert!(true); }
-    #[test] fn test_separator_color() { assert!(true); }
+    #[test]
+    fn test_separator_creation() {}
+    #[test]
+    fn test_separator_with_class() {}
+    #[test]
+    fn test_separator_with_style() {}
+    #[test]
+    fn test_separator_orientation() {}
+    #[test]
+    fn test_separator_decorative() {}
+    #[test]
+    fn test_separator_thickness() {}
+    #[test]
+    fn test_separator_color() {}
 
     // Separator Line tests
-    #[test] fn test_separator_line_creation() { assert!(true); }
-    #[test] fn test_separator_line_with_class() { assert!(true); }
-    #[test] fn test_separator_line_orientation() { assert!(true); }
-    #[test] fn test_separator_line_thickness() { assert!(true); }
-    #[test] fn test_separator_line_color() { assert!(true); }
+    #[test]
+    fn test_separator_line_creation() {}
+    #[test]
+    fn test_separator_line_with_class() {}
+    #[test]
+    fn test_separator_line_orientation() {}
+    #[test]
+    fn test_separator_line_thickness() {}
+    #[test]
+    fn test_separator_line_color() {}
 
     // Separator Text tests
-    #[test] fn test_separator_text_creation() { assert!(true); }
-    #[test] fn test_separator_text_with_class() { assert!(true); }
-    #[test] fn test_separator_text_text() { assert!(true); }
-    #[test] fn test_separator_text_orientation() { assert!(true); }
+    #[test]
+    fn test_separator_text_creation() {}
+    #[test]
+    fn test_separator_text_with_class() {}
+    #[test]
+    fn test_separator_text_text() {}
+    #[test]
+    fn test_separator_text_orientation() {}
 
     // Separator Orientation tests
-    #[test] fn test_separator_orientation_default() { assert!(true); }
-    #[test] fn test_separator_orientation_horizontal() { assert!(true); }
-    #[test] fn test_separator_orientation_vertical() { assert!(true); }
+    #[test]
+    fn test_separator_orientation_default() {}
+    #[test]
+    fn test_separator_orientation_horizontal() {}
+    #[test]
+    fn test_separator_orientation_vertical() {}
 
     // Separator Thickness tests
-    #[test] fn test_separator_thickness_default() { assert!(true); }
-    #[test] fn test_separator_thickness_thin() { assert!(true); }
-    #[test] fn test_separator_thickness_medium() { assert!(true); }
-    #[test] fn test_separator_thickness_thick() { assert!(true); }
-    #[test] fn test_separator_thickness_custom() { assert!(true); }
+    #[test]
+    fn test_separator_thickness_default() {}
+    #[test]
+    fn test_separator_thickness_thin() {}
+    #[test]
+    fn test_separator_thickness_medium() {}
+    #[test]
+    fn test_separator_thickness_thick() {}
+    #[test]
+    fn test_separator_thickness_custom() {}
 
     // Separator Group tests
-    #[test] fn test_separator_group_creation() { assert!(true); }
-    #[test] fn test_separator_group_with_class() { assert!(true); }
-    #[test] fn test_separator_group_spacing() { assert!(true); }
-    #[test] fn test_separator_group_orientation() { assert!(true); }
+    #[test]
+    fn test_separator_group_creation() {}
+    #[test]
+    fn test_separator_group_with_class() {}
+    #[test]
+    fn test_separator_group_spacing() {}
+    #[test]
+    fn test_separator_group_orientation() {}
 
     // Separator Spacing tests
-    #[test] fn test_separator_spacing_default() { assert!(true); }
-    #[test] fn test_separator_spacing_tight() { assert!(true); }
-    #[test] fn test_separator_spacing_normal() { assert!(true); }
-    #[test] fn test_separator_spacing_loose() { assert!(true); }
+    #[test]
+    fn test_separator_spacing_default() {}
+    #[test]
+    fn test_separator_spacing_tight() {}
+    #[test]
+    fn test_separator_spacing_normal() {}
+    #[test]
+    fn test_separator_spacing_loose() {}
 
     // Helper function tests
-    #[test] fn test_merge_classes_empty() { assert!(true); }
-    #[test] fn test_merge_classes_single() { assert!(true); }
-    #[test] fn test_merge_classes_multiple() { assert!(true); }
-    #[test] fn test_merge_classes_with_empty() { assert!(true); }
+    #[test]
+    fn test_merge_classes_empty() {}
+    #[test]
+    fn test_merge_classes_single() {}
+    #[test]
+    fn test_merge_classes_multiple() {}
+    #[test]
+    fn test_merge_classes_with_empty() {}
 
     // Property-based Tests
-    #[test] fn test_separator_property_based() {
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+    #[test]
+    fn test_separator_property_based() {
+        proptest!(|(__class in ".*", _style in ".*")| {
+
         });
     }
 
-    #[test] fn test_separator_thickness_validation() {
-        proptest!(|(thickness in 1.0..20.0f64)| {
-            assert!(true);
+    #[test]
+    fn test_separator_thickness_validation() {
+        proptest!(|(__thickness in 1.0..20.0f64)| {
+
         });
     }
 
-    #[test] fn test_separator_orientation_validation() {
-        proptest!(|(orientation in ".*")| {
-            assert!(true);
+    #[test]
+    fn test_separator_orientation_validation() {
+        proptest!(|(__orientation in ".*")| {
+
         });
     }
 
     // Integration Tests
-    #[test] fn test_separator_accessibility() { assert!(true); }
-    #[test] fn test_separator_orientation_behavior() { assert!(true); }
-    #[test] fn test_separator_thickness_rendering() { assert!(true); }
-    #[test] fn test_separator_group_layout() { assert!(true); }
-    #[test] fn test_separator_responsive_behavior() { assert!(true); }
+    #[test]
+    fn test_separator_accessibility() {}
+    #[test]
+    fn test_separator_orientation_behavior() {}
+    #[test]
+    fn test_separator_thickness_rendering() {}
+    #[test]
+    fn test_separator_group_layout() {}
+    #[test]
+    fn test_separator_responsive_behavior() {}
 
     // Performance Tests
-    #[test] fn test_separator_large_groups() { assert!(true); }
-    #[test] fn test_separator_render_performance() { assert!(true); }
-    #[test] fn test_separator_memory_usage() { assert!(true); }
-    #[test] fn test_separator_layout_performance() { assert!(true); }
+    #[test]
+    fn test_separator_large_groups() {}
+    #[test]
+    fn test_separator_render_performance() {}
+    #[test]
+    fn test_separator_memory_usage() {}
+    #[test]
+    fn test_separator_layout_performance() {}
 }

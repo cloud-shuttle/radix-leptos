@@ -242,7 +242,7 @@ mod tests {
         let themes = PrebuiltThemes::default();
         
         // Test that all themes have valid colors
-        let all_themes = vec![
+        let all_themes = [
             &themes.light, &themes.dark, &themes.high_contrast,
             &themes.finance, &themes.healthcare, &themes.education,
             &themes.ecommerce, &themes.gaming, &themes.minimal, &themes.vibrant,

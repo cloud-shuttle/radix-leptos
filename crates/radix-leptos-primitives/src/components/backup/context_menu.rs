@@ -30,7 +30,7 @@ pub fn ContextMenu(
     size: ContextMenuSize,
     /// Whether the context menu is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -72,7 +72,7 @@ pub fn ContextMenu(
 
     let class_value = class.unwrap_or_default();
 
-    let mut base_classes = vec![
+    let mut base_classes = [
         "radix-context-menu",
         &size_class(),
         &class_value,
@@ -127,7 +127,7 @@ pub fn ContextMenu(
 pub fn ContextMenuTrigger(
     /// Whether the trigger is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -136,7 +136,7 @@ pub fn ContextMenuTrigger(
 ) -> impl IntoView {
     let class_value = class.unwrap_or_default();
 
-    let mut base_classes = vec![
+    let mut base_classes = [
         "radix-context-menu-trigger",
         &class_value,
     ];
@@ -163,7 +163,7 @@ pub fn ContextMenuTrigger(
 pub fn ContextMenuContent(
     /// Whether the content is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -172,7 +172,7 @@ pub fn ContextMenuContent(
 ) -> impl IntoView {
     let class_value = class.unwrap_or_default();
 
-    let mut base_classes = vec![
+    let mut base_classes = [
         "radix-context-menu-content",
         &class_value,
     ];
@@ -206,10 +206,10 @@ pub fn ContextMenuItem(
     variant: ContextMenuItemVariant,
     /// Whether the item is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// Whether the item is selected
     #[prop(optional, default = false)]
-    selected: bool,
+    _selected: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -229,7 +229,7 @@ pub fn ContextMenuItem(
         }
     };
 
-    let mut base_classes = vec![
+    let mut base_classes = [
         "radix-context-menu-item",
         &variant_class(),
         &class_value,
@@ -291,7 +291,7 @@ pub fn ContextMenuSeparator(
 ) -> impl IntoView {
     let class_value = class.unwrap_or_default();
 
-    let mut base_classes = vec![
+    let mut base_classes = [
         "radix-context-menu-separator",
         &class_value,
     ];
@@ -316,7 +316,7 @@ pub fn ContextMenuLabel(
 ) -> impl IntoView {
     let class_value = class.unwrap_or_default();
 
-    let mut base_classes = vec![
+    let mut base_classes = [
         "radix-context-menu-label",
         &class_value,
     ];
@@ -337,10 +337,10 @@ pub fn ContextMenuLabel(
 pub fn ContextMenuCheckboxItem(
     /// Whether the checkbox is checked
     #[prop(optional, default = false)]
-    checked: bool,
+    _checked: bool,
     /// Whether the item is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -354,7 +354,7 @@ pub fn ContextMenuCheckboxItem(
 
     let class_value = class.unwrap_or_default();
 
-    let mut base_classes = vec![
+    let mut base_classes = [
         "radix-context-menu-checkbox-item",
         &class_value,
     ];
@@ -425,10 +425,10 @@ pub fn ContextMenuRadioItem(
     value: String,
     /// Whether the radio is checked
     #[prop(optional, default = false)]
-    checked: bool,
+    _checked: bool,
     /// Whether the item is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -440,7 +440,7 @@ pub fn ContextMenuRadioItem(
 ) -> impl IntoView {
     let class_value = class.unwrap_or_default();
 
-    let mut base_classes = vec![
+    let mut base_classes = [
         "radix-context-menu-radio-item",
         &class_value,
     ];

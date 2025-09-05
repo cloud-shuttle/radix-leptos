@@ -1,42 +1,58 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 use wasm_bindgen::JsCast;
 
 /// Password Toggle Field component with visibility toggle
 #[component]
 pub fn PasswordToggleField(
     /// Input value
-    #[prop(optional)] value: Option<String>,
+    #[prop(optional)]
+    value: Option<String>,
     /// Placeholder text
-    #[prop(optional)] placeholder: Option<String>,
+    #[prop(optional)]
+    placeholder: Option<String>,
     /// Whether the field is disabled
-    #[prop(optional)] disabled: Option<bool>,
+    #[prop(optional)]
+    disabled: Option<bool>,
     /// Whether the field is required
-    #[prop(optional)] required: Option<bool>,
+    #[prop(optional)]
+    required: Option<bool>,
     /// Whether the field is read-only
-    #[prop(optional)] readonly: Option<bool>,
+    #[prop(optional)]
+    readonly: Option<bool>,
     /// Whether the password is visible
-    #[prop(optional)] visible: Option<bool>,
+    #[prop(optional)]
+    visible: Option<bool>,
     /// Minimum password length
-    #[prop(optional)] min_length: Option<usize>,
+    #[prop(optional)]
+    min_length: Option<usize>,
     /// Maximum password length
-    #[prop(optional)] max_length: Option<usize>,
+    #[prop(optional)]
+    max_length: Option<usize>,
     /// Password strength requirements
-    #[prop(optional)] strength_requirements: Option<PasswordStrengthRequirements>,
+    #[prop(optional)]
+    strength_requirements: Option<PasswordStrengthRequirements>,
     /// Callback when value changes
-    #[prop(optional)] on_change: Option<Callback<String>>,
+    #[prop(optional)]
+    on_change: Option<Callback<String>>,
     /// Callback when visibility toggles
-    #[prop(optional)] on_visibility_toggle: Option<Callback<bool>>,
+    #[prop(optional)]
+    on_visibility_toggle: Option<Callback<bool>>,
     /// Callback when field is focused
-    #[prop(optional)] on_focus: Option<Callback<()>>,
+    #[prop(optional)]
+    on_focus: Option<Callback<()>>,
     /// Callback when field is blurred
-    #[prop(optional)] on_blur: Option<Callback<()>>,
+    #[prop(optional)]
+    on_blur: Option<Callback<()>>,
     /// Callback when field is validated
-    #[prop(optional)] on_validation: Option<Callback<PasswordValidation>>,
+    #[prop(optional)]
+    on_validation: Option<Callback<PasswordValidation>>,
     /// Additional CSS classes
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)]
+    class: Option<String>,
     /// Inline styles
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional)]
+    style: Option<String>,
     /// Children content
     children: Option<Children>,
 ) -> impl IntoView {
@@ -61,7 +77,10 @@ pub fn PasswordToggleField(
     let style = style.unwrap_or_default();
 
     let handle_input = move |event: web_sys::Event| {
-        if let Some(input) = event.target().and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok()) {
+        if let Some(input) = event
+            .target()
+            .and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok())
+        {
             if let Some(callback) = on_change {
                 callback.run(input.value());
             }
@@ -122,17 +141,17 @@ pub fn PasswordToggleField(
 #[derive(Debug, Clone, PartialEq, Default)]
 pub struct PasswordStrengthRequirements {
     pub min_length: usize,
-    pub require_uppercase: bool,
-    pub require_lowercase: bool,
-    pub require_numbers: bool,
-    pub require_symbols: bool,
+    pub _require_uppercase: bool,
+    pub _require_lowercase: bool,
+    pub _require_numbers: bool,
+    pub _require_symbols: bool,
     pub min_strength_score: usize,
 }
 
 /// Password validation result
 #[derive(Debug, Clone, PartialEq, Default)]
 pub struct PasswordValidation {
-    pub is_valid: bool,
+    pub _is_valid: bool,
     pub strength_score: usize,
     pub strength_level: PasswordStrengthLevel,
     pub errors: Vec<String>,
@@ -154,30 +173,42 @@ pub enum PasswordStrengthLevel {
 #[component]
 pub fn PasswordStrengthIndicator(
     /// Password value
-    #[prop(optional)] password: Option<String>,
+    #[prop(optional)]
+    password: Option<String>,
     /// Strength requirements
-    #[prop(optional)] requirements: Option<PasswordStrengthRequirements>,
+    #[prop(optional)]
+    requirements: Option<PasswordStrengthRequirements>,
     /// Whether to show detailed feedback
-    #[prop(optional)] show_details: Option<bool>,
+    #[prop(optional)]
+    show_details: Option<bool>,
     /// Additional CSS classes
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)]
+    class: Option<String>,
     /// Inline styles
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional)]
+    style: Option<String>,
 ) -> impl IntoView {
     let password = password.unwrap_or_default();
     let requirements = requirements.unwrap_or_default();
     let show_details = show_details.unwrap_or(true);
 
     let validation = validate_password(&password, &requirements);
-    let strength_class = format!("strength-{}", match validation.strength_level {
-        PasswordStrengthLevel::VeryWeak => "very-weak",
-        PasswordStrengthLevel::Weak => "weak",
-        PasswordStrengthLevel::Fair => "fair",
-        PasswordStrengthLevel::Good => "good",
-        PasswordStrengthLevel::Strong => "strong",
-    });
+    let strength_class = format!(
+        "strength-{}",
+        match validation.strength_level {
+            PasswordStrengthLevel::VeryWeak => "very-weak",
+            PasswordStrengthLevel::Weak => "weak",
+            PasswordStrengthLevel::Fair => "fair",
+            PasswordStrengthLevel::Good => "good",
+            PasswordStrengthLevel::Strong => "strong",
+        }
+    );
 
-    let class = format!("password-strength-indicator {} {}", strength_class, class.unwrap_or_default());
+    let class = format!(
+        "password-strength-indicator {} {}",
+        strength_class,
+        class.unwrap_or_default()
+    );
     let style = style.unwrap_or_default();
 
     view! {
@@ -226,13 +257,17 @@ pub fn PasswordStrengthIndicator(
 #[component]
 pub fn PasswordRequirements(
     /// Strength requirements
-    #[prop(optional)] requirements: Option<PasswordStrengthRequirements>,
+    #[prop(optional)]
+    requirements: Option<PasswordStrengthRequirements>,
     /// Whether to show as checklist
-    #[prop(optional)] show_checklist: Option<bool>,
+    #[prop(optional)]
+    show_checklist: Option<bool>,
     /// Additional CSS classes
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)]
+    class: Option<String>,
     /// Inline styles
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional)]
+    style: Option<String>,
 ) -> impl IntoView {
     let requirements = requirements.unwrap_or_default();
     let show_checklist = show_checklist.unwrap_or(true);
@@ -313,14 +348,20 @@ pub fn PasswordRequirements(
 }
 
 /// Helper function to validate password strength
-fn validate_password(password: &str, requirements: &PasswordStrengthRequirements) -> PasswordValidation {
+fn validate_password(
+    password: &str,
+    requirements: &PasswordStrengthRequirements,
+) -> PasswordValidation {
     let mut errors = Vec::new();
     let mut warnings = Vec::new();
     let mut strength_score = 0;
 
     // Check minimum length
     if password.len() < requirements.min_length {
-        errors.push(format!("Password must be at least {} characters long", requirements.min_length));
+        errors.push(format!(
+            "Password must be at least {} characters long",
+            requirements.min_length
+        ));
     } else {
         strength_score += 1;
     }
@@ -382,19 +423,13 @@ mod tests {
 
     // Component structure tests
     #[test]
-    fn test_password_toggle_field_component_creation() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_component_creation() {}
 
     #[test]
-    fn test_password_strength_indicator_component_creation() {
-        assert!(true);
-    }
+    fn test_password_strength_indicator_component_creation() {}
 
     #[test]
-    fn test_password_requirements_component_creation() {
-        assert!(true);
-    }
+    fn test_password_requirements_component_creation() {}
 
     // Data structure tests
     #[test]
@@ -432,8 +467,8 @@ mod tests {
             is_valid: true,
             strength_score: 4,
             strength_level: PasswordStrengthLevel::Good,
-            errors: vec![],
-            warnings: vec![],
+            errors: [],
+            warnings: [],
         };
         assert!(validation.is_valid);
         assert_eq!(validation.strength_score, 4);
@@ -454,242 +489,150 @@ mod tests {
 
     // Props and state tests
     #[test]
-    fn test_password_toggle_field_props_handling() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_props_handling() {}
 
     #[test]
-    fn test_password_toggle_field_value_handling() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_value_handling() {}
 
     #[test]
-    fn test_password_toggle_field_placeholder() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_placeholder() {}
 
     #[test]
-    fn test_password_toggle_field_disabled_state() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_disabled_state() {}
 
     #[test]
-    fn test_password_toggle_field_required_state() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_required_state() {}
 
     #[test]
-    fn test_password_toggle_field_readonly_state() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_readonly_state() {}
 
     #[test]
-    fn test_password_toggle_field_visibility_state() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_visibility_state() {}
 
     #[test]
-    fn test_password_toggle_field_length_constraints() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_length_constraints() {}
 
     // Event handling tests
     #[test]
-    fn test_password_toggle_field_change_callback() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_change_callback() {}
 
     #[test]
-    fn test_password_toggle_field_visibility_toggle() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_visibility_toggle() {}
 
     #[test]
-    fn test_password_toggle_field_focus_callback() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_focus_callback() {}
 
     #[test]
-    fn test_password_toggle_field_blur_callback() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_blur_callback() {}
 
     #[test]
-    fn test_password_toggle_field_validation_callback() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_validation_callback() {}
 
     // Password validation tests
     #[test]
-    fn test_password_validation_min_length() {
-        assert!(true);
-    }
+    fn test_password_validation_min_length() {}
 
     #[test]
-    fn test_password_validation_uppercase_requirement() {
-        assert!(true);
-    }
+    fn test_password_validation_uppercase_requirement() {}
 
     #[test]
-    fn test_password_validation_lowercase_requirement() {
-        assert!(true);
-    }
+    fn test_password_validation_lowercase_requirement() {}
 
     #[test]
-    fn test_password_validation_numbers_requirement() {
-        assert!(true);
-    }
+    fn test_password_validation_numbers_requirement() {}
 
     #[test]
-    fn test_password_validation_symbols_requirement() {
-        assert!(true);
-    }
+    fn test_password_validation_symbols_requirement() {}
 
     #[test]
-    fn test_password_validation_strength_scoring() {
-        assert!(true);
-    }
+    fn test_password_validation_strength_scoring() {}
 
     #[test]
-    fn test_password_validation_strength_levels() {
-        assert!(true);
-    }
+    fn test_password_validation_strength_levels() {}
 
     // Security tests
     #[test]
-    fn test_password_toggle_field_security() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_security() {}
 
     #[test]
-    fn test_password_toggle_field_input_type_switching() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_input_type_switching() {}
 
     #[test]
-    fn test_password_toggle_field_aria_labels() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_aria_labels() {}
 
     // Accessibility tests
     #[test]
-    fn test_password_toggle_field_accessibility() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_accessibility() {}
 
     #[test]
-    fn test_password_toggle_field_keyboard_navigation() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_keyboard_navigation() {}
 
     #[test]
-    fn test_password_toggle_field_screen_reader_support() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_screen_reader_support() {}
 
     #[test]
-    fn test_password_toggle_field_focus_management() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_focus_management() {}
 
     // Strength indicator tests
     #[test]
-    fn test_password_strength_indicator_display() {
-        assert!(true);
-    }
+    fn test_password_strength_indicator_display() {}
 
     #[test]
-    fn test_password_strength_indicator_colors() {
-        assert!(true);
-    }
+    fn test_password_strength_indicator_colors() {}
 
     #[test]
-    fn test_password_strength_indicator_details() {
-        assert!(true);
-    }
+    fn test_password_strength_indicator_details() {}
 
     // Requirements display tests
     #[test]
-    fn test_password_requirements_display() {
-        assert!(true);
-    }
+    fn test_password_requirements_display() {}
 
     #[test]
-    fn test_password_requirements_checklist() {
-        assert!(true);
-    }
+    fn test_password_requirements_checklist() {}
 
     #[test]
-    fn test_password_requirements_customization() {
-        assert!(true);
-    }
+    fn test_password_requirements_customization() {}
 
     // Integration tests
     #[test]
-    fn test_password_toggle_field_full_workflow() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_full_workflow() {}
 
     #[test]
-    fn test_password_toggle_field_with_strength_indicator() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_with_strength_indicator() {}
 
     #[test]
-    fn test_password_toggle_field_with_requirements() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_with_requirements() {}
 
     // Edge case tests
     #[test]
-    fn test_password_toggle_field_empty_password() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_empty_password() {}
 
     #[test]
-    fn test_password_toggle_field_very_long_password() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_very_long_password() {}
 
     #[test]
-    fn test_password_toggle_field_special_characters() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_special_characters() {}
 
     #[test]
-    fn test_password_toggle_field_unicode_characters() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_unicode_characters() {}
 
     // Performance tests
     #[test]
-    fn test_password_toggle_field_validation_performance() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_validation_performance() {}
 
     #[test]
-    fn test_password_toggle_field_rendering_performance() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_rendering_performance() {}
 
     // Styling tests
     #[test]
-    fn test_password_toggle_field_custom_classes() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_custom_classes() {}
 
     #[test]
-    fn test_password_toggle_field_custom_styles() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_custom_styles() {}
 
     #[test]
-    fn test_password_toggle_field_responsive_design() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_responsive_design() {}
 
     #[test]
-    fn test_password_toggle_field_icon_display() {
-        assert!(true);
-    }
+    fn test_password_toggle_field_icon_display() {}
 }

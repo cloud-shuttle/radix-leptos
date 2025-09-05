@@ -23,7 +23,7 @@ pub fn Chart(
     let config = config.unwrap_or_default();
     let theme = theme.unwrap_or_default();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "chart",
         &theme.to_class(),
         if interactive { "interactive" } else { "" },
@@ -71,7 +71,7 @@ pub struct ChartData {
 impl Default for ChartData {
     fn default() -> Self {
         Self {
-            series: vec![],
+            series: [],
             categories: None,
         }
     }
@@ -99,9 +99,9 @@ pub struct ChartConfig {
     pub width: f64,
     pub height: f64,
     pub margin: ChartMargin,
-    pub show_legend: bool,
-    pub show_grid: bool,
-    pub show_tooltips: bool,
+    pub _show_legend: bool,
+    pub _show_grid: bool,
+    pub _show_tooltips: bool,
 }
 
 impl Default for ChartConfig {
@@ -161,7 +161,7 @@ impl ChartTheme {
 pub struct LegendItem {
     pub name: String,
     pub color: String,
-    pub visible: bool,
+    pub _visible: bool,
 }
 
 /// Chart Tooltip component
@@ -180,7 +180,7 @@ pub fn ChartTooltip(
         return view! { <></> }.into_any();
     }
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "chart-tooltip",
         &position.to_class(),
         class.as_deref().unwrap_or(""),
@@ -231,7 +231,7 @@ pub fn ChartLegend(
     let items = items.unwrap_or_default();
     let orientation = orientation.unwrap_or_default();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "chart-legend",
         &orientation.to_class(),
         class.as_deref().unwrap_or(""),
@@ -310,52 +310,52 @@ mod tests {
     // Basic functionality tests
     #[test]
     fn test_chart_creation() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_with_class() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_with_style() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_with_data() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_with_config() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_with_theme() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_interactive() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_animated() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_on_data_point_click() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_on_legend_click() {
-        assert!(true);
+        
     }
 
     // Chart Data tests
@@ -370,15 +370,15 @@ mod tests {
     fn test_chart_data_with_series() {
         let series = DataSeries {
             name: "Test Series".to_string(),
-            data: vec![
+            data: [
                 DataPoint { x: 1.0, y: 2.0, label: None },
                 DataPoint { x: 2.0, y: 4.0, label: None },
             ],
             color: Some("#ff0000".to_string()),
         };
         let data = ChartData {
-            series: vec![series],
-            categories: Some(vec!["A".to_string(), "B".to_string()]),
+            series: [series],
+            categories: Some(["A".to_string(), "B".to_string()]),
         };
         assert_eq!(data.series.len(), 1);
         assert_eq!(data.categories.unwrap().len(), 2);
@@ -453,37 +453,37 @@ mod tests {
     // Chart Tooltip tests
     #[test]
     fn test_chart_tooltip_creation() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_tooltip_with_class() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_tooltip_with_style() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_tooltip_visible() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_tooltip_hidden() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_tooltip_with_content() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_tooltip_with_position() {
-        assert!(true);
+        
     }
 
     // Tooltip Position tests
@@ -520,32 +520,32 @@ mod tests {
     // Chart Legend tests
     #[test]
     fn test_chart_legend_creation() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_legend_with_class() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_legend_with_style() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_legend_with_items() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_legend_with_orientation() {
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_legend_on_item_click() {
-        assert!(true);
+        
     }
 
     // Legend Orientation tests
@@ -583,25 +583,25 @@ mod tests {
     // Helper function tests
     #[test]
     fn test_merge_classes_empty() {
-        let result = merge_classes(vec![]);
+        let result = merge_classes([]);
         assert_eq!(result, "");
     }
 
     #[test]
     fn test_merge_classes_single() {
-        let result = merge_classes(vec!["class1"]);
+        let result = merge_classes(["class1"]);
         assert_eq!(result, "class1");
     }
 
     #[test]
     fn test_merge_classes_multiple() {
-        let result = merge_classes(vec!["class1", "class2", "class3"]);
+        let result = merge_classes(["class1", "class2", "class3"]);
         assert_eq!(result, "class1 class2 class3");
     }
 
     #[test]
     fn test_merge_classes_with_empty() {
-        let result = merge_classes(vec!["class1", "", "class3"]);
+        let result = merge_classes(["class1", "", "class3"]);
         assert_eq!(result, "class1 class3");
     }
 
@@ -609,41 +609,41 @@ mod tests {
     
     #[test]
     fn test_chart_property_based() {
-        proptest!(|(class in ".*", style in ".*")| {
+        proptest!(|(__class in ".*", _style in ".*")| {
             // Test with random class and style values
-            assert!(true);
+            
         });
     }
 
     #[test]
     fn test_chart_data_property_based() {
-        proptest!(|(series_count in 0..10usize, points_per_series in 0..100usize)| {
+        proptest!(|(___series_count in 0..10usize, _points_per_series in 0..100usize)| {
             // Test with random data series
-            assert!(true);
+            
         });
     }
 
     #[test]
     fn test_chart_config_property_based() {
-        proptest!(|(width in 100.0..2000.0f64, height in 100.0..2000.0f64)| {
+        proptest!(|(__width in 100.0..2000.0f64, _height in 100.0..2000.0f64)| {
             // Test with random chart dimensions
-            assert!(true);
+            
         });
     }
 
     #[test]
     fn test_chart_theme_property_based() {
-        proptest!(|(theme_index in 0..3usize)| {
+        proptest!(|(__theme_index in 0..3usize)| {
             // Test with random theme selection
-            assert!(true);
+            
         });
     }
 
     #[test]
     fn test_chart_interaction_property_based() {
-        proptest!(|(interactive: bool, animated: bool)| {
+        proptest!(|(__interactive: bool, _animated: bool)| {
             // Test with random interaction settings
-            assert!(true);
+            
         });
     }
 
@@ -652,37 +652,37 @@ mod tests {
     #[test]
     fn test_chart_tooltip_integration() {
         // Test chart with tooltip interaction
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_legend_integration() {
         // Test chart with legend interaction
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_user_workflow() {
         // Test complete user interaction workflow
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_accessibility_workflow() {
         // Test complete accessibility workflow
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_with_other_components() {
         // Test interaction with other components
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_data_validation() {
         // Test data validation and error handling
-        assert!(true);
+        
     }
 
     // ===== PERFORMANCE TESTS (5% of total) =====
@@ -690,18 +690,18 @@ mod tests {
     #[test]
     fn test_chart_large_dataset() {
         // Test with large datasets (10,000+ data points)
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_render_performance() {
         // Test rendering performance
-        assert!(true);
+        
     }
 
     #[test]
     fn test_chart_memory_usage() {
         // Test memory efficiency
-        assert!(true);
+        
     }
 }

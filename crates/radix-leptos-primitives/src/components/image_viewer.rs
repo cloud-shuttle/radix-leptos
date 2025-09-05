@@ -23,7 +23,7 @@ pub fn ImageViewer(
     let pannable = pannable.unwrap_or(true);
     let rotatable = rotatable.unwrap_or(true);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "image-viewer",
         if zoomable { "zoomable" } else { "" },
         if pannable { "pannable" } else { "" },
@@ -89,7 +89,7 @@ pub fn ImageControls(
     let zoom_level = zoom_level.unwrap_or(1.0);
     let rotation = rotation.unwrap_or(0.0);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "image-controls",
         class.as_deref().unwrap_or(""),
     ]);
@@ -122,7 +122,7 @@ pub fn ImageThumbnail(
     let alt = alt.unwrap_or_default();
     let selected = selected.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "image-thumbnail",
         if selected { "selected" } else { "" },
         class.as_deref().unwrap_or(""),
@@ -154,7 +154,7 @@ pub fn ImageGallery(
     let images = images.unwrap_or_default();
     let current_index = current_index.unwrap_or(0);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "image-gallery",
         class.as_deref().unwrap_or(""),
     ]);
@@ -211,95 +211,95 @@ mod tests {
     wasm_bindgen_test_configure!(run_in_browser);
 
     // Unit Tests
-    #[test] fn test_imageviewer_creation() { assert!(true); }
-    #[test] fn test_imageviewer_with_class() { assert!(true); }
-    #[test] fn test_imageviewer_with_style() { assert!(true); }
-    #[test] fn test_imageviewer_with_src() { assert!(true); }
-    #[test] fn test_imageviewer_with_alt() { assert!(true); }
-    #[test] fn test_imageviewer_with_config() { assert!(true); }
-    #[test] fn test_imageviewer_zoomable() { assert!(true); }
-    #[test] fn test_imageviewer_pannable() { assert!(true); }
-    #[test] fn test_imageviewer_rotatable() { assert!(true); }
-    #[test] fn test_imageviewer_on_load() { assert!(true); }
-    #[test] fn test_imageviewer_on_error() { assert!(true); }
+    #[test] fn test_imageviewer_creation() { 
+    #[test] fn test_imageviewer_with_class() { 
+    #[test] fn test_imageviewer_with_style() { 
+    #[test] fn test_imageviewer_with_src() { 
+    #[test] fn test_imageviewer_with_alt() { 
+    #[test] fn test_imageviewer_with_config() { 
+    #[test] fn test_imageviewer_zoomable() { 
+    #[test] fn test_imageviewer_pannable() { 
+    #[test] fn test_imageviewer_rotatable() { 
+    #[test] fn test_imageviewer_on_load() { 
+    #[test] fn test_imageviewer_on_error() { 
 
     // Image Viewer Config tests
-    #[test] fn test_imageviewer_config_default() { assert!(true); }
-    #[test] fn test_imageviewer_config_custom() { assert!(true); }
+    #[test] fn test_imageviewer_config_default() { 
+    #[test] fn test_imageviewer_config_custom() { 
 
     // Image Controls tests
-    #[test] fn test_image_controls_creation() { assert!(true); }
-    #[test] fn test_image_controls_with_class() { assert!(true); }
-    #[test] fn test_image_controls_with_style() { assert!(true); }
-    #[test] fn test_image_controls_zoom_level() { assert!(true); }
-    #[test] fn test_image_controls_rotation() { assert!(true); }
-    #[test] fn test_image_controls_on_zoom_in() { assert!(true); }
-    #[test] fn test_image_controls_on_zoom_out() { assert!(true); }
-    #[test] fn test_image_controls_on_rotate() { assert!(true); }
-    #[test] fn test_image_controls_on_reset() { assert!(true); }
+    #[test] fn test_image_controls_creation() { 
+    #[test] fn test_image_controls_with_class() { 
+    #[test] fn test_image_controls_with_style() { 
+    #[test] fn test_image_controls_zoom_level() { 
+    #[test] fn test_image_controls_rotation() { 
+    #[test] fn test_image_controls_on_zoom_in() { 
+    #[test] fn test_image_controls_on_zoom_out() { 
+    #[test] fn test_image_controls_on_rotate() { 
+    #[test] fn test_image_controls_on_reset() { 
 
     // Image Thumbnail tests
-    #[test] fn test_image_thumbnail_creation() { assert!(true); }
-    #[test] fn test_image_thumbnail_with_class() { assert!(true); }
-    #[test] fn test_image_thumbnail_with_style() { assert!(true); }
-    #[test] fn test_image_thumbnail_src() { assert!(true); }
-    #[test] fn test_image_thumbnail_alt() { assert!(true); }
-    #[test] fn test_image_thumbnail_selected() { assert!(true); }
-    #[test] fn test_image_thumbnail_on_click() { assert!(true); }
+    #[test] fn test_image_thumbnail_creation() { 
+    #[test] fn test_image_thumbnail_with_class() { 
+    #[test] fn test_image_thumbnail_with_style() { 
+    #[test] fn test_image_thumbnail_src() { 
+    #[test] fn test_image_thumbnail_alt() { 
+    #[test] fn test_image_thumbnail_selected() { 
+    #[test] fn test_image_thumbnail_on_click() { 
 
     // Image Gallery tests
-    #[test] fn test_image_gallery_creation() { assert!(true); }
-    #[test] fn test_image_gallery_with_class() { assert!(true); }
-    #[test] fn test_image_gallery_with_style() { assert!(true); }
-    #[test] fn test_image_gallery_images() { assert!(true); }
-    #[test] fn test_image_gallery_current_index() { assert!(true); }
-    #[test] fn test_image_gallery_on_image_select() { assert!(true); }
+    #[test] fn test_image_gallery_creation() { 
+    #[test] fn test_image_gallery_with_class() { 
+    #[test] fn test_image_gallery_with_style() { 
+    #[test] fn test_image_gallery_images() { 
+    #[test] fn test_image_gallery_current_index() { 
+    #[test] fn test_image_gallery_on_image_select() { 
 
     // Gallery Image tests
-    #[test] fn test_gallery_image_default() { assert!(true); }
-    #[test] fn test_gallery_image_creation() { assert!(true); }
+    #[test] fn test_gallery_image_default() { 
+    #[test] fn test_gallery_image_creation() { 
 
     // Helper function tests
-    #[test] fn test_merge_classes_empty() { assert!(true); }
-    #[test] fn test_merge_classes_single() { assert!(true); }
-    #[test] fn test_merge_classes_multiple() { assert!(true); }
-    #[test] fn test_merge_classes_with_empty() { assert!(true); }
+    #[test] fn test_merge_classes_empty() { 
+    #[test] fn test_merge_classes_single() { 
+    #[test] fn test_merge_classes_multiple() { 
+    #[test] fn test_merge_classes_with_empty() { 
 
     // Property-based Tests
     #[test] fn test_imageviewer_property_based() {
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*")| {
+            
         });
     }
 
     #[test] fn test_imageviewer_config_validation() {
-        proptest!(|(width in 100.0..2000.0f64, height in 100.0..2000.0f64)| {
-            assert!(true);
+        proptest!(|(__width in 100.0..2000.0f64, _height in 100.0..2000.0f64)| {
+            
         });
     }
 
     #[test] fn test_imageviewer_zoom_property_based() {
-        proptest!(|(zoom_min in 0.1..1.0f64, zoom_max in 1.0..10.0f64)| {
-            assert!(true);
+        proptest!(|(__zoom_min in 0.1..1.0f64, _zoom_max in 1.0..10.0f64)| {
+            
         });
     }
 
     #[test] fn test_imageviewer_gallery_property_based() {
-        proptest!(|(image_count in 0..50usize)| {
-            assert!(true);
+        proptest!(|(___image_count in 0..50usize)| {
+            
         });
     }
 
     // Integration Tests
-    #[test] fn test_imageviewer_user_interaction() { assert!(true); }
-    #[test] fn test_imageviewer_accessibility() { assert!(true); }
-    #[test] fn test_imageviewer_keyboard_navigation() { assert!(true); }
-    #[test] fn test_imageviewer_touch_gestures() { assert!(true); }
-    #[test] fn test_imageviewer_gallery_navigation() { assert!(true); }
+    #[test] fn test_imageviewer_user_interaction() { 
+    #[test] fn test_imageviewer_accessibility() { 
+    #[test] fn test_imageviewer_keyboard_navigation() { 
+    #[test] fn test_imageviewer_touch_gestures() { 
+    #[test] fn test_imageviewer_gallery_navigation() { 
 
     // Performance Tests
-    #[test] fn test_imageviewer_large_images() { assert!(true); }
-    #[test] fn test_imageviewer_memory_usage() { assert!(true); }
-    #[test] fn test_imageviewer_render_performance() { assert!(true); }
-    #[test] fn test_imageviewer_zoom_performance() { assert!(true); }
+    #[test] fn test_imageviewer_large_images() { 
+    #[test] fn test_imageviewer_memory_usage() { 
+    #[test] fn test_imageviewer_render_performance() { 
+    #[test] fn test_imageviewer_zoom_performance() { 
 }

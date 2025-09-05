@@ -1,11 +1,11 @@
+pub mod component_variants;
 pub mod css_variables;
-pub mod theme_provider;
 pub mod dark_mode;
+pub mod layout_system;
+pub mod prebuilt_themes;
 pub mod size_variants;
 pub mod theme_customization;
-pub mod prebuilt_themes;
-pub mod component_variants;
-pub mod layout_system;
+pub mod theme_provider;
 
 // Test modules - temporarily commenting out problematic ones
 #[cfg(test)]
@@ -29,11 +29,11 @@ mod integration_tests;
 #[cfg(test)]
 mod simple_tests;
 
+pub use component_variants::*;
 pub use css_variables::*;
-pub use theme_provider::*;
 pub use dark_mode::*;
+pub use layout_system::*;
+pub use prebuilt_themes::*;
 pub use size_variants::*;
 pub use theme_customization::*;
-pub use prebuilt_themes::*;
-pub use component_variants::*;
-pub use layout_system::*;
+pub use theme_provider::*;

@@ -1,5 +1,5 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// AlertDialog component - Modal alert dialogs for user confirmations
 ///
@@ -29,7 +29,7 @@ use leptos::prelude::*;
 ///             "Delete Item"
 ///         </Button>
 ///         
-///         <AlertDialog 
+///         <AlertDialog
 ///             open=show_dialog
 ///             on_open_change=move |open| set_show_dialog.set(open)
 ///             variant=AlertDialogVariant::Destructive
@@ -85,7 +85,7 @@ pub fn AlertDialog(
     let variant = variant.unwrap_or(AlertDialogVariant::Default);
     let on_open_change = on_open_change.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "alert-dialog",
         variant.as_str(),
         if open { "open" } else { "closed" },
@@ -115,10 +115,7 @@ pub fn AlertDialogTitle(
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let class = merge_classes(vec![
-        "alert-dialog-title",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["alert-dialog-title", class.as_deref().unwrap_or("")]);
 
     view! {
         <h2
@@ -138,10 +135,7 @@ pub fn AlertDialogDescription(
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let class = merge_classes(vec![
-        "alert-dialog-description",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["alert-dialog-description", class.as_deref().unwrap_or("")]);
 
     view! {
         <p
@@ -161,10 +155,7 @@ pub fn AlertDialogFooter(
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let class = merge_classes(vec![
-        "alert-dialog-footer",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["alert-dialog-footer", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -186,10 +177,7 @@ pub fn AlertDialogAction(
 ) -> impl IntoView {
     let on_click = on_click.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes(vec![
-        "alert-dialog-action",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["alert-dialog-action", class.as_deref().unwrap_or("")]);
 
     view! {
         <button
@@ -212,10 +200,7 @@ pub fn AlertDialogCancel(
 ) -> impl IntoView {
     let on_click = on_click.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes(vec![
-        "alert-dialog-cancel",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["alert-dialog-cancel", class.as_deref().unwrap_or("")]);
 
     view! {
         <button
@@ -243,54 +228,50 @@ mod tests {
     use proptest::prelude::*;
 
     #[test]
-    fn test_alert_dialog_component_creation() {
-        assert!(true);
-    }
+    fn test_alert_dialog_component_creation() {}
 
     #[test]
-    fn test_alert_dialog_with_variant_component_creation() {
-        assert!(true);
-    }
+    fn test_alert_dialog_with_variant_component_creation() {}
 
     proptest! {
         #[test]
-        fn test_alert_dialog_props(_class in ".*", _style in ".*") {
-            assert!(true);
+        fn test_alert_dialog_props(__class in ".*", __style in ".*") {
+
         }
 
         #[test]
-        fn test_alert_dialog_open_state(_open: bool, _variant_index in 0..3usize) {
-            assert!(true);
+        fn test_alert_dialog_open_state(__open: bool, __variant_index in 0..3usize) {
+
         }
 
         #[test]
-        fn test_alert_dialog_variants(_variant_index in 0..3usize) {
-            assert!(true);
+        fn test_alert_dialog_variants(__variant_index in 0..3usize) {
+
         }
 
         #[test]
-        fn test_alert_dialog_title_props(_class in ".*", _style in ".*") {
-            assert!(true);
+        fn test_alert_dialog_title_props(__class in ".*", __style in ".*") {
+
         }
 
         #[test]
-        fn test_alert_dialog_description_props(_class in ".*", _style in ".*") {
-            assert!(true);
+        fn test_alert_dialog_description_props(__class in ".*", __style in ".*") {
+
         }
 
         #[test]
-        fn test_alert_dialog_footer_props(_class in ".*", _style in ".*") {
-            assert!(true);
+        fn test_alert_dialog_footer_props(__class in ".*", __style in ".*") {
+
         }
 
         #[test]
-        fn test_alert_dialog_action_props(_class in ".*", _style in ".*") {
-            assert!(true);
+        fn test_alert_dialog_action_props(__class in ".*", __style in ".*") {
+
         }
 
         #[test]
-        fn test_alert_dialog_cancel_props(_class in ".*", _style in ".*") {
-            assert!(true);
+        fn test_alert_dialog_cancel_props(__class in ".*", __style in ".*") {
+
         }
     }
 }

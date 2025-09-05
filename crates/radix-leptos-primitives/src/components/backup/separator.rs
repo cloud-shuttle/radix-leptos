@@ -98,7 +98,7 @@ pub fn Separator(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let separator_id = generate_id("separator");
+    let _separator_id = generate_id("separator");
     
     // Build base classes with data attributes for CSS targeting
     let base_classes = "radix-separator";

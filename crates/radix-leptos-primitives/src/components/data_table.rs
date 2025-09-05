@@ -15,7 +15,7 @@ pub fn DataTable(
     let filterable = filterable.unwrap_or(true);
     let selectable = selectable.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "data-table",
         if sortable { "sortable" } else { "" },
         if filterable { "filterable" } else { "" },
@@ -53,25 +53,25 @@ mod tests {
     wasm_bindgen_test_configure!(run_in_browser);
 
     // Unit Tests
-    #[test] fn test_datatable_creation() { assert!(true); }
-    #[test] fn test_datatable_with_class() { assert!(true); }
-    #[test] fn test_datatable_with_style() { assert!(true); }
-    #[test] fn test_datatable_sortable() { assert!(true); }
-    #[test] fn test_datatable_filterable() { assert!(true); }
-    #[test] fn test_datatable_selectable() { assert!(true); }
+    #[test] fn test_datatable_creation() { 
+    #[test] fn test_datatable_with_class() { 
+    #[test] fn test_datatable_with_style() { 
+    #[test] fn test_datatable_sortable() { 
+    #[test] fn test_datatable_filterable() { 
+    #[test] fn test_datatable_selectable() { 
 
     // Property-based Tests
     #[test] fn test_datatable_property_based() {
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*")| {
+            
         });
     }
 
     // Integration Tests
-    #[test] fn test_datatable_user_workflow() { assert!(true); }
-    #[test] fn test_datatable_accessibility_workflow() { assert!(true); }
+    #[test] fn test_datatable_user_workflow() { 
+    #[test] fn test_datatable_accessibility_workflow() { 
 
     // Performance Tests
-    #[test] fn test_datatable_large_dataset() { assert!(true); }
-    #[test] fn test_datatable_memory_usage() { assert!(true); }
+    #[test] fn test_datatable_large_dataset() { 
+    #[test] fn test_datatable_memory_usage() { 
 }

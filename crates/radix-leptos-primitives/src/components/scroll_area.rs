@@ -1,8 +1,8 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// Scroll Area component for custom scrollable areas
-/// 
+///
 /// Provides accessible scroll area with custom scrollbar styling
 #[component]
 pub fn ScrollArea(
@@ -15,7 +15,7 @@ pub fn ScrollArea(
     let orientation = orientation.unwrap_or_default();
     let scroll_hidden = scroll_hidden.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "scroll-area",
         &orientation.to_class(),
         if scroll_hidden { "scroll-hidden" } else { "" },
@@ -41,10 +41,7 @@ pub fn ScrollAreaViewport(
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let class = merge_classes(vec![
-        "scroll-area-viewport",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["scroll-area-viewport", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -68,7 +65,7 @@ pub fn ScrollAreaScrollbar(
     let orientation = orientation.unwrap_or_default();
     let force_mount = force_mount.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "scroll-area-scrollbar",
         &orientation.to_class(),
         if force_mount { "force-mount" } else { "" },
@@ -93,10 +90,7 @@ pub fn ScrollAreaThumb(
     #[prop(optional)] class: Option<String>,
     #[prop(optional)] style: Option<String>,
 ) -> impl IntoView {
-    let class = merge_classes(vec![
-        "scroll-area-thumb",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["scroll-area-thumb", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -112,10 +106,7 @@ pub fn ScrollAreaCorner(
     #[prop(optional)] class: Option<String>,
     #[prop(optional)] style: Option<String>,
 ) -> impl IntoView {
-    let class = merge_classes(vec![
-        "scroll-area-corner",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["scroll-area-corner", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -170,123 +161,77 @@ mod tests {
 
     // Scroll Area Tests
     #[test]
-    fn test_scroll_area_creation() {
-        assert!(true);
-    }
+    fn test_scroll_area_creation() {}
 
     #[test]
-    fn test_scroll_area_with_class() {
-        assert!(true);
-    }
+    fn test_scroll_area_with_class() {}
 
     #[test]
-    fn test_scroll_area_with_style() {
-        assert!(true);
-    }
+    fn test_scroll_area_with_style() {}
 
     #[test]
-    fn test_scroll_area_vertical_orientation() {
-        assert!(true);
-    }
+    fn test_scroll_area_vertical_orientation() {}
 
     #[test]
-    fn test_scroll_area_horizontal_orientation() {
-        assert!(true);
-    }
+    fn test_scroll_area_horizontal_orientation() {}
 
     #[test]
-    fn test_scroll_area_both_orientation() {
-        assert!(true);
-    }
+    fn test_scroll_area_both_orientation() {}
 
     #[test]
-    fn test_scroll_area_scroll_hidden() {
-        assert!(true);
-    }
+    fn test_scroll_area_scroll_hidden() {}
 
     // Scroll Area Viewport Tests
     #[test]
-    fn test_scroll_area_viewport_creation() {
-        assert!(true);
-    }
+    fn test_scroll_area_viewport_creation() {}
 
     #[test]
-    fn test_scroll_area_viewport_with_class() {
-        assert!(true);
-    }
+    fn test_scroll_area_viewport_with_class() {}
 
     #[test]
-    fn test_scroll_area_viewport_with_style() {
-        assert!(true);
-    }
+    fn test_scroll_area_viewport_with_style() {}
 
     // Scroll Area Scrollbar Tests
     #[test]
-    fn test_scroll_area_scrollbar_creation() {
-        assert!(true);
-    }
+    fn test_scroll_area_scrollbar_creation() {}
 
     #[test]
-    fn test_scroll_area_scrollbar_with_class() {
-        assert!(true);
-    }
+    fn test_scroll_area_scrollbar_with_class() {}
 
     #[test]
-    fn test_scroll_area_scrollbar_with_style() {
-        assert!(true);
-    }
+    fn test_scroll_area_scrollbar_with_style() {}
 
     #[test]
-    fn test_scroll_area_scrollbar_vertical_orientation() {
-        assert!(true);
-    }
+    fn test_scroll_area_scrollbar_vertical_orientation() {}
 
     #[test]
-    fn test_scroll_area_scrollbar_horizontal_orientation() {
-        assert!(true);
-    }
+    fn test_scroll_area_scrollbar_horizontal_orientation() {}
 
     #[test]
-    fn test_scroll_area_scrollbar_both_orientation() {
-        assert!(true);
-    }
+    fn test_scroll_area_scrollbar_both_orientation() {}
 
     #[test]
-    fn test_scroll_area_scrollbar_force_mount() {
-        assert!(true);
-    }
+    fn test_scroll_area_scrollbar_force_mount() {}
 
     // Scroll Area Thumb Tests
     #[test]
-    fn test_scroll_area_thumb_creation() {
-        assert!(true);
-    }
+    fn test_scroll_area_thumb_creation() {}
 
     #[test]
-    fn test_scroll_area_thumb_with_class() {
-        assert!(true);
-    }
+    fn test_scroll_area_thumb_with_class() {}
 
     #[test]
-    fn test_scroll_area_thumb_with_style() {
-        assert!(true);
-    }
+    fn test_scroll_area_thumb_with_style() {}
 
     // Scroll Area Corner Tests
     #[test]
-    fn test_scroll_area_corner_creation() {
-        assert!(true);
-    }
+    fn test_scroll_area_corner_creation() {}
 
     #[test]
-    fn test_scroll_area_corner_with_class() {
-        assert!(true);
-    }
+    fn test_scroll_area_corner_with_class() {}
 
     #[test]
-    fn test_scroll_area_corner_with_style() {
-        assert!(true);
-    }
+    fn test_scroll_area_corner_with_style() {}
 
     // Scroll Area Orientation Tests
     #[test]
@@ -319,25 +264,25 @@ mod tests {
     // Helper Function Tests
     #[test]
     fn test_merge_classes_empty() {
-        let result = merge_classes(vec![]);
+        let result = merge_classes([]);
         assert_eq!(result, "");
     }
 
     #[test]
     fn test_merge_classes_single() {
-        let result = merge_classes(vec!["class1"]);
+        let result = merge_classes(["class1"]);
         assert_eq!(result, "class1");
     }
 
     #[test]
     fn test_merge_classes_multiple() {
-        let result = merge_classes(vec!["class1", "class2", "class3"]);
+        let result = merge_classes(["class1", "class2", "class3"]);
         assert_eq!(result, "class1 class2 class3");
     }
 
     #[test]
     fn test_merge_classes_with_empty() {
-        let result = merge_classes(vec!["class1", "", "class3"]);
+        let result = merge_classes(["class1", "", "class3"]);
         assert_eq!(result, "class1 class3");
     }
 
@@ -345,40 +290,40 @@ mod tests {
     #[test]
     fn test_scroll_area_property_based() {
         use proptest::prelude::*;
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*")| {
+
         });
     }
 
     #[test]
     fn test_scroll_area_viewport_property_based() {
         use proptest::prelude::*;
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*")| {
+
         });
     }
 
     #[test]
     fn test_scroll_area_scrollbar_property_based() {
         use proptest::prelude::*;
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*")| {
+
         });
     }
 
     #[test]
     fn test_scroll_area_thumb_property_based() {
         use proptest::prelude::*;
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*")| {
+
         });
     }
 
     #[test]
     fn test_scroll_area_corner_property_based() {
         use proptest::prelude::*;
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*")| {
+
         });
     }
 }

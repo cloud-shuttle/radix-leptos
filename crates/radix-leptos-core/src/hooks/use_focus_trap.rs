@@ -172,13 +172,13 @@ fn is_same_element(a: &Element, b: &Element) -> bool {
 #[derive(Clone)]
 pub struct FocusTrapOptions {
     /// Whether to focus the first element on activation
-    pub auto_focus: bool,
+    pub _auto_focus: bool,
     /// Whether to restore focus on deactivation
-    pub restore_focus: bool,
+    pub _restore_focus: bool,
     /// Whether to allow clicking outside to deactivate
-    pub click_outside_deactivates: bool,
+    pub _click_outside_deactivates: bool,
     /// Whether to trap focus on Tab key
-    pub tab_trap: bool,
+    pub _tab_trap: bool,
 }
 
 impl Default for FocusTrapOptions {

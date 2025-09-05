@@ -1,7 +1,10 @@
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::theming::{CSSVariables, PrimaryColors, SecondaryColors, SemanticColors, TypographyVariables, SpacingVariables, BorderVariables, ShadowVariables, AnimationVariables};
+    use crate::theming::{
+        AnimationVariables, BorderVariables, CSSVariables, PrimaryColors, SecondaryColors,
+        SemanticColors, ShadowVariables, SpacingVariables, TypographyVariables,
+    };
     use leptos::serde_json;
 
     #[test]
@@ -29,7 +32,7 @@ mod tests {
     fn test_css_variables_to_css_string() {
         let css_vars = CSSVariables::default();
         let css_string = css_vars.to_css_string();
-        
+
         assert!(css_string.contains("--primary-500: #3b82f6;"));
         assert!(css_string.contains("--secondary-500: #64748b;"));
         assert!(css_string.contains("--success: #10b981;"));
@@ -83,7 +86,10 @@ mod tests {
     #[test]
     fn test_typography_variables_default() {
         let typography = TypographyVariables::default();
-        assert_eq!(typography.font_family_sans, "ui-sans-serif, system-ui, sans-serif");
+        assert_eq!(
+            typography.font_family_sans,
+            "ui-sans-serif, system-ui, sans-serif"
+        );
         assert_eq!(typography.font_size_base, "1rem");
         assert_eq!(typography.font_weight_normal, "400");
     }
@@ -108,7 +114,10 @@ mod tests {
     fn test_shadow_variables_default() {
         let shadow = ShadowVariables::default();
         assert_eq!(shadow.shadow_sm, "0 1px 2px 0 rgb(0 0 0 / 0.05)");
-        assert_eq!(shadow.shadow_md, "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)");
+        assert_eq!(
+            shadow.shadow_md,
+            "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)"
+        );
     }
 
     #[test]
@@ -138,10 +147,8 @@ mod tests {
         let css_vars1 = CSSVariables::default();
         let css_vars2 = CSSVariables::default();
         let css_vars3 = CSSVariables::dark_theme();
-        
+
         assert_eq!(css_vars1, css_vars2);
         assert_ne!(css_vars1, css_vars3);
     }
-
 }
-

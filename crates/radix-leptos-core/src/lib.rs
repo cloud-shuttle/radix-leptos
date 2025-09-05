@@ -1,5 +1,5 @@
 //! # Radix-Leptos Core
-//! 
+//!
 //! Core utilities, hooks, and primitives for building accessible UI components in Leptos.
 //! This crate provides the foundational building blocks for the Radix-Leptos component library.
 

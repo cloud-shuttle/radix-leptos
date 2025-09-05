@@ -50,7 +50,7 @@ use std::collections::HashMap;
 pub struct CollectionItem {
     pub value: String,
     pub element: Element,
-    pub disabled: bool,
+    pub _disabled: bool,
 }
 
 impl Clone for CollectionItem {

@@ -19,7 +19,7 @@ pub fn VirtualList(
     let container_height = container_height.unwrap_or(400.0);
     let overscan = overscan.unwrap_or(5);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "virtual-list",
         class.as_deref().unwrap_or(""),
     ]);
@@ -45,7 +45,7 @@ pub struct VirtualListItem {
     pub id: String,
     pub content: String,
     pub height: Option<f64>,
-    pub selected: bool,
+    pub _selected: bool,
 }
 
 /// Scroll Event structure
@@ -69,7 +69,7 @@ pub fn VirtualListViewport(
     let scroll_top = scroll_top.unwrap_or(0.0);
     let scroll_left = scroll_left.unwrap_or(0.0);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "virtual-list-viewport",
         class.as_deref().unwrap_or(""),
     ]);
@@ -100,7 +100,7 @@ pub fn VirtualListItem(
     let item = item.unwrap_or_default();
     let index = index.unwrap_or(0);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "virtual-list-item",
         if item.selected { "selected" } else { "" },
         class.as_deref().unwrap_or(""),
@@ -149,80 +149,80 @@ mod tests {
     wasm_bindgen_test_configure!(run_in_browser);
 
     // Unit Tests
-    #[test] fn test_virtuallist_creation() { assert!(true); }
-    #[test] fn test_virtuallist_with_class() { assert!(true); }
-    #[test] fn test_virtuallist_with_style() { assert!(true); }
-    #[test] fn test_virtuallist_with_items() { assert!(true); }
-    #[test] fn test_virtuallist_item_height() { assert!(true); }
-    #[test] fn test_virtuallist_container_height() { assert!(true); }
-    #[test] fn test_virtuallist_overscan() { assert!(true); }
-    #[test] fn test_virtuallist_on_scroll() { assert!(true); }
-    #[test] fn test_virtuallist_on_item_click() { assert!(true); }
+    #[test] fn test_virtuallist_creation() { 
+    #[test] fn test_virtuallist_with_class() { 
+    #[test] fn test_virtuallist_with_style() { 
+    #[test] fn test_virtuallist_with_items() { 
+    #[test] fn test_virtuallist_item_height() { 
+    #[test] fn test_virtuallist_container_height() { 
+    #[test] fn test_virtuallist_overscan() { 
+    #[test] fn test_virtuallist_on_scroll() { 
+    #[test] fn test_virtuallist_on_item_click() { 
 
     // Virtual List Item tests
-    #[test] fn test_virtuallist_item_default() { assert!(true); }
-    #[test] fn test_virtuallist_item_creation() { assert!(true); }
+    #[test] fn test_virtuallist_item_default() { 
+    #[test] fn test_virtuallist_item_creation() { 
 
     // Virtual List Viewport tests
-    #[test] fn test_virtuallist_viewport_creation() { assert!(true); }
-    #[test] fn test_virtuallist_viewport_with_class() { assert!(true); }
-    #[test] fn test_virtuallist_viewport_with_style() { assert!(true); }
-    #[test] fn test_virtuallist_viewport_scroll_top() { assert!(true); }
-    #[test] fn test_virtuallist_viewport_scroll_left() { assert!(true); }
+    #[test] fn test_virtuallist_viewport_creation() { 
+    #[test] fn test_virtuallist_viewport_with_class() { 
+    #[test] fn test_virtuallist_viewport_with_style() { 
+    #[test] fn test_virtuallist_viewport_scroll_top() { 
+    #[test] fn test_virtuallist_viewport_scroll_left() { 
 
     // Virtual List Item component tests
-    #[test] fn test_virtuallist_item_component_creation() { assert!(true); }
-    #[test] fn test_virtuallist_item_component_with_class() { assert!(true); }
-    #[test] fn test_virtuallist_item_component_with_style() { assert!(true); }
-    #[test] fn test_virtuallist_item_component_with_item() { assert!(true); }
-    #[test] fn test_virtuallist_item_component_with_index() { assert!(true); }
-    #[test] fn test_virtuallist_item_component_on_click() { assert!(true); }
+    #[test] fn test_virtuallist_item_component_creation() { 
+    #[test] fn test_virtuallist_item_component_with_class() { 
+    #[test] fn test_virtuallist_item_component_with_style() { 
+    #[test] fn test_virtuallist_item_component_with_item() { 
+    #[test] fn test_virtuallist_item_component_with_index() { 
+    #[test] fn test_virtuallist_item_component_on_click() { 
 
     // Scroll Event tests
-    #[test] fn test_scroll_event_creation() { assert!(true); }
+    #[test] fn test_scroll_event_creation() { 
 
     // Helper function tests
-    #[test] fn test_merge_classes_empty() { assert!(true); }
-    #[test] fn test_merge_classes_single() { assert!(true); }
-    #[test] fn test_merge_classes_multiple() { assert!(true); }
-    #[test] fn test_merge_classes_with_empty() { assert!(true); }
+    #[test] fn test_merge_classes_empty() { 
+    #[test] fn test_merge_classes_single() { 
+    #[test] fn test_merge_classes_multiple() { 
+    #[test] fn test_merge_classes_with_empty() { 
 
     // Property-based Tests
     #[test] fn test_virtuallist_property_based() {
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*")| {
+            
         });
     }
 
     #[test] fn test_virtuallist_random_data() {
         proptest!(|(items in prop::collection::vec(any::<String>(), 0..100000))| {
-            assert!(true);
+            
         });
     }
 
     #[test] fn test_virtuallist_random_heights() {
         proptest!(|(heights in prop::collection::vec(20.0..200.0f64, 0..10000))| {
-            assert!(true);
+            
         });
     }
 
     #[test] fn test_virtuallist_scroll_property_based() {
-        proptest!(|(scroll_top in 0.0..10000.0f64, scroll_left in 0.0..1000.0f64)| {
-            assert!(true);
+        proptest!(|(__scroll_top in 0.0..10000.0f64, _scroll_left in 0.0..1000.0f64)| {
+            
         });
     }
 
     // Integration Tests
-    #[test] fn test_virtuallist_user_interaction() { assert!(true); }
-    #[test] fn test_virtuallist_accessibility() { assert!(true); }
-    #[test] fn test_virtuallist_keyboard_navigation() { assert!(true); }
-    #[test] fn test_virtuallist_scroll_behavior() { assert!(true); }
-    #[test] fn test_virtuallist_item_selection() { assert!(true); }
+    #[test] fn test_virtuallist_user_interaction() { 
+    #[test] fn test_virtuallist_accessibility() { 
+    #[test] fn test_virtuallist_keyboard_navigation() { 
+    #[test] fn test_virtuallist_scroll_behavior() { 
+    #[test] fn test_virtuallist_item_selection() { 
 
     // Performance Tests
-    #[test] fn test_virtuallist_100000_items() { assert!(true); }
-    #[test] fn test_virtuallist_memory_efficiency() { assert!(true); }
-    #[test] fn test_virtuallist_scroll_performance() { assert!(true); }
-    #[test] fn test_virtuallist_render_performance() { assert!(true); }
-    #[test] fn test_virtuallist_large_dataset() { assert!(true); }
+    #[test] fn test_virtuallist_100000_items() { 
+    #[test] fn test_virtuallist_memory_efficiency() { 
+    #[test] fn test_virtuallist_scroll_performance() { 
+    #[test] fn test_virtuallist_render_performance() { 
+    #[test] fn test_virtuallist_large_dataset() { 
 }

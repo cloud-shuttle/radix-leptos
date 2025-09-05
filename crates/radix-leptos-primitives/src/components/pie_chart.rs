@@ -23,7 +23,7 @@ pub fn PieChart(
     let show_percentages = show_percentages.unwrap_or(true);
     let show_legend = show_legend.unwrap_or(true);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "pie-chart",
         if inner_radius > 0.0 { "donut" } else { "" },
         if show_labels { "show-labels" } else { "" },
@@ -148,7 +148,7 @@ pub fn PieChartSlice(
     let slice = slice.unwrap_or_default();
     let inner_radius = inner_radius.unwrap_or(0.0);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "pie-chart-slice",
         class.as_deref().unwrap_or(""),
     ]);
@@ -183,7 +183,7 @@ pub fn PieChartLabel(
     let position = position.unwrap_or_default();
     let show_percentage = show_percentage.unwrap_or(true);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "pie-chart-label",
         &position.to_class(),
         if show_percentage { "show-percentage" } else { "" },
@@ -255,100 +255,100 @@ mod tests {
     wasm_bindgen_test_configure!(run_in_browser);
 
     // Unit Tests
-    #[test] fn test_piechart_creation() { assert!(true); }
-    #[test] fn test_piechart_with_class() { assert!(true); }
-    #[test] fn test_piechart_with_style() { assert!(true); }
-    #[test] fn test_piechart_with_data() { assert!(true); }
-    #[test] fn test_piechart_with_config() { assert!(true); }
-    #[test] fn test_piechart_inner_radius() { assert!(true); }
-    #[test] fn test_piechart_show_labels() { assert!(true); }
-    #[test] fn test_piechart_show_percentages() { assert!(true); }
-    #[test] fn test_piechart_show_legend() { assert!(true); }
-    #[test] fn test_piechart_on_slice_click() { assert!(true); }
-    #[test] fn test_piechart_on_slice_hover() { assert!(true); }
+    #[test] fn test_piechart_creation() { 
+    #[test] fn test_piechart_with_class() { 
+    #[test] fn test_piechart_with_style() { 
+    #[test] fn test_piechart_with_data() { 
+    #[test] fn test_piechart_with_config() { 
+    #[test] fn test_piechart_inner_radius() { 
+    #[test] fn test_piechart_show_labels() { 
+    #[test] fn test_piechart_show_percentages() { 
+    #[test] fn test_piechart_show_legend() { 
+    #[test] fn test_piechart_on_slice_click() { 
+    #[test] fn test_piechart_on_slice_hover() { 
 
     // Pie Slice tests
-    #[test] fn test_pie_slice_default() { assert!(true); }
-    #[test] fn test_pie_slice_creation() { assert!(true); }
+    #[test] fn test_pie_slice_default() { 
+    #[test] fn test_pie_slice_creation() { 
 
     // Pie Chart Config tests
-    #[test] fn test_piechart_config_default() { assert!(true); }
-    #[test] fn test_piechart_config_custom() { assert!(true); }
+    #[test] fn test_piechart_config_default() { 
+    #[test] fn test_piechart_config_custom() { 
 
     // Animation Config tests
-    #[test] fn test_animation_config_default() { assert!(true); }
-    #[test] fn test_animation_config_custom() { assert!(true); }
+    #[test] fn test_animation_config_default() { 
+    #[test] fn test_animation_config_custom() { 
 
     // Easing Type tests
-    #[test] fn test_easing_type_default() { assert!(true); }
-    #[test] fn test_easing_type_ease_in_out() { assert!(true); }
-    #[test] fn test_easing_type_ease_in() { assert!(true); }
-    #[test] fn test_easing_type_ease_out() { assert!(true); }
-    #[test] fn test_easing_type_linear() { assert!(true); }
+    #[test] fn test_easing_type_default() { 
+    #[test] fn test_easing_type_ease_in_out() { 
+    #[test] fn test_easing_type_ease_in() { 
+    #[test] fn test_easing_type_ease_out() { 
+    #[test] fn test_easing_type_linear() { 
 
     // Pie Chart Slice tests
-    #[test] fn test_piechart_slice_creation() { assert!(true); }
-    #[test] fn test_piechart_slice_with_class() { assert!(true); }
-    #[test] fn test_piechart_slice_with_style() { assert!(true); }
-    #[test] fn test_piechart_slice_with_slice() { assert!(true); }
-    #[test] fn test_piechart_slice_inner_radius() { assert!(true); }
-    #[test] fn test_piechart_slice_on_click() { assert!(true); }
+    #[test] fn test_piechart_slice_creation() { 
+    #[test] fn test_piechart_slice_with_class() { 
+    #[test] fn test_piechart_slice_with_style() { 
+    #[test] fn test_piechart_slice_with_slice() { 
+    #[test] fn test_piechart_slice_inner_radius() { 
+    #[test] fn test_piechart_slice_on_click() { 
 
     // Pie Chart Label tests
-    #[test] fn test_piechart_label_creation() { assert!(true); }
-    #[test] fn test_piechart_label_with_class() { assert!(true); }
-    #[test] fn test_piechart_label_with_style() { assert!(true); }
-    #[test] fn test_piechart_label_with_slice() { assert!(true); }
-    #[test] fn test_piechart_label_position() { assert!(true); }
-    #[test] fn test_piechart_label_show_percentage() { assert!(true); }
+    #[test] fn test_piechart_label_creation() { 
+    #[test] fn test_piechart_label_with_class() { 
+    #[test] fn test_piechart_label_with_style() { 
+    #[test] fn test_piechart_label_with_slice() { 
+    #[test] fn test_piechart_label_position() { 
+    #[test] fn test_piechart_label_show_percentage() { 
 
     // Label Position tests
-    #[test] fn test_label_position_default() { assert!(true); }
-    #[test] fn test_label_position_outside() { assert!(true); }
-    #[test] fn test_label_position_inside() { assert!(true); }
-    #[test] fn test_label_position_center() { assert!(true); }
+    #[test] fn test_label_position_default() { 
+    #[test] fn test_label_position_outside() { 
+    #[test] fn test_label_position_inside() { 
+    #[test] fn test_label_position_center() { 
 
     // Helper function tests
-    #[test] fn test_merge_classes_empty() { assert!(true); }
-    #[test] fn test_merge_classes_single() { assert!(true); }
-    #[test] fn test_merge_classes_multiple() { assert!(true); }
-    #[test] fn test_merge_classes_with_empty() { assert!(true); }
+    #[test] fn test_merge_classes_empty() { 
+    #[test] fn test_merge_classes_single() { 
+    #[test] fn test_merge_classes_multiple() { 
+    #[test] fn test_merge_classes_with_empty() { 
 
     // Property-based Tests
     #[test] fn test_piechart_property_based() {
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*")| {
+            
         });
     }
 
     #[test] fn test_piechart_data_validation() {
-        proptest!(|(slice_count in 1..20usize)| {
-            assert!(true);
+        proptest!(|(___slice_count in 1..20usize)| {
+            
         });
     }
 
     #[test] fn test_piechart_config_validation() {
-        proptest!(|(width in 100.0..1000.0f64, height in 100.0..1000.0f64, radius in 50.0..200.0f64)| {
-            assert!(true);
+        proptest!(|(__width in 100.0..1000.0f64, _height in 100.0..1000.0f64, _radius in 50.0..200.0f64)| {
+            
         });
     }
 
     #[test] fn test_piechart_animation_property_based() {
-        proptest!(|(duration in 100.0..5000.0f64, delay in 0.0..1000.0f64)| {
-            assert!(true);
+        proptest!(|(__duration in 100.0..5000.0f64, _delay in 0.0..1000.0f64)| {
+            
         });
     }
 
     // Integration Tests
-    #[test] fn test_piechart_tooltip_interaction() { assert!(true); }
-    #[test] fn test_piechart_legend_interaction() { assert!(true); }
-    #[test] fn test_piechart_user_workflow() { assert!(true); }
-    #[test] fn test_piechart_accessibility_workflow() { assert!(true); }
-    #[test] fn test_piechart_with_other_components() { assert!(true); }
+    #[test] fn test_piechart_tooltip_interaction() { 
+    #[test] fn test_piechart_legend_interaction() { 
+    #[test] fn test_piechart_user_workflow() { 
+    #[test] fn test_piechart_accessibility_workflow() { 
+    #[test] fn test_piechart_with_other_components() { 
 
     // Performance Tests
-    #[test] fn test_piechart_large_dataset() { assert!(true); }
-    #[test] fn test_piechart_render_performance() { assert!(true); }
-    #[test] fn test_piechart_memory_usage() { assert!(true); }
-    #[test] fn test_piechart_animation_performance() { assert!(true); }
+    #[test] fn test_piechart_large_dataset() { 
+    #[test] fn test_piechart_render_performance() { 
+    #[test] fn test_piechart_memory_usage() { 
+    #[test] fn test_piechart_animation_performance() { 
 }

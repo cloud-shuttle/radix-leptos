@@ -1,5 +1,5 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// Label component - Form labels with accessibility features
 #[component]
@@ -20,7 +20,7 @@ pub fn Label(
     let size = size.unwrap_or_default();
     let variant = variant.unwrap_or_default();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "label",
         &size.to_class(),
         &variant.to_class(),
@@ -63,7 +63,7 @@ pub fn LabelText(
     let text = text.unwrap_or_default();
     let required = required.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "label-text",
         if required { "required" } else { "" },
         class.as_deref().unwrap_or(""),
@@ -94,10 +94,7 @@ pub fn LabelDescription(
 ) -> impl IntoView {
     let description = description.unwrap_or_default();
 
-    let class = merge_classes(vec![
-        "label-description",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["label-description", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -123,7 +120,7 @@ pub fn LabelError(
     let error = error.unwrap_or_default();
     let visible = visible.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "label-error",
         if visible { "visible" } else { "hidden" },
         class.as_deref().unwrap_or(""),
@@ -154,7 +151,7 @@ pub fn LabelGroup(
     let orientation = orientation.unwrap_or_default();
     let spacing = spacing.unwrap_or_default();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "label-group",
         &orientation.to_class(),
         &spacing.to_class(),
@@ -301,105 +298,162 @@ fn merge_classes(classes: Vec<&str>) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use wasm_bindgen_test::*;
     use proptest::prelude::*;
+    use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
 
     // Unit Tests
-    #[test] fn test_label_creation() { assert!(true); }
-    #[test] fn test_label_with_class() { assert!(true); }
-    #[test] fn test_label_with_style() { assert!(true); }
-    #[test] fn test_label_for_id() { assert!(true); }
-    #[test] fn test_label_required() { assert!(true); }
-    #[test] fn test_label_disabled() { assert!(true); }
-    #[test] fn test_label_size() { assert!(true); }
-    #[test] fn test_label_variant() { assert!(true); }
-    #[test] fn test_label_on_click() { assert!(true); }
+    #[test]
+    fn test_label_creation() {}
+    #[test]
+    fn test_label_with_class() {}
+    #[test]
+    fn test_label_with_style() {}
+    #[test]
+    fn test_label_for_id() {}
+    #[test]
+    fn test_label_required() {}
+    #[test]
+    fn test_label_disabled() {}
+    #[test]
+    fn test_label_size() {}
+    #[test]
+    fn test_label_variant() {}
+    #[test]
+    fn test_label_on_click() {}
 
     // Label Text tests
-    #[test] fn test_label_text_creation() { assert!(true); }
-    #[test] fn test_label_text_with_class() { assert!(true); }
-    #[test] fn test_label_text_text() { assert!(true); }
-    #[test] fn test_label_text_required() { assert!(true); }
+    #[test]
+    fn test_label_text_creation() {}
+    #[test]
+    fn test_label_text_with_class() {}
+    #[test]
+    fn test_label_text_text() {}
+    #[test]
+    fn test_label_text_required() {}
 
     // Label Description tests
-    #[test] fn test_label_description_creation() { assert!(true); }
-    #[test] fn test_label_description_with_class() { assert!(true); }
-    #[test] fn test_label_description_description() { assert!(true); }
+    #[test]
+    fn test_label_description_creation() {}
+    #[test]
+    fn test_label_description_with_class() {}
+    #[test]
+    fn test_label_description_description() {}
 
     // Label Error tests
-    #[test] fn test_label_error_creation() { assert!(true); }
-    #[test] fn test_label_error_with_class() { assert!(true); }
-    #[test] fn test_label_error_error() { assert!(true); }
-    #[test] fn test_label_error_visible() { assert!(true); }
+    #[test]
+    fn test_label_error_creation() {}
+    #[test]
+    fn test_label_error_with_class() {}
+    #[test]
+    fn test_label_error_error() {}
+    #[test]
+    fn test_label_error_visible() {}
 
     // Label Group tests
-    #[test] fn test_label_group_creation() { assert!(true); }
-    #[test] fn test_label_group_with_class() { assert!(true); }
-    #[test] fn test_label_group_orientation() { assert!(true); }
-    #[test] fn test_label_group_spacing() { assert!(true); }
+    #[test]
+    fn test_label_group_creation() {}
+    #[test]
+    fn test_label_group_with_class() {}
+    #[test]
+    fn test_label_group_orientation() {}
+    #[test]
+    fn test_label_group_spacing() {}
 
     // Label Size tests
-    #[test] fn test_label_size_default() { assert!(true); }
-    #[test] fn test_label_size_small() { assert!(true); }
-    #[test] fn test_label_size_medium() { assert!(true); }
-    #[test] fn test_label_size_large() { assert!(true); }
+    #[test]
+    fn test_label_size_default() {}
+    #[test]
+    fn test_label_size_small() {}
+    #[test]
+    fn test_label_size_medium() {}
+    #[test]
+    fn test_label_size_large() {}
 
     // Label Variant tests
-    #[test] fn test_label_variant_default() { assert!(true); }
-    #[test] fn test_label_variant_primary() { assert!(true); }
-    #[test] fn test_label_variant_secondary() { assert!(true); }
-    #[test] fn test_label_variant_success() { assert!(true); }
-    #[test] fn test_label_variant_warning() { assert!(true); }
-    #[test] fn test_label_variant_error() { assert!(true); }
+    #[test]
+    fn test_label_variant_default() {}
+    #[test]
+    fn test_label_variant_primary() {}
+    #[test]
+    fn test_label_variant_secondary() {}
+    #[test]
+    fn test_label_variant_success() {}
+    #[test]
+    fn test_label_variant_warning() {}
+    #[test]
+    fn test_label_variant_error() {}
 
     // Label Orientation tests
-    #[test] fn test_label_orientation_default() { assert!(true); }
-    #[test] fn test_label_orientation_horizontal() { assert!(true); }
-    #[test] fn test_label_orientation_vertical() { assert!(true); }
+    #[test]
+    fn test_label_orientation_default() {}
+    #[test]
+    fn test_label_orientation_horizontal() {}
+    #[test]
+    fn test_label_orientation_vertical() {}
 
     // Label Spacing tests
-    #[test] fn test_label_spacing_default() { assert!(true); }
-    #[test] fn test_label_spacing_tight() { assert!(true); }
-    #[test] fn test_label_spacing_normal() { assert!(true); }
-    #[test] fn test_label_spacing_loose() { assert!(true); }
+    #[test]
+    fn test_label_spacing_default() {}
+    #[test]
+    fn test_label_spacing_tight() {}
+    #[test]
+    fn test_label_spacing_normal() {}
+    #[test]
+    fn test_label_spacing_loose() {}
 
     // Helper function tests
-    #[test] fn test_merge_classes_empty() { assert!(true); }
-    #[test] fn test_merge_classes_single() { assert!(true); }
-    #[test] fn test_merge_classes_multiple() { assert!(true); }
-    #[test] fn test_merge_classes_with_empty() { assert!(true); }
+    #[test]
+    fn test_merge_classes_empty() {}
+    #[test]
+    fn test_merge_classes_single() {}
+    #[test]
+    fn test_merge_classes_multiple() {}
+    #[test]
+    fn test_merge_classes_with_empty() {}
 
     // Property-based Tests
-    #[test] fn test_label_property_based() {
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+    #[test]
+    fn test_label_property_based() {
+        proptest!(|(__class in ".*", _style in ".*")| {
+
         });
     }
 
-    #[test] fn test_label_accessibility_validation() {
-        proptest!(|(for_id in ".*", required: bool, disabled: bool)| {
-            assert!(true);
+    #[test]
+    fn test_label_accessibility_validation() {
+        proptest!(|(_for_id in ".*", _required: bool, _disabled: bool)| {
+
         });
     }
 
-    #[test] fn test_label_variant_validation() {
-        proptest!(|(variant in ".*")| {
-            assert!(true);
+    #[test]
+    fn test_label_variant_validation() {
+        proptest!(|(__variant in ".*")| {
+
         });
     }
 
     // Integration Tests
-    #[test] fn test_label_accessibility() { assert!(true); }
-    #[test] fn test_label_form_integration() { assert!(true); }
-    #[test] fn test_label_validation_workflow() { assert!(true); }
-    #[test] fn test_label_error_display() { assert!(true); }
-    #[test] fn test_label_responsive_behavior() { assert!(true); }
+    #[test]
+    fn test_label_accessibility() {}
+    #[test]
+    fn test_label_form_integration() {}
+    #[test]
+    fn test_label_validation_workflow() {}
+    #[test]
+    fn test_label_error_display() {}
+    #[test]
+    fn test_label_responsive_behavior() {}
 
     // Performance Tests
-    #[test] fn test_label_large_forms() { assert!(true); }
-    #[test] fn test_label_render_performance() { assert!(true); }
-    #[test] fn test_label_memory_usage() { assert!(true); }
-    #[test] fn test_label_validation_performance() { assert!(true); }
+    #[test]
+    fn test_label_large_forms() {}
+    #[test]
+    fn test_label_render_performance() {}
+    #[test]
+    fn test_label_memory_usage() {}
+    #[test]
+    fn test_label_validation_performance() {}
 }

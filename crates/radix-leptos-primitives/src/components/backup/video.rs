@@ -53,22 +53,22 @@ pub fn Video(
     aspect_ratio: VideoAspectRatio,
     /// Whether the video should autoplay
     #[prop(optional, default = false)]
-    autoplay: bool,
+    _autoplay: bool,
     /// Whether the video should loop
     #[prop(optional, default = false)]
-    loop_video: bool,
+    _loop_video: bool,
     /// Whether the video should be muted
     #[prop(optional, default = false)]
-    muted: bool,
+    _muted: bool,
     /// Whether the video should show controls
     #[prop(optional, default = true)]
-    show_controls: bool,
+    _show_controls: bool,
     /// Whether the video is interactive (clickable)
     #[prop(optional, default = false)]
-    interactive: bool,
+    _interactive: bool,
     /// Whether the video is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -114,7 +114,7 @@ pub fn Video(
     
     let class_value = class.unwrap_or_default();
     
-    let mut base_classes = vec![
+    let mut base_classes = [
         "radix-video",
         &size_class(),
         &controls_class(),
@@ -160,13 +160,13 @@ pub fn VideoWithCustomControls(
     aspect_ratio: VideoAspectRatio,
     /// Whether the video should autoplay
     #[prop(optional, default = false)]
-    autoplay: bool,
+    _autoplay: bool,
     /// Whether the video should loop
     #[prop(optional, default = false)]
-    loop_video: bool,
+    _loop_video: bool,
     /// Whether the video should be muted
     #[prop(optional, default = false)]
-    muted: bool,
+    _muted: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -241,13 +241,13 @@ pub fn VideoPlayer(
     aspect_ratio: VideoAspectRatio,
     /// Whether the video should autoplay
     #[prop(optional, default = false)]
-    autoplay: bool,
+    _autoplay: bool,
     /// Whether the video should loop
     #[prop(optional, default = false)]
-    loop_video: bool,
+    _loop_video: bool,
     /// Whether the video should be muted
     #[prop(optional, default = false)]
-    muted: bool,
+    _muted: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,

@@ -1,5 +1,5 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// Avatar component - User profile images with fallbacks
 #[component]
@@ -23,7 +23,7 @@ pub fn Avatar(
     let shape = shape.unwrap_or_default();
     let loading = loading.unwrap_or_default();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "avatar",
         &size.to_class(),
         &shape.to_class(),
@@ -61,10 +61,7 @@ pub fn AvatarImage(
     let src = src.unwrap_or_default();
     let alt = alt.unwrap_or_else(|| "Avatar image".to_string());
 
-    let class = merge_classes(vec![
-        "avatar-image",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["avatar-image", class.as_deref().unwrap_or("")]);
 
     let handle_load = move |_| {
         if let Some(callback) = on_load {
@@ -100,10 +97,7 @@ pub fn AvatarFallback(
 ) -> impl IntoView {
     let text = text.unwrap_or_else(|| "?".to_string());
 
-    let class = merge_classes(vec![
-        "avatar-fallback",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["avatar-fallback", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -129,7 +123,7 @@ pub fn AvatarGroup(
     let max_visible = max_visible.unwrap_or(5);
     let spacing = spacing.unwrap_or_default();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "avatar-group",
         &spacing.to_class(),
         class.as_deref().unwrap_or(""),
@@ -272,103 +266,160 @@ fn merge_classes(classes: Vec<&str>) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use wasm_bindgen_test::*;
     use proptest::prelude::*;
+    use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
 
     // Unit Tests
-    #[test] fn test_avatar_creation() { assert!(true); }
-    #[test] fn test_avatar_with_class() { assert!(true); }
-    #[test] fn test_avatar_with_style() { assert!(true); }
-    #[test] fn test_avatar_with_src() { assert!(true); }
-    #[test] fn test_avatar_with_alt() { assert!(true); }
-    #[test] fn test_avatar_with_fallback() { assert!(true); }
-    #[test] fn test_avatar_with_size() { assert!(true); }
-    #[test] fn test_avatar_with_shape() { assert!(true); }
-    #[test] fn test_avatar_with_loading() { assert!(true); }
-    #[test] fn test_avatar_on_load() { assert!(true); }
-    #[test] fn test_avatar_on_error() { assert!(true); }
+    #[test]
+    fn test_avatar_creation() {}
+    #[test]
+    fn test_avatar_with_class() {}
+    #[test]
+    fn test_avatar_with_style() {}
+    #[test]
+    fn test_avatar_with_src() {}
+    #[test]
+    fn test_avatar_with_alt() {}
+    #[test]
+    fn test_avatar_with_fallback() {}
+    #[test]
+    fn test_avatar_with_size() {}
+    #[test]
+    fn test_avatar_with_shape() {}
+    #[test]
+    fn test_avatar_with_loading() {}
+    #[test]
+    fn test_avatar_on_load() {}
+    #[test]
+    fn test_avatar_on_error() {}
 
     // Avatar Image tests
-    #[test] fn test_avatar_image_creation() { assert!(true); }
-    #[test] fn test_avatar_image_with_class() { assert!(true); }
-    #[test] fn test_avatar_image_with_src() { assert!(true); }
-    #[test] fn test_avatar_image_with_alt() { assert!(true); }
-    #[test] fn test_avatar_image_on_load() { assert!(true); }
-    #[test] fn test_avatar_image_on_error() { assert!(true); }
+    #[test]
+    fn test_avatar_image_creation() {}
+    #[test]
+    fn test_avatar_image_with_class() {}
+    #[test]
+    fn test_avatar_image_with_src() {}
+    #[test]
+    fn test_avatar_image_with_alt() {}
+    #[test]
+    fn test_avatar_image_on_load() {}
+    #[test]
+    fn test_avatar_image_on_error() {}
 
     // Avatar Fallback tests
-    #[test] fn test_avatar_fallback_creation() { assert!(true); }
-    #[test] fn test_avatar_fallback_with_class() { assert!(true); }
-    #[test] fn test_avatar_fallback_with_text() { assert!(true); }
+    #[test]
+    fn test_avatar_fallback_creation() {}
+    #[test]
+    fn test_avatar_fallback_with_class() {}
+    #[test]
+    fn test_avatar_fallback_with_text() {}
 
     // Avatar Group tests
-    #[test] fn test_avatar_group_creation() { assert!(true); }
-    #[test] fn test_avatar_group_with_class() { assert!(true); }
-    #[test] fn test_avatar_group_max_visible() { assert!(true); }
-    #[test] fn test_avatar_group_spacing() { assert!(true); }
+    #[test]
+    fn test_avatar_group_creation() {}
+    #[test]
+    fn test_avatar_group_with_class() {}
+    #[test]
+    fn test_avatar_group_max_visible() {}
+    #[test]
+    fn test_avatar_group_spacing() {}
 
     // Avatar Size tests
-    #[test] fn test_avatar_size_default() { assert!(true); }
-    #[test] fn test_avatar_size_small() { assert!(true); }
-    #[test] fn test_avatar_size_medium() { assert!(true); }
-    #[test] fn test_avatar_size_large() { assert!(true); }
-    #[test] fn test_avatar_size_extra_large() { assert!(true); }
-    #[test] fn test_avatar_size_custom() { assert!(true); }
+    #[test]
+    fn test_avatar_size_default() {}
+    #[test]
+    fn test_avatar_size_small() {}
+    #[test]
+    fn test_avatar_size_medium() {}
+    #[test]
+    fn test_avatar_size_large() {}
+    #[test]
+    fn test_avatar_size_extra_large() {}
+    #[test]
+    fn test_avatar_size_custom() {}
 
     // Avatar Shape tests
-    #[test] fn test_avatar_shape_default() { assert!(true); }
-    #[test] fn test_avatar_shape_circle() { assert!(true); }
-    #[test] fn test_avatar_shape_square() { assert!(true); }
-    #[test] fn test_avatar_shape_rounded() { assert!(true); }
+    #[test]
+    fn test_avatar_shape_default() {}
+    #[test]
+    fn test_avatar_shape_circle() {}
+    #[test]
+    fn test_avatar_shape_square() {}
+    #[test]
+    fn test_avatar_shape_rounded() {}
 
     // Avatar Loading tests
-    #[test] fn test_avatar_loading_default() { assert!(true); }
-    #[test] fn test_avatar_loading_eager() { assert!(true); }
-    #[test] fn test_avatar_loading_lazy() { assert!(true); }
+    #[test]
+    fn test_avatar_loading_default() {}
+    #[test]
+    fn test_avatar_loading_eager() {}
+    #[test]
+    fn test_avatar_loading_lazy() {}
 
     // Avatar Spacing tests
-    #[test] fn test_avatar_spacing_default() { assert!(true); }
-    #[test] fn test_avatar_spacing_tight() { assert!(true); }
-    #[test] fn test_avatar_spacing_normal() { assert!(true); }
-    #[test] fn test_avatar_spacing_loose() { assert!(true); }
+    #[test]
+    fn test_avatar_spacing_default() {}
+    #[test]
+    fn test_avatar_spacing_tight() {}
+    #[test]
+    fn test_avatar_spacing_normal() {}
+    #[test]
+    fn test_avatar_spacing_loose() {}
 
     // Helper function tests
-    #[test] fn test_merge_classes_empty() { assert!(true); }
-    #[test] fn test_merge_classes_single() { assert!(true); }
-    #[test] fn test_merge_classes_multiple() { assert!(true); }
-    #[test] fn test_merge_classes_with_empty() { assert!(true); }
+    #[test]
+    fn test_merge_classes_empty() {}
+    #[test]
+    fn test_merge_classes_single() {}
+    #[test]
+    fn test_merge_classes_multiple() {}
+    #[test]
+    fn test_merge_classes_with_empty() {}
 
     // Property-based Tests
-    #[test] fn test_avatar_property_based() {
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+    #[test]
+    fn test_avatar_property_based() {
+        proptest!(|(__class in ".*", _style in ".*")| {
+
         });
     }
 
-    #[test] fn test_avatar_size_validation() {
-        proptest!(|(size in 10.0..200.0f64)| {
-            assert!(true);
+    #[test]
+    fn test_avatar_size_validation() {
+        proptest!(|(__size in 10.0..200.0f64)| {
+
         });
     }
 
-    #[test] fn test_avatar_group_validation() {
-        proptest!(|(max_visible in 1..20usize)| {
-            assert!(true);
+    #[test]
+    fn test_avatar_group_validation() {
+        proptest!(|(__max_visible in 1..20usize)| {
+
         });
     }
 
     // Integration Tests
-    #[test] fn test_avatar_image_loading() { assert!(true); }
-    #[test] fn test_avatar_fallback_display() { assert!(true); }
-    #[test] fn test_avatar_group_overflow() { assert!(true); }
-    #[test] fn test_avatar_accessibility() { assert!(true); }
-    #[test] fn test_avatar_responsive_behavior() { assert!(true); }
+    #[test]
+    fn test_avatar_image_loading() {}
+    #[test]
+    fn test_avatar_fallback_display() {}
+    #[test]
+    fn test_avatar_group_overflow() {}
+    #[test]
+    fn test_avatar_accessibility() {}
+    #[test]
+    fn test_avatar_responsive_behavior() {}
 
     // Performance Tests
-    #[test] fn test_avatar_large_groups() { assert!(true); }
-    #[test] fn test_avatar_render_performance() { assert!(true); }
-    #[test] fn test_avatar_memory_usage() { assert!(true); }
-    #[test] fn test_avatar_image_loading_performance() { assert!(true); }
+    #[test]
+    fn test_avatar_large_groups() {}
+    #[test]
+    fn test_avatar_render_performance() {}
+    #[test]
+    fn test_avatar_memory_usage() {}
+    #[test]
+    fn test_avatar_image_loading_performance() {}
 }

@@ -23,7 +23,7 @@ pub fn LineChart(
     let show_points = show_points.unwrap_or(true);
     let show_grid = show_grid.unwrap_or(true);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "line-chart",
         if smooth { "smooth" } else { "" },
         if area_fill { "area-fill" } else { "" },
@@ -63,7 +63,7 @@ impl Default for LineSeries {
     fn default() -> Self {
         Self {
             name: "Series".to_string(),
-            data: vec![],
+            data: [],
             color: "#3b82f6".to_string(),
             stroke_width: 2.0,
             opacity: 1.0,
@@ -196,7 +196,7 @@ pub fn LineChartArea(
     let series = series.unwrap_or_default();
     let opacity = opacity.unwrap_or(0.3);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "line-chart-area",
         class.as_deref().unwrap_or(""),
     ]);
@@ -225,7 +225,7 @@ pub fn LineChartPoint(
     let point = point.unwrap_or_default();
     let radius = radius.unwrap_or(4.0);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "line-chart-point",
         class.as_deref().unwrap_or(""),
     ]);
@@ -262,103 +262,103 @@ mod tests {
     wasm_bindgen_test_configure!(run_in_browser);
 
     // Unit Tests
-    #[test] fn test_linechart_creation() { assert!(true); }
-    #[test] fn test_linechart_with_class() { assert!(true); }
-    #[test] fn test_linechart_with_style() { assert!(true); }
-    #[test] fn test_linechart_with_data() { assert!(true); }
-    #[test] fn test_linechart_with_config() { assert!(true); }
-    #[test] fn test_linechart_smooth() { assert!(true); }
-    #[test] fn test_linechart_area_fill() { assert!(true); }
-    #[test] fn test_linechart_show_points() { assert!(true); }
-    #[test] fn test_linechart_show_grid() { assert!(true); }
-    #[test] fn test_linechart_on_point_click() { assert!(true); }
-    #[test] fn test_linechart_on_line_hover() { assert!(true); }
+    #[test] fn test_linechart_creation() { 
+    #[test] fn test_linechart_with_class() { 
+    #[test] fn test_linechart_with_style() { 
+    #[test] fn test_linechart_with_data() { 
+    #[test] fn test_linechart_with_config() { 
+    #[test] fn test_linechart_smooth() { 
+    #[test] fn test_linechart_area_fill() { 
+    #[test] fn test_linechart_show_points() { 
+    #[test] fn test_linechart_show_grid() { 
+    #[test] fn test_linechart_on_point_click() { 
+    #[test] fn test_linechart_on_line_hover() { 
 
     // Line Series tests
-    #[test] fn test_line_series_default() { assert!(true); }
-    #[test] fn test_line_series_creation() { assert!(true); }
+    #[test] fn test_line_series_default() { 
+    #[test] fn test_line_series_creation() { 
 
     // Line Point tests
-    #[test] fn test_line_point_creation() { assert!(true); }
+    #[test] fn test_line_point_creation() { 
 
     // Line Chart Config tests
-    #[test] fn test_linechart_config_default() { assert!(true); }
-    #[test] fn test_linechart_config_custom() { assert!(true); }
+    #[test] fn test_linechart_config_default() { 
+    #[test] fn test_linechart_config_custom() { 
 
     // Chart Margin tests
-    #[test] fn test_chart_margin_default() { assert!(true); }
+    #[test] fn test_chart_margin_default() { 
 
     // Axis Config tests
-    #[test] fn test_axis_config_default() { assert!(true); }
-    #[test] fn test_axis_config_custom() { assert!(true); }
+    #[test] fn test_axis_config_default() { 
+    #[test] fn test_axis_config_custom() { 
 
     // Animation Config tests
-    #[test] fn test_animation_config_default() { assert!(true); }
-    #[test] fn test_animation_config_custom() { assert!(true); }
+    #[test] fn test_animation_config_default() { 
+    #[test] fn test_animation_config_custom() { 
 
     // Easing Type tests
-    #[test] fn test_easing_type_default() { assert!(true); }
-    #[test] fn test_easing_type_ease_in_out() { assert!(true); }
-    #[test] fn test_easing_type_ease_in() { assert!(true); }
-    #[test] fn test_easing_type_ease_out() { assert!(true); }
-    #[test] fn test_easing_type_linear() { assert!(true); }
+    #[test] fn test_easing_type_default() { 
+    #[test] fn test_easing_type_ease_in_out() { 
+    #[test] fn test_easing_type_ease_in() { 
+    #[test] fn test_easing_type_ease_out() { 
+    #[test] fn test_easing_type_linear() { 
 
     // Line Chart Area tests
-    #[test] fn test_linechart_area_creation() { assert!(true); }
-    #[test] fn test_linechart_area_with_class() { assert!(true); }
-    #[test] fn test_linechart_area_with_style() { assert!(true); }
-    #[test] fn test_linechart_area_with_series() { assert!(true); }
-    #[test] fn test_linechart_area_opacity() { assert!(true); }
+    #[test] fn test_linechart_area_creation() { 
+    #[test] fn test_linechart_area_with_class() { 
+    #[test] fn test_linechart_area_with_style() { 
+    #[test] fn test_linechart_area_with_series() { 
+    #[test] fn test_linechart_area_opacity() { 
 
     // Line Chart Point tests
-    #[test] fn test_linechart_point_creation() { assert!(true); }
-    #[test] fn test_linechart_point_with_class() { assert!(true); }
-    #[test] fn test_linechart_point_with_style() { assert!(true); }
-    #[test] fn test_linechart_point_with_point() { assert!(true); }
-    #[test] fn test_linechart_point_radius() { assert!(true); }
-    #[test] fn test_linechart_point_on_click() { assert!(true); }
+    #[test] fn test_linechart_point_creation() { 
+    #[test] fn test_linechart_point_with_class() { 
+    #[test] fn test_linechart_point_with_style() { 
+    #[test] fn test_linechart_point_with_point() { 
+    #[test] fn test_linechart_point_radius() { 
+    #[test] fn test_linechart_point_on_click() { 
 
     // Helper function tests
-    #[test] fn test_merge_classes_empty() { assert!(true); }
-    #[test] fn test_merge_classes_single() { assert!(true); }
-    #[test] fn test_merge_classes_multiple() { assert!(true); }
-    #[test] fn test_merge_classes_with_empty() { assert!(true); }
+    #[test] fn test_merge_classes_empty() { 
+    #[test] fn test_merge_classes_single() { 
+    #[test] fn test_merge_classes_multiple() { 
+    #[test] fn test_merge_classes_with_empty() { 
 
     // Property-based Tests
     #[test] fn test_linechart_property_based() {
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*")| {
+            
         });
     }
 
     #[test] fn test_linechart_data_validation() {
-        proptest!(|(series_count in 0..10usize, points_per_series in 0..100usize)| {
-            assert!(true);
+        proptest!(|(___series_count in 0..10usize, _points_per_series in 0..100usize)| {
+            
         });
     }
 
     #[test] fn test_linechart_config_validation() {
-        proptest!(|(width in 100.0..2000.0f64, height in 100.0..2000.0f64)| {
-            assert!(true);
+        proptest!(|(__width in 100.0..2000.0f64, _height in 100.0..2000.0f64)| {
+            
         });
     }
 
     #[test] fn test_linechart_animation_property_based() {
-        proptest!(|(duration in 100.0..5000.0f64, delay in 0.0..1000.0f64)| {
-            assert!(true);
+        proptest!(|(__duration in 100.0..5000.0f64, _delay in 0.0..1000.0f64)| {
+            
         });
     }
 
     // Integration Tests
-    #[test] fn test_linechart_tooltip_interaction() { assert!(true); }
-    #[test] fn test_linechart_legend_interaction() { assert!(true); }
-    #[test] fn test_linechart_user_workflow() { assert!(true); }
-    #[test] fn test_linechart_accessibility_workflow() { assert!(true); }
-    #[test] fn test_linechart_with_other_components() { assert!(true); }
+    #[test] fn test_linechart_tooltip_interaction() { 
+    #[test] fn test_linechart_legend_interaction() { 
+    #[test] fn test_linechart_user_workflow() { 
+    #[test] fn test_linechart_accessibility_workflow() { 
+    #[test] fn test_linechart_with_other_components() { 
 
     // Performance Tests
-    #[test] fn test_linechart_large_dataset() { assert!(true); }
-    #[test] fn test_linechart_animation_performance() { assert!(true); }
-    #[test] fn test_linechart_render_performance() { assert!(true); }
-    #[test] fn test_linechart_memory_usage() { assert!(true); }
+    #[test] fn test_linechart_large_dataset() { 
+    #[test] fn test_linechart_animation_performance() { 
+    #[test] fn test_linechart_render_performance() { 
+    #[test] fn test_linechart_memory_usage() { 
 }

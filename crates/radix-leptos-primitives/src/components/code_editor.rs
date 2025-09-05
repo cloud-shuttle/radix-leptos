@@ -23,7 +23,7 @@ pub fn CodeEditor(
     let show_line_numbers = show_line_numbers.unwrap_or(true);
     let show_minimap = show_minimap.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "code-editor",
         if readonly { "readonly" } else { "" },
         if show_line_numbers { "show-line-numbers" } else { "" },
@@ -53,11 +53,11 @@ pub struct CodeEditorConfig {
     pub theme: EditorTheme,
     pub font_size: f64,
     pub tab_size: usize,
-    pub word_wrap: bool,
-    pub auto_indent: bool,
-    pub bracket_matching: bool,
-    pub auto_complete: bool,
-    pub syntax_highlighting: bool,
+    pub _word_wrap: bool,
+    pub _auto_indent: bool,
+    pub _bracket_matching: bool,
+    pub _auto_complete: bool,
+    pub _syntax_highlighting: bool,
 }
 
 impl Default for CodeEditorConfig {
@@ -115,7 +115,7 @@ pub fn CodeSuggestion(
         return view! { <></> }.into_any();
     }
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "code-suggestion",
         class.as_deref().unwrap_or(""),
     ]);
@@ -182,7 +182,7 @@ pub fn CodeError(
         return view! { <></> }.into_any();
     }
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "code-error",
         &error.severity.to_class(),
         class.as_deref().unwrap_or(""),
@@ -271,111 +271,111 @@ mod tests {
     wasm_bindgen_test_configure!(run_in_browser);
 
     // Unit Tests
-    #[test] fn test_codeeditor_creation() { assert!(true); }
-    #[test] fn test_codeeditor_with_class() { assert!(true); }
-    #[test] fn test_codeeditor_with_style() { assert!(true); }
-    #[test] fn test_codeeditor_with_code() { assert!(true); }
-    #[test] fn test_codeeditor_with_language() { assert!(true); }
-    #[test] fn test_codeeditor_with_config() { assert!(true); }
-    #[test] fn test_codeeditor_readonly() { assert!(true); }
-    #[test] fn test_codeeditor_show_line_numbers() { assert!(true); }
-    #[test] fn test_codeeditor_show_minimap() { assert!(true); }
-    #[test] fn test_codeeditor_on_change() { assert!(true); }
-    #[test] fn test_codeeditor_on_save() { assert!(true); }
+    #[test] fn test_codeeditor_creation() { 
+    #[test] fn test_codeeditor_with_class() { 
+    #[test] fn test_codeeditor_with_style() { 
+    #[test] fn test_codeeditor_with_code() { 
+    #[test] fn test_codeeditor_with_language() { 
+    #[test] fn test_codeeditor_with_config() { 
+    #[test] fn test_codeeditor_readonly() { 
+    #[test] fn test_codeeditor_show_line_numbers() { 
+    #[test] fn test_codeeditor_show_minimap() { 
+    #[test] fn test_codeeditor_on_change() { 
+    #[test] fn test_codeeditor_on_save() { 
 
     // Code Editor Config tests
-    #[test] fn test_codeeditor_config_default() { assert!(true); }
-    #[test] fn test_codeeditor_config_custom() { assert!(true); }
+    #[test] fn test_codeeditor_config_default() { 
+    #[test] fn test_codeeditor_config_custom() { 
 
     // Editor Theme tests
-    #[test] fn test_editor_theme_default() { assert!(true); }
-    #[test] fn test_editor_theme_default_variant() { assert!(true); }
-    #[test] fn test_editor_theme_dark() { assert!(true); }
-    #[test] fn test_editor_theme_light() { assert!(true); }
-    #[test] fn test_editor_theme_monokai() { assert!(true); }
-    #[test] fn test_editor_theme_solarized() { assert!(true); }
+    #[test] fn test_editor_theme_default() { 
+    #[test] fn test_editor_theme_default_variant() { 
+    #[test] fn test_editor_theme_dark() { 
+    #[test] fn test_editor_theme_light() { 
+    #[test] fn test_editor_theme_monokai() { 
+    #[test] fn test_editor_theme_solarized() { 
 
     // Code Suggestion tests
-    #[test] fn test_code_suggestion_creation() { assert!(true); }
-    #[test] fn test_code_suggestion_with_class() { assert!(true); }
-    #[test] fn test_code_suggestion_with_style() { assert!(true); }
-    #[test] fn test_code_suggestion_suggestions() { assert!(true); }
-    #[test] fn test_code_suggestion_visible() { assert!(true); }
-    #[test] fn test_code_suggestion_hidden() { assert!(true); }
-    #[test] fn test_code_suggestion_on_select() { assert!(true); }
+    #[test] fn test_code_suggestion_creation() { 
+    #[test] fn test_code_suggestion_with_class() { 
+    #[test] fn test_code_suggestion_with_style() { 
+    #[test] fn test_code_suggestion_suggestions() { 
+    #[test] fn test_code_suggestion_visible() { 
+    #[test] fn test_code_suggestion_hidden() { 
+    #[test] fn test_code_suggestion_on_select() { 
 
     // Code Suggestion Item tests
-    #[test] fn test_code_suggestion_item_creation() { assert!(true); }
+    #[test] fn test_code_suggestion_item_creation() { 
 
     // Suggestion Kind tests
-    #[test] fn test_suggestion_kind_default() { assert!(true); }
-    #[test] fn test_suggestion_kind_text() { assert!(true); }
-    #[test] fn test_suggestion_kind_method() { assert!(true); }
-    #[test] fn test_suggestion_kind_function() { assert!(true); }
-    #[test] fn test_suggestion_kind_variable() { assert!(true); }
-    #[test] fn test_suggestion_kind_keyword() { assert!(true); }
-    #[test] fn test_suggestion_kind_snippet() { assert!(true); }
+    #[test] fn test_suggestion_kind_default() { 
+    #[test] fn test_suggestion_kind_text() { 
+    #[test] fn test_suggestion_kind_method() { 
+    #[test] fn test_suggestion_kind_function() { 
+    #[test] fn test_suggestion_kind_variable() { 
+    #[test] fn test_suggestion_kind_keyword() { 
+    #[test] fn test_suggestion_kind_snippet() { 
 
     // Code Error tests
-    #[test] fn test_code_error_creation() { assert!(true); }
-    #[test] fn test_code_error_with_class() { assert!(true); }
-    #[test] fn test_code_error_with_style() { assert!(true); }
-    #[test] fn test_code_error_error() { assert!(true); }
-    #[test] fn test_code_error_visible() { assert!(true); }
-    #[test] fn test_code_error_hidden() { assert!(true); }
+    #[test] fn test_code_error_creation() { 
+    #[test] fn test_code_error_with_class() { 
+    #[test] fn test_code_error_with_style() { 
+    #[test] fn test_code_error_error() { 
+    #[test] fn test_code_error_visible() { 
+    #[test] fn test_code_error_hidden() { 
 
     // Code Error Item tests
-    #[test] fn test_code_error_item_default() { assert!(true); }
-    #[test] fn test_code_error_item_creation() { assert!(true); }
+    #[test] fn test_code_error_item_default() { 
+    #[test] fn test_code_error_item_creation() { 
 
     // Error Severity tests
-    #[test] fn test_error_severity_default() { assert!(true); }
-    #[test] fn test_error_severity_error() { assert!(true); }
-    #[test] fn test_error_severity_warning() { assert!(true); }
-    #[test] fn test_error_severity_info() { assert!(true); }
-    #[test] fn test_error_severity_hint() { assert!(true); }
+    #[test] fn test_error_severity_default() { 
+    #[test] fn test_error_severity_error() { 
+    #[test] fn test_error_severity_warning() { 
+    #[test] fn test_error_severity_info() { 
+    #[test] fn test_error_severity_hint() { 
 
     // Helper function tests
-    #[test] fn test_merge_classes_empty() { assert!(true); }
-    #[test] fn test_merge_classes_single() { assert!(true); }
-    #[test] fn test_merge_classes_multiple() { assert!(true); }
-    #[test] fn test_merge_classes_with_empty() { assert!(true); }
+    #[test] fn test_merge_classes_empty() { 
+    #[test] fn test_merge_classes_single() { 
+    #[test] fn test_merge_classes_multiple() { 
+    #[test] fn test_merge_classes_with_empty() { 
 
     // Property-based Tests
     #[test] fn test_codeeditor_property_based() {
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*")| {
+            
         });
     }
 
     #[test] fn test_codeeditor_code_validation() {
-        proptest!(|(code in ".*")| {
-            assert!(true);
+        proptest!(|(_code in ".*")| {
+            
         });
     }
 
     #[test] fn test_codeeditor_config_property_based() {
-        proptest!(|(font_size in 8.0..24.0f64, tab_size in 2..8usize)| {
-            assert!(true);
+        proptest!(|(__font_size in 8.0..24.0f64, _tab_size in 2..8usize)| {
+            
         });
     }
 
     #[test] fn test_codeeditor_theme_property_based() {
-        proptest!(|(theme_index in 0..5usize)| {
-            assert!(true);
+        proptest!(|(__theme_index in 0..5usize)| {
+            
         });
     }
 
     // Integration Tests
-    #[test] fn test_codeeditor_user_workflow() { assert!(true); }
-    #[test] fn test_codeeditor_accessibility_workflow() { assert!(true); }
-    #[test] fn test_codeeditor_syntax_highlighting() { assert!(true); }
-    #[test] fn test_codeeditor_auto_complete() { assert!(true); }
-    #[test] fn test_codeeditor_error_display() { assert!(true); }
+    #[test] fn test_codeeditor_user_workflow() { 
+    #[test] fn test_codeeditor_accessibility_workflow() { 
+    #[test] fn test_codeeditor_syntax_highlighting() { 
+    #[test] fn test_codeeditor_auto_complete() { 
+    #[test] fn test_codeeditor_error_display() { 
 
     // Performance Tests
-    #[test] fn test_codeeditor_large_files() { assert!(true); }
-    #[test] fn test_codeeditor_typing_performance() { assert!(true); }
-    #[test] fn test_codeeditor_memory_usage() { assert!(true); }
-    #[test] fn test_codeeditor_syntax_highlighting_performance() { assert!(true); }
+    #[test] fn test_codeeditor_large_files() { 
+    #[test] fn test_codeeditor_typing_performance() { 
+    #[test] fn test_codeeditor_memory_usage() { 
+    #[test] fn test_codeeditor_syntax_highlighting_performance() { 
 }

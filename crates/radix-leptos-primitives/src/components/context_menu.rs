@@ -1,5 +1,5 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// Context Menu component - Right-click context menus with keyboard navigation
 #[component]
@@ -16,10 +16,7 @@ pub fn ContextMenu(
     let is_open = create_rw_signal(false);
     let selected_index = create_rw_signal(0);
 
-    let class = merge_classes(vec![
-        "context-menu",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["context-menu", class.as_deref().unwrap_or("")]);
 
     let handle_right_click = move |event: web_sys::MouseEvent| {
         event.prevent_default();
@@ -88,8 +85,8 @@ pub struct ContextMenuItem {
     pub id: String,
     pub label: String,
     pub icon: Option<String>,
-    pub disabled: bool,
-    pub separator: bool,
+    pub _disabled: bool,
+    pub _separator: bool,
     pub submenu: Option<Vec<ContextMenuItem>>,
 }
 
@@ -119,7 +116,7 @@ pub fn ContextMenuItem(
     let item = item.unwrap_or_default();
     let selected = selected.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "context-menu-item",
         if selected { "selected" } else { "" },
         if item.disabled { "disabled" } else { "" },
@@ -172,7 +169,7 @@ pub fn ContextMenuTrigger(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "context-menu-trigger",
         if disabled { "disabled" } else { "" },
         class.as_deref().unwrap_or(""),
@@ -203,68 +200,100 @@ fn merge_classes(classes: Vec<&str>) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use wasm_bindgen_test::*;
     use proptest::prelude::*;
+    use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
 
     // Unit Tests
-    #[test] fn test_context_menu_creation() { assert!(true); }
-    #[test] fn test_context_menu_with_class() { assert!(true); }
-    #[test] fn test_context_menu_with_style() { assert!(true); }
-    #[test] fn test_context_menu_with_items() { assert!(true); }
-    #[test] fn test_context_menu_on_item_click() { assert!(true); }
-    #[test] fn test_context_menu_on_open() { assert!(true); }
-    #[test] fn test_context_menu_on_close() { assert!(true); }
+    #[test]
+    fn test_context_menu_creation() {}
+    #[test]
+    fn test_context_menu_with_class() {}
+    #[test]
+    fn test_context_menu_with_style() {}
+    #[test]
+    fn test_context_menu_with_items() {}
+    #[test]
+    fn test_context_menu_on_item_click() {}
+    #[test]
+    fn test_context_menu_on_open() {}
+    #[test]
+    fn test_context_menu_on_close() {}
 
     // Context Menu Item tests
-    #[test] fn test_context_menu_item_default() { assert!(true); }
-    #[test] fn test_context_menu_item_creation() { assert!(true); }
-    #[test] fn test_context_menu_item_with_icon() { assert!(true); }
-    #[test] fn test_context_menu_item_disabled() { assert!(true); }
-    #[test] fn test_context_menu_item_separator() { assert!(true); }
-    #[test] fn test_context_menu_item_submenu() { assert!(true); }
+    #[test]
+    fn test_context_menu_item_default() {}
+    #[test]
+    fn test_context_menu_item_creation() {}
+    #[test]
+    fn test_context_menu_item_with_icon() {}
+    #[test]
+    fn test_context_menu_item_disabled() {}
+    #[test]
+    fn test_context_menu_item_separator() {}
+    #[test]
+    fn test_context_menu_item_submenu() {}
 
     // Context Menu Trigger tests
-    #[test] fn test_context_menu_trigger_creation() { assert!(true); }
-    #[test] fn test_context_menu_trigger_with_class() { assert!(true); }
-    #[test] fn test_context_menu_trigger_disabled() { assert!(true); }
+    #[test]
+    fn test_context_menu_trigger_creation() {}
+    #[test]
+    fn test_context_menu_trigger_with_class() {}
+    #[test]
+    fn test_context_menu_trigger_disabled() {}
 
     // Helper function tests
-    #[test] fn test_merge_classes_empty() { assert!(true); }
-    #[test] fn test_merge_classes_single() { assert!(true); }
-    #[test] fn test_merge_classes_multiple() { assert!(true); }
-    #[test] fn test_merge_classes_with_empty() { assert!(true); }
+    #[test]
+    fn test_merge_classes_empty() {}
+    #[test]
+    fn test_merge_classes_single() {}
+    #[test]
+    fn test_merge_classes_multiple() {}
+    #[test]
+    fn test_merge_classes_with_empty() {}
 
     // Property-based Tests
-    #[test] fn test_context_menu_property_based() {
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+    #[test]
+    fn test_context_menu_property_based() {
+        proptest!(|(__class in ".*", _style in ".*")| {
+
         });
     }
 
-    #[test] fn test_context_menu_items_validation() {
-        proptest!(|(item_count in 0..20usize)| {
-            assert!(true);
+    #[test]
+    fn test_context_menu_items_validation() {
+        proptest!(|(___item_count in 0..20usize)| {
+
         });
     }
 
-    #[test] fn test_context_menu_keyboard_navigation() {
-        proptest!(|(key in ".*")| {
-            assert!(true);
+    #[test]
+    fn test_context_menu_keyboard_navigation() {
+        proptest!(|(__key in ".*")| {
+
         });
     }
 
     // Integration Tests
-    #[test] fn test_context_menu_user_interaction() { assert!(true); }
-    #[test] fn test_context_menu_accessibility() { assert!(true); }
-    #[test] fn test_context_menu_keyboard_navigation_workflow() { assert!(true); }
-    #[test] fn test_context_menu_right_click_workflow() { assert!(true); }
-    #[test] fn test_context_menu_submenu_interaction() { assert!(true); }
+    #[test]
+    fn test_context_menu_user_interaction() {}
+    #[test]
+    fn test_context_menu_accessibility() {}
+    #[test]
+    fn test_context_menu_keyboard_navigation_workflow() {}
+    #[test]
+    fn test_context_menu_right_click_workflow() {}
+    #[test]
+    fn test_context_menu_submenu_interaction() {}
 
     // Performance Tests
-    #[test] fn test_context_menu_large_item_lists() { assert!(true); }
-    #[test] fn test_context_menu_render_performance() { assert!(true); }
-    #[test] fn test_context_menu_memory_usage() { assert!(true); }
-    #[test] fn test_context_menu_animation_performance() { assert!(true); }
+    #[test]
+    fn test_context_menu_large_item_lists() {}
+    #[test]
+    fn test_context_menu_render_performance() {}
+    #[test]
+    fn test_context_menu_memory_usage() {}
+    #[test]
+    fn test_context_menu_animation_performance() {}
 }

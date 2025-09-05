@@ -26,10 +26,10 @@ pub fn RadioGroup(
     value: Option<String>,
     /// Whether the radio group is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// Whether the radio group is required
     #[prop(optional, default = false)]
-    required: bool,
+    _required: bool,
 
     /// CSS classes
     #[prop(optional)]
@@ -43,7 +43,7 @@ pub fn RadioGroup(
     /// Child content (radio options)
     children: Children,
 ) -> impl IntoView {
-    let radio_group_id = generate_id("radio-group");
+    let _radio_group_id = generate_id("radio-group");
     
     // Build base classes
     let base_classes = "radix-radio-group";
@@ -72,10 +72,10 @@ pub fn RadioGroupItem(
     value: String,
     /// Whether this radio option is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// Whether this radio option is required
     #[prop(optional, default = false)]
-    required: bool,
+    _required: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -88,7 +88,7 @@ pub fn RadioGroupItem(
     /// Child content (label)
     children: Children,
 ) -> impl IntoView {
-    let radio_id = generate_id("radio");
+    let _radio_id = generate_id("radio");
     
     // Build base classes
     let base_classes = "radix-radio-group-item";
@@ -163,10 +163,10 @@ pub fn RadioGroupItemWithLabel(
     value: String,
     /// Whether this radio option is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// Whether this radio option is required
     #[prop(optional, default = false)]
-    required: bool,
+    _required: bool,
     /// CSS classes for the radio item
     #[prop(optional)]
     class: Option<String>,
@@ -176,7 +176,7 @@ pub fn RadioGroupItemWithLabel(
     /// Child content (label)
     children: Children,
 ) -> impl IntoView {
-    let radio_id = generate_id("radio");
+    let _radio_id = generate_id("radio");
     
     view! {
         <div style="display: flex; align-items: center; gap: 8px;">

@@ -1,30 +1,40 @@
-use leptos::*;
-use leptos::prelude::*;
 use super::css_variables::CSSVariables;
+use leptos::prelude::*;
+use leptos::*;
 
 /// Theme customization component
 #[component]
 pub fn ThemeCustomizer(
     /// Initial theme
-    #[prop(optional)] initial_theme: Option<CSSVariables>,
+    #[prop(optional)]
+    initial_theme: Option<CSSVariables>,
     /// Whether to show color picker
-    #[prop(optional)] show_colors: Option<bool>,
+    #[prop(optional)]
+    show_colors: Option<bool>,
     /// Whether to show typography settings
-    #[prop(optional)] show_typography: Option<bool>,
+    #[prop(optional)]
+    show_typography: Option<bool>,
     /// Whether to show spacing settings
-    #[prop(optional)] show_spacing: Option<bool>,
+    #[prop(optional)]
+    show_spacing: Option<bool>,
     /// Whether to show border radius settings
-    #[prop(optional)] show_border_radius: Option<bool>,
+    #[prop(optional)]
+    show_border_radius: Option<bool>,
     /// Whether to show shadow settings
-    #[prop(optional)] show_shadows: Option<bool>,
+    #[prop(optional)]
+    show_shadows: Option<bool>,
     /// Whether to show animation settings
-    #[prop(optional)] show_animations: Option<bool>,
+    #[prop(optional)]
+    show_animations: Option<bool>,
     /// Callback when theme changes
-    #[prop(optional)] on_theme_change: Option<Callback<CSSVariables>>,
+    #[prop(optional)]
+    on_theme_change: Option<Callback<CSSVariables>>,
     /// Additional CSS classes
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)]
+    class: Option<String>,
     /// Inline styles
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional)]
+    style: Option<String>,
 ) -> impl IntoView {
     let initial_theme = initial_theme.unwrap_or_default();
     let show_colors = show_colors.unwrap_or(true);
@@ -33,29 +43,29 @@ pub fn ThemeCustomizer(
     let show_border_radius = show_border_radius.unwrap_or(true);
     let show_shadows = show_shadows.unwrap_or(true);
     let show_animations = show_animations.unwrap_or(true);
-    
-    let (current_theme, set_current_theme) = create_signal(initial_theme);
-    
+
+    let (current_theme, set_current_theme) = signal(initial_theme);
+
     let handle_theme_change = Callback::new(move |new_theme: CSSVariables| {
         set_current_theme.set(new_theme.clone());
         if let Some(callback) = on_theme_change {
             callback.run(new_theme);
         }
     });
-    
+
     let class = format!("theme-customizer {}", class.unwrap_or_default());
-    
+
     view! {
         <div class=class style=style>
             <div class="theme-customizer-header">
                 <h3>"Theme Customizer"</h3>
                 <p>"Customize your theme colors, typography, and more"</p>
             </div>
-            
+
             <div class="theme-customizer-sections">
                 {if show_colors {
                     view! {
-                        <ColorCustomizer 
+                        <ColorCustomizer
                             theme=current_theme
                             on_change=handle_theme_change
                         />
@@ -63,10 +73,10 @@ pub fn ThemeCustomizer(
                 } else {
                     view! { <></> }.into_any()
                 }}
-                
+
                 {if show_typography {
                     view! {
-                        <TypographyCustomizer 
+                        <TypographyCustomizer
                             theme=current_theme
                             on_change=handle_theme_change
                         />
@@ -74,10 +84,10 @@ pub fn ThemeCustomizer(
                 } else {
                     view! { <></> }.into_any()
                 }}
-                
+
                 {if show_spacing {
                     view! {
-                        <SpacingCustomizer 
+                        <SpacingCustomizer
                             theme=current_theme
                             on_change=handle_theme_change
                         />
@@ -85,10 +95,10 @@ pub fn ThemeCustomizer(
                 } else {
                     view! { <></> }.into_any()
                 }}
-                
+
                 {if show_border_radius {
                     view! {
-                        <BorderRadiusCustomizer 
+                        <BorderRadiusCustomizer
                             theme=current_theme
                             on_change=handle_theme_change
                         />
@@ -96,10 +106,10 @@ pub fn ThemeCustomizer(
                 } else {
                     view! { <></> }.into_any()
                 }}
-                
+
                 {if show_shadows {
                     view! {
-                        <ShadowCustomizer 
+                        <ShadowCustomizer
                             theme=current_theme
                             on_change=handle_theme_change
                         />
@@ -107,10 +117,10 @@ pub fn ThemeCustomizer(
                 } else {
                     view! { <></> }.into_any()
                 }}
-                
+
                 {if show_animations {
                     view! {
-                        <AnimationCustomizer 
+                        <AnimationCustomizer
                             theme=current_theme
                             on_change=handle_theme_change
                         />
@@ -119,9 +129,9 @@ pub fn ThemeCustomizer(
                     view! { <></> }.into_any()
                 }}
             </div>
-            
+
             <div class="theme-customizer-actions">
-                <button 
+                <button
                     class="reset-button"
                     on:click=move |_| {
                         let default_theme = CSSVariables::default();
@@ -130,7 +140,7 @@ pub fn ThemeCustomizer(
                 >
                     "Reset to Default"
                 </button>
-                <button 
+                <button
                     class="export-button"
                     on:click=move |_| {
                         let theme_json = serde_json::to_string(&current_theme.get()).unwrap_or_default();
@@ -168,14 +178,14 @@ pub fn ColorCustomizer(
         }
         on_change.run(new_theme);
     };
-    
+
     view! {
         <div class="color-customizer">
             <h4>"Colors"</h4>
             <div class="color-controls">
                 <div class="color-control">
                     <label>"Primary"</label>
-                    <input 
+                    <input
                         type="color"
                         value=move || theme.get().primary.primary_500
                         on:change=move |ev| {
@@ -186,7 +196,7 @@ pub fn ColorCustomizer(
                 </div>
                 <div class="color-control">
                     <label>"Primary Foreground"</label>
-                    <input 
+                    <input
                         type="color"
                         value=move || theme.get().primary.primary_50
                         on:change=move |ev| {
@@ -197,7 +207,7 @@ pub fn ColorCustomizer(
                 </div>
                 <div class="color-control">
                     <label>"Secondary"</label>
-                    <input 
+                    <input
                         type="color"
                         value=move || theme.get().secondary.secondary_500
                         on:change=move |ev| {
@@ -208,7 +218,7 @@ pub fn ColorCustomizer(
                 </div>
                 <div class="color-control">
                     <label>"Background"</label>
-                    <input 
+                    <input
                         type="color"
                         value=move || theme.get().neutral.neutral_50
                         on:change=move |ev| {
@@ -219,7 +229,7 @@ pub fn ColorCustomizer(
                 </div>
                 <div class="color-control">
                     <label>"Foreground"</label>
-                    <input 
+                    <input
                         type="color"
                         value=move || theme.get().neutral.neutral_900
                         on:change=move |ev| {
@@ -230,7 +240,7 @@ pub fn ColorCustomizer(
                 </div>
                 <div class="color-control">
                     <label>"Destructive"</label>
-                    <input 
+                    <input
                         type="color"
                         value=move || theme.get().semantic.error
                         on:change=move |ev| {
@@ -266,14 +276,14 @@ pub fn TypographyCustomizer(
         }
         on_change.run(new_theme);
     };
-    
+
     view! {
         <div class="typography-customizer">
             <h4>"Typography"</h4>
             <div class="typography-controls">
                 <div class="typography-control">
                     <label>"Base Font Size"</label>
-                    <input 
+                    <input
                         type="text"
                         value=move || theme.get().typography.font_size_base
                         on:change=move |ev| {
@@ -284,7 +294,7 @@ pub fn TypographyCustomizer(
                 </div>
                 <div class="typography-control">
                     <label>"Large Font Size"</label>
-                    <input 
+                    <input
                         type="text"
                         value=move || theme.get().typography.font_size_lg
                         on:change=move |ev| {
@@ -295,7 +305,7 @@ pub fn TypographyCustomizer(
                 </div>
                 <div class="typography-control">
                     <label>"Extra Large Font Size"</label>
-                    <input 
+                    <input
                         type="text"
                         value=move || theme.get().typography.font_size_xl
                         on:change=move |ev| {
@@ -306,7 +316,7 @@ pub fn TypographyCustomizer(
                 </div>
                 <div class="typography-control">
                     <label>"Normal Font Weight"</label>
-                    <select 
+                    <select
                         prop:value=move || theme.get().typography.font_weight_normal
                         on:change=move |ev| {
                             let value = event_target_value(&ev);
@@ -322,7 +332,7 @@ pub fn TypographyCustomizer(
                 </div>
                 <div class="typography-control">
                     <label>"Medium Font Weight"</label>
-                    <select 
+                    <select
                         prop:value=move || theme.get().typography.font_weight_medium
                         on:change=move |ev| {
                             let value = event_target_value(&ev);
@@ -338,7 +348,7 @@ pub fn TypographyCustomizer(
                 </div>
                 <div class="typography-control">
                     <label>"Bold Font Weight"</label>
-                    <select 
+                    <select
                         prop:value=move || theme.get().typography.font_weight_bold
                         on:change=move |ev| {
                             let value = event_target_value(&ev);
@@ -354,7 +364,7 @@ pub fn TypographyCustomizer(
                 </div>
                 <div class="typography-control">
                     <label>"Line Height"</label>
-                    <input 
+                    <input
                         type="text"
                         value=move || theme.get().typography.line_height_normal
                         on:change=move |ev| {
@@ -387,14 +397,14 @@ pub fn SpacingCustomizer(
         }
         on_change.run(new_theme);
     };
-    
+
     view! {
         <div class="spacing-customizer">
             <h4>"Spacing"</h4>
             <div class="spacing-controls">
                 <div class="spacing-control">
                     <label>"Small Spacing"</label>
-                    <input 
+                    <input
                         type="text"
                         value=move || theme.get().spacing.space_2
                         on:change=move |ev| {
@@ -405,7 +415,7 @@ pub fn SpacingCustomizer(
                 </div>
                 <div class="spacing-control">
                     <label>"Medium Spacing"</label>
-                    <input 
+                    <input
                         type="text"
                         value=move || theme.get().spacing.space_4
                         on:change=move |ev| {
@@ -416,7 +426,7 @@ pub fn SpacingCustomizer(
                 </div>
                 <div class="spacing-control">
                     <label>"Large Spacing"</label>
-                    <input 
+                    <input
                         type="text"
                         value=move || theme.get().spacing.space_8
                         on:change=move |ev| {
@@ -427,7 +437,7 @@ pub fn SpacingCustomizer(
                 </div>
                 <div class="spacing-control">
                     <label>"Extra Large Spacing"</label>
-                    <input 
+                    <input
                         type="text"
                         value=move || theme.get().spacing.space_16
                         on:change=move |ev| {
@@ -460,14 +470,14 @@ pub fn BorderRadiusCustomizer(
         }
         on_change.run(new_theme);
     };
-    
+
     view! {
         <div class="border-radius-customizer">
             <h4>"Border Radius"</h4>
             <div class="border-radius-controls">
                 <div class="border-radius-control">
                     <label>"Small Radius"</label>
-                    <input 
+                    <input
                         type="text"
                         value=move || theme.get().border.border_radius_sm
                         on:change=move |ev| {
@@ -478,7 +488,7 @@ pub fn BorderRadiusCustomizer(
                 </div>
                 <div class="border-radius-control">
                     <label>"Medium Radius"</label>
-                    <input 
+                    <input
                         type="text"
                         value=move || theme.get().border.border_radius_md
                         on:change=move |ev| {
@@ -489,7 +499,7 @@ pub fn BorderRadiusCustomizer(
                 </div>
                 <div class="border-radius-control">
                     <label>"Large Radius"</label>
-                    <input 
+                    <input
                         type="text"
                         value=move || theme.get().border.border_radius_lg
                         on:change=move |ev| {
@@ -500,7 +510,7 @@ pub fn BorderRadiusCustomizer(
                 </div>
                 <div class="border-radius-control">
                     <label>"Extra Large Radius"</label>
-                    <input 
+                    <input
                         type="text"
                         value=move || theme.get().border.border_radius_xl
                         on:change=move |ev| {
@@ -533,14 +543,14 @@ pub fn ShadowCustomizer(
         }
         on_change.run(new_theme);
     };
-    
+
     view! {
         <div class="shadow-customizer">
             <h4>"Shadows"</h4>
             <div class="shadow-controls">
                 <div class="shadow-control">
                     <label>"Small Shadow"</label>
-                    <input 
+                    <input
                         type="text"
                         value=move || theme.get().shadow.shadow_sm
                         on:change=move |ev| {
@@ -551,7 +561,7 @@ pub fn ShadowCustomizer(
                 </div>
                 <div class="shadow-control">
                     <label>"Medium Shadow"</label>
-                    <input 
+                    <input
                         type="text"
                         value=move || theme.get().shadow.shadow_md
                         on:change=move |ev| {
@@ -562,7 +572,7 @@ pub fn ShadowCustomizer(
                 </div>
                 <div class="shadow-control">
                     <label>"Large Shadow"</label>
-                    <input 
+                    <input
                         type="text"
                         value=move || theme.get().shadow.shadow_lg
                         on:change=move |ev| {
@@ -573,7 +583,7 @@ pub fn ShadowCustomizer(
                 </div>
                 <div class="shadow-control">
                     <label>"Extra Large Shadow"</label>
-                    <input 
+                    <input
                         type="text"
                         value=move || theme.get().shadow.shadow_xl
                         on:change=move |ev| {
@@ -608,14 +618,14 @@ pub fn AnimationCustomizer(
         }
         on_change.run(new_theme);
     };
-    
+
     view! {
         <div class="animation-customizer">
             <h4>"Animations"</h4>
             <div class="animation-controls">
                 <div class="animation-control">
                     <label>"Fast Duration"</label>
-                    <input 
+                    <input
                         type="text"
                         value=move || theme.get().animation.duration_150
                         on:change=move |ev| {
@@ -626,7 +636,7 @@ pub fn AnimationCustomizer(
                 </div>
                 <div class="animation-control">
                     <label>"Normal Duration"</label>
-                    <input 
+                    <input
                         type="text"
                         value=move || theme.get().animation.duration_300
                         on:change=move |ev| {
@@ -637,7 +647,7 @@ pub fn AnimationCustomizer(
                 </div>
                 <div class="animation-control">
                     <label>"Slow Duration"</label>
-                    <input 
+                    <input
                         type="text"
                         value=move || theme.get().animation.duration_500
                         on:change=move |ev| {
@@ -648,7 +658,7 @@ pub fn AnimationCustomizer(
                 </div>
                 <div class="animation-control">
                     <label>"Easing In"</label>
-                    <input 
+                    <input
                         type="text"
                         value=move || theme.get().animation.ease_in
                         on:change=move |ev| {
@@ -659,7 +669,7 @@ pub fn AnimationCustomizer(
                 </div>
                 <div class="animation-control">
                     <label>"Easing Out"</label>
-                    <input 
+                    <input
                         type="text"
                         value=move || theme.get().animation.ease_out
                         on:change=move |ev| {
@@ -670,7 +680,7 @@ pub fn AnimationCustomizer(
                 </div>
                 <div class="animation-control">
                     <label>"Easing In-Out"</label>
-                    <input 
+                    <input
                         type="text"
                         value=move || theme.get().animation.ease_in_out
                         on:change=move |ev| {
@@ -690,12 +700,14 @@ pub fn ThemePreview(
     /// Theme to preview
     theme: ReadSignal<CSSVariables>,
     /// Additional CSS classes
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)]
+    class: Option<String>,
     /// Inline styles
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional)]
+    style: Option<String>,
 ) -> impl IntoView {
     let class = format!("theme-preview {}", class.unwrap_or_default());
-    
+
     view! {
         <div class=class style=style>
             <div class="preview-header">
@@ -742,7 +754,8 @@ mod tests {
         // Test logic without runtime
         // Test component logic
         let custom_class = "custom-customizer";
-        assert!(!custom_class.is_empty());        assert!(!custom_class.is_empty());
+        assert!(!custom_class.is_empty());
+        assert!(!custom_class.is_empty());
         // Test completed
     }
 
@@ -751,7 +764,8 @@ mod tests {
         // Test logic without runtime
         // Test component logic
         let custom_class = "custom-customizer";
-        assert!(!custom_class.is_empty());        assert!(!custom_class.is_empty());
+        assert!(!custom_class.is_empty());
+        assert!(!custom_class.is_empty());
         // Test completed
     }
 
@@ -762,7 +776,8 @@ mod tests {
         let on_change = Callback::new(|_: String| {});
         // Test component logic
         let custom_class = "custom-customizer";
-        assert!(!custom_class.is_empty());        assert!(!custom_class.is_empty());
+        assert!(!custom_class.is_empty());
+        assert!(!custom_class.is_empty());
         // Test completed
     }
 
@@ -773,7 +788,8 @@ mod tests {
         let on_change = Callback::new(|_: String| {});
         // Test component logic
         let custom_class = "custom-customizer";
-        assert!(!custom_class.is_empty());        assert!(!custom_class.is_empty());
+        assert!(!custom_class.is_empty());
+        assert!(!custom_class.is_empty());
         // Test completed
     }
 
@@ -784,7 +800,8 @@ mod tests {
         let on_change = Callback::new(|_: String| {});
         // Test component logic
         let custom_class = "custom-customizer";
-        assert!(!custom_class.is_empty());        assert!(!custom_class.is_empty());
+        assert!(!custom_class.is_empty());
+        assert!(!custom_class.is_empty());
         // Test completed
     }
 
@@ -795,7 +812,8 @@ mod tests {
         let on_change = Callback::new(|_: String| {});
         // Test component logic
         let custom_class = "custom-customizer";
-        assert!(!custom_class.is_empty());        assert!(!custom_class.is_empty());
+        assert!(!custom_class.is_empty());
+        assert!(!custom_class.is_empty());
         // Test completed
     }
 
@@ -806,7 +824,8 @@ mod tests {
         let on_change = Callback::new(|_: String| {});
         // Test component logic
         let custom_class = "custom-customizer";
-        assert!(!custom_class.is_empty());        assert!(!custom_class.is_empty());
+        assert!(!custom_class.is_empty());
+        assert!(!custom_class.is_empty());
         // Test completed
     }
 
@@ -817,7 +836,8 @@ mod tests {
         let on_change = Callback::new(|_: String| {});
         // Test component logic
         let custom_class = "custom-customizer";
-        assert!(!custom_class.is_empty());        assert!(!custom_class.is_empty());
+        assert!(!custom_class.is_empty());
+        assert!(!custom_class.is_empty());
         // Test completed
     }
 
@@ -827,7 +847,8 @@ mod tests {
         let theme = CSSVariables::default();
         // Test component logic
         let custom_class = "custom-customizer";
-        assert!(!custom_class.is_empty());        assert!(!custom_class.is_empty());
+        assert!(!custom_class.is_empty());
+        assert!(!custom_class.is_empty());
         // Test completed
     }
 
@@ -837,7 +858,8 @@ mod tests {
         let theme = CSSVariables::default();
         // Test component logic
         let custom_class = "custom-customizer";
-        assert!(!custom_class.is_empty());        assert!(!custom_class.is_empty());
+        assert!(!custom_class.is_empty());
+        assert!(!custom_class.is_empty());
         // Test completed
     }
 }

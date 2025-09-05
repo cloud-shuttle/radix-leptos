@@ -107,7 +107,7 @@ mod tests {
     #[test]
     fn test_dark_mode_storage_key_validation() {
         // Test that storage keys are valid
-        let valid_keys = vec![
+        let valid_keys = [
             "theme-preference",
             "dark-mode",
             "user-theme",

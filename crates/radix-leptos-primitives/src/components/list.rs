@@ -1,14 +1,14 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// List item information
 #[derive(Clone, Debug, PartialEq)]
 pub struct ListItem<T: Send + Sync + 'static> {
     pub id: String,
     pub data: T,
-    pub disabled: bool,
-    pub selected: bool,
-    pub focused: bool,
+    pub _disabled: bool,
+    pub _selected: bool,
+    pub _focused: bool,
 }
 
 impl<T: Send + Sync + 'static> ListItem<T> {
@@ -22,17 +22,17 @@ impl<T: Send + Sync + 'static> ListItem<T> {
         }
     }
 
-    pub fn with_disabled(mut self, disabled: bool) -> Self {
+    pub fn with_disabled(mut self, _disabled: bool) -> Self {
         self.disabled = disabled;
         self
     }
 
-    pub fn with_selected(mut self, selected: bool) -> Self {
+    pub fn with_selected(mut self, _selected: bool) -> Self {
         self.selected = selected;
         self
     }
 
-    pub fn with_focused(mut self, focused: bool) -> Self {
+    pub fn with_focused(mut self, _focused: bool) -> Self {
         self.focused = focused;
         self
     }
@@ -84,7 +84,7 @@ pub struct ListContext<T: Send + Sync + 'static> {
     pub focused_item: Signal<Option<String>>,
     pub size: ListSize,
     pub variant: ListVariant,
-    pub multi_select: bool,
+    pub _multi_select: bool,
     pub list_id: String,
     pub on_selection_change: Option<Callback<Vec<String>>>,
     pub on_item_click: Option<Callback<ListItem<T>>>,
@@ -128,7 +128,7 @@ pub fn List<T: Clone + Send + Sync + 'static>(
     variant: ListVariant,
     /// Whether to allow multiple selection
     #[prop(optional, default = false)]
-    multi_select: bool,
+    _multi_select: bool,
     /// Selection change event handler
     #[prop(optional)]
     on_selection_change: Option<Callback<Vec<String>>>,
@@ -145,12 +145,13 @@ pub fn List<T: Clone + Send + Sync + 'static>(
     children: Children,
 ) -> impl IntoView {
     let list_id = generate_id("list");
-    
+
     // Reactive state
     let (items_signal, _set_items_signal) = signal(items.unwrap_or_default());
-    let (selected_items_signal, _set_selected_items_signal) = signal(selected_items.unwrap_or_default());
+    let (selected_items_signal, _set_selected_items_signal) =
+        signal(selected_items.unwrap_or_default());
     let (focused_item_signal, _set_focused_item_signal) = signal(focused_item);
-    
+
     // Create context
     let context = ListContext {
         items: items_signal.into(),
@@ -164,15 +165,15 @@ pub fn List<T: Clone + Send + Sync + 'static>(
         on_item_click,
         on_item_focus,
     };
-    
+
     // Build base classes
     let base_classes = "radix-list";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     // Provide the context
     provide_context(context);
-    
+
     view! {
         <div
             id=list_id
@@ -214,17 +215,17 @@ pub fn ListItem<T: Clone + Send + Sync + 'static>(
 ) -> impl IntoView {
     let context = use_context::<ListContext<T>>().expect("ListItem must be used within List");
     let item_id = generate_id("list-item");
-    
+
     let item_clone = item.clone();
     let handle_click = move |event: web_sys::MouseEvent| {
         event.prevent_default();
-        
+
         if let Some(item) = item_clone.clone() {
             if !item.disabled {
                 // Handle selection
                 let mut current_selected = context.selected_items.get();
                 let item_id = item.id.clone();
-                
+
                 if context.multi_select {
                     if current_selected.contains(&item_id) {
                         current_selected.retain(|id| id != &item_id);
@@ -232,14 +233,14 @@ pub fn ListItem<T: Clone + Send + Sync + 'static>(
                         current_selected.push(item_id);
                     }
                 } else {
-                    current_selected = vec![item_id];
+                    current_selected = [item_id];
                 }
-                
+
                 // Call the selection change handler
                 if let Some(callback) = context.on_selection_change.clone() {
                     callback.run(current_selected);
                 }
-                
+
                 // Call the item click handler
                 if let Some(callback) = context.on_item_click.clone() {
                     callback.run(item);
@@ -247,7 +248,7 @@ pub fn ListItem<T: Clone + Send + Sync + 'static>(
             }
         }
     };
-    
+
     let item_for_focus = item.clone();
     let handle_focus = move |_event: web_sys::FocusEvent| {
         if let Some(item) = item_for_focus.clone() {
@@ -256,11 +257,11 @@ pub fn ListItem<T: Clone + Send + Sync + 'static>(
             }
         }
     };
-    
+
     let item_for_current = item.clone();
     let item_for_disabled = item.clone();
     let item_for_selected = item.clone();
-    
+
     // Determine if this item is current
     let is_current = Memo::new(move |_| {
         if let Some(focused) = focused {
@@ -271,7 +272,7 @@ pub fn ListItem<T: Clone + Send + Sync + 'static>(
             false
         }
     });
-    
+
     // Determine if this item is disabled
     let is_disabled = Memo::new(move |_| {
         if let Some(disabled) = disabled {
@@ -282,7 +283,7 @@ pub fn ListItem<T: Clone + Send + Sync + 'static>(
             false
         }
     });
-    
+
     // Determine if this item is selected
     let is_selected = Memo::new(move |_| {
         if let Some(selected) = selected {
@@ -293,12 +294,12 @@ pub fn ListItem<T: Clone + Send + Sync + 'static>(
             false
         }
     });
-    
+
     // Build base classes
     let base_classes = "radix-list-item";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     view! {
         <div
             id=item_id
@@ -333,12 +334,12 @@ pub fn ListHeader(
     children: Children,
 ) -> impl IntoView {
     let header_id = generate_id("list-header");
-    
+
     // Build base classes
     let base_classes = "radix-list-header";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     view! {
         <div
             id=header_id
@@ -364,12 +365,12 @@ pub fn ListFooter(
     children: Children,
 ) -> impl IntoView {
     let footer_id = generate_id("list-footer");
-    
+
     // Build base classes
     let base_classes = "radix-list-footer";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     view! {
         <div
             id=footer_id
@@ -398,12 +399,12 @@ pub fn ListEmpty(
     children: Children,
 ) -> impl IntoView {
     let empty_id = generate_id("list-empty");
-    
+
     // Build base classes
     let base_classes = "radix-list-empty";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     view! {
         <div
             id=empty_id
@@ -442,12 +443,12 @@ pub fn ListLoading(
     children: Children,
 ) -> impl IntoView {
     let loading_id = generate_id("list-loading");
-    
+
     // Build base classes
     let base_classes = "radix-list-loading";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     view! {
         <div
             id=loading_id

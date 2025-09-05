@@ -1,8 +1,8 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// Toggle Group component for group of toggle buttons
-/// 
+///
 /// Provides accessible toggle group with keyboard support and ARIA attributes
 #[component]
 pub fn ToggleGroup(
@@ -24,7 +24,9 @@ pub fn ToggleGroup(
     let type_ = type_.unwrap_or_default();
     let disabled = disabled.unwrap_or(false);
     let (current_value, set_current_value) = signal(
-        value.clone().unwrap_or_else(|| default_value.unwrap_or_default())
+        value
+            .clone()
+            .unwrap_or_else(|| default_value.unwrap_or_default()),
     );
 
     // Handle external value changes
@@ -41,7 +43,7 @@ pub fn ToggleGroup(
         });
     }
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "toggle-group",
         &variant.to_class(),
         &size.to_class(),
@@ -77,7 +79,7 @@ pub fn ToggleGroupItem(
     let disabled = disabled.unwrap_or(false);
     let value = value.unwrap_or_default();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "toggle-group-item",
         if disabled { "disabled" } else { "" },
         class.as_deref().unwrap_or(""),
@@ -221,125 +223,77 @@ mod tests {
 
     // Toggle Group Tests
     #[test]
-    fn test_toggle_group_creation() {
-        assert!(true);
-    }
+    fn test_toggle_group_creation() {}
 
     #[test]
-    fn test_toggle_group_with_class() {
-        assert!(true);
-    }
+    fn test_toggle_group_with_class() {}
 
     #[test]
-    fn test_toggle_group_with_style() {
-        assert!(true);
-    }
+    fn test_toggle_group_with_style() {}
 
     #[test]
-    fn test_toggle_group_default_variant() {
-        assert!(true);
-    }
+    fn test_toggle_group_default_variant() {}
 
     #[test]
-    fn test_toggle_group_outline_variant() {
-        assert!(true);
-    }
+    fn test_toggle_group_outline_variant() {}
 
     #[test]
-    fn test_toggle_group_ghost_variant() {
-        assert!(true);
-    }
+    fn test_toggle_group_ghost_variant() {}
 
     #[test]
-    fn test_toggle_group_destructive_variant() {
-        assert!(true);
-    }
+    fn test_toggle_group_destructive_variant() {}
 
     #[test]
-    fn test_toggle_group_default_size() {
-        assert!(true);
-    }
+    fn test_toggle_group_default_size() {}
 
     #[test]
-    fn test_toggle_group_small_size() {
-        assert!(true);
-    }
+    fn test_toggle_group_small_size() {}
 
     #[test]
-    fn test_toggle_group_large_size() {
-        assert!(true);
-    }
+    fn test_toggle_group_large_size() {}
 
     #[test]
-    fn test_toggle_group_horizontal_orientation() {
-        assert!(true);
-    }
+    fn test_toggle_group_horizontal_orientation() {}
 
     #[test]
-    fn test_toggle_group_vertical_orientation() {
-        assert!(true);
-    }
+    fn test_toggle_group_vertical_orientation() {}
 
     #[test]
-    fn test_toggle_group_single_type() {
-        assert!(true);
-    }
+    fn test_toggle_group_single_type() {}
 
     #[test]
-    fn test_toggle_group_multiple_type() {
-        assert!(true);
-    }
+    fn test_toggle_group_multiple_type() {}
 
     #[test]
-    fn test_toggle_group_with_value() {
-        assert!(true);
-    }
+    fn test_toggle_group_with_value() {}
 
     #[test]
-    fn test_toggle_group_with_default_value() {
-        assert!(true);
-    }
+    fn test_toggle_group_with_default_value() {}
 
     #[test]
-    fn test_toggle_group_disabled() {
-        assert!(true);
-    }
+    fn test_toggle_group_disabled() {}
 
     #[test]
-    fn test_toggle_group_on_value_change() {
-        assert!(true);
-    }
+    fn test_toggle_group_on_value_change() {}
 
     // Toggle Group Item Tests
     #[test]
-    fn test_toggle_group_item_creation() {
-        assert!(true);
-    }
+    fn test_toggle_group_item_creation() {}
 
     #[test]
-    fn test_toggle_group_item_with_class() {
-        assert!(true);
-    }
+    fn test_toggle_group_item_with_class() {}
 
     #[test]
-    fn test_toggle_group_item_with_style() {
-        assert!(true);
-    }
+    fn test_toggle_group_item_with_style() {}
 
     #[test]
-    fn test_toggle_group_item_with_value() {
-        assert!(true);
-    }
+    fn test_toggle_group_item_with_value() {}
 
     #[test]
-    fn test_toggle_group_item_disabled() {
-        assert!(true);
-    }
+    fn test_toggle_group_item_disabled() {}
 
     #[test]
-    fn test_toggle_group_item_on_click() {
-        assert!(true);
-    }
+    fn test_toggle_group_item_on_click() {}
 
     // Toggle Group Variant Tests
     #[test]
@@ -442,25 +396,25 @@ mod tests {
     // Helper Function Tests
     #[test]
     fn test_merge_classes_empty() {
-        let result = merge_classes(vec![]);
+        let result = merge_classes([]);
         assert_eq!(result, "");
     }
 
     #[test]
     fn test_merge_classes_single() {
-        let result = merge_classes(vec!["class1"]);
+        let result = merge_classes(["class1"]);
         assert_eq!(result, "class1");
     }
 
     #[test]
     fn test_merge_classes_multiple() {
-        let result = merge_classes(vec!["class1", "class2", "class3"]);
+        let result = merge_classes(["class1", "class2", "class3"]);
         assert_eq!(result, "class1 class2 class3");
     }
 
     #[test]
     fn test_merge_classes_with_empty() {
-        let result = merge_classes(vec!["class1", "", "class3"]);
+        let result = merge_classes(["class1", "", "class3"]);
         assert_eq!(result, "class1 class3");
     }
 
@@ -468,16 +422,16 @@ mod tests {
     #[test]
     fn test_toggle_group_property_based() {
         use proptest::prelude::*;
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*")| {
+
         });
     }
 
     #[test]
     fn test_toggle_group_item_property_based() {
         use proptest::prelude::*;
-        proptest!(|(class in ".*", style in ".*", value in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*", _value in ".*")| {
+
         });
     }
 }

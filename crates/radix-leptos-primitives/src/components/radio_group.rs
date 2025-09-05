@@ -1,5 +1,5 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// Radio Group component with proper accessibility and styling variants
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -61,7 +61,7 @@ pub fn RadioGroup(
     value: Option<String>,
     /// Whether the radio group is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// Radio group styling variant
     #[prop(optional, default = RadioGroupVariant::Default)]
     variant: RadioGroupVariant,
@@ -80,17 +80,17 @@ pub fn RadioGroup(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let radio_group_id = generate_id("radio-group");
-    
+    let _radio_group_id = generate_id("radio-group");
+
     // Build data attributes for styling
     let data_variant = variant.as_str();
     let data_size = size.as_str();
-    
+
     // Merge classes with data attributes for CSS targeting
     let base_classes = "radix-radio-group";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     // Handle keyboard navigation
     let handle_keydown = move |e: web_sys::KeyboardEvent| {
         match e.key().as_str() {
@@ -109,9 +109,9 @@ pub fn RadioGroup(
             _ => {}
         }
     };
-    
+
     view! {
-        <div 
+        <div
             class=combined_class
             style=style
             data-variant=data_variant
@@ -132,7 +132,7 @@ pub fn RadioGroupItem(
     value: String,
     /// Whether the item is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -142,18 +142,18 @@ pub fn RadioGroupItem(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let item_id = generate_id(&format!("radio-item-{}", value));
-    
+    let _item_id = generate_id(&format!("radio-item-{}", value));
+
     let base_classes = "radix-radio-group-item";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     // Handle click
     let handle_click = move |e: web_sys::MouseEvent| {
         e.prevent_default();
         // In a real implementation, this would select the radio item
     };
-    
+
     // Handle keyboard events
     let handle_keydown = move |e: web_sys::KeyboardEvent| {
         match e.key().as_str() {
@@ -164,9 +164,9 @@ pub fn RadioGroupItem(
             _ => {}
         }
     };
-    
+
     view! {
-        <div 
+        <div
             class=combined_class
             style=style
             data-value=value
@@ -195,9 +195,9 @@ pub fn RadioGroupIndicator(
     let base_classes = "radix-radio-group-indicator";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     view! {
-        <div 
+        <div
             class=combined_class
             style=style
             aria-hidden="true"
@@ -210,38 +210,38 @@ pub fn RadioGroupIndicator(
 mod tests {
     use super::*;
     use proptest::prelude::*;
-    
+
     // 1. Basic Rendering Tests
     #[test]
     fn test_radio_group_variants() {
         run_test(|| {
-            let variants = vec![
+            let variants = [
                 RadioGroupVariant::Default,
                 RadioGroupVariant::Destructive,
                 RadioGroupVariant::Ghost,
             ];
-            
+
             for variant in variants {
                 assert!(!variant.as_str().is_empty());
             }
         });
     }
-    
+
     #[test]
     fn test_radio_group_sizes() {
         run_test(|| {
-            let sizes = vec![
+            let sizes = [
                 RadioGroupSize::Default,
                 RadioGroupSize::Sm,
                 RadioGroupSize::Lg,
             ];
-            
+
             for size in sizes {
                 assert!(!size.as_str().is_empty());
             }
         });
     }
-    
+
     // 2. Props Validation Tests
     #[test]
     fn test_radio_group_selected_state() {
@@ -250,14 +250,14 @@ mod tests {
             let disabled = false;
             let variant = RadioGroupVariant::Default;
             let size = RadioGroupSize::Default;
-            
+
             assert_eq!(value, Some("option1".to_string()));
             assert!(!disabled);
             assert_eq!(variant, RadioGroupVariant::Default);
             assert_eq!(size, RadioGroupSize::Default);
         });
     }
-    
+
     #[test]
     fn test_radio_group_unselected_state() {
         run_test(|| {
@@ -265,14 +265,14 @@ mod tests {
             let disabled = false;
             let variant = RadioGroupVariant::Destructive;
             let size = RadioGroupSize::Lg;
-            
+
             assert!(value.is_none());
             assert!(!disabled);
             assert_eq!(variant, RadioGroupVariant::Destructive);
             assert_eq!(size, RadioGroupSize::Lg);
         });
     }
-    
+
     #[test]
     fn test_radio_group_disabled_state() {
         run_test(|| {
@@ -280,45 +280,45 @@ mod tests {
             let disabled = true;
             let variant = RadioGroupVariant::Ghost;
             let size = RadioGroupSize::Sm;
-            
+
             assert_eq!(value, Some("option1".to_string()));
             assert!(disabled);
             assert_eq!(variant, RadioGroupVariant::Ghost);
             assert_eq!(size, RadioGroupSize::Sm);
         });
     }
-    
+
     // 3. State Management Tests
     #[test]
     fn test_radio_group_state_changes() {
         run_test(|| {
             let mut value: Option<String> = None;
             let disabled = false;
-            
+
             // Initial state
             assert!(value.is_none());
             assert!(!disabled);
-            
+
             // Select first option
             value = Some("option1".to_string());
-            
+
             assert_eq!(value, Some("option1".to_string()));
             assert!(!disabled);
-            
+
             // Select second option
             value = Some("option2".to_string());
-            
+
             assert_eq!(value, Some("option2".to_string()));
             assert!(!disabled);
-            
+
             // Deselect all
             value = None;
-            
+
             assert!(value.is_none());
             assert!(!disabled);
         });
     }
-    
+
     // 4. Event Handling Tests
     #[test]
     fn test_radio_group_keyboard_navigation() {
@@ -330,7 +330,7 @@ mod tests {
             let enter_pressed = false;
             let space_pressed = false;
             let disabled = false;
-            
+
             assert!(arrow_down_pressed);
             assert!(!arrow_up_pressed);
             assert!(!home_pressed);
@@ -338,29 +338,27 @@ mod tests {
             assert!(!enter_pressed);
             assert!(!space_pressed);
             assert!(!disabled);
-            
-            if arrow_down_pressed && !disabled {
-                assert!(true);
-            }
-            
+
+            if arrow_down_pressed && !disabled {}
+
             if arrow_up_pressed && !disabled {
                 assert!(false);
             }
-            
+
             if home_pressed && !disabled {
                 assert!(false);
             }
-            
+
             if end_pressed && !disabled {
                 assert!(false);
             }
-            
+
             if (enter_pressed || space_pressed) && !disabled {
                 assert!(false);
             }
         });
     }
-    
+
     #[test]
     fn test_radio_group_item_selection() {
         run_test(|| {
@@ -368,18 +366,16 @@ mod tests {
             let item_value = "option1".to_string();
             let item_disabled = false;
             let current_value: Option<String> = None;
-            
+
             assert!(item_clicked);
             assert_eq!(item_value, "option1");
             assert!(!item_disabled);
             assert!(current_value.is_none());
-            
-            if item_clicked && !item_disabled {
-                assert!(true);
-            }
+
+            if item_clicked && !item_disabled {}
         });
     }
-    
+
     // 5. Accessibility Tests
     #[test]
     fn test_radio_group_accessibility() {
@@ -388,14 +384,14 @@ mod tests {
             let item_role = "radio";
             let aria_checked = "false";
             let tabindex = "0";
-            
+
             assert_eq!(role, "radiogroup");
             assert_eq!(item_role, "radio");
             assert_eq!(aria_checked, "false");
             assert_eq!(tabindex, "0");
         });
     }
-    
+
     // 6. Edge Case Tests
     #[test]
     fn test_radio_group_edge_cases() {
@@ -403,41 +399,41 @@ mod tests {
             let value: Option<String> = None;
             let disabled = false;
             let has_items = false;
-            
+
             assert!(value.is_none());
             assert!(!disabled);
             assert!(!has_items);
         });
     }
-    
+
     #[test]
     fn test_radio_group_single_selection() {
         run_test(|| {
             let mut value = Some("option1".to_string());
             let new_value = "option2".to_string();
             let disabled = false;
-            
+
             assert_eq!(value, Some("option1".to_string()));
             assert_eq!(new_value, "option2");
             assert!(!disabled);
-            
+
             // In radio group, only one item can be selected
             value = Some(new_value);
-            
+
             assert_eq!(value, Some("option2".to_string()));
         });
     }
-    
+
     // 7. Property-Based Tests
     proptest! {
         #[test]
         fn test_radio_group_properties(
-            variant in prop::sample::select(vec![
+            variant in prop::sample::select([
                 RadioGroupVariant::Default,
                 RadioGroupVariant::Destructive,
                 RadioGroupVariant::Ghost,
             ]),
-            size in prop::sample::select(vec![
+            size in prop::sample::select([
                 RadioGroupSize::Default,
                 RadioGroupSize::Sm,
                 RadioGroupSize::Lg,
@@ -447,22 +443,25 @@ mod tests {
         ) {
             assert!(!variant.as_str().is_empty());
             assert!(!size.as_str().is_empty());
-            
-            assert!(disabled == true || disabled == false);
-            
+
+            assert!(disabled  || disabled ! );
+
             match &value {
                 Some(v) => assert!(!v.is_empty()),
                 None => assert!(true),
             }
-            
+
             if disabled {
                 // Disabled radio group should not be interactive
             }
         }
     }
-    
+
     // Helper function for running tests
-    fn run_test<F>(f: F) where F: FnOnce() {
+    fn run_test<F>(f: F)
+    where
+        F: FnOnce(),
+    {
         f();
     }
 }

@@ -18,7 +18,7 @@ pub fn FormValidationProvider(
     let (field_errors, set_field_errors) = create_signal(HashMap::<String, FieldError>::new());
     let (form_errors, set_form_errors) = create_signal(Vec::<FormError>::new());
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "form-validation-provider",
         validation_mode.as_str(),
         class.as_deref().unwrap_or(""),
@@ -60,7 +60,7 @@ pub fn FormField(
     let required = required.unwrap_or(false);
     let validation_rules = validation_rules.unwrap_or_default();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "form-field",
         if required { "required" } else { "" },
         class.as_deref().unwrap_or(""),
@@ -107,7 +107,7 @@ pub fn FormLabel(
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] for_id: Option<String>,
 ) -> impl IntoView {
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "form-label",
         class.as_deref().unwrap_or(""),
     ]);
@@ -132,7 +132,7 @@ pub fn FormFieldError(
 ) -> impl IntoView {
     let name = name.unwrap_or_default();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "form-field-error",
         class.as_deref().unwrap_or(""),
     ]);
@@ -163,7 +163,7 @@ pub fn FormErrorSummary(
     let show_field_errors = show_field_errors.unwrap_or(true);
     let show_form_errors = show_form_errors.unwrap_or(true);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "form-error-summary",
         class.as_deref().unwrap_or(""),
     ]);
@@ -262,7 +262,7 @@ pub type CustomValidator = Box<dyn Fn(&str) -> ValidationResult + Send + Sync>;
 /// Validation Result struct
 #[derive(Debug, Clone, PartialEq)]
 pub struct ValidationResult {
-    pub is_valid: bool,
+    pub _is_valid: bool,
     pub message: Option<String>,
 }
 
@@ -279,7 +279,7 @@ impl Default for ValidationResult {
 #[derive(Debug, Clone, PartialEq)]
 pub struct FieldValidationResult {
     pub field_name: String,
-    pub is_valid: bool,
+    pub _is_valid: bool,
     pub errors: Vec<String>,
     pub warnings: Vec<String>,
 }
@@ -298,10 +298,10 @@ impl Default for FieldValidationResult {
 /// Form Validation State struct
 #[derive(Debug, Clone, PartialEq)]
 pub struct FormValidationState {
-    pub is_valid: bool,
-    pub is_submitting: bool,
-    pub is_dirty: bool,
-    pub is_touched: bool,
+    pub _is_valid: bool,
+    pub _is_submitting: bool,
+    pub _is_dirty: bool,
+    pub _is_touched: bool,
     pub field_errors: HashMap<String, FieldError>,
     pub form_errors: Vec<FormError>,
 }
@@ -664,7 +664,7 @@ mod form_validation_tests {
             </FormValidationProvider>
         };
         runtime.dispose();
-        assert!(true); // Component compiles successfully
+        
     }
 
     #[test]
@@ -676,7 +676,7 @@ mod form_validation_tests {
             </FormField>
         };
         runtime.dispose();
-        assert!(true); // Component compiles successfully
+        
     }
 
     #[test]
@@ -686,7 +686,7 @@ mod form_validation_tests {
             <FormLabel for_id="email">"Email Address"</FormLabel>
         };
         runtime.dispose();
-        assert!(true); // Component compiles successfully
+        
     }
 
     #[test]
@@ -696,13 +696,13 @@ mod form_validation_tests {
             <FormFieldError name="email" />
         };
         runtime.dispose();
-        assert!(true); // Component compiles successfully
+        
     }
 
     #[test]
     fn test_form_error_summary_creation() {
         let runtime = create_runtime();
-        let errors = vec![
+        let errors = [
             FormError {
                 field: "email".to_string(),
                 message: "Invalid email format".to_string(),
@@ -713,7 +713,7 @@ mod form_validation_tests {
             <FormErrorSummary errors=errors />
         };
         runtime.dispose();
-        assert!(true); // Component compiles successfully
+        
     }
 
     #[test]
@@ -893,7 +893,7 @@ mod form_validation_tests {
     // Property-based tests
     #[test]
     fn test_validation_rule_property_based() {
-        proptest!(|(message in ".*")| {
+        proptest!(|(_message in ".*")| {
             let rule = ValidationRule {
                 rule_type: ValidationRuleType::Required,
                 message: message.clone(),
@@ -919,43 +919,43 @@ mod form_validation_tests {
     #[test]
     fn test_form_validation_workflow() {
         // Test complete form validation workflow
-        assert!(true);
+        
     }
 
     #[test]
     fn test_form_validation_accessibility() {
         // Test form validation accessibility features
-        assert!(true);
+        
     }
 
     #[test]
     fn test_form_validation_performance() {
         // Test form validation performance
-        assert!(true);
+        
     }
 
     #[test]
     fn test_form_validation_error_handling() {
         // Test form validation error handling
-        assert!(true);
+        
     }
 
     // Performance Tests
     #[test]
     fn test_validation_engine_performance() {
         // Test validation engine performance
-        assert!(true);
+        
     }
 
     #[test]
     fn test_form_validation_memory_usage() {
         // Test form validation memory usage
-        assert!(true);
+        
     }
 
     #[test]
     fn test_validation_rule_performance() {
         // Test validation rule performance
-        assert!(true);
+        
     }
 }

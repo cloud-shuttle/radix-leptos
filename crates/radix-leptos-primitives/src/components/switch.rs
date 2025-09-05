@@ -1,5 +1,5 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// Switch component with proper accessibility and styling variants
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -58,10 +58,10 @@ fn merge_classes(existing: Option<&str>, additional: Option<&str>) -> Option<Str
 pub fn Switch(
     /// Whether the switch is on
     #[prop(optional, default = false)]
-    checked: bool,
+    _checked: bool,
     /// Whether the switch is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// Switch styling variant
     #[prop(optional, default = SwitchVariant::Default)]
     variant: SwitchVariant,
@@ -82,31 +82,29 @@ pub fn Switch(
 ) -> impl IntoView {
     let switch_id = generate_id("switch");
     let thumb_id = generate_id("switch-thumb");
-    
+
     // Build data attributes for styling
     let data_variant = variant.as_str();
     let data_size = size.as_str();
-    
+
     // Merge classes with data attributes for CSS targeting
     let base_classes = "radix-switch";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     // Handle keyboard navigation
-    let handle_keydown = move |e: web_sys::KeyboardEvent| {
-        match e.key().as_str() {
-            " " | "Enter" => {
-                e.prevent_default();
-                if !disabled {
-                    if let Some(on_checked_change) = on_checked_change {
-                        on_checked_change.run(!checked);
-                    }
+    let handle_keydown = move |e: web_sys::KeyboardEvent| match e.key().as_str() {
+        " " | "Enter" => {
+            e.prevent_default();
+            if !disabled {
+                if let Some(on_checked_change) = on_checked_change {
+                    on_checked_change.run(!checked);
                 }
             }
-            _ => {}
         }
+        _ => {}
     };
-    
+
     // Handle click
     let handle_click = move |e: web_sys::MouseEvent| {
         e.prevent_default();
@@ -116,9 +114,9 @@ pub fn Switch(
             }
         }
     };
-    
+
     view! {
-        <div 
+        <div
             class=combined_class
             style=style
             data-variant=data_variant
@@ -141,7 +139,7 @@ pub fn Switch(
                 aria-hidden="true"
             />
             <div class="radix-switch-track">
-                <div 
+                <div
                     id=thumb_id
                     class="radix-switch-thumb"
                     data-state=if checked { "checked" } else { "unchecked" }
@@ -166,9 +164,9 @@ pub fn SwitchThumb(
     let base_classes = "radix-switch-thumb";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     view! {
-        <div 
+        <div
             class=combined_class
             style=style
         >
@@ -180,38 +178,34 @@ pub fn SwitchThumb(
 mod tests {
     use super::*;
     use proptest::prelude::*;
-    
+
     // 1. Basic Rendering Tests
     #[test]
     fn test_switch_variants() {
         run_test(|| {
-            let variants = vec![
+            let variants = [
                 SwitchVariant::Default,
                 SwitchVariant::Destructive,
                 SwitchVariant::Ghost,
             ];
-            
+
             for variant in variants {
                 assert!(!variant.as_str().is_empty());
             }
         });
     }
-    
+
     #[test]
     fn test_switch_sizes() {
         run_test(|| {
-            let sizes = vec![
-                SwitchSize::Default,
-                SwitchSize::Sm,
-                SwitchSize::Lg,
-            ];
-            
+            let sizes = [SwitchSize::Default, SwitchSize::Sm, SwitchSize::Lg];
+
             for size in sizes {
                 assert!(!size.as_str().is_empty());
             }
         });
     }
-    
+
     // 2. Props Validation Tests
     #[test]
     fn test_switch_on_state() {
@@ -220,14 +214,14 @@ mod tests {
             let disabled = false;
             let variant = SwitchVariant::Default;
             let size = SwitchSize::Default;
-            
+
             assert!(checked);
             assert!(!disabled);
             assert_eq!(variant, SwitchVariant::Default);
             assert_eq!(size, SwitchSize::Default);
         });
     }
-    
+
     #[test]
     fn test_switch_off_state() {
         run_test(|| {
@@ -235,14 +229,14 @@ mod tests {
             let disabled = false;
             let variant = SwitchVariant::Destructive;
             let size = SwitchSize::Lg;
-            
+
             assert!(!checked);
             assert!(!disabled);
             assert_eq!(variant, SwitchVariant::Destructive);
             assert_eq!(size, SwitchSize::Lg);
         });
     }
-    
+
     #[test]
     fn test_switch_disabled_state() {
         run_test(|| {
@@ -250,39 +244,39 @@ mod tests {
             let disabled = true;
             let variant = SwitchVariant::Ghost;
             let size = SwitchSize::Sm;
-            
+
             assert!(!checked);
             assert!(disabled);
             assert_eq!(variant, SwitchVariant::Ghost);
             assert_eq!(size, SwitchSize::Sm);
         });
     }
-    
+
     // 3. State Management Tests
     #[test]
     fn test_switch_state_changes() {
         run_test(|| {
             let mut checked = false;
             let disabled = false;
-            
+
             // Initial state
             assert!(!checked);
             assert!(!disabled);
-            
+
             // Turn on switch
             checked = true;
-            
+
             assert!(checked);
             assert!(!disabled);
-            
+
             // Turn off switch
             checked = false;
-            
+
             assert!(!checked);
             assert!(!disabled);
         });
     }
-    
+
     // 4. Event Handling Tests
     #[test]
     fn test_switch_keyboard_navigation() {
@@ -291,39 +285,35 @@ mod tests {
             let enter_pressed = false;
             let disabled = false;
             let checked = false;
-            
+
             assert!(space_pressed);
             assert!(!enter_pressed);
             assert!(!disabled);
             assert!(!checked);
-            
-            if space_pressed && !disabled {
-                assert!(true);
-            }
-            
+
+            if space_pressed && !disabled {}
+
             if enter_pressed && !disabled {
                 assert!(false);
             }
         });
     }
-    
+
     #[test]
     fn test_switch_click_handling() {
         run_test(|| {
             let clicked = true;
             let disabled = false;
             let checked = false;
-            
+
             assert!(clicked);
             assert!(!disabled);
             assert!(!checked);
-            
-            if clicked && !disabled {
-                assert!(true);
-            }
+
+            if clicked && !disabled {}
         });
     }
-    
+
     // 5. Accessibility Tests
     #[test]
     fn test_switch_accessibility() {
@@ -332,59 +322,59 @@ mod tests {
             let aria_checked = "false";
             let aria_disabled = "false";
             let tabindex = "0";
-            
+
             assert_eq!(role, "switch");
             assert_eq!(aria_checked, "false");
             assert_eq!(aria_disabled, "false");
             assert_eq!(tabindex, "0");
         });
     }
-    
+
     // 6. Edge Case Tests
     #[test]
     fn test_switch_edge_cases() {
         run_test(|| {
             let checked = true;
             let disabled = true;
-            
+
             assert!(checked);
             assert!(disabled);
         });
     }
-    
+
     #[test]
     fn test_switch_toggle_behavior() {
         run_test(|| {
             let mut checked = false;
             let disabled = false;
-            
+
             assert!(!checked);
             assert!(!disabled);
-            
+
             // Toggle on
             checked = !checked;
-            
+
             assert!(checked);
             assert!(!disabled);
-            
+
             // Toggle off
             checked = !checked;
-            
+
             assert!(!checked);
             assert!(!disabled);
         });
     }
-    
+
     // 7. Property-Based Tests
     proptest! {
         #[test]
         fn test_switch_properties(
-            variant in prop::sample::select(vec![
+            variant in prop::sample::select([
                 SwitchVariant::Default,
                 SwitchVariant::Destructive,
                 SwitchVariant::Ghost,
             ]),
-            size in prop::sample::select(vec![
+            size in prop::sample::select([
                 SwitchSize::Default,
                 SwitchSize::Sm,
                 SwitchSize::Lg,
@@ -394,18 +384,21 @@ mod tests {
         ) {
             assert!(!variant.as_str().is_empty());
             assert!(!size.as_str().is_empty());
-            
-            assert!(checked == true || checked == false);
-            assert!(disabled == true || disabled == false);
-            
+
+            assert!(checked  || checked ! );
+            assert!(disabled  || disabled ! );
+
             if disabled {
                 // Disabled switch should not be interactive
             }
         }
     }
-    
+
     // Helper function for running tests
-    fn run_test<F>(f: F) where F: FnOnce() {
+    fn run_test<F>(f: F)
+    where
+        F: FnOnce(),
+    {
         f();
     }
 }

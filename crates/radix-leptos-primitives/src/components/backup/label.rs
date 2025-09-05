@@ -60,7 +60,7 @@ pub fn Label(
     for_control: Option<String>,
     /// Whether to render as child element instead of label
     #[prop(optional, default = false)]
-    _as_child: bool,
+    __as_child: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -73,7 +73,7 @@ pub fn Label(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let label_id = generate_id("label");
+    let _label_id = generate_id("label");
     
     // Build base classes
     let base_classes = "radix-label";

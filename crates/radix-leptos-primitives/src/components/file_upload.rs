@@ -1,5 +1,5 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 use wasm_bindgen::JsCast;
 
 /// File Upload component - File upload with drag & drop support
@@ -26,11 +26,15 @@ pub fn FileUpload(
     let disabled = disabled.unwrap_or(false);
     let drag_drop_enabled = drag_drop_enabled.unwrap_or(true);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "file-upload",
         if multiple { "multiple" } else { "single" },
         if disabled { "disabled" } else { "" },
-        if drag_drop_enabled { "drag-drop-enabled" } else { "" },
+        if drag_drop_enabled {
+            "drag-drop-enabled"
+        } else {
+            ""
+        },
         class.as_deref().unwrap_or(""),
     ]);
 
@@ -80,7 +84,7 @@ pub fn FileUploadInput(
     let accept = accept.unwrap_or_default();
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "file-upload-input",
         if multiple { "multiple" } else { "single" },
         if disabled { "disabled" } else { "" },
@@ -88,10 +92,13 @@ pub fn FileUploadInput(
     ]);
 
     let handle_change = move |event: web_sys::Event| {
-        if let Some(input) = event.target().and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok()) {
+        if let Some(input) = event
+            .target()
+            .and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok())
+        {
             // File processing logic would be implemented here
             if let Some(callback) = on_change {
-                callback.run(vec![]);
+                callback.run([]);
             }
         }
     };
@@ -122,7 +129,7 @@ pub fn FileUploadDropZone(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "file-upload-drop-zone",
         if disabled { "disabled" } else { "" },
         class.as_deref().unwrap_or(""),
@@ -133,7 +140,7 @@ pub fn FileUploadDropZone(
             event.prevent_default();
             // File drop handling logic would be implemented here
             if let Some(callback) = on_drop {
-                callback.run(vec![]);
+                callback.run([]);
             }
         }
     };
@@ -181,10 +188,7 @@ pub fn FileUploadList(
 ) -> impl IntoView {
     let files = files.unwrap_or_default();
 
-    let class = merge_classes(vec![
-        "file-upload-list",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["file-upload-list", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -209,7 +213,7 @@ pub fn FileUploadItem(
 ) -> impl IntoView {
     let file = file.unwrap_or_default();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "file-upload-item",
         &file.status.to_class(),
         class.as_deref().unwrap_or(""),
@@ -319,105 +323,164 @@ fn merge_classes(classes: Vec<&str>) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use wasm_bindgen_test::*;
     use proptest::prelude::*;
+    use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
 
     // Unit Tests
-    #[test] fn test_file_upload_creation() { assert!(true); }
-    #[test] fn test_file_upload_with_class() { assert!(true); }
-    #[test] fn test_file_upload_with_style() { assert!(true); }
-    #[test] fn test_file_upload_multiple() { assert!(true); }
-    #[test] fn test_file_upload_accept() { assert!(true); }
-    #[test] fn test_file_upload_max_size() { assert!(true); }
-    #[test] fn test_file_upload_max_files() { assert!(true); }
-    #[test] fn test_file_upload_disabled() { assert!(true); }
-    #[test] fn test_file_upload_drag_drop_enabled() { assert!(true); }
-    #[test] fn test_file_upload_on_files_select() { assert!(true); }
-    #[test] fn test_file_upload_on_upload_progress() { assert!(true); }
-    #[test] fn test_file_upload_on_upload_complete() { assert!(true); }
-    #[test] fn test_file_upload_on_upload_error() { assert!(true); }
+    #[test]
+    fn test_file_upload_creation() {}
+    #[test]
+    fn test_file_upload_with_class() {}
+    #[test]
+    fn test_file_upload_with_style() {}
+    #[test]
+    fn test_file_upload_multiple() {}
+    #[test]
+    fn test_file_upload_accept() {}
+    #[test]
+    fn test_file_upload_max_size() {}
+    #[test]
+    fn test_file_upload_max_files() {}
+    #[test]
+    fn test_file_upload_disabled() {}
+    #[test]
+    fn test_file_upload_drag_drop_enabled() {}
+    #[test]
+    fn test_file_upload_on_files_select() {}
+    #[test]
+    fn test_file_upload_on_upload_progress() {}
+    #[test]
+    fn test_file_upload_on_upload_complete() {}
+    #[test]
+    fn test_file_upload_on_upload_error() {}
 
     // File Upload Input tests
-    #[test] fn test_file_upload_input_creation() { assert!(true); }
-    #[test] fn test_file_upload_input_with_class() { assert!(true); }
-    #[test] fn test_file_upload_input_multiple() { assert!(true); }
-    #[test] fn test_file_upload_input_accept() { assert!(true); }
-    #[test] fn test_file_upload_input_disabled() { assert!(true); }
-    #[test] fn test_file_upload_input_on_change() { assert!(true); }
+    #[test]
+    fn test_file_upload_input_creation() {}
+    #[test]
+    fn test_file_upload_input_with_class() {}
+    #[test]
+    fn test_file_upload_input_multiple() {}
+    #[test]
+    fn test_file_upload_input_accept() {}
+    #[test]
+    fn test_file_upload_input_disabled() {}
+    #[test]
+    fn test_file_upload_input_on_change() {}
 
     // File Upload Drop Zone tests
-    #[test] fn test_file_upload_drop_zone_creation() { assert!(true); }
-    #[test] fn test_file_upload_drop_zone_with_class() { assert!(true); }
-    #[test] fn test_file_upload_drop_zone_disabled() { assert!(true); }
-    #[test] fn test_file_upload_drop_zone_on_drop() { assert!(true); }
-    #[test] fn test_file_upload_drop_zone_on_drag_enter() { assert!(true); }
-    #[test] fn test_file_upload_drop_zone_on_drag_leave() { assert!(true); }
+    #[test]
+    fn test_file_upload_drop_zone_creation() {}
+    #[test]
+    fn test_file_upload_drop_zone_with_class() {}
+    #[test]
+    fn test_file_upload_drop_zone_disabled() {}
+    #[test]
+    fn test_file_upload_drop_zone_on_drop() {}
+    #[test]
+    fn test_file_upload_drop_zone_on_drag_enter() {}
+    #[test]
+    fn test_file_upload_drop_zone_on_drag_leave() {}
 
     // File Upload List tests
-    #[test] fn test_file_upload_list_creation() { assert!(true); }
-    #[test] fn test_file_upload_list_with_class() { assert!(true); }
-    #[test] fn test_file_upload_list_files() { assert!(true); }
-    #[test] fn test_file_upload_list_on_file_remove() { assert!(true); }
+    #[test]
+    fn test_file_upload_list_creation() {}
+    #[test]
+    fn test_file_upload_list_with_class() {}
+    #[test]
+    fn test_file_upload_list_files() {}
+    #[test]
+    fn test_file_upload_list_on_file_remove() {}
 
     // File Upload Item tests
-    #[test] fn test_file_upload_item_creation() { assert!(true); }
-    #[test] fn test_file_upload_item_with_class() { assert!(true); }
-    #[test] fn test_file_upload_item_file() { assert!(true); }
-    #[test] fn test_file_upload_item_on_remove() { assert!(true); }
+    #[test]
+    fn test_file_upload_item_creation() {}
+    #[test]
+    fn test_file_upload_item_with_class() {}
+    #[test]
+    fn test_file_upload_item_file() {}
+    #[test]
+    fn test_file_upload_item_on_remove() {}
 
     // File Info tests
-    #[test] fn test_file_info_default() { assert!(true); }
-    #[test] fn test_file_info_creation() { assert!(true); }
+    #[test]
+    fn test_file_info_default() {}
+    #[test]
+    fn test_file_info_creation() {}
 
     // File Status tests
-    #[test] fn test_file_status_default() { assert!(true); }
-    #[test] fn test_file_status_pending() { assert!(true); }
-    #[test] fn test_file_status_uploading() { assert!(true); }
-    #[test] fn test_file_status_completed() { assert!(true); }
-    #[test] fn test_file_status_error() { assert!(true); }
-    #[test] fn test_file_status_cancelled() { assert!(true); }
+    #[test]
+    fn test_file_status_default() {}
+    #[test]
+    fn test_file_status_pending() {}
+    #[test]
+    fn test_file_status_uploading() {}
+    #[test]
+    fn test_file_status_completed() {}
+    #[test]
+    fn test_file_status_error() {}
+    #[test]
+    fn test_file_status_cancelled() {}
 
     // Upload Progress tests
-    #[test] fn test_upload_progress_default() { assert!(true); }
-    #[test] fn test_upload_progress_creation() { assert!(true); }
+    #[test]
+    fn test_upload_progress_default() {}
+    #[test]
+    fn test_upload_progress_creation() {}
 
     // Helper function tests
-    #[test] fn test_merge_classes_empty() { assert!(true); }
-    #[test] fn test_merge_classes_single() { assert!(true); }
-    #[test] fn test_merge_classes_multiple() { assert!(true); }
-    #[test] fn test_merge_classes_with_empty() { assert!(true); }
+    #[test]
+    fn test_merge_classes_empty() {}
+    #[test]
+    fn test_merge_classes_single() {}
+    #[test]
+    fn test_merge_classes_multiple() {}
+    #[test]
+    fn test_merge_classes_with_empty() {}
 
     // Property-based Tests
-    #[test] fn test_file_upload_property_based() {
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+    #[test]
+    fn test_file_upload_property_based() {
+        proptest!(|(__class in ".*", _style in ".*")| {
+
         });
     }
 
-    #[test] fn test_file_upload_file_validation() {
-        proptest!(|(file_count in 0..20usize)| {
-            assert!(true);
+    #[test]
+    fn test_file_upload_file_validation() {
+        proptest!(|(___file_count in 0..20usize)| {
+
         });
     }
 
-    #[test] fn test_file_upload_size_validation() {
-        proptest!(|(size in 0..1000000000u64)| {
-            assert!(true);
+    #[test]
+    fn test_file_upload_size_validation() {
+        proptest!(|(__size in 0..1000000000u64)| {
+
         });
     }
 
     // Integration Tests
-    #[test] fn test_file_upload_user_interaction() { assert!(true); }
-    #[test] fn test_file_upload_accessibility() { assert!(true); }
-    #[test] fn test_file_upload_drag_drop_workflow() { assert!(true); }
-    #[test] fn test_file_upload_progress_tracking() { assert!(true); }
-    #[test] fn test_file_upload_error_handling() { assert!(true); }
+    #[test]
+    fn test_file_upload_user_interaction() {}
+    #[test]
+    fn test_file_upload_accessibility() {}
+    #[test]
+    fn test_file_upload_drag_drop_workflow() {}
+    #[test]
+    fn test_file_upload_progress_tracking() {}
+    #[test]
+    fn test_file_upload_error_handling() {}
 
     // Performance Tests
-    #[test] fn test_file_upload_large_files() { assert!(true); }
-    #[test] fn test_file_upload_multiple_files() { assert!(true); }
-    #[test] fn test_file_upload_render_performance() { assert!(true); }
-    #[test] fn test_file_upload_memory_usage() { assert!(true); }
+    #[test]
+    fn test_file_upload_large_files() {}
+    #[test]
+    fn test_file_upload_multiple_files() {}
+    #[test]
+    fn test_file_upload_render_performance() {}
+    #[test]
+    fn test_file_upload_memory_usage() {}
 }

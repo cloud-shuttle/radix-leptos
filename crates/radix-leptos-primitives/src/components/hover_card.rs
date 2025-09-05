@@ -1,8 +1,8 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// Hover Card component for contextual hover information
-/// 
+///
 /// Provides accessible hover card with keyboard support and ARIA attributes
 #[component]
 pub fn HoverCard(
@@ -18,7 +18,8 @@ pub fn HoverCard(
     let open_delay = open_delay.unwrap_or(700);
     let close_delay = close_delay.unwrap_or(300);
     let (is_open, set_is_open) = signal(
-        open.map(|o| o.get()).unwrap_or_else(|| default_open.unwrap_or(false))
+        open.map(|o| o.get())
+            .unwrap_or_else(|| default_open.unwrap_or(false)),
     );
 
     // Handle external open state changes
@@ -35,10 +36,7 @@ pub fn HoverCard(
         });
     }
 
-    let class = merge_classes(vec![
-        "hover-card",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["hover-card", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -65,7 +63,7 @@ pub fn HoverCardTrigger(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "hover-card-trigger",
         if disabled { "disabled" } else { "" },
         class.as_deref().unwrap_or(""),
@@ -142,7 +140,7 @@ pub fn HoverCardContent(
         return view! { <></> }.into_any();
     }
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "hover-card-content",
         &side.to_class(),
         &align.to_class(),
@@ -167,7 +165,8 @@ pub fn HoverCardContent(
         >
             {children.map(|c| c())}
         </div>
-    }.into_any()
+    }
+    .into_any()
 }
 
 /// Hover Card Portal component
@@ -178,10 +177,7 @@ pub fn HoverCardPortal(
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] container: Option<String>,
 ) -> impl IntoView {
-    let class = merge_classes(vec![
-        "hover-card-portal",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["hover-card-portal", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -205,10 +201,7 @@ pub fn HoverCardArrow(
     let width = width.unwrap_or(11.0);
     let height = height.unwrap_or(5.0);
 
-    let class = merge_classes(vec![
-        "hover-card-arrow",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["hover-card-arrow", class.as_deref().unwrap_or("")]);
 
     let style = format!(
         "{}; --arrow-width: {}px; --arrow-height: {}px;",
@@ -303,209 +296,175 @@ mod tests {
     #[test]
     fn test_hover_card_creation() {
         // Test that the component can be created
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_with_class() {
         // Test that the component can be created with class
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_with_style() {
         // Test that the component can be created with style
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_with_open_delay() {
         // Test with custom open delay
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_with_close_delay() {
         // Test with custom close delay
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_with_default_open() {
         // Test with default open state
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_with_controlled_open() {
         // Test with controlled open state
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_on_open_change() {
         // Test open change callback
-        assert!(true);
     }
 
     // Hover Card Trigger Tests
     #[test]
     fn test_hover_card_trigger_creation() {
         // Test that the component can be created
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_trigger_with_class() {
         // Test that the component can be created with class
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_trigger_with_style() {
         // Test that the component can be created with style
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_trigger_disabled() {
         // Test disabled state
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_trigger_mouse_enter() {
         // Test mouse enter callback
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_trigger_mouse_leave() {
         // Test mouse leave callback
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_trigger_focus() {
         // Test focus callback
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_trigger_blur() {
         // Test blur callback
-        assert!(true);
     }
 
     // Hover Card Content Tests
     #[test]
     fn test_hover_card_content_creation() {
         // Test that the component can be created
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_content_with_class() {
         // Test that the component can be created with class
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_content_with_style() {
         // Test that the component can be created with style
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_content_visible() {
         // Test visible state
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_content_hidden() {
         // Test hidden state
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_content_with_side() {
         // Test with side positioning
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_content_with_align() {
         // Test with alignment
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_content_with_side_offset() {
         // Test with side offset
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_content_with_align_offset() {
         // Test with align offset
-        assert!(true);
     }
 
     // Hover Card Portal Tests
     #[test]
     fn test_hover_card_portal_creation() {
         // Test that the component can be created
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_portal_with_class() {
         // Test that the component can be created with class
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_portal_with_style() {
         // Test that the component can be created with style
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_portal_with_container() {
         // Test with container
-        assert!(true);
     }
 
     // Hover Card Arrow Tests
     #[test]
     fn test_hover_card_arrow_creation() {
         // Test that the component can be created
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_arrow_with_class() {
         // Test that the component can be created with class
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_arrow_with_style() {
         // Test that the component can be created with style
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_arrow_with_width() {
         // Test with custom width
-        assert!(true);
     }
 
     #[test]
     fn test_hover_card_arrow_with_height() {
         // Test with custom height
-        assert!(true);
     }
 
     // Hover Card Side Tests
@@ -574,25 +533,25 @@ mod tests {
     // Helper Function Tests
     #[test]
     fn test_merge_classes_empty() {
-        let result = merge_classes(vec![]);
+        let result = merge_classes([]);
         assert_eq!(result, "");
     }
 
     #[test]
     fn test_merge_classes_single() {
-        let result = merge_classes(vec!["class1"]);
+        let result = merge_classes(["class1"]);
         assert_eq!(result, "class1");
     }
 
     #[test]
     fn test_merge_classes_multiple() {
-        let result = merge_classes(vec!["class1", "class2", "class3"]);
+        let result = merge_classes(["class1", "class2", "class3"]);
         assert_eq!(result, "class1 class2 class3");
     }
 
     #[test]
     fn test_merge_classes_with_empty() {
-        let result = merge_classes(vec!["class1", "", "class3"]);
+        let result = merge_classes(["class1", "", "class3"]);
         assert_eq!(result, "class1 class3");
     }
 
@@ -601,9 +560,9 @@ mod tests {
     fn test_hover_card_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(class in ".*", style in ".*", open_delay in 0..5000u32, close_delay in 0..5000u32)| {
+        proptest!(|(__class in ".*", _style in ".*", _open_delay in 0..5000u32, _close_delay in 0..5000u32)| {
             // Test that the component can be created with various prop values
-            assert!(true);
+
         });
     }
 
@@ -611,9 +570,9 @@ mod tests {
     fn test_hover_card_trigger_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(class in ".*", style in ".*")| {
+        proptest!(|(__class in ".*", _style in ".*")| {
             // Test that the component can be created with various class and style values
-            assert!(true);
+
         });
     }
 
@@ -621,9 +580,9 @@ mod tests {
     fn test_hover_card_content_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(class in ".*", style in ".*", side_offset in -100.0..100.0f64, align_offset in -100.0..100.0f64)| {
+        proptest!(|(__class in ".*", _style in ".*", side_offset in -100.0..100.0f64, align_offset in -100.0..100.0f64)| {
             // Test that the component can be created with various prop values
-            assert!(true);
+
         });
     }
 
@@ -631,9 +590,9 @@ mod tests {
     fn test_hover_card_portal_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(class in ".*", style in ".*", container in ".*")| {
+        proptest!(|(__class in ".*", _style in ".*", container in ".*")| {
             // Test that the component can be created with various prop values
-            assert!(true);
+
         });
     }
 
@@ -641,9 +600,9 @@ mod tests {
     fn test_hover_card_arrow_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(class in ".*", style in ".*", width in 1.0..50.0f64, height in 1.0..50.0f64)| {
+        proptest!(|(__class in ".*", _style in ".*", _width in 1.0..50.0f64, _height in 1.0..50.0f64)| {
             // Test that the component can be created with various prop values
-            assert!(true);
+
         });
     }
 }

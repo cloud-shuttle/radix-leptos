@@ -61,10 +61,10 @@ fn merge_classes(existing: Option<&str>, additional: Option<&str>) -> Option<Str
 pub fn Popover(
     /// Whether the popover is open
     #[prop(optional, default = false)]
-    open: bool,
+    _open: bool,
     /// Whether the popover is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -74,7 +74,7 @@ pub fn Popover(
     /// Child content (trigger and content)
     children: Children,
 ) -> impl IntoView {
-    let popover_id = generate_id("popover");
+    let _popover_id = generate_id("popover");
     
     // Build base classes
     let base_classes = "radix-popover";
@@ -99,7 +99,7 @@ pub fn Popover(
 pub fn PopoverTrigger(
     /// Whether the trigger is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -112,7 +112,7 @@ pub fn PopoverTrigger(
     /// Child content (trigger content)
     children: Children,
 ) -> impl IntoView {
-    let trigger_id = generate_id("popover-trigger");
+    let _trigger_id = generate_id("popover-trigger");
     
     // Build base classes
     let base_classes = "radix-popover-trigger";
@@ -165,7 +165,7 @@ pub fn PopoverContent(
     align: PopoverAlignment,
     /// Whether the popover is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -175,7 +175,7 @@ pub fn PopoverContent(
     /// Child content (popover content)
     children: Children,
 ) -> impl IntoView {
-    let content_id = generate_id("popover-content");
+    let _content_id = generate_id("popover-content");
     
     // Build base classes
     let base_classes = "radix-popover-content";
@@ -205,7 +205,7 @@ pub fn PopoverContent(
 pub fn PopoverClose(
     /// Whether the close button is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -218,7 +218,7 @@ pub fn PopoverClose(
     /// Child content (close button content)
     children: Children,
 ) -> impl IntoView {
-    let close_id = generate_id("popover-close");
+    let _close_id = generate_id("popover-close");
     
     // Build base classes
     let base_classes = "radix-popover-close";
@@ -269,7 +269,7 @@ pub fn PopoverArrow(
     #[prop(optional)]
     style: Option<String>,
 ) -> impl IntoView {
-    let arrow_id = generate_id("popover-arrow");
+    let _arrow_id = generate_id("popover-arrow");
     
     // Build base classes
     let base_classes = "radix-popover-arrow";

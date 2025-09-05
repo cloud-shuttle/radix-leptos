@@ -55,22 +55,22 @@ pub fn Audio(
     theme: AudioTheme,
     /// Whether the audio should autoplay
     #[prop(optional, default = false)]
-    autoplay: bool,
+    _autoplay: bool,
     /// Whether the audio should loop
     #[prop(optional, default = false)]
-    loop_audio: bool,
+    _loop_audio: bool,
     /// Whether the audio should be muted
     #[prop(optional, default = false)]
-    muted: bool,
+    _muted: bool,
     /// Whether the audio should show controls
     #[prop(optional, default = true)]
-    show_controls: bool,
+    _show_controls: bool,
     /// Whether the audio is interactive (clickable)
     #[prop(optional, default = false)]
-    interactive: bool,
+    _interactive: bool,
     /// Whether the audio is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -115,7 +115,7 @@ pub fn Audio(
 
     let class_value = class.unwrap_or_default();
 
-    let mut base_classes = vec![
+    let mut base_classes = [
         "radix-audio",
         &size_class(),
         &controls_class(),
@@ -163,19 +163,19 @@ pub fn AudioWithCustomControls(
     theme: AudioTheme,
     /// Whether the audio should autoplay
     #[prop(optional, default = false)]
-    autoplay: bool,
+    _autoplay: bool,
     /// Whether the audio should loop
     #[prop(optional, default = false)]
-    loop_audio: bool,
+    _loop_audio: bool,
     /// Whether the audio should be muted
     #[prop(optional, default = false)]
-    muted: bool,
+    _muted: bool,
     /// Whether the audio is interactive (clickable)
     #[prop(optional, default = false)]
-    interactive: bool,
+    _interactive: bool,
     /// Whether the audio is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -213,7 +213,7 @@ pub fn AudioWithCustomControls(
 
     let class_value = class.unwrap_or_default();
 
-    let mut base_classes = vec![
+    let mut base_classes = [
         "radix-audio-custom",
         &size_class(),
         &theme_class(),
@@ -269,19 +269,19 @@ pub fn AudioPlayer(
     theme: AudioTheme,
     /// Whether the audio should autoplay
     #[prop(optional, default = false)]
-    autoplay: bool,
+    _autoplay: bool,
     /// Whether the audio should loop
     #[prop(optional, default = false)]
-    loop_audio: bool,
+    _loop_audio: bool,
     /// Whether the audio should be muted
     #[prop(optional, default = false)]
-    muted: bool,
+    _muted: bool,
     /// Whether the audio is interactive (clickable)
     #[prop(optional, default = false)]
-    interactive: bool,
+    _interactive: bool,
     /// Whether the audio is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -317,7 +317,7 @@ pub fn AudioPlayer(
 
     let class_value = class.unwrap_or_default();
 
-    let mut base_classes = vec![
+    let mut base_classes = [
         "radix-audio-player",
         &size_class(),
         &theme_class(),

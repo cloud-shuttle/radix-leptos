@@ -6,8 +6,8 @@ use leptos::prelude::*;
 pub struct TableData {
     pub id: String,
     pub cells: Vec<String>,
-    pub selected: bool,
-    pub disabled: bool,
+    pub _selected: bool,
+    pub _disabled: bool,
 }
 
 impl TableData {
@@ -20,12 +20,12 @@ impl TableData {
         }
     }
 
-    pub fn with_selected(mut self, selected: bool) -> Self {
+    pub fn with_selected(mut self, _selected: bool) -> Self {
         self.selected = selected;
         self
     }
 
-    pub fn with_disabled(mut self, disabled: bool) -> Self {
+    pub fn with_disabled(mut self, _disabled: bool) -> Self {
         self.disabled = disabled;
         self
     }
@@ -36,7 +36,7 @@ impl TableData {
 pub struct TableColumn {
     pub id: String,
     pub header: String,
-    pub sortable: bool,
+    pub _sortable: bool,
     pub width: Option<String>,
     pub align: TableAlign,
 }
@@ -52,7 +52,7 @@ impl TableColumn {
         }
     }
 
-    pub fn with_sortable(mut self, sortable: bool) -> Self {
+    pub fn with_sortable(mut self, _sortable: bool) -> Self {
         self.sortable = sortable;
         self
     }
@@ -154,8 +154,8 @@ pub struct TableContext {
     pub total_pages: Signal<usize>,
     pub size: TableSize,
     pub variant: TableVariant,
-    pub selectable: bool,
-    pub multi_select: bool,
+    pub _selectable: bool,
+    pub _multi_select: bool,
     pub selected_rows: Signal<Vec<String>>,
     pub table_id: String,
     pub on_sort: Option<Callback<(String, SortDirection)>>,
@@ -192,10 +192,10 @@ pub fn Table(
     variant: TableVariant,
     /// Whether rows are selectable
     #[prop(optional, default = false)]
-    selectable: bool,
+    _selectable: bool,
     /// Whether multiple rows can be selected
     #[prop(optional, default = false)]
-    multi_select: bool,
+    _multi_select: bool,
     /// Sort event handler
     #[prop(optional)]
     on_sort: Option<Callback<(String, SortDirection)>>,
@@ -211,7 +211,7 @@ pub fn Table(
     /// Child content (table headers, rows, etc.)
     children: Children,
 ) -> impl IntoView {
-    let table_id = generate_id("table");
+    let _table_id = generate_id("table");
     
     // Reactive state
     let (columns_signal, _set_columns_signal) = signal(columns);
@@ -292,7 +292,7 @@ pub fn TableHeader(
     children: Children,
 ) -> impl IntoView {
     let _context = use_context::<TableContext>().expect("TableHeader must be used within Table");
-    let header_id = generate_id("table-header");
+    let _header_id = generate_id("table-header");
     
     // Build base classes
     let base_classes = "radix-table-header";
@@ -323,7 +323,7 @@ pub fn TableBody(
     children: Children,
 ) -> impl IntoView {
     let _context = use_context::<TableContext>().expect("TableBody must be used within Table");
-    let body_id = generate_id("table-body");
+    let _body_id = generate_id("table-body");
     
     // Build base classes
     let base_classes = "radix-table-body";
@@ -363,7 +363,7 @@ pub fn TableRow(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<TableContext>().expect("TableRow must be used within Table");
-    let row_id = generate_id("table-row");
+    let _row_id = generate_id("table-row");
     
     let row_for_click = row.clone();
     let row_for_selected = row.clone();
@@ -445,7 +445,7 @@ pub fn TableHeaderCell(
     children: Children,
 ) -> impl IntoView {
     let _context = use_context::<TableContext>().expect("TableHeaderCell must be used within Table");
-    let cell_id = generate_id("table-header-cell");
+    let _cell_id = generate_id("table-header-cell");
     
     // Build base classes
     let base_classes = "radix-table-header-cell";
@@ -485,7 +485,7 @@ pub fn TableCell(
     children: Children,
 ) -> impl IntoView {
     let _context = use_context::<TableContext>().expect("TableCell must be used within Table");
-    let cell_id = generate_id("table-cell");
+    let _cell_id = generate_id("table-cell");
     
     // Build base classes
     let base_classes = "radix-table-cell";
@@ -526,7 +526,7 @@ pub fn TableSortButton(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<TableContext>().expect("TableSortButton must be used within Table");
-    let button_id = generate_id("table-sort-button");
+    let _button_id = generate_id("table-sort-button");
     
     let column_id_clone = column_id.clone();
     let header_text_clone = header_text.clone();
@@ -602,7 +602,7 @@ pub fn TablePagination(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<TableContext>().expect("TablePagination must be used within Table");
-    let pagination_id = generate_id("table-pagination");
+    let _pagination_id = generate_id("table-pagination");
     
     // Build base classes
     let base_classes = "radix-table-pagination";
@@ -638,7 +638,7 @@ pub fn TableInfo(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<TableContext>().expect("TableInfo must be used within Table");
-    let info_id = generate_id("table-info");
+    let _info_id = generate_id("table-info");
     
     // Build base classes
     let base_classes = "radix-table-info";

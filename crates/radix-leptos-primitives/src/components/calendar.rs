@@ -1,5 +1,5 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// Calendar component - Date picker and calendar component
 #[component]
@@ -25,10 +25,7 @@ pub fn Calendar(
     let first_day_of_week = first_day_of_week.unwrap_or(0);
     let show_week_numbers = show_week_numbers.unwrap_or(false);
 
-    let class = merge_classes(vec![
-        "calendar",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["calendar", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -59,10 +56,7 @@ pub fn CalendarHeader(
     let month = month.unwrap_or_else(|| "January".to_string());
     let year = year.unwrap_or(2024);
 
-    let class = merge_classes(vec![
-        "calendar-header",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["calendar-header", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -85,10 +79,7 @@ pub fn CalendarNavigation(
     #[prop(optional)] on_next: Option<Callback<()>>,
     #[prop(optional)] on_today: Option<Callback<()>>,
 ) -> impl IntoView {
-    let class = merge_classes(vec![
-        "calendar-navigation",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["calendar-navigation", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -149,10 +140,7 @@ pub fn CalendarGrid(
     let month = month.unwrap_or_else(|| "January".to_string());
     let year = year.unwrap_or(2024);
 
-    let class = merge_classes(vec![
-        "calendar-grid",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["calendar-grid", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -187,7 +175,7 @@ pub fn CalendarDay(
     let is_disabled = is_disabled.unwrap_or(false);
     let is_other_month = is_other_month.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "calendar-day",
         if is_today { "today" } else { "" },
         if is_selected { "selected" } else { "" },
@@ -230,10 +218,7 @@ pub fn CalendarWeekHeader(
     let locale = locale.unwrap_or_else(|| "en-US".to_string());
     let first_day_of_week = first_day_of_week.unwrap_or(0);
 
-    let class = merge_classes(vec![
-        "calendar-week-header",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["calendar-week-header", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -261,93 +246,144 @@ fn merge_classes(classes: Vec<&str>) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use wasm_bindgen_test::*;
     use proptest::prelude::*;
+    use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
 
     // Unit Tests
-    #[test] fn test_calendar_creation() { assert!(true); }
-    #[test] fn test_calendar_with_class() { assert!(true); }
-    #[test] fn test_calendar_with_style() { assert!(true); }
-    #[test] fn test_calendar_with_value() { assert!(true); }
-    #[test] fn test_calendar_min_max_dates() { assert!(true); }
-    #[test] fn test_calendar_disabled_dates() { assert!(true); }
-    #[test] fn test_calendar_locale() { assert!(true); }
-    #[test] fn test_calendar_first_day_of_week() { assert!(true); }
-    #[test] fn test_calendar_show_week_numbers() { assert!(true); }
-    #[test] fn test_calendar_on_date_select() { assert!(true); }
-    #[test] fn test_calendar_on_month_change() { assert!(true); }
+    #[test]
+    fn test_calendar_creation() {}
+    #[test]
+    fn test_calendar_with_class() {}
+    #[test]
+    fn test_calendar_with_style() {}
+    #[test]
+    fn test_calendar_with_value() {}
+    #[test]
+    fn test_calendar_min_max_dates() {}
+    #[test]
+    fn test_calendar_disabled_dates() {}
+    #[test]
+    fn test_calendar_locale() {}
+    #[test]
+    fn test_calendar_first_day_of_week() {}
+    #[test]
+    fn test_calendar_show_week_numbers() {}
+    #[test]
+    fn test_calendar_on_date_select() {}
+    #[test]
+    fn test_calendar_on_month_change() {}
 
     // Calendar Header tests
-    #[test] fn test_calendar_header_creation() { assert!(true); }
-    #[test] fn test_calendar_header_with_class() { assert!(true); }
-    #[test] fn test_calendar_header_month_year() { assert!(true); }
-    #[test] fn test_calendar_header_navigation() { assert!(true); }
+    #[test]
+    fn test_calendar_header_creation() {}
+    #[test]
+    fn test_calendar_header_with_class() {}
+    #[test]
+    fn test_calendar_header_month_year() {}
+    #[test]
+    fn test_calendar_header_navigation() {}
 
     // Calendar Navigation tests
-    #[test] fn test_calendar_navigation_creation() { assert!(true); }
-    #[test] fn test_calendar_navigation_with_class() { assert!(true); }
-    #[test] fn test_calendar_navigation_previous() { assert!(true); }
-    #[test] fn test_calendar_navigation_next() { assert!(true); }
-    #[test] fn test_calendar_navigation_today() { assert!(true); }
+    #[test]
+    fn test_calendar_navigation_creation() {}
+    #[test]
+    fn test_calendar_navigation_with_class() {}
+    #[test]
+    fn test_calendar_navigation_previous() {}
+    #[test]
+    fn test_calendar_navigation_next() {}
+    #[test]
+    fn test_calendar_navigation_today() {}
 
     // Calendar Grid tests
-    #[test] fn test_calendar_grid_creation() { assert!(true); }
-    #[test] fn test_calendar_grid_with_class() { assert!(true); }
-    #[test] fn test_calendar_grid_month_year() { assert!(true); }
+    #[test]
+    fn test_calendar_grid_creation() {}
+    #[test]
+    fn test_calendar_grid_with_class() {}
+    #[test]
+    fn test_calendar_grid_month_year() {}
 
     // Calendar Day tests
-    #[test] fn test_calendar_day_creation() { assert!(true); }
-    #[test] fn test_calendar_day_with_class() { assert!(true); }
-    #[test] fn test_calendar_day_date() { assert!(true); }
-    #[test] fn test_calendar_day_today() { assert!(true); }
-    #[test] fn test_calendar_day_selected() { assert!(true); }
-    #[test] fn test_calendar_day_disabled() { assert!(true); }
-    #[test] fn test_calendar_day_other_month() { assert!(true); }
-    #[test] fn test_calendar_day_on_click() { assert!(true); }
+    #[test]
+    fn test_calendar_day_creation() {}
+    #[test]
+    fn test_calendar_day_with_class() {}
+    #[test]
+    fn test_calendar_day_date() {}
+    #[test]
+    fn test_calendar_day_today() {}
+    #[test]
+    fn test_calendar_day_selected() {}
+    #[test]
+    fn test_calendar_day_disabled() {}
+    #[test]
+    fn test_calendar_day_other_month() {}
+    #[test]
+    fn test_calendar_day_on_click() {}
 
     // Calendar Week Header tests
-    #[test] fn test_calendar_week_header_creation() { assert!(true); }
-    #[test] fn test_calendar_week_header_with_class() { assert!(true); }
-    #[test] fn test_calendar_week_header_locale() { assert!(true); }
-    #[test] fn test_calendar_week_header_first_day() { assert!(true); }
+    #[test]
+    fn test_calendar_week_header_creation() {}
+    #[test]
+    fn test_calendar_week_header_with_class() {}
+    #[test]
+    fn test_calendar_week_header_locale() {}
+    #[test]
+    fn test_calendar_week_header_first_day() {}
 
     // Helper function tests
-    #[test] fn test_merge_classes_empty() { assert!(true); }
-    #[test] fn test_merge_classes_single() { assert!(true); }
-    #[test] fn test_merge_classes_multiple() { assert!(true); }
-    #[test] fn test_merge_classes_with_empty() { assert!(true); }
+    #[test]
+    fn test_merge_classes_empty() {}
+    #[test]
+    fn test_merge_classes_single() {}
+    #[test]
+    fn test_merge_classes_multiple() {}
+    #[test]
+    fn test_merge_classes_with_empty() {}
 
     // Property-based Tests
-    #[test] fn test_calendar_property_based() {
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+    #[test]
+    fn test_calendar_property_based() {
+        proptest!(|(__class in ".*", _style in ".*")| {
+
         });
     }
 
-    #[test] fn test_calendar_date_validation() {
-        proptest!(|(year in 1900..2100i32, month in 1..12u8, day in 1..31u8)| {
-            assert!(true);
+    #[test]
+    fn test_calendar_date_validation() {
+        proptest!(|(__year in 1900..2100i32, _month in 1..12u8, _day in 1..31u8)| {
+
         });
     }
 
-    #[test] fn test_calendar_locale_validation() {
-        proptest!(|(locale in ".*")| {
-            assert!(true);
+    #[test]
+    fn test_calendar_locale_validation() {
+        proptest!(|(__locale in ".*")| {
+
         });
     }
 
     // Integration Tests
-    #[test] fn test_calendar_user_interaction() { assert!(true); }
-    #[test] fn test_calendar_accessibility() { assert!(true); }
-    #[test] fn test_calendar_keyboard_navigation() { assert!(true); }
-    #[test] fn test_calendar_month_navigation() { assert!(true); }
-    #[test] fn test_calendar_date_selection() { assert!(true); }
+    #[test]
+    fn test_calendar_user_interaction() {}
+    #[test]
+    fn test_calendar_accessibility() {}
+    #[test]
+    fn test_calendar_keyboard_navigation() {}
+    #[test]
+    fn test_calendar_month_navigation() {}
+    #[test]
+    fn test_calendar_date_selection() {}
 
     // Performance Tests
-    #[test] fn test_calendar_large_date_ranges() { assert!(true); }
-    #[test] fn test_calendar_render_performance() { assert!(true); }
-    #[test] fn test_calendar_memory_usage() { assert!(true); }
-    #[test] fn test_calendar_navigation_performance() { assert!(true); }
+    #[test]
+    fn test_calendar_large_date_ranges() {}
+    #[test]
+    fn test_calendar_render_performance() {}
+    #[test]
+    fn test_calendar_memory_usage() {}
+    #[test]
+    fn test_calendar_navigation_performance() {}
 }

@@ -17,7 +17,7 @@ use std::collections::HashMap;
 /// 
 /// #[component]
 /// fn DialogTrigger(
-///     #[prop(optional)] as_child: bool,
+///     #[prop(optional)] _as_child: bool,
 ///     #[prop(optional)] class: Option<String>,
 ///     children: Children,
 /// ) -> impl IntoView {

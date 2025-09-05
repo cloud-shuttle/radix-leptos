@@ -1,7 +1,7 @@
-use leptos::*;
-use leptos::prelude::*;
-use serde::{Deserialize, Serialize};
 use crate::utils::merge_classes;
+use leptos::prelude::*;
+use leptos::*;
+use serde::{Deserialize, Serialize};
 
 /// Component variant system for consistent styling
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -36,13 +36,13 @@ pub struct ButtonVariants {
 impl Default for ButtonVariants {
     fn default() -> Self {
         Self {
-            sizes: vec![
+            sizes: [
                 SizeVariant::Small,
                 SizeVariant::Medium,
                 SizeVariant::Large,
                 SizeVariant::ExtraLarge,
             ],
-            styles: vec![
+            styles: [
                 StyleVariant::Default,
                 StyleVariant::Primary,
                 StyleVariant::Secondary,
@@ -50,7 +50,7 @@ impl Default for ButtonVariants {
                 StyleVariant::Ghost,
                 StyleVariant::Destructive,
             ],
-            states: vec![
+            states: [
                 StateVariant::Default,
                 StateVariant::Hover,
                 StateVariant::Active,
@@ -73,23 +73,19 @@ pub struct InputVariants {
 impl Default for InputVariants {
     fn default() -> Self {
         Self {
-            sizes: vec![
-                SizeVariant::Small,
-                SizeVariant::Medium,
-                SizeVariant::Large,
-            ],
-            styles: vec![
+            sizes: [SizeVariant::Small, SizeVariant::Medium, SizeVariant::Large],
+            styles: [
                 StyleVariant::Default,
                 StyleVariant::Outline,
                 StyleVariant::Filled,
             ],
-            states: vec![
+            states: [
                 StateVariant::Default,
                 StateVariant::Focus,
                 StateVariant::Error,
                 StateVariant::Disabled,
             ],
-            types: vec![
+            types: [
                 InputTypeVariant::Text,
                 InputTypeVariant::Email,
                 InputTypeVariant::Password,
@@ -111,17 +107,13 @@ pub struct CardVariants {
 impl Default for CardVariants {
     fn default() -> Self {
         Self {
-            sizes: vec![
-                SizeVariant::Small,
-                SizeVariant::Medium,
-                SizeVariant::Large,
-            ],
-            styles: vec![
+            sizes: [SizeVariant::Small, SizeVariant::Medium, SizeVariant::Large],
+            styles: [
                 StyleVariant::Default,
                 StyleVariant::Outlined,
                 StyleVariant::Filled,
             ],
-            elevations: vec![
+            elevations: [
                 ElevationVariant::None,
                 ElevationVariant::Low,
                 ElevationVariant::Medium,
@@ -142,12 +134,8 @@ pub struct BadgeVariants {
 impl Default for BadgeVariants {
     fn default() -> Self {
         Self {
-            sizes: vec![
-                SizeVariant::Small,
-                SizeVariant::Medium,
-                SizeVariant::Large,
-            ],
-            styles: vec![
+            sizes: [SizeVariant::Small, SizeVariant::Medium, SizeVariant::Large],
+            styles: [
                 StyleVariant::Default,
                 StyleVariant::Primary,
                 StyleVariant::Secondary,
@@ -155,7 +143,7 @@ impl Default for BadgeVariants {
                 StyleVariant::Warning,
                 StyleVariant::Error,
             ],
-            shapes: vec![
+            shapes: [
                 ShapeVariant::Rounded,
                 ShapeVariant::Pill,
                 ShapeVariant::Square,
@@ -175,17 +163,13 @@ pub struct AlertVariants {
 impl Default for AlertVariants {
     fn default() -> Self {
         Self {
-            sizes: vec![
-                SizeVariant::Small,
-                SizeVariant::Medium,
-                SizeVariant::Large,
-            ],
-            styles: vec![
+            sizes: [SizeVariant::Small, SizeVariant::Medium, SizeVariant::Large],
+            styles: [
                 StyleVariant::Default,
                 StyleVariant::Outlined,
                 StyleVariant::Filled,
             ],
-            types: vec![
+            types: [
                 AlertTypeVariant::Info,
                 AlertTypeVariant::Success,
                 AlertTypeVariant::Warning,
@@ -388,12 +372,9 @@ pub fn VariantBuilder(
     let component_type = component_type.unwrap_or_else(|| "button".to_string());
     let on_variant_change = on_variant_change.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes(vec![
-        "variant-builder",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["variant-builder", class.as_deref().unwrap_or("")]);
 
-    let (variants, set_variants) = create_signal(ComponentVariants::default());
+    let (variants, set_variants) = signal(ComponentVariants::default());
 
     let handle_variant_change = move |new_variants: ComponentVariants| {
         set_variants.set(new_variants.clone());
@@ -411,7 +392,7 @@ pub fn VariantBuilder(
                 <h3>"Component Variants"</h3>
                 <p>"Customize component variants and styles"</p>
             </div>
-            
+
             <div class="variant-sections">
                 <ButtonVariantSection
                     title="Button Variants".to_string()
@@ -423,7 +404,7 @@ pub fn VariantBuilder(
                         handle_variant_change(new_variants);
                     })
                 />
-                
+
                 <InputVariantSection
                     title="Input Variants".to_string()
                     component_type="input".to_string()
@@ -457,7 +438,7 @@ pub fn ButtonVariantSection(
     let variants_clone2 = variants.clone();
     let variants_clone3 = variants.clone();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "variant-section",
         &component_type,
         class.as_deref().unwrap_or(""),
@@ -470,7 +451,7 @@ pub fn ButtonVariantSection(
             data-component-type=component_type.clone()
         >
             <h4 class="section-title">{title}</h4>
-            
+
             <div class="variant-options">
                 <SizeVariantOptionGroup
                     title="Sizes".to_string()
@@ -481,7 +462,7 @@ pub fn ButtonVariantSection(
                         on_change.run(new_variants);
                     })
                 />
-                
+
                 <StyleVariantOptionGroup
                     title="Styles".to_string()
                     options=variants.styles.clone()
@@ -491,7 +472,7 @@ pub fn ButtonVariantSection(
                         on_change.run(new_variants);
                     })
                 />
-                
+
                 <StateVariantOptionGroup
                     title="States".to_string()
                     options=variants.states.clone()
@@ -524,7 +505,7 @@ pub fn InputVariantSection(
     let variants_clone2 = variants.clone();
     let variants_clone3 = variants.clone();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "variant-section",
         &component_type,
         class.as_deref().unwrap_or(""),
@@ -537,7 +518,7 @@ pub fn InputVariantSection(
             data-component-type=component_type.clone()
         >
             <h4 class="section-title">{title}</h4>
-            
+
             <div class="variant-options">
                 <SizeVariantOptionGroup
                     title="Sizes".to_string()
@@ -548,7 +529,7 @@ pub fn InputVariantSection(
                         on_change.run(new_variants);
                     })
                 />
-                
+
                 <StyleVariantOptionGroup
                     title="Styles".to_string()
                     options=variants.styles.clone()
@@ -558,7 +539,7 @@ pub fn InputVariantSection(
                         on_change.run(new_variants);
                     })
                 />
-                
+
                 <StateVariantOptionGroup
                     title="States".to_string()
                     options=variants.states.clone()
@@ -586,10 +567,7 @@ pub fn SizeVariantOptionGroup(
     let options = options.unwrap_or_default();
     let on_change = on_change.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes(vec![
-        "variant-option-group",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["variant-option-group", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -625,10 +603,7 @@ pub fn StyleVariantOptionGroup(
     let options = options.unwrap_or_default();
     let on_change = on_change.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes(vec![
-        "variant-option-group",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["variant-option-group", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -664,10 +639,7 @@ pub fn StateVariantOptionGroup(
     let options = options.unwrap_or_default();
     let on_change = on_change.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes(vec![
-        "variant-option-group",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["variant-option-group", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -808,8 +780,7 @@ mod component_variants_tests {
         let title = "Button Variants";
         let component_type = "button";
         assert!(!title.is_empty());
-        assert!(!component_type.is_empty());        // Test completed
-        assert!(true); // Component compiles successfully
+        assert!(!component_type.is_empty()); // Test completed
     }
 
     #[test]
@@ -820,8 +791,7 @@ mod component_variants_tests {
         let title = "Button Variants";
         let component_type = "button";
         assert!(!title.is_empty());
-        assert!(!component_type.is_empty());        // Test completed
-        assert!(true); // Component compiles successfully
+        assert!(!component_type.is_empty()); // Test completed
     }
 
     #[test]
@@ -832,26 +802,24 @@ mod component_variants_tests {
         let title = "Button Variants";
         let component_type = "button";
         assert!(!title.is_empty());
-        assert!(!component_type.is_empty());        // Test completed
-        assert!(true); // Component compiles successfully
+        assert!(!component_type.is_empty()); // Test completed
     }
 
     #[test]
     fn test_variant_option_group_component() {
         // Test logic without runtime
-        let sizes = vec![SizeVariant::Small, SizeVariant::Medium, SizeVariant::Large];
+        let sizes = [SizeVariant::Small, SizeVariant::Medium, SizeVariant::Large];
         // Test component logic
         let title = "Button Variants";
         let component_type = "button";
         assert!(!title.is_empty());
-        assert!(!component_type.is_empty());        // Test completed
-        assert!(true); // Component compiles successfully
+        assert!(!component_type.is_empty()); // Test completed
     }
 
     // Property-based tests
     #[test]
     fn test_size_variant_property_based() {
-        proptest!(|(size in prop::sample::select(vec![
+        proptest!(|(size in prop::sample::select([
             SizeVariant::ExtraSmall,
             SizeVariant::Small,
             SizeVariant::Medium,
@@ -867,7 +835,7 @@ mod component_variants_tests {
 
     #[test]
     fn test_style_variant_property_based() {
-        proptest!(|(style in prop::sample::select(vec![
+        proptest!(|(style in prop::sample::select([
             StyleVariant::Default,
             StyleVariant::Primary,
             StyleVariant::Secondary,
@@ -884,13 +852,11 @@ mod component_variants_tests {
     #[test]
     fn test_variant_builder_integration() {
         // Test complete variant builder workflow
-        assert!(true);
     }
 
     #[test]
     fn test_variant_customization_integration() {
         // Test variant customization workflow
-        assert!(true);
     }
 
     // Performance Tests
@@ -915,6 +881,5 @@ mod component_variants_tests {
     #[test]
     fn test_variant_memory_usage() {
         // Test variant memory usage
-        assert!(true);
     }
 }

@@ -1,5 +1,5 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// Toast component - Enhanced notification system with positioning
 #[component]
@@ -23,11 +23,15 @@ pub fn Toast(
     let duration = duration.unwrap_or(5000);
     let dismissible = dismissible.unwrap_or(true);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "toast",
         &variant.to_class(),
         &position.to_class(),
-        if dismissible { "dismissible" } else { "persistent" },
+        if dismissible {
+            "dismissible"
+        } else {
+            "persistent"
+        },
         class.as_deref().unwrap_or(""),
     ]);
 
@@ -61,7 +65,7 @@ pub fn ToastProvider(
     let max_toasts = max_toasts.unwrap_or(5);
     let default_duration = default_duration.unwrap_or(5000);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "toast-provider",
         &position.to_class(),
         class.as_deref().unwrap_or(""),
@@ -92,10 +96,7 @@ pub fn ToastTitle(
 ) -> impl IntoView {
     let title = title.unwrap_or_default();
 
-    let class = merge_classes(vec![
-        "toast-title",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["toast-title", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -119,10 +120,7 @@ pub fn ToastDescription(
 ) -> impl IntoView {
     let description = description.unwrap_or_default();
 
-    let class = merge_classes(vec![
-        "toast-description",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["toast-description", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -146,10 +144,7 @@ pub fn ToastAction(
 ) -> impl IntoView {
     let label = label.unwrap_or_else(|| "Action".to_string());
 
-    let class = merge_classes(vec![
-        "toast-action",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["toast-action", class.as_deref().unwrap_or("")]);
 
     let handle_click = move |_| {
         if let Some(callback) = on_click {
@@ -178,10 +173,7 @@ pub fn ToastClose(
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] on_click: Option<Callback<()>>,
 ) -> impl IntoView {
-    let class = merge_classes(vec![
-        "toast-close",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["toast-close", class.as_deref().unwrap_or("")]);
 
     let handle_click = move |_| {
         if let Some(callback) = on_click {
@@ -281,7 +273,7 @@ pub fn ToastViewport(
 ) -> impl IntoView {
     let position = position.unwrap_or_default();
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "toast-viewport",
         &position.to_class(),
         class.as_deref().unwrap_or(""),
@@ -312,108 +304,168 @@ fn merge_classes(classes: Vec<&str>) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use wasm_bindgen_test::*;
     use proptest::prelude::*;
+    use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
 
     // Unit Tests
-    #[test] fn test_toast_creation() { assert!(true); }
-    #[test] fn test_toast_with_class() { assert!(true); }
-    #[test] fn test_toast_with_style() { assert!(true); }
-    #[test] fn test_toast_title() { assert!(true); }
-    #[test] fn test_toast_description() { assert!(true); }
-    #[test] fn test_toast_variant() { assert!(true); }
-    #[test] fn test_toast_position() { assert!(true); }
-    #[test] fn test_toast_duration() { assert!(true); }
-    #[test] fn test_toast_dismissible() { assert!(true); }
-    #[test] fn test_toast_on_dismiss() { assert!(true); }
-    #[test] fn test_toast_on_action() { assert!(true); }
+    #[test]
+    fn test_toast_creation() {}
+    #[test]
+    fn test_toast_with_class() {}
+    #[test]
+    fn test_toast_with_style() {}
+    #[test]
+    fn test_toast_title() {}
+    #[test]
+    fn test_toast_description() {}
+    #[test]
+    fn test_toast_variant() {}
+    #[test]
+    fn test_toast_position() {}
+    #[test]
+    fn test_toast_duration() {}
+    #[test]
+    fn test_toast_dismissible() {}
+    #[test]
+    fn test_toast_on_dismiss() {}
+    #[test]
+    fn test_toast_on_action() {}
 
     // Toast Provider tests
-    #[test] fn test_toast_provider_creation() { assert!(true); }
-    #[test] fn test_toast_provider_with_class() { assert!(true); }
-    #[test] fn test_toast_provider_position() { assert!(true); }
-    #[test] fn test_toast_provider_max_toasts() { assert!(true); }
-    #[test] fn test_toast_provider_default_duration() { assert!(true); }
+    #[test]
+    fn test_toast_provider_creation() {}
+    #[test]
+    fn test_toast_provider_with_class() {}
+    #[test]
+    fn test_toast_provider_position() {}
+    #[test]
+    fn test_toast_provider_max_toasts() {}
+    #[test]
+    fn test_toast_provider_default_duration() {}
 
     // Toast Title tests
-    #[test] fn test_toast_title_creation() { assert!(true); }
-    #[test] fn test_toast_title_with_class() { assert!(true); }
-    #[test] fn test_toast_title_title() { assert!(true); }
+    #[test]
+    fn test_toast_title_creation() {}
+    #[test]
+    fn test_toast_title_with_class() {}
+    #[test]
+    fn test_toast_title_title() {}
 
     // Toast Description tests
-    #[test] fn test_toast_description_creation() { assert!(true); }
-    #[test] fn test_toast_description_with_class() { assert!(true); }
-    #[test] fn test_toast_description_description() { assert!(true); }
+    #[test]
+    fn test_toast_description_creation() {}
+    #[test]
+    fn test_toast_description_with_class() {}
+    #[test]
+    fn test_toast_description_description() {}
 
     // Toast Action tests
-    #[test] fn test_toast_action_creation() { assert!(true); }
-    #[test] fn test_toast_action_with_class() { assert!(true); }
-    #[test] fn test_toast_action_label() { assert!(true); }
-    #[test] fn test_toast_action_on_click() { assert!(true); }
+    #[test]
+    fn test_toast_action_creation() {}
+    #[test]
+    fn test_toast_action_with_class() {}
+    #[test]
+    fn test_toast_action_label() {}
+    #[test]
+    fn test_toast_action_on_click() {}
 
     // Toast Close tests
-    #[test] fn test_toast_close_creation() { assert!(true); }
-    #[test] fn test_toast_close_with_class() { assert!(true); }
-    #[test] fn test_toast_close_on_click() { assert!(true); }
+    #[test]
+    fn test_toast_close_creation() {}
+    #[test]
+    fn test_toast_close_with_class() {}
+    #[test]
+    fn test_toast_close_on_click() {}
 
     // Toast Variant tests
-    #[test] fn test_toast_variant_default() { assert!(true); }
-    #[test] fn test_toast_variant_success() { assert!(true); }
-    #[test] fn test_toast_variant_warning() { assert!(true); }
-    #[test] fn test_toast_variant_error() { assert!(true); }
-    #[test] fn test_toast_variant_info() { assert!(true); }
+    #[test]
+    fn test_toast_variant_default() {}
+    #[test]
+    fn test_toast_variant_success() {}
+    #[test]
+    fn test_toast_variant_warning() {}
+    #[test]
+    fn test_toast_variant_error() {}
+    #[test]
+    fn test_toast_variant_info() {}
 
     // Toast Position tests
-    #[test] fn test_toast_position_default() { assert!(true); }
-    #[test] fn test_toast_position_top_right() { assert!(true); }
-    #[test] fn test_toast_position_top_left() { assert!(true); }
-    #[test] fn test_toast_position_top_center() { assert!(true); }
-    #[test] fn test_toast_position_bottom_right() { assert!(true); }
-    #[test] fn test_toast_position_bottom_left() { assert!(true); }
-    #[test] fn test_toast_position_bottom_center() { assert!(true); }
+    #[test]
+    fn test_toast_position_default() {}
+    #[test]
+    fn test_toast_position_top_right() {}
+    #[test]
+    fn test_toast_position_top_left() {}
+    #[test]
+    fn test_toast_position_top_center() {}
+    #[test]
+    fn test_toast_position_bottom_right() {}
+    #[test]
+    fn test_toast_position_bottom_left() {}
+    #[test]
+    fn test_toast_position_bottom_center() {}
 
     // Toast Viewport tests
-    #[test] fn test_toast_viewport_creation() { assert!(true); }
-    #[test] fn test_toast_viewport_with_class() { assert!(true); }
-    #[test] fn test_toast_viewport_position() { assert!(true); }
+    #[test]
+    fn test_toast_viewport_creation() {}
+    #[test]
+    fn test_toast_viewport_with_class() {}
+    #[test]
+    fn test_toast_viewport_position() {}
 
     // Helper function tests
-    #[test] fn test_merge_classes_empty() { assert!(true); }
-    #[test] fn test_merge_classes_single() { assert!(true); }
-    #[test] fn test_merge_classes_multiple() { assert!(true); }
-    #[test] fn test_merge_classes_with_empty() { assert!(true); }
+    #[test]
+    fn test_merge_classes_empty() {}
+    #[test]
+    fn test_merge_classes_single() {}
+    #[test]
+    fn test_merge_classes_multiple() {}
+    #[test]
+    fn test_merge_classes_with_empty() {}
 
     // Property-based Tests
-    #[test] fn test_toast_property_based() {
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+    #[test]
+    fn test_toast_property_based() {
+        proptest!(|(__class in ".*", _style in ".*")| {
+
         });
     }
 
-    #[test] fn test_toast_duration_validation() {
-        proptest!(|(duration in 1000..30000u64)| {
-            assert!(true);
+    #[test]
+    fn test_toast_duration_validation() {
+        proptest!(|(__duration in 1000..30000u64)| {
+
         });
     }
 
-    #[test] fn test_toast_position_validation() {
-        proptest!(|(position in ".*")| {
-            assert!(true);
+    #[test]
+    fn test_toast_position_validation() {
+        proptest!(|(__position in ".*")| {
+
         });
     }
 
     // Integration Tests
-    #[test] fn test_toast_notification_workflow() { assert!(true); }
-    #[test] fn test_toast_accessibility() { assert!(true); }
-    #[test] fn test_toast_positioning_system() { assert!(true); }
-    #[test] fn test_toast_dismissal_workflow() { assert!(true); }
-    #[test] fn test_toast_action_workflow() { assert!(true); }
+    #[test]
+    fn test_toast_notification_workflow() {}
+    #[test]
+    fn test_toast_accessibility() {}
+    #[test]
+    fn test_toast_positioning_system() {}
+    #[test]
+    fn test_toast_dismissal_workflow() {}
+    #[test]
+    fn test_toast_action_workflow() {}
 
     // Performance Tests
-    #[test] fn test_toast_multiple_notifications() { assert!(true); }
-    #[test] fn test_toast_render_performance() { assert!(true); }
-    #[test] fn test_toast_memory_usage() { assert!(true); }
-    #[test] fn test_toast_animation_performance() { assert!(true); }
+    #[test]
+    fn test_toast_multiple_notifications() {}
+    #[test]
+    fn test_toast_render_performance() {}
+    #[test]
+    fn test_toast_memory_usage() {}
+    #[test]
+    fn test_toast_animation_performance() {}
 }

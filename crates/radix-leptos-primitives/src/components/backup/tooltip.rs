@@ -61,10 +61,10 @@ fn merge_classes(existing: Option<&str>, additional: Option<&str>) -> Option<Str
 pub fn Tooltip(
     /// Whether the tooltip is open
     #[prop(optional, default = false)]
-    open: bool,
+    _open: bool,
     /// Whether the tooltip is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// Delay before showing tooltip (in milliseconds)
     #[prop(optional, default = 700)]
     delay_duration: u32,
@@ -77,7 +77,7 @@ pub fn Tooltip(
     /// Child content (trigger and content)
     children: Children,
 ) -> impl IntoView {
-    let tooltip_id = generate_id("tooltip");
+    let _tooltip_id = generate_id("tooltip");
     
     // Build base classes
     let base_classes = "radix-tooltip";
@@ -103,7 +103,7 @@ pub fn Tooltip(
 pub fn TooltipTrigger(
     /// Whether the trigger is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -113,7 +113,7 @@ pub fn TooltipTrigger(
     /// Child content (trigger content)
     children: Children,
 ) -> impl IntoView {
-    let trigger_id = generate_id("tooltip-trigger");
+    let _trigger_id = generate_id("tooltip-trigger");
     
     // Build base classes
     let base_classes = "radix-tooltip-trigger";
@@ -144,7 +144,7 @@ pub fn TooltipContent(
     align: TooltipAlignment,
     /// Whether the tooltip is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -154,7 +154,7 @@ pub fn TooltipContent(
     /// Child content (tooltip content)
     children: Children,
 ) -> impl IntoView {
-    let content_id = generate_id("tooltip-content");
+    let _content_id = generate_id("tooltip-content");
     
     // Build base classes
     let base_classes = "radix-tooltip-content";
@@ -187,7 +187,7 @@ pub fn TooltipArrow(
     #[prop(optional)]
     style: Option<String>,
 ) -> impl IntoView {
-    let arrow_id = generate_id("tooltip-arrow");
+    let _arrow_id = generate_id("tooltip-arrow");
     
     // Build base classes
     let base_classes = "radix-tooltip-arrow";
@@ -221,7 +221,7 @@ pub fn TooltipProvider(
     delay_duration: u32,
     /// Whether to skip delay when moving between triggers
     #[prop(optional, default = true)]
-    skip_delay_duration: bool,
+    _skip_delay_duration: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -231,7 +231,7 @@ pub fn TooltipProvider(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let provider_id = generate_id("tooltip-provider");
+    let _provider_id = generate_id("tooltip-provider");
     
     // Build base classes
     let base_classes = "radix-tooltip-provider";

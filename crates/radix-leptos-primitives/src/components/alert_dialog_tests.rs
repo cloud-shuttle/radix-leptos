@@ -9,13 +9,13 @@ mod alert_dialog_tests {
     // Test AlertDialog component creation
     #[test]
     fn test_alert_dialog_component_creation() {
-        assert!(true); // Component compiles successfully
+        
     }
 
     // Test AlertDialog with different variants
     #[test]
     fn test_alert_dialog_variants() {
-        assert!(true); // Component compiles successfully
+        
     }
 
     // Property-based test for AlertDialog
@@ -23,12 +23,12 @@ mod alert_dialog_tests {
         #[test]
         fn test_alert_dialog_properties(
             open in any::<bool>(),
-            variant in prop::sample::select(vec![
+            variant in prop::sample::select([
                 AlertDialogVariant::Default,
                 AlertDialogVariant::Destructive,
                 AlertDialogVariant::Warning,
             ]),
-            size in prop::sample::select(vec![
+            size in prop::sample::select([
                 AlertDialogSize::Small,
                 AlertDialogSize::Medium,
                 AlertDialogSize::Large,
@@ -52,19 +52,19 @@ mod alert_dialog_tests {
                     </AlertDialogCancel>
                 </AlertDialog>
             };
-            assert!(true);
+            
         }
     }
 
     // Test AlertDialog accessibility
     #[test]
     fn test_alert_dialog_accessibility() {
-        assert!(true); // Component has proper ARIA attributes
+        
     }
 
     // Test AlertDialog keyboard navigation
     #[test]
     fn test_alert_dialog_keyboard_navigation() {
-        assert!(true); // Component supports keyboard navigation
+        
     }
 }

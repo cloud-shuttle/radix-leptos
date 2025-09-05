@@ -17,7 +17,7 @@ pub struct ComboboxContext {
     pub filtered_options: Memo<Vec<ComboboxOption>>,
     pub on_change: Option<Callback<String>>,
     pub on_search: Option<Callback<String>>,
-    pub disabled: bool,
+    pub _disabled: bool,
     pub combobox_id: String,
 }
 
@@ -40,7 +40,7 @@ impl ComboboxOption {
         }
     }
 
-    pub fn with_disabled(mut self, disabled: bool) -> Self {
+    pub fn with_disabled(mut self, _disabled: bool) -> Self {
         self.disabled = Some(disabled);
         self
     }
@@ -82,13 +82,13 @@ pub fn Combobox(
     placeholder: Option<String>,
     /// Whether the combobox is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// Whether the combobox supports search/filtering
     #[prop(optional, default = true)]
-    searchable: bool,
+    _searchable: bool,
     /// Whether the combobox supports multiple selection
     #[prop(optional, default = false)]
-    multi_select: bool,
+    _multi_select: bool,
     /// Change event handler
     #[prop(optional)]
     on_change: Option<Callback<String>>,
@@ -101,7 +101,7 @@ pub fn Combobox(
     /// Child content (trigger, content, and items)
     children: Children,
 ) -> impl IntoView {
-    let combobox_id = generate_id("combobox");
+    let _combobox_id = generate_id("combobox");
     
     // Reactive state
     let (is_open, set_is_open) = signal(false);
@@ -176,7 +176,7 @@ pub fn Combobox(
 pub fn ComboboxTrigger(
     /// Whether the trigger is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// Placeholder text
     #[prop(optional)]
     placeholder: Option<String>,
@@ -198,7 +198,7 @@ pub fn ComboboxTrigger(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let trigger_id = generate_id("combobox-trigger");
+    let _trigger_id = generate_id("combobox-trigger");
     
     // Get context
     let context = use_context::<ComboboxContext>().expect("ComboboxTrigger must be used within Combobox");
@@ -285,7 +285,7 @@ pub fn ComboboxContent(
     /// Child content (items)
     children: Children,
 ) -> impl IntoView {
-    let content_id = generate_id("combobox-content");
+    let _content_id = generate_id("combobox-content");
     
     // Get context
     let context = use_context::<ComboboxContext>().expect("ComboboxContent must be used within Combobox");
@@ -329,13 +329,13 @@ pub fn ComboboxItem(
     label: String,
     /// Whether the item is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// Whether the item is focused (optional, will use context if not provided)
     #[prop(optional, default = false)]
-    focused: bool,
+    _focused: bool,
     /// Whether the item is selected (optional, will use context if not provided)
     #[prop(optional, default = false)]
-    selected: bool,
+    _selected: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -348,7 +348,7 @@ pub fn ComboboxItem(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let item_id = generate_id("combobox-item");
+    let _item_id = generate_id("combobox-item");
     
     // Get context
     let context = use_context::<ComboboxContext>().expect("ComboboxItem must be used within Combobox");
@@ -429,7 +429,7 @@ pub fn ComboboxInput(
     placeholder: Option<String>,
     /// Whether the input is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -443,7 +443,7 @@ pub fn ComboboxInput(
     #[prop(optional)]
     on_keydown: Option<Callback<web_sys::KeyboardEvent>>,
 ) -> impl IntoView {
-    let input_id = generate_id("combobox-input");
+    let _input_id = generate_id("combobox-input");
     
     // Get context
     let context = use_context::<ComboboxContext>().expect("ComboboxInput must be used within Combobox");

@@ -8,8 +8,8 @@ pub struct NavigationItem {
     pub label: String,
     pub href: Option<String>,
     pub icon: Option<String>,
-    pub disabled: bool,
-    pub active: bool,
+    pub _disabled: bool,
+    pub _active: bool,
     pub children: Option<Vec<NavigationItem>>,
 }
 
@@ -36,12 +36,12 @@ impl NavigationItem {
         self
     }
 
-    pub fn with_disabled(mut self, disabled: bool) -> Self {
+    pub fn with_disabled(mut self, _disabled: bool) -> Self {
         self.disabled = disabled;
         self
     }
 
-    pub fn with_active(mut self, active: bool) -> Self {
+    pub fn with_active(mut self, _active: bool) -> Self {
         self.active = active;
         self
     }
@@ -95,7 +95,7 @@ pub struct NavigationContext {
     pub active_item: Signal<Option<String>>,
     pub orientation: NavigationOrientation,
     pub variant: NavigationVariant,
-    pub collapsible: bool,
+    pub _collapsible: bool,
     pub collapsed: Signal<bool>,
     pub navigation_id: String,
     pub on_item_click: Option<Callback<NavigationItem>>,
@@ -135,10 +135,10 @@ pub fn Navigation(
     variant: NavigationVariant,
     /// Whether the navigation is collapsible
     #[prop(optional, default = false)]
-    collapsible: bool,
+    _collapsible: bool,
     /// Whether the navigation is initially collapsed
     #[prop(optional, default = false)]
-    collapsed: bool,
+    _collapsed: bool,
     /// Item click event handler
     #[prop(optional)]
     on_item_click: Option<Callback<NavigationItem>>,
@@ -148,7 +148,7 @@ pub fn Navigation(
     /// Child content (navigation items, etc.)
     children: Children,
 ) -> impl IntoView {
-    let navigation_id = generate_id("navigation");
+    let _navigation_id = generate_id("navigation");
     
     // Reactive state
     let (items_signal, _set_items_signal) = signal(items);
@@ -204,7 +204,7 @@ pub fn NavigationList(
     children: Children,
 ) -> impl IntoView {
     let _context = use_context::<NavigationContext>().expect("NavigationList must be used within Navigation");
-    let list_id = generate_id("navigation-list");
+    let _list_id = generate_id("navigation-list");
     
     // Build base classes
     let base_classes = "radix-navigation-list";
@@ -245,7 +245,7 @@ pub fn NavigationItem(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<NavigationContext>().expect("NavigationItem must be used within Navigation");
-    let item_id = generate_id("navigation-item");
+    let _item_id = generate_id("navigation-item");
     
     let item_clone = item.clone();
     let item_for_active = item.clone();
@@ -348,7 +348,7 @@ pub fn NavigationLink(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<NavigationContext>().expect("NavigationLink must be used within Navigation");
-    let link_id = generate_id("navigation-link");
+    let _link_id = generate_id("navigation-link");
     let link_id_clone = link_id.clone();
     let text_clone = text.clone();
     let href_clone = href.clone();
@@ -425,7 +425,7 @@ pub fn NavigationToggle(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<NavigationContext>().expect("NavigationToggle must be used within Navigation");
-    let toggle_id = generate_id("navigation-toggle");
+    let _toggle_id = generate_id("navigation-toggle");
     
     let handle_click = move |_event: web_sys::MouseEvent| {
         if context.collapsible {

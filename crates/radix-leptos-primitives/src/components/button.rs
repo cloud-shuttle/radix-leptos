@@ -1,5 +1,5 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// Button component with proper accessibility and styling variants
 ///
@@ -25,7 +25,7 @@ use leptos::prelude::*;
 ///     let (count, set_count) = create_signal(0);
 ///
 ///     view! {
-///         <Button 
+///         <Button
 ///             variant=ButtonVariant::Default
 ///             size=ButtonSize::Default
 ///             on_click=move |_| set_count.update(|c| *c += 1)
@@ -57,7 +57,7 @@ impl ButtonVariant {
     pub fn as_str(&self) -> &'static str {
         match self {
             ButtonVariant::Default => "default",
-            ButtonVariant::Destructive => "destructive", 
+            ButtonVariant::Destructive => "destructive",
             ButtonVariant::Outline => "outline",
             ButtonVariant::Secondary => "secondary",
             ButtonVariant::Ghost => "ghost",
@@ -70,7 +70,7 @@ impl ButtonSize {
     pub fn as_str(&self) -> &'static str {
         match self {
             ButtonSize::Default => "default",
-            ButtonSize::Small => "sm", 
+            ButtonSize::Small => "sm",
             ButtonSize::Large => "lg",
             ButtonSize::Icon => "icon",
         }
@@ -105,10 +105,10 @@ pub fn Button(
     size: ButtonSize,
     /// Whether the button is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// Whether the button is in a loading state
     #[prop(optional, default = false)]
-    loading: bool,
+    _loading: bool,
     /// Button type attribute (button, submit, reset)
     #[prop(optional, into)]
     button_type: Option<String>,
@@ -131,39 +131,39 @@ pub fn Button(
     children: Children,
 ) -> impl IntoView {
     let button_id = generate_id("button");
-    
+
     // Build data attributes for styling
     let data_variant = variant.as_str();
     let data_size = size.as_str();
-    
+
     // Merge classes with data attributes for CSS targeting
     let base_classes = "radix-button";
     let combined_class = merge_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
-    
+
     // Handle click events
     let handle_click = move |e: web_sys::MouseEvent| {
         if !disabled && !loading {
-                            if let Some(on_click) = on_click {
-                    on_click.run(e);
-                }
+            if let Some(on_click) = on_click {
+                on_click.run(e);
+            }
         }
     };
-    
-    // Handle focus events  
+
+    // Handle focus events
     let handle_focus = move |e: web_sys::FocusEvent| {
-                    if let Some(on_focus) = on_focus {
-                on_focus.run(e);
-            }
+        if let Some(on_focus) = on_focus {
+            on_focus.run(e);
+        }
     };
-    
+
     // Handle blur events
     let handle_blur = move |e: web_sys::FocusEvent| {
-                    if let Some(on_blur) = on_blur {
-                on_blur.run(e);
-            }
+        if let Some(on_blur) = on_blur {
+            on_blur.run(e);
+        }
     };
-    
+
     view! {
         <button
             id=button_id
@@ -194,17 +194,17 @@ pub fn Button(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use wasm_bindgen_test::*;
     use proptest::prelude::*;
-    
+    use wasm_bindgen_test::*;
+
     wasm_bindgen_test_configure!(run_in_browser);
-    
+
     // 1. Basic Rendering Tests
     #[test]
     fn test_button_variants() {
         run_test(|| {
             // Test button variant logic
-            let variants = vec![
+            let variants = [
                 ButtonVariant::Default,
                 ButtonVariant::Destructive,
                 ButtonVariant::Outline,
@@ -212,31 +212,31 @@ mod tests {
                 ButtonVariant::Ghost,
                 ButtonVariant::Link,
             ];
-            
+
             for variant in variants {
                 // Each variant should have a valid string representation
                 assert!(!variant.as_str().is_empty());
             }
         });
     }
-    
+
     #[test]
     fn test_button_sizes() {
         run_test(|| {
-            let sizes = vec![
+            let sizes = [
                 ButtonSize::Default,
                 ButtonSize::Small,
                 ButtonSize::Large,
                 ButtonSize::Icon,
             ];
-            
+
             for size in sizes {
                 // Each size should have a valid string representation
                 assert!(!size.as_str().is_empty());
             }
         });
     }
-    
+
     // 2. Props Validation Tests
     #[test]
     fn test_button_disabled_state() {
@@ -244,58 +244,58 @@ mod tests {
             // Test disabled state logic
             let disabled = true;
             let loading = false;
-            
+
             // When disabled, button should be disabled
             assert!(disabled);
             assert!(!loading);
         });
     }
-    
+
     #[test]
     fn test_button_loading_state() {
         run_test(|| {
             // Test loading state logic
             let loading = true;
             let disabled = false;
-            
+
             // When loading, button should be in loading state
             assert!(loading);
             assert!(!disabled);
         });
     }
-    
+
     // 3. State Management Tests
     #[test]
     fn test_button_click_handling() {
         run_test(|| {
             // Test click handling logic
             let mut click_count = 0;
-            
+
             // Initial count should be 0
             assert_eq!(click_count, 0);
-            
+
             // Simulate click
             click_count += 1;
             assert_eq!(click_count, 1);
         });
     }
-    
+
     // 4. Event Handling Tests
     #[test]
     fn test_button_focus_events() {
         run_test(|| {
             // Test focus event logic
             let mut focus_count = 0;
-            
+
             // Initial focus count should be 0
             assert_eq!(focus_count, 0);
-            
+
             // Simulate focus
             focus_count += 1;
             assert_eq!(focus_count, 1);
         });
     }
-    
+
     // 5. Accessibility Tests
     #[test]
     fn test_button_accessibility() {
@@ -303,53 +303,53 @@ mod tests {
             // Test accessibility logic
             let disabled = true;
             let loading = false;
-            
+
             // Button should have proper accessibility attributes
             assert!(disabled);
             assert!(!loading);
         });
     }
-    
+
     // 6. Edge Case Tests
     #[test]
     fn test_button_empty_content() {
         run_test(|| {
             // Test empty content handling
             let content = "";
-            
+
             // Button should handle empty content gracefully
             assert!(content.is_empty());
         });
     }
-    
+
     #[test]
     fn test_button_long_content() {
         run_test(|| {
             // Test long content handling
             let long_content = "x".repeat(1000);
-            
+
             // Button should handle long content gracefully
             assert_eq!(long_content.len(), 1000);
         });
     }
-    
+
     #[test]
     fn test_button_special_characters() {
         run_test(|| {
             // Test special character handling
             let special_content = "🚀 Test with émojis & spéciál chars";
-            
+
             // Button should handle special characters gracefully
             assert!(!special_content.is_empty());
             assert!(special_content.contains("🚀"));
         });
     }
-    
+
     // 7. Property-Based Tests
     proptest! {
         #[test]
         fn test_button_properties(
-            variant in prop::sample::select(vec![
+            variant in prop::sample::select([
                 ButtonVariant::Default,
                 ButtonVariant::Destructive,
                 ButtonVariant::Outline,
@@ -357,7 +357,7 @@ mod tests {
                 ButtonVariant::Ghost,
                 ButtonVariant::Link,
             ]),
-            size in prop::sample::select(vec![
+            size in prop::sample::select([
                 ButtonSize::Default,
                 ButtonSize::Small,
                 ButtonSize::Large,
@@ -373,15 +373,18 @@ mod tests {
                 // This combination should be handled gracefully
                 // In a real implementation, we might want to prioritize one over the other
             }
-            
+
             // Property: All variants should have valid string representations
             assert!(!variant.as_str().is_empty());
             assert!(!size.as_str().is_empty());
         }
     }
-    
+
     // Helper function for running tests
-    fn run_test<F>(f: F) where F: FnOnce() {
+    fn run_test<F>(f: F)
+    where
+        F: FnOnce(),
+    {
         // Simplified test runner for Leptos 0.8
         // In a real test environment, this would set up the runtime properly
         f();

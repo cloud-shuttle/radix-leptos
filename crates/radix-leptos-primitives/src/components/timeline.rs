@@ -1,5 +1,5 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// Timeline component - Event visualization
 #[component]
@@ -21,7 +21,7 @@ pub fn Timeline(
     let show_dates = show_dates.unwrap_or(true);
     let show_icons = show_icons.unwrap_or(true);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "timeline",
         &orientation.to_class(),
         if show_dates { "show-dates" } else { "" },
@@ -171,11 +171,8 @@ pub fn TimelineItem(
     let event = event.unwrap_or_default();
     let position = position.unwrap_or(0.0);
 
-    let class = merge_classes(vec![
-        "timeline-item",
-        class.as_deref().unwrap_or(""),
-    ]);
-    
+    let class = merge_classes(["timeline-item", class.as_deref().unwrap_or("")]);
+
     view! {
         <div
             class=class
@@ -205,12 +202,12 @@ pub fn TimelineLine(
     let length = length.unwrap_or(100.0);
     let thickness = thickness.unwrap_or(2.0);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "timeline-line",
         &orientation.to_class(),
         class.as_deref().unwrap_or(""),
     ]);
-    
+
     view! {
         <div
             class=class
@@ -238,12 +235,12 @@ pub fn TimelineDot(
     let color = color.unwrap_or_default();
     let filled = filled.unwrap_or(true);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "timeline-dot",
         if filled { "filled" } else { "outline" },
         class.as_deref().unwrap_or(""),
     ]);
-    
+
     view! {
         <div
             class=class
@@ -271,112 +268,171 @@ fn merge_classes(classes: Vec<&str>) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use wasm_bindgen_test::*;
     use proptest::prelude::*;
+    use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
 
     // Unit Tests
-    #[test] fn test_timeline_creation() { assert!(true); }
-    #[test] fn test_timeline_with_class() { assert!(true); }
-    #[test] fn test_timeline_with_style() { assert!(true); }
-    #[test] fn test_timeline_with_events() { assert!(true); }
-    #[test] fn test_timeline_with_config() { assert!(true); }
-    #[test] fn test_timeline_orientation() { assert!(true); }
-    #[test] fn test_timeline_show_dates() { assert!(true); }
-    #[test] fn test_timeline_show_icons() { assert!(true); }
-    #[test] fn test_timeline_on_event_click() { assert!(true); }
-    #[test] fn test_timeline_on_event_hover() { assert!(true); }
+    #[test]
+    fn test_timeline_creation() {}
+    #[test]
+    fn test_timeline_with_class() {}
+    #[test]
+    fn test_timeline_with_style() {}
+    #[test]
+    fn test_timeline_with_events() {}
+    #[test]
+    fn test_timeline_with_config() {}
+    #[test]
+    fn test_timeline_orientation() {}
+    #[test]
+    fn test_timeline_show_dates() {}
+    #[test]
+    fn test_timeline_show_icons() {}
+    #[test]
+    fn test_timeline_on_event_click() {}
+    #[test]
+    fn test_timeline_on_event_hover() {}
 
     // Timeline Event tests
-    #[test] fn test_timeline_event_default() { assert!(true); }
-    #[test] fn test_timeline_event_creation() { assert!(true); }
+    #[test]
+    fn test_timeline_event_default() {}
+    #[test]
+    fn test_timeline_event_creation() {}
 
     // Timeline Config tests
-    #[test] fn test_timeline_config_default() { assert!(true); }
-    #[test] fn test_timeline_config_custom() { assert!(true); }
+    #[test]
+    fn test_timeline_config_default() {}
+    #[test]
+    fn test_timeline_config_custom() {}
 
     // Animation Config tests
-    #[test] fn test_animation_config_default() { assert!(true); }
-    #[test] fn test_animation_config_custom() { assert!(true); }
+    #[test]
+    fn test_animation_config_default() {}
+    #[test]
+    fn test_animation_config_custom() {}
 
     // Easing Type tests
-    #[test] fn test_easing_type_default() { assert!(true); }
-    #[test] fn test_easing_type_ease_in_out() { assert!(true); }
-    #[test] fn test_easing_type_ease_in() { assert!(true); }
-    #[test] fn test_easing_type_ease_out() { assert!(true); }
-    #[test] fn test_easing_type_linear() { assert!(true); }
+    #[test]
+    fn test_easing_type_default() {}
+    #[test]
+    fn test_easing_type_ease_in_out() {}
+    #[test]
+    fn test_easing_type_ease_in() {}
+    #[test]
+    fn test_easing_type_ease_out() {}
+    #[test]
+    fn test_easing_type_linear() {}
 
     // Timeline Orientation tests
-    #[test] fn test_timeline_orientation_default() { assert!(true); }
-    #[test] fn test_timeline_orientation_vertical() { assert!(true); }
-    #[test] fn test_timeline_orientation_horizontal() { assert!(true); }
+    #[test]
+    fn test_timeline_orientation_default() {}
+    #[test]
+    fn test_timeline_orientation_vertical() {}
+    #[test]
+    fn test_timeline_orientation_horizontal() {}
 
     // Timeline Item tests
-    #[test] fn test_timeline_item_creation() { assert!(true); }
-    #[test] fn test_timeline_item_with_class() { assert!(true); }
-    #[test] fn test_timeline_item_with_style() { assert!(true); }
-    #[test] fn test_timeline_item_event() { assert!(true); }
-    #[test] fn test_timeline_item_position() { assert!(true); }
-    #[test] fn test_timeline_item_on_click() { assert!(true); }
+    #[test]
+    fn test_timeline_item_creation() {}
+    #[test]
+    fn test_timeline_item_with_class() {}
+    #[test]
+    fn test_timeline_item_with_style() {}
+    #[test]
+    fn test_timeline_item_event() {}
+    #[test]
+    fn test_timeline_item_position() {}
+    #[test]
+    fn test_timeline_item_on_click() {}
 
     // Timeline Line tests
-    #[test] fn test_timeline_line_creation() { assert!(true); }
-    #[test] fn test_timeline_line_with_class() { assert!(true); }
-    #[test] fn test_timeline_line_with_style() { assert!(true); }
-    #[test] fn test_timeline_line_orientation() { assert!(true); }
-    #[test] fn test_timeline_line_length() { assert!(true); }
-    #[test] fn test_timeline_line_thickness() { assert!(true); }
+    #[test]
+    fn test_timeline_line_creation() {}
+    #[test]
+    fn test_timeline_line_with_class() {}
+    #[test]
+    fn test_timeline_line_with_style() {}
+    #[test]
+    fn test_timeline_line_orientation() {}
+    #[test]
+    fn test_timeline_line_length() {}
+    #[test]
+    fn test_timeline_line_thickness() {}
 
     // Timeline Dot tests
-    #[test] fn test_timeline_dot_creation() { assert!(true); }
-    #[test] fn test_timeline_dot_with_class() { assert!(true); }
-    #[test] fn test_timeline_dot_with_style() { assert!(true); }
-    #[test] fn test_timeline_dot_size() { assert!(true); }
-    #[test] fn test_timeline_dot_color() { assert!(true); }
-    #[test] fn test_timeline_dot_filled() { assert!(true); }
+    #[test]
+    fn test_timeline_dot_creation() {}
+    #[test]
+    fn test_timeline_dot_with_class() {}
+    #[test]
+    fn test_timeline_dot_with_style() {}
+    #[test]
+    fn test_timeline_dot_size() {}
+    #[test]
+    fn test_timeline_dot_color() {}
+    #[test]
+    fn test_timeline_dot_filled() {}
 
     // Helper function tests
-    #[test] fn test_merge_classes_empty() { assert!(true); }
-    #[test] fn test_merge_classes_single() { assert!(true); }
-    #[test] fn test_merge_classes_multiple() { assert!(true); }
-    #[test] fn test_merge_classes_with_empty() { assert!(true); }
+    #[test]
+    fn test_merge_classes_empty() {}
+    #[test]
+    fn test_merge_classes_single() {}
+    #[test]
+    fn test_merge_classes_multiple() {}
+    #[test]
+    fn test_merge_classes_with_empty() {}
 
     // Property-based Tests
-    #[test] fn test_timeline_property_based() {
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+    #[test]
+    fn test_timeline_property_based() {
+        proptest!(|(__class in ".*", _style in ".*")| {
+
         });
     }
 
-    #[test] fn test_timeline_events_validation() {
-        proptest!(|(event_count in 0..100usize)| {
-            assert!(true);
+    #[test]
+    fn test_timeline_events_validation() {
+        proptest!(|(___event_count in 0..100usize)| {
+
         });
     }
 
-    #[test] fn test_timeline_config_validation() {
-        proptest!(|(width in 100.0..2000.0f64, height in 100.0..2000.0f64)| {
-            assert!(true);
+    #[test]
+    fn test_timeline_config_validation() {
+        proptest!(|(__width in 100.0..2000.0f64, _height in 100.0..2000.0f64)| {
+
         });
     }
 
-    #[test] fn test_timeline_orientation_property_based() {
-        proptest!(|(orientation_index in 0..2usize)| {
-            assert!(true);
+    #[test]
+    fn test_timeline_orientation_property_based() {
+        proptest!(|(__orientation_index in 0..2usize)| {
+
         });
     }
 
     // Integration Tests
-    #[test] fn test_timeline_user_interaction() { assert!(true); }
-    #[test] fn test_timeline_accessibility() { assert!(true); }
-    #[test] fn test_timeline_keyboard_navigation() { assert!(true); }
-    #[test] fn test_timeline_event_filtering() { assert!(true); }
-    #[test] fn test_timeline_date_sorting() { assert!(true); }
+    #[test]
+    fn test_timeline_user_interaction() {}
+    #[test]
+    fn test_timeline_accessibility() {}
+    #[test]
+    fn test_timeline_keyboard_navigation() {}
+    #[test]
+    fn test_timeline_event_filtering() {}
+    #[test]
+    fn test_timeline_date_sorting() {}
 
     // Performance Tests
-    #[test] fn test_timeline_large_event_lists() { assert!(true); }
-    #[test] fn test_timeline_render_performance() { assert!(true); }
-    #[test] fn test_timeline_memory_usage() { assert!(true); }
-    #[test] fn test_timeline_animation_performance() { assert!(true); }
+    #[test]
+    fn test_timeline_large_event_lists() {}
+    #[test]
+    fn test_timeline_render_performance() {}
+    #[test]
+    fn test_timeline_memory_usage() {}
+    #[test]
+    fn test_timeline_animation_performance() {}
 }

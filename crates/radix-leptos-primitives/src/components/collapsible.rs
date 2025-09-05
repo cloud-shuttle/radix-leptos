@@ -1,5 +1,5 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// Collapsible component - Collapsible content areas with smooth animations
 #[component]
@@ -12,11 +12,11 @@ pub fn Collapsible(
     #[prop(optional)] animated: Option<bool>,
     #[prop(optional)] on_open_change: Option<Callback<bool>>,
 ) -> impl IntoView {
-    let open = create_rw_signal(open.unwrap_or(false));
+    let open = RwSignal::new(open.unwrap_or(false));
     let disabled = disabled.unwrap_or(false);
     let animated = animated.unwrap_or(true);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "collapsible",
         if open.get() { "open" } else { "closed" },
         if disabled { "disabled" } else { "" },
@@ -59,7 +59,7 @@ pub fn CollapsibleTrigger(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "collapsible-trigger",
         if disabled { "disabled" } else { "" },
         class.as_deref().unwrap_or(""),
@@ -91,7 +91,7 @@ pub fn CollapsibleContent(
     let open = open.unwrap_or(false);
     let animated = animated.unwrap_or(true);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "collapsible-content",
         if open { "open" } else { "closed" },
         if animated { "animated" } else { "" },
@@ -118,10 +118,7 @@ pub fn CollapsibleHeader(
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let class = merge_classes(vec![
-        "collapsible-header",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["collapsible-header", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -146,7 +143,7 @@ pub fn CollapsibleIcon(
     let open = open.unwrap_or(false);
     let animated = animated.unwrap_or(true);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "collapsible-icon",
         if open { "open" } else { "closed" },
         if animated { "animated" } else { "" },
@@ -176,76 +173,112 @@ fn merge_classes(classes: Vec<&str>) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use wasm_bindgen_test::*;
     use proptest::prelude::*;
+    use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
 
     // Unit Tests
-    #[test] fn test_collapsible_creation() { assert!(true); }
-    #[test] fn test_collapsible_with_class() { assert!(true); }
-    #[test] fn test_collapsible_with_style() { assert!(true); }
-    #[test] fn test_collapsible_open_state() { assert!(true); }
-    #[test] fn test_collapsible_disabled_state() { assert!(true); }
-    #[test] fn test_collapsible_animated() { assert!(true); }
-    #[test] fn test_collapsible_on_open_change() { assert!(true); }
+    #[test]
+    fn test_collapsible_creation() {}
+    #[test]
+    fn test_collapsible_with_class() {}
+    #[test]
+    fn test_collapsible_with_style() {}
+    #[test]
+    fn test_collapsible_open_state() {}
+    #[test]
+    fn test_collapsible_disabled_state() {}
+    #[test]
+    fn test_collapsible_animated() {}
+    #[test]
+    fn test_collapsible_on_open_change() {}
 
     // Collapsible Trigger tests
-    #[test] fn test_collapsible_trigger_creation() { assert!(true); }
-    #[test] fn test_collapsible_trigger_with_class() { assert!(true); }
-    #[test] fn test_collapsible_trigger_disabled() { assert!(true); }
+    #[test]
+    fn test_collapsible_trigger_creation() {}
+    #[test]
+    fn test_collapsible_trigger_with_class() {}
+    #[test]
+    fn test_collapsible_trigger_disabled() {}
 
     // Collapsible Content tests
-    #[test] fn test_collapsible_content_creation() { assert!(true); }
-    #[test] fn test_collapsible_content_with_class() { assert!(true); }
-    #[test] fn test_collapsible_content_open_state() { assert!(true); }
-    #[test] fn test_collapsible_content_animated() { assert!(true); }
+    #[test]
+    fn test_collapsible_content_creation() {}
+    #[test]
+    fn test_collapsible_content_with_class() {}
+    #[test]
+    fn test_collapsible_content_open_state() {}
+    #[test]
+    fn test_collapsible_content_animated() {}
 
     // Collapsible Header tests
-    #[test] fn test_collapsible_header_creation() { assert!(true); }
-    #[test] fn test_collapsible_header_with_class() { assert!(true); }
+    #[test]
+    fn test_collapsible_header_creation() {}
+    #[test]
+    fn test_collapsible_header_with_class() {}
 
     // Collapsible Icon tests
-    #[test] fn test_collapsible_icon_creation() { assert!(true); }
-    #[test] fn test_collapsible_icon_with_class() { assert!(true); }
-    #[test] fn test_collapsible_icon_open_state() { assert!(true); }
-    #[test] fn test_collapsible_icon_animated() { assert!(true); }
+    #[test]
+    fn test_collapsible_icon_creation() {}
+    #[test]
+    fn test_collapsible_icon_with_class() {}
+    #[test]
+    fn test_collapsible_icon_open_state() {}
+    #[test]
+    fn test_collapsible_icon_animated() {}
 
     // Helper function tests
-    #[test] fn test_merge_classes_empty() { assert!(true); }
-    #[test] fn test_merge_classes_single() { assert!(true); }
-    #[test] fn test_merge_classes_multiple() { assert!(true); }
-    #[test] fn test_merge_classes_with_empty() { assert!(true); }
+    #[test]
+    fn test_merge_classes_empty() {}
+    #[test]
+    fn test_merge_classes_single() {}
+    #[test]
+    fn test_merge_classes_multiple() {}
+    #[test]
+    fn test_merge_classes_with_empty() {}
 
     // Property-based Tests
-    #[test] fn test_collapsible_property_based() {
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+    #[test]
+    fn test_collapsible_property_based() {
+        proptest!(|(__class in ".*", _style in ".*")| {
+
         });
     }
 
-    #[test] fn test_collapsible_state_validation() {
-        proptest!(|(open: bool, disabled: bool, animated: bool)| {
-            assert!(true);
+    #[test]
+    fn test_collapsible_state_validation() {
+        proptest!(|(__open: bool, _disabled: bool, _animated: bool)| {
+
         });
     }
 
-    #[test] fn test_collapsible_animation_properties() {
-        proptest!(|(duration in 100.0..5000.0f64, delay in 0.0..1000.0f64)| {
-            assert!(true);
+    #[test]
+    fn test_collapsible_animation_properties() {
+        proptest!(|(__duration in 100.0..5000.0f64, _delay in 0.0..1000.0f64)| {
+
         });
     }
 
     // Integration Tests
-    #[test] fn test_collapsible_user_interaction() { assert!(true); }
-    #[test] fn test_collapsible_accessibility() { assert!(true); }
-    #[test] fn test_collapsible_keyboard_navigation() { assert!(true); }
-    #[test] fn test_collapsible_animation_workflow() { assert!(true); }
-    #[test] fn test_collapsible_nested_components() { assert!(true); }
+    #[test]
+    fn test_collapsible_user_interaction() {}
+    #[test]
+    fn test_collapsible_accessibility() {}
+    #[test]
+    fn test_collapsible_keyboard_navigation() {}
+    #[test]
+    fn test_collapsible_animation_workflow() {}
+    #[test]
+    fn test_collapsible_nested_components() {}
 
     // Performance Tests
-    #[test] fn test_collapsible_large_content() { assert!(true); }
-    #[test] fn test_collapsible_render_performance() { assert!(true); }
-    #[test] fn test_collapsible_memory_usage() { assert!(true); }
-    #[test] fn test_collapsible_animation_performance() { assert!(true); }
+    #[test]
+    fn test_collapsible_large_content() {}
+    #[test]
+    fn test_collapsible_render_performance() {}
+    #[test]
+    fn test_collapsible_memory_usage() {}
+    #[test]
+    fn test_collapsible_animation_performance() {}
 }

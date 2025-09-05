@@ -1,8 +1,8 @@
-use leptos::*;
 use leptos::prelude::*;
+use leptos::*;
 
 /// Popover component for floating content containers
-/// 
+///
 /// Provides accessible popover with keyboard support and ARIA attributes
 #[component]
 pub fn Popover(
@@ -14,7 +14,8 @@ pub fn Popover(
     #[prop(optional)] on_open_change: Option<Callback<bool>>,
 ) -> impl IntoView {
     let (is_open, set_is_open) = signal(
-        open.map(|o| o.get()).unwrap_or_else(|| default_open.unwrap_or(false))
+        open.map(|o| o.get())
+            .unwrap_or_else(|| default_open.unwrap_or(false)),
     );
 
     // Handle external open state changes
@@ -31,10 +32,7 @@ pub fn Popover(
         });
     }
 
-    let class = merge_classes(vec![
-        "popover",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["popover", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -58,7 +56,7 @@ pub fn PopoverTrigger(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "popover-trigger",
         if disabled { "disabled" } else { "" },
         class.as_deref().unwrap_or(""),
@@ -108,7 +106,7 @@ pub fn PopoverContent(
         return view! { <></> }.into_any();
     }
 
-    let class = merge_classes(vec![
+    let class = merge_classes([
         "popover-content",
         &side.to_class(),
         &align.to_class(),
@@ -133,7 +131,8 @@ pub fn PopoverContent(
         >
             {children.map(|c| c())}
         </div>
-    }.into_any()
+    }
+    .into_any()
 }
 
 /// Popover Portal component
@@ -144,10 +143,7 @@ pub fn PopoverPortal(
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] container: Option<String>,
 ) -> impl IntoView {
-    let class = merge_classes(vec![
-        "popover-portal",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["popover-portal", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -171,10 +167,7 @@ pub fn PopoverArrow(
     let width = width.unwrap_or(11.0);
     let height = height.unwrap_or(5.0);
 
-    let class = merge_classes(vec![
-        "popover-arrow",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["popover-arrow", class.as_deref().unwrap_or("")]);
 
     let style = format!(
         "{}; --arrow-width: {}px; --arrow-height: {}px;",
@@ -200,10 +193,7 @@ pub fn PopoverClose(
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] on_click: Option<Callback<()>>,
 ) -> impl IntoView {
-    let class = merge_classes(vec![
-        "popover-close",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["popover-close", class.as_deref().unwrap_or("")]);
 
     let handle_click = move |_| {
         if let Some(on_click) = on_click {
@@ -298,174 +288,108 @@ mod tests {
 
     // Popover Tests
     #[test]
-    fn test_popover_creation() {
-        assert!(true);
-    }
+    fn test_popover_creation() {}
 
     #[test]
-    fn test_popover_with_class() {
-        assert!(true);
-    }
+    fn test_popover_with_class() {}
 
     #[test]
-    fn test_popover_with_style() {
-        assert!(true);
-    }
+    fn test_popover_with_style() {}
 
     #[test]
-    fn test_popover_with_default_open() {
-        assert!(true);
-    }
+    fn test_popover_with_default_open() {}
 
     #[test]
-    fn test_popover_with_controlled_open() {
-        assert!(true);
-    }
+    fn test_popover_with_controlled_open() {}
 
     #[test]
-    fn test_popover_on_open_change() {
-        assert!(true);
-    }
+    fn test_popover_on_open_change() {}
 
     // Popover Trigger Tests
     #[test]
-    fn test_popover_trigger_creation() {
-        assert!(true);
-    }
+    fn test_popover_trigger_creation() {}
 
     #[test]
-    fn test_popover_trigger_with_class() {
-        assert!(true);
-    }
+    fn test_popover_trigger_with_class() {}
 
     #[test]
-    fn test_popover_trigger_with_style() {
-        assert!(true);
-    }
+    fn test_popover_trigger_with_style() {}
 
     #[test]
-    fn test_popover_trigger_disabled() {
-        assert!(true);
-    }
+    fn test_popover_trigger_disabled() {}
 
     #[test]
-    fn test_popover_trigger_on_click() {
-        assert!(true);
-    }
+    fn test_popover_trigger_on_click() {}
 
     // Popover Content Tests
     #[test]
-    fn test_popover_content_creation() {
-        assert!(true);
-    }
+    fn test_popover_content_creation() {}
 
     #[test]
-    fn test_popover_content_with_class() {
-        assert!(true);
-    }
+    fn test_popover_content_with_class() {}
 
     #[test]
-    fn test_popover_content_with_style() {
-        assert!(true);
-    }
+    fn test_popover_content_with_style() {}
 
     #[test]
-    fn test_popover_content_visible() {
-        assert!(true);
-    }
+    fn test_popover_content_visible() {}
 
     #[test]
-    fn test_popover_content_hidden() {
-        assert!(true);
-    }
+    fn test_popover_content_hidden() {}
 
     #[test]
-    fn test_popover_content_with_side() {
-        assert!(true);
-    }
+    fn test_popover_content_with_side() {}
 
     #[test]
-    fn test_popover_content_with_align() {
-        assert!(true);
-    }
+    fn test_popover_content_with_align() {}
 
     #[test]
-    fn test_popover_content_with_side_offset() {
-        assert!(true);
-    }
+    fn test_popover_content_with_side_offset() {}
 
     #[test]
-    fn test_popover_content_with_align_offset() {
-        assert!(true);
-    }
+    fn test_popover_content_with_align_offset() {}
 
     // Popover Portal Tests
     #[test]
-    fn test_popover_portal_creation() {
-        assert!(true);
-    }
+    fn test_popover_portal_creation() {}
 
     #[test]
-    fn test_popover_portal_with_class() {
-        assert!(true);
-    }
+    fn test_popover_portal_with_class() {}
 
     #[test]
-    fn test_popover_portal_with_style() {
-        assert!(true);
-    }
+    fn test_popover_portal_with_style() {}
 
     #[test]
-    fn test_popover_portal_with_container() {
-        assert!(true);
-    }
+    fn test_popover_portal_with_container() {}
 
     // Popover Arrow Tests
     #[test]
-    fn test_popover_arrow_creation() {
-        assert!(true);
-    }
+    fn test_popover_arrow_creation() {}
 
     #[test]
-    fn test_popover_arrow_with_class() {
-        assert!(true);
-    }
+    fn test_popover_arrow_with_class() {}
 
     #[test]
-    fn test_popover_arrow_with_style() {
-        assert!(true);
-    }
+    fn test_popover_arrow_with_style() {}
 
     #[test]
-    fn test_popover_arrow_with_width() {
-        assert!(true);
-    }
+    fn test_popover_arrow_with_width() {}
 
     #[test]
-    fn test_popover_arrow_with_height() {
-        assert!(true);
-    }
+    fn test_popover_arrow_with_height() {}
 
     // Popover Close Tests
     #[test]
-    fn test_popover_close_creation() {
-        assert!(true);
-    }
+    fn test_popover_close_creation() {}
 
     #[test]
-    fn test_popover_close_with_class() {
-        assert!(true);
-    }
+    fn test_popover_close_with_class() {}
 
     #[test]
-    fn test_popover_close_with_style() {
-        assert!(true);
-    }
+    fn test_popover_close_with_style() {}
 
     #[test]
-    fn test_popover_close_on_click() {
-        assert!(true);
-    }
+    fn test_popover_close_on_click() {}
 
     // Popover Side Tests
     #[test]
@@ -533,25 +457,25 @@ mod tests {
     // Helper Function Tests
     #[test]
     fn test_merge_classes_empty() {
-        let result = merge_classes(vec![]);
+        let result = merge_classes([]);
         assert_eq!(result, "");
     }
 
     #[test]
     fn test_merge_classes_single() {
-        let result = merge_classes(vec!["class1"]);
+        let result = merge_classes(["class1"]);
         assert_eq!(result, "class1");
     }
 
     #[test]
     fn test_merge_classes_multiple() {
-        let result = merge_classes(vec!["class1", "class2", "class3"]);
+        let result = merge_classes(["class1", "class2", "class3"]);
         assert_eq!(result, "class1 class2 class3");
     }
 
     #[test]
     fn test_merge_classes_with_empty() {
-        let result = merge_classes(vec!["class1", "", "class3"]);
+        let result = merge_classes(["class1", "", "class3"]);
         assert_eq!(result, "class1 class3");
     }
 
@@ -559,48 +483,48 @@ mod tests {
     #[test]
     fn test_popover_property_based() {
         use proptest::prelude::*;
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*")| {
+
         });
     }
 
     #[test]
     fn test_popover_trigger_property_based() {
         use proptest::prelude::*;
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*")| {
+
         });
     }
 
     #[test]
     fn test_popover_content_property_based() {
         use proptest::prelude::*;
-        proptest!(|(class in ".*", style in ".*", side_offset in -100.0..100.0f64, align_offset in -100.0..100.0f64)| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*", side_offset in -100.0..100.0f64, align_offset in -100.0..100.0f64)| {
+
         });
     }
 
     #[test]
     fn test_popover_portal_property_based() {
         use proptest::prelude::*;
-        proptest!(|(class in ".*", style in ".*", container in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*", container in ".*")| {
+
         });
     }
 
     #[test]
     fn test_popover_arrow_property_based() {
         use proptest::prelude::*;
-        proptest!(|(class in ".*", style in ".*", width in 1.0..50.0f64, height in 1.0..50.0f64)| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*", _width in 1.0..50.0f64, _height in 1.0..50.0f64)| {
+
         });
     }
 
     #[test]
     fn test_popover_close_property_based() {
         use proptest::prelude::*;
-        proptest!(|(class in ".*", style in ".*")| {
-            assert!(true);
+        proptest!(|(__class in ".*", _style in ".*")| {
+
         });
     }
 }

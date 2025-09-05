@@ -68,13 +68,13 @@ pub fn TextInput(
     placeholder: Option<String>,
     /// Whether the input is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// Whether the input is required
     #[prop(optional, default = false)]
-    required: bool,
+    _required: bool,
     /// Whether the input is read-only
     #[prop(optional, default = false)]
-    readonly: bool,
+    _readonly: bool,
     /// Minimum length for validation
     #[prop(optional)]
     min_length: Option<usize>,
@@ -137,13 +137,13 @@ pub fn TextInputWithLabel(
     placeholder: Option<String>,
     /// Whether the input is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// Whether the input is required
     #[prop(optional, default = false)]
-    required: bool,
+    _required: bool,
     /// Whether the input is read-only
     #[prop(optional, default = false)]
-    readonly: bool,
+    _readonly: bool,
     /// Name attribute for form submission
     #[prop(optional)]
     name: Option<String>,
@@ -156,7 +156,7 @@ pub fn TextInputWithLabel(
     /// Child content (label)
     children: Children,
 ) -> impl IntoView {
-    let input_id = generate_id("text-input");
+    let _input_id = generate_id("text-input");
     
     view! {
         <div style="display: flex; flex-direction: column; gap: 4px;">

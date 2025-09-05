@@ -1,6 +1,6 @@
-use leptos::*;
-use leptos::prelude::*;
 use leptos::callback::Callback;
+use leptos::prelude::*;
+use leptos::*;
 use radix_leptos_primitives::*;
 
 /// Comprehensive pagination examples demonstrating all features
@@ -12,28 +12,28 @@ pub fn PaginationExamples() -> impl IntoView {
     let (detailed_current_page, set_detailed_current_page) = signal(5);
     let (custom_current_page, set_custom_current_page) = signal(7);
     let (large_dataset_current_page, set_large_dataset_current_page) = signal(1);
-    
+
     // Event handlers
     let handle_basic_page_change = Callback::new(move |page: usize| {
         set_basic_current_page.set(page);
         web_sys::console::log_1(&format!("Basic pagination: page {}", page).into());
     });
-    
+
     let handle_compact_page_change = Callback::new(move |page: usize| {
         set_compact_current_page.set(page);
         web_sys::console::log_1(&format!("Compact pagination: page {}", page).into());
     });
-    
+
     let handle_detailed_page_change = Callback::new(move |page: usize| {
         set_detailed_current_page.set(page);
         web_sys::console::log_1(&format!("Detailed pagination: page {}", page).into());
     });
-    
+
     let handle_custom_page_change = Callback::new(move |page: usize| {
         set_custom_current_page.set(page);
         web_sys::console::log_1(&format!("Custom pagination: page {}", page).into());
     });
-    
+
     let handle_large_dataset_page_change = Callback::new(move |page: usize| {
         set_large_dataset_current_page.set(page);
         web_sys::console::log_1(&format!("Large dataset pagination: page {}", page).into());
@@ -42,13 +42,13 @@ pub fn PaginationExamples() -> impl IntoView {
     view! {
         <div class="pagination-examples">
             <h1>"📄 Pagination Component Examples"</h1>
-            
+
             // Basic Pagination Example
             <section class="example-section">
                 <h2>"1. Basic Pagination"</h2>
                 <p>"Simple pagination with page numbers and navigation buttons."</p>
-                
-                <Pagination 
+
+                <Pagination
                     current_page=basic_current_page.get()
                     total_pages=10
                     on_page_change=handle_basic_page_change.clone()
@@ -60,7 +60,7 @@ pub fn PaginationExamples() -> impl IntoView {
                         <PaginationPrevious icon="◀️".to_string()>
                             "Previous"
                         </PaginationPrevious>
-                        
+
                         <PaginationItem page=PaginationPage::new(1).with_current(basic_current_page.get() == 1)>
                             "1"
                         </PaginationItem>
@@ -76,18 +76,18 @@ pub fn PaginationExamples() -> impl IntoView {
                         <PaginationItem page=PaginationPage::new(5).with_current(basic_current_page.get() == 5)>
                             "5"
                         </PaginationItem>
-                        
+
                         <PaginationEllipsis>
                             "…"
                         </PaginationEllipsis>
-                        
+
                         <PaginationItem page=PaginationPage::new(9).with_current(basic_current_page.get() == 9)>
                             "9"
                         </PaginationItem>
                         <PaginationItem page=PaginationPage::new(10).with_current(basic_current_page.get() == 10)>
                             "10"
                         </PaginationItem>
-                        
+
                         <PaginationNext icon="▶️".to_string()>
                             "Next"
                         </PaginationNext>
@@ -96,7 +96,7 @@ pub fn PaginationExamples() -> impl IntoView {
                         </PaginationLast>
                     </PaginationList>
                 </Pagination>
-                
+
                 <div class="example-info">
                     <p><strong>"Current page:"</strong> {basic_current_page}</p>
                 </div>
@@ -106,8 +106,8 @@ pub fn PaginationExamples() -> impl IntoView {
             <section class="example-section">
                 <h2>"2. Compact Pagination"</h2>
                 <p>"Minimal pagination with just previous/next and current page indicator."</p>
-                
-                <Pagination 
+
+                <Pagination
                     current_page=compact_current_page.get()
                     total_pages=15
                     variant=PaginationVariant::Compact
@@ -118,17 +118,17 @@ pub fn PaginationExamples() -> impl IntoView {
                         <PaginationPrevious icon="◀️".to_string()>
                             "Previous"
                         </PaginationPrevious>
-                        
+
                         <PaginationItem page=PaginationPage::new(compact_current_page.get()).with_current(true)>
                             {format!("{} of {}", compact_current_page.get(), 15)}
                         </PaginationItem>
-                        
+
                         <PaginationNext icon="▶️".to_string()>
                             "Next"
                         </PaginationNext>
                     </PaginationList>
                 </Pagination>
-                
+
                 <div class="example-info">
                     <p><strong>"Current page:"</strong> {compact_current_page}</p>
                 </div>
@@ -138,8 +138,8 @@ pub fn PaginationExamples() -> impl IntoView {
             <section class="example-section">
                 <h2>"3. Detailed Pagination with Info"</h2>
                 <p>"Pagination with detailed information about current page and total items."</p>
-                
-                <Pagination 
+
+                <Pagination
                     current_page=detailed_current_page.get()
                     total_pages=8
                     total_items=240
@@ -151,7 +151,7 @@ pub fn PaginationExamples() -> impl IntoView {
                         <PaginationInfo format="Page {current} of {total_pages} ({start}-{end} of {total} items)".to_string()>
                             <span></span>
                         </PaginationInfo>
-                        
+
                         <PaginationList>
                             <PaginationFirst icon="⏮️".to_string()>
                                 "First"
@@ -159,7 +159,7 @@ pub fn PaginationExamples() -> impl IntoView {
                             <PaginationPrevious icon="◀️".to_string()>
                                 "Previous"
                             </PaginationPrevious>
-                            
+
                             <PaginationItem page=PaginationPage::new(1).with_current(detailed_current_page.get() == 1)>
                                 "1"
                             </PaginationItem>
@@ -184,7 +184,7 @@ pub fn PaginationExamples() -> impl IntoView {
                             <PaginationItem page=PaginationPage::new(8).with_current(detailed_current_page.get() == 8)>
                                 "8"
                             </PaginationItem>
-                            
+
                             <PaginationNext icon="▶️".to_string()>
                                 "Next"
                             </PaginationNext>
@@ -194,7 +194,7 @@ pub fn PaginationExamples() -> impl IntoView {
                         </PaginationList>
                     </PaginationContent>
                 </Pagination>
-                
+
                 <div class="example-info">
                     <p><strong>"Current page:"</strong> {detailed_current_page}</p>
                 </div>
@@ -204,8 +204,8 @@ pub fn PaginationExamples() -> impl IntoView {
             <section class="example-section">
                 <h2>"4. Custom Pagination with Helper Functions"</h2>
                 <p>"Using helper functions to generate pagination controls dynamically."</p>
-                
-                <Pagination 
+
+                <Pagination
                     current_page=custom_current_page.get()
                     total_pages=20
                     on_page_change=handle_custom_page_change.clone()
@@ -217,7 +217,7 @@ pub fn PaginationExamples() -> impl IntoView {
                         <PaginationPrevious icon="◀️".to_string()>
                             "Previous"
                         </PaginationPrevious>
-                        
+
                         <PaginationItem page=PaginationPage::new(1).with_current(custom_current_page.get() == 1)>
                             "1"
                         </PaginationItem>
@@ -248,7 +248,7 @@ pub fn PaginationExamples() -> impl IntoView {
                         <PaginationItem page=PaginationPage::new(20).with_current(custom_current_page.get() == 20)>
                             "20"
                         </PaginationItem>
-                        
+
                         <PaginationNext icon="▶️".to_string()>
                             "Next"
                         </PaginationNext>
@@ -257,7 +257,7 @@ pub fn PaginationExamples() -> impl IntoView {
                         </PaginationLast>
                     </PaginationList>
                 </Pagination>
-                
+
                 <div class="example-info">
                     <p><strong>"Current page:"</strong> {custom_current_page}</p>
                     <p><strong>"Features:"</strong> "Dynamic page generation, ellipsis for large page counts, helper functions"</p>
@@ -268,8 +268,8 @@ pub fn PaginationExamples() -> impl IntoView {
             <section class="example-section">
                 <h2>"5. Large Dataset Pagination"</h2>
                 <p>"Pagination for large datasets with smart page range calculation."</p>
-                
-                <Pagination 
+
+                <Pagination
                     current_page=large_dataset_current_page.get()
                     total_pages=100
                     total_items=10000
@@ -281,7 +281,7 @@ pub fn PaginationExamples() -> impl IntoView {
                         <PaginationInfo>
                             <span></span>
                         </PaginationInfo>
-                        
+
                         <PaginationList>
                             <PaginationFirst icon="⏮️".to_string()>
                                 "First"
@@ -289,7 +289,7 @@ pub fn PaginationExamples() -> impl IntoView {
                             <PaginationPrevious icon="◀️".to_string()>
                                 "Previous"
                             </PaginationPrevious>
-                            
+
                             <PaginationItem page=PaginationPage::new(1).with_current(large_dataset_current_page.get() == 1)>
                                 "1"
                             </PaginationItem>
@@ -314,7 +314,7 @@ pub fn PaginationExamples() -> impl IntoView {
                             <PaginationItem page=PaginationPage::new(100).with_current(large_dataset_current_page.get() == 100)>
                                 "100"
                             </PaginationItem>
-                            
+
                             <PaginationNext icon="▶️".to_string()>
                                 "Next"
                             </PaginationNext>
@@ -324,7 +324,7 @@ pub fn PaginationExamples() -> impl IntoView {
                         </PaginationList>
                     </PaginationContent>
                 </Pagination>
-                
+
                 <div class="example-info">
                     <p><strong>"Current page:"</strong> {large_dataset_current_page}</p>
                     <p><strong>"Total items:"</strong> "10,000"</p>
@@ -336,11 +336,11 @@ pub fn PaginationExamples() -> impl IntoView {
             <section class="example-section">
                 <h2>"6. Pagination Size Variants"</h2>
                 <p>"Different size variants for different use cases."</p>
-                
+
                 <div class="size-variants">
                     <div class="size-variant">
                         <h3>"Small Size"</h3>
-                        <Pagination 
+                        <Pagination
                             current_page=1
                             total_pages=5
                             size=PaginationSize::Small
@@ -364,10 +364,10 @@ pub fn PaginationExamples() -> impl IntoView {
                             </PaginationList>
                         </Pagination>
                     </div>
-                    
+
                     <div class="size-variant">
                         <h3>"Medium Size (Default)"</h3>
-                        <Pagination 
+                        <Pagination
                             current_page=1
                             total_pages=5
                             size=PaginationSize::Medium
@@ -391,10 +391,10 @@ pub fn PaginationExamples() -> impl IntoView {
                             </PaginationList>
                         </Pagination>
                     </div>
-                    
+
                     <div class="size-variant">
                         <h3>"Large Size"</h3>
-                        <Pagination 
+                        <Pagination
                             current_page=1
                             total_pages=5
                             size=PaginationSize::Large
@@ -425,26 +425,26 @@ pub fn PaginationExamples() -> impl IntoView {
             <section class="example-section">
                 <h2>"7. Accessibility Features"</h2>
                 <p>"Pagination with enhanced accessibility features including ARIA labels and keyboard navigation."</p>
-                
-                <Pagination 
+
+                <Pagination
                     current_page=1
                     total_pages=5
                     class="accessible-pagination".to_string()
                 >
                     <PaginationList>
-                        <PaginationFirst 
+                        <PaginationFirst
                             icon="⏮️".to_string()
                             class="sr-only-accessible".to_string()
                         >
                             "Go to first page"
                         </PaginationFirst>
-                        <PaginationPrevious 
+                        <PaginationPrevious
                             icon="◀️".to_string()
                             class="sr-only-accessible".to_string()
                         >
                             "Go to previous page"
                         </PaginationPrevious>
-                        
+
                         <PaginationItem page=PaginationPage::new(1).with_current(true)>
                             "Page 1"
                         </PaginationItem>
@@ -454,14 +454,14 @@ pub fn PaginationExamples() -> impl IntoView {
                         <PaginationItem page=PaginationPage::new(3)>
                             "Page 3"
                         </PaginationItem>
-                        
-                        <PaginationNext 
+
+                        <PaginationNext
                             icon="▶️".to_string()
                             class="sr-only-accessible".to_string()
                         >
                             "Go to next page"
                         </PaginationNext>
-                        <PaginationLast 
+                        <PaginationLast
                             icon="⏭️".to_string()
                             class="sr-only-accessible".to_string()
                         >
@@ -469,7 +469,7 @@ pub fn PaginationExamples() -> impl IntoView {
                         </PaginationLast>
                     </PaginationList>
                 </Pagination>
-                
+
                 <div class="accessibility-info">
                     <h3>"Accessibility Features:"</h3>
                     <ul>
@@ -499,7 +499,7 @@ pub fn PaginationExamples() -> impl IntoView {
                         <li><strong>"PaginationInfo"</strong> " - Information display component"</li>
                         <li><strong>"PaginationContent"</strong> " - Content wrapper component"</li>
                     </ul>
-                    
+
                     <h3>"Helper Functions:"</h3>
                     <ul>
                         <li><strong>"generate_page_numbers"</strong> " - Generate page numbers with ellipsis"</li>
@@ -507,7 +507,7 @@ pub fn PaginationExamples() -> impl IntoView {
                         <li><strong>"create_compact_pagination"</strong> " - Create compact pagination"</li>
                         <li><strong>"create_detailed_pagination"</strong> " - Create detailed pagination with info"</li>
                     </ul>
-                    
+
                     <h3>"Configuration Options:"</h3>
                     <ul>
                         <li><strong>"Size variants:"</strong> " Small, Medium, Large"</li>

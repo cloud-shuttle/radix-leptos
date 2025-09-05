@@ -49,7 +49,7 @@ pub struct SliderContext {
     pub max: f64,
     pub step: f64,
     pub orientation: SliderOrientation,
-    pub disabled: bool,
+    pub _disabled: bool,
     pub on_change: Option<Callback<f64>>,
     pub on_change_commit: Option<Callback<f64>>,
     pub slider_id: String,
@@ -68,7 +68,7 @@ pub struct RangeSliderContext {
     pub max: f64,
     pub step: f64,
     pub orientation: SliderOrientation,
-    pub disabled: bool,
+    pub _disabled: bool,
     pub on_change: Option<Callback<(f64, f64)>>,
     pub on_change_commit: Option<Callback<(f64, f64)>>,
     pub range_slider_id: String,
@@ -124,7 +124,7 @@ pub fn Slider(
     _marks: Option<Vec<SliderMark>>,
     /// Whether the slider is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// Change event handler
     #[prop(optional)]
     on_change: Option<Callback<f64>>,
@@ -137,7 +137,7 @@ pub fn Slider(
     /// Child content (track, thumb, etc.)
     children: Children,
 ) -> impl IntoView {
-    let slider_id = generate_id("slider");
+    let _slider_id = generate_id("slider");
     
     // Reactive state
     let (current_value, set_current_value) = signal(value.unwrap_or(min));
@@ -214,7 +214,7 @@ pub fn RangeSlider(
     _marks: Option<Vec<SliderMark>>,
     /// Whether the slider is disabled
     #[prop(optional, default = false)]
-    disabled: bool,
+    _disabled: bool,
     /// Change event handler
     #[prop(optional)]
     on_change: Option<Callback<(f64, f64)>>,
@@ -227,7 +227,7 @@ pub fn RangeSlider(
     /// Child content (track, thumbs, etc.)
     children: Children,
 ) -> impl IntoView {
-    let range_slider_id = generate_id("range-slider");
+    let _range_slider_id = generate_id("range-slider");
     
     // Reactive state
     let (current_values, set_current_values) = signal(value.unwrap_or((min, max)));
@@ -294,7 +294,7 @@ pub fn SliderTrack(
     /// Child content (range, thumb, etc.)
     children: Children,
 ) -> impl IntoView {
-    let track_id = generate_id("slider-track");
+    let _track_id = generate_id("slider-track");
     
     // Build base classes
     let base_classes = "radix-slider-track";
@@ -325,7 +325,7 @@ pub fn SliderRange(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let range_id = generate_id("slider-range");
+    let _range_id = generate_id("slider-range");
     
     // Build base classes
     let base_classes = "radix-slider-range";
@@ -349,7 +349,7 @@ pub fn SliderRange(
 pub fn SliderThumb(
     /// Whether this thumb is active (being dragged)
     #[prop(optional, default = false)]
-    _active: bool,
+    __active: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -360,7 +360,7 @@ pub fn SliderThumb(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<SliderContext>().expect("SliderThumb must be used within Slider");
-    let thumb_id = generate_id("slider-thumb");
+    let _thumb_id = generate_id("slider-thumb");
     
     let handle_click = move |_event: web_sys::MouseEvent| {
         if !context.disabled {
@@ -477,7 +477,7 @@ pub fn RangeSliderThumb(
     children: Children,
 ) -> impl IntoView {
     let context = use_context::<RangeSliderContext>().expect("RangeSliderThumb must be used within RangeSlider");
-    let thumb_id = generate_id("range-slider-thumb");
+    let _thumb_id = generate_id("range-slider-thumb");
     
     let handle_click = move |_event: web_sys::MouseEvent| {
         if !context.disabled {
@@ -611,7 +611,7 @@ pub fn SliderMark(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let mark_id = generate_id("slider-mark");
+    let _mark_id = generate_id("slider-mark");
     
     // Build base classes
     let base_classes = "radix-slider-mark";

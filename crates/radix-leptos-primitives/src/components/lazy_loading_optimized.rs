@@ -276,7 +276,7 @@ pub fn OptimizedLazyList(
                         view! { <div class="lazy-item">"Item"</div> }
                     }).collect::<Vec<_>>()
                 } else {
-                    vec![]
+                    []
                 }}
             </div>
             {if has_more {
@@ -539,7 +539,7 @@ mod tests {
         let runtime = create_runtime();
         let start = std::time::Instant::now();
         
-        for _ in 0..1000 {
+        for __ in 0..1000 {
             let _ = view! {
                 <OptimizedLazyLoading>
                     <div>"Performance test"</div>
@@ -557,7 +557,7 @@ mod tests {
         let runtime = create_runtime();
         let start = std::time::Instant::now();
         
-        for _ in 0..1000 {
+        for __ in 0..1000 {
             let _ = view! {
                 <OptimizedLazyImage src="test.jpg" alt="Test" />
             };
@@ -573,7 +573,7 @@ mod tests {
         let runtime = create_runtime();
         let start = std::time::Instant::now();
         
-        for _ in 0..1000 {
+        for __ in 0..1000 {
             let _ = view! {
                 <OptimizedLazyContent content="<p>Test</p>" />
             };
@@ -589,7 +589,7 @@ mod tests {
         let runtime = create_runtime();
         let start = std::time::Instant::now();
         
-        for _ in 0..100 {
+        for __ in 0..100 {
             let _ = view! {
                 <OptimizedLazyList total_items=1000 batch_size=50 />
             };
