@@ -8,7 +8,7 @@ members = [
 ]
 
 [workspace.package]
-version = "0.6.0"
+version = "0.7.0"
 authors = ["Radix-Leptos Contributors"]
 edition = "2021"
 license = "MIT"
@@ -20,9 +20,9 @@ keywords = ["ui", "components", "accessibility", "leptos", "radix"]
 categories = ["web-programming", "gui", "wasm"]
 
 [workspace.dependencies]
-leptos = { version = "0.8", features = ["ssr", "csr"] }
-leptos_meta = "0.8"
-leptos_router = "0.8"
+leptos = { version = "0.8.5", features = ["ssr", "csr"] }
+leptos_meta = "0.8.5"
+leptos_router = "0.8.5"
 # leptos-use = "0.11" # Temporarily disabled due to version conflicts
 web-sys = "0.3"
 wasm-bindgen = "0.2"

@@ -1,24 +1,10 @@
 use leptos::*;
 use leptos::prelude::*;
 use leptos::logging::log;
-use radix_leptos_primitives::components::alert::*;
+use radix_leptos_primitives::*;
 
 #[component]
 pub fn AlertExamples() -> impl IntoView {
-    let (dismissed_alerts, set_dismissed_alerts) = signal(std::collections::HashSet::<String>::new());
-    
-    let handle_dismiss = move |alert_id: String| {
-        let alert_id_clone = alert_id.clone();
-        let mut current = dismissed_alerts.get();
-        current.insert(alert_id);
-        set_dismissed_alerts.set(current);
-        log!("Alert dismissed: {}", alert_id_clone);
-    };
-    
-    let is_dismissed = move |alert_id: &str| {
-        dismissed_alerts.get().contains(alert_id)
-    };
-    
     view! {
         <div class="alert-examples">
             <h1>"Alert Component Examples"</h1>
@@ -29,252 +15,158 @@ pub fn AlertExamples() -> impl IntoView {
                     <li><strong>"Alert"</strong> - Root alert component with variants and sizing</li>
                     <li><strong>"AlertTitle"</strong> - Title component for alerts</li>
                     <li><strong>"AlertDescription"</strong> - Description component for alerts</li>
-                    <li><strong>"AlertAction"</strong> - Action button component for alerts</li>
                 </ul>
                 
                 <h3>"Alert Variants"</h3>
                 <ul>
                     <li><strong>"Default"</strong> - Standard alert styling</li>
                     <li><strong>"Success"</strong> - Green styling for successful actions</li>
-                    <li><strong>"Error"</strong> - Red styling for error messages</li>
+                    <li><strong>"Destructive"</strong> - Red styling for error messages</li>
                     <li><strong>"Warning"</strong> - Yellow styling for warnings</li>
                     <li><strong>"Info"</strong> - Blue styling for informational messages</li>
                 </ul>
                 
                 <h3>"Alert Sizes"</h3>
                 <ul>
-                    <li><strong>"Small"</strong> - Compact alert styling</li>
-                    <li><strong>"Medium"</strong> - Standard alert styling (default)</li>
-                    <li><strong>"Large"</strong> - Large alert styling</li>
+                    <li><strong>"Default"</strong> - Standard alert styling</li>
+                    <li><strong>"Sm"</strong> - Small alert styling</li>
+                    <li><strong>"Lg"</strong> - Large alert styling</li>
                 </ul>
             </div>
             
             <div class="example-section">
                 <h2>"Basic Alert Examples"</h2>
-                <p>"Different alert variants with various content types."</p>
+                <p>"Different alert variants for different types of messages:"</p>
                 
                 <div class="alert-grid">
                     <Alert variant=AlertVariant::Default>
                         <AlertTitle>"Default Alert"</AlertTitle>
-                        <AlertDescription>
-                            "This is a default alert with informational content."
-                        </AlertDescription>
+                        <AlertDescription>"This is a default alert with standard styling."</AlertDescription>
                     </Alert>
                     
                     <Alert variant=AlertVariant::Success>
                         <AlertTitle>"Success Alert"</AlertTitle>
-                        <AlertDescription>
-                            "Your action was completed successfully!"
-                        </AlertDescription>
+                        <AlertDescription>"Your action was completed successfully!"</AlertDescription>
                     </Alert>
                     
-                    <Alert variant=AlertVariant::Error>
-                        <AlertTitle>"Error Alert"</AlertTitle>
-                        <AlertDescription>
-                            "Something went wrong. Please try again."
-                        </AlertDescription>
+                    <Alert variant=AlertVariant::Destructive>
+                        <AlertTitle>"Destructive Alert"</AlertTitle>
+                        <AlertDescription>"Something went wrong. Please try again."</AlertDescription>
                     </Alert>
                     
                     <Alert variant=AlertVariant::Warning>
                         <AlertTitle>"Warning Alert"</AlertTitle>
-                        <AlertDescription>
-                            "Please review your input before proceeding."
-                        </AlertDescription>
+                        <AlertDescription>"Please review your input before proceeding."</AlertDescription>
                     </Alert>
                     
                     <Alert variant=AlertVariant::Info>
                         <AlertTitle>"Info Alert"</AlertTitle>
-                        <AlertDescription>
-                            "Here's some helpful information for you."
-                        </AlertDescription>
+                        <AlertDescription>"Here's some helpful information for you."</AlertDescription>
                     </Alert>
                 </div>
             </div>
             
             <div class="example-section">
                 <h2>"Alert Sizes"</h2>
-                <p>"Different alert sizes for various use cases."</p>
+                <p>"Different alert sizes for different use cases:"</p>
                 
                 <div class="alert-grid">
-                    <Alert variant=AlertVariant::Info size=AlertSize::Small>
+                    <Alert variant=AlertVariant::Default size=AlertSize::Sm>
                         <AlertTitle>"Small Alert"</AlertTitle>
-                        <AlertDescription>
-                            "This is a small alert for compact spaces."
-                        </AlertDescription>
+                        <AlertDescription>"This is a small alert with compact styling."</AlertDescription>
                     </Alert>
                     
-                    <Alert variant=AlertVariant::Info size=AlertSize::Medium>
-                        <AlertTitle>"Medium Alert"</AlertTitle>
-                        <AlertDescription>
-                            "This is a medium alert (default size)."
-                        </AlertDescription>
+                    <Alert variant=AlertVariant::Success size=AlertSize::Default>
+                        <AlertTitle>"Default Size Alert"</AlertTitle>
+                        <AlertDescription>"This is a default size alert with standard styling."</AlertDescription>
                     </Alert>
                     
-                    <Alert variant=AlertVariant::Info size=AlertSize::Large>
+                    <Alert variant=AlertVariant::Info size=AlertSize::Lg>
                         <AlertTitle>"Large Alert"</AlertTitle>
-                        <AlertDescription>
-                            "This is a large alert for prominent messaging."
-                        </AlertDescription>
+                        <AlertDescription>"This is a large alert with expanded styling for important messages."</AlertDescription>
                     </Alert>
                 </div>
             </div>
             
             <div class="example-section">
                 <h2>"Dismissible Alerts"</h2>
-                <p>"Alerts that can be dismissed by the user."</p>
+                <p>"Alerts that can be dismissed by the user:"</p>
                 
                 <div class="alert-grid">
-                    {move || {
-                        if !is_dismissed("dismissible-1") {
-                            view! {
-                                <Alert
-                                    variant=AlertVariant::Warning
-                                    dismissible=true
-                                    on_dismiss=Callback::new(move |_| handle_dismiss("dismissible-1".to_string()))
-                                >
-                                    <AlertTitle>"Dismissible Warning"</AlertTitle>
-                                    <AlertDescription>
-                                        "This alert can be dismissed by clicking the close button."
-                                    </AlertDescription>
-                                </Alert>
-                            }
-                        } else {
-                            view! {
-                                <Alert variant=AlertVariant::Default class="alert-placeholder".to_string()>
-                                    <AlertDescription>
-                                        "Alert dismissed - click 'Reset Alerts' to show again"
-                                    </AlertDescription>
-                                </Alert>
-                            }
-                        }
-                    }}
+                    <Alert variant=AlertVariant::Default dismissible=true>
+                        <AlertTitle>"Dismissible Alert"</AlertTitle>
+                        <AlertDescription>"This alert can be dismissed by clicking the close button."</AlertDescription>
+                    </Alert>
                     
-                    {move || {
-                        if !is_dismissed("dismissible-2") {
-                            view! {
-                                <Alert
-                                    variant=AlertVariant::Info
-                                    dismissible=true
-                                    on_dismiss=Callback::new(move |_| handle_dismiss("dismissible-2".to_string()))
-                                >
-                                    <AlertTitle>"Another Dismissible Alert"</AlertTitle>
-                                    <AlertDescription>
-                                        "This is another dismissible alert with different content."
-                                    </AlertDescription>
-                                </Alert>
-                            }
-                        } else {
-                            view! {
-                                <Alert variant=AlertVariant::Default class="alert-placeholder".to_string()>
-                                    <AlertDescription>
-                                        "Alert dismissed - click 'Reset Alerts' to show again"
-                                    </AlertDescription>
-                                </Alert>
-                            }
-                        }
-                    }}
+                    <Alert variant=AlertVariant::Success dismissible=true>
+                        <AlertTitle>"Success Alert"</AlertTitle>
+                        <AlertDescription>"This success alert can also be dismissed."</AlertDescription>
+                    </Alert>
+                    
+                    <Alert variant=AlertVariant::Warning dismissible=true>
+                        <AlertTitle>"Warning Alert"</AlertTitle>
+                        <AlertDescription>"This warning alert can be dismissed as well."</AlertDescription>
+                    </Alert>
                 </div>
-                
-                <button
-                    class="btn btn-reset"
-                    on:click=move |_| {
-                        set_dismissed_alerts.set(std::collections::HashSet::new());
-                        log!("Alerts reset");
-                    }
-                >
-                    "Reset Alerts"
-                </button>
             </div>
             
             <div class="example-section">
-                <h2>"Alerts with Actions"</h2>
-                <p>"Alerts that include action buttons for user interaction."</p>
+                <h2>"Custom Styled Alerts"</h2>
+                <p>"Alerts with custom CSS classes and styles:"</p>
+                
+                <div class="alert-grid">
+                    <Alert 
+                        variant=AlertVariant::Default 
+                        class="custom-alert".to_string()
+                        style="border-left: 4px solid #3b82f6;".to_string()
+                    >
+                        <AlertTitle>"Custom Styled Alert"</AlertTitle>
+                        <AlertDescription>"This alert has custom styling applied."</AlertDescription>
+                    </Alert>
+                    
+                    <Alert 
+                        variant=AlertVariant::Info 
+                        class="custom-alert-info".to_string()
+                        style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);".to_string()
+                    >
+                        <AlertTitle>"Gradient Alert"</AlertTitle>
+                        <AlertDescription>"This alert has a custom gradient background."</AlertDescription>
+                    </Alert>
+                </div>
+            </div>
+            
+            <div class="example-section">
+                <h2>"Alert with Actions"</h2>
+                <p>"Alerts that include action buttons:"</p>
                 
                 <div class="alert-grid">
                     <Alert variant=AlertVariant::Success>
                         <AlertTitle>"Action Required"</AlertTitle>
-                        <AlertDescription>
-                            "Your profile has been updated. Would you like to view the changes?"
-                        </AlertDescription>
+                        <AlertDescription>"Your account has been created successfully. Please verify your email address."</AlertDescription>
                         <div class="alert-actions">
-                            <AlertAction
-                                class="btn btn-primary".to_string()
-                                on_click=Callback::new(move |_| log!("View changes clicked"))
-                            >
-                                "View Changes"
-                            </AlertAction>
-                            <AlertAction
-                                class="btn btn-secondary".to_string()
-                                on_click=Callback::new(move |_| log!("Dismiss clicked"))
-                            >
-                                "Dismiss"
-                            </AlertAction>
+                            <Button variant=ButtonVariant::Default size=ButtonSize::Small>
+                                "Verify Email"
+                            </Button>
+                            <Button variant=ButtonVariant::Outline size=ButtonSize::Small>
+                                "Skip for Now"
+                            </Button>
                         </div>
                     </Alert>
                     
-                    <Alert variant=AlertVariant::Error>
-                        <AlertTitle>"Connection Error"</AlertTitle>
-                        <AlertDescription>
-                            "Unable to connect to the server. Please check your internet connection."
-                        </AlertDescription>
+                    <Alert variant=AlertVariant::Destructive>
+                        <AlertTitle>"Account Suspended"</AlertTitle>
+                        <AlertDescription>"Your account has been suspended due to policy violations. Please contact support."</AlertDescription>
                         <div class="alert-actions">
-                            <AlertAction
-                                class="btn btn-retry".to_string()
-                                on_click=Callback::new(move |_| log!("Retry connection clicked"))
-                            >
-                                "Retry Connection"
-                            </AlertAction>
+                            <Button variant=ButtonVariant::Destructive size=ButtonSize::Small>
+                                "Contact Support"
+                            </Button>
+                            <Button variant=ButtonVariant::Ghost size=ButtonSize::Small>
+                                "Learn More"
+                            </Button>
                         </div>
                     </Alert>
                 </div>
-            </div>
-            
-            <div class="example-section">
-                <h2>"Simple Alerts"</h2>
-                <p>"Alerts with minimal content for simple messaging."</p>
-                
-                <div class="alert-grid">
-                    <Alert variant=AlertVariant::Info>
-                        <AlertDescription>
-                            "This is a simple alert with just a description."
-                        </AlertDescription>
-                    </Alert>
-                    
-                    <Alert variant=AlertVariant::Success>
-                        <AlertDescription>
-                            "Operation completed successfully!"
-                        </AlertDescription>
-                    </Alert>
-                    
-                    <Alert variant=AlertVariant::Warning>
-                        <AlertDescription>
-                            "Please save your work before continuing."
-                        </AlertDescription>
-                    </Alert>
-                </div>
-            </div>
-            
-            <div class="example-section">
-                <h2>"Alert Features"</h2>
-                <ul>
-                    <li>"Multiple variants (default, success, error, warning, info)"</li>
-                    <li>"Three sizes (small, medium, large)"</li>
-                    <li>"Dismissible alerts with close button"</li>
-                    <li>"Action buttons for user interaction"</li>
-                    <li>"Flexible content structure with title and description"</li>
-                    <li>"Accessible with proper ARIA attributes"</li>
-                    <li>"Responsive design"</li>
-                    <li>"Icon indicators for each variant"</li>
-                </ul>
             </div>
         </div>
     }
-}
-
-pub fn start_alert_examples() {
-    mount_to_body(|| {
-        view! {
-            <AlertExamples />
-        }
-    });
 }

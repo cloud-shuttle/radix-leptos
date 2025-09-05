@@ -46,7 +46,6 @@ pub mod touch_button;
 pub mod swipe_gestures;
 pub mod pull_to_refresh;
 pub mod list;
-// pub mod multi_select;  // Temporarily disabled due to view! macro issues
 pub mod pagination;
 pub mod tabs;
 pub mod toast;
@@ -61,6 +60,24 @@ pub mod combobox;
 pub mod avatar;
 pub mod separator;
 pub mod label;
+pub mod multi_select;
+pub mod tree_view;
+pub mod password_toggle_field;
+pub mod otp_field;
+pub mod resizable;
+pub mod infinite_scroll;
+pub mod lazy_loading;
+pub mod alert_dialog;
+pub mod sheet;
+pub mod skeleton;
+
+// Test modules
+#[cfg(test)]
+mod alert_dialog_tests;
+#[cfg(test)]
+mod sheet_tests;
+#[cfg(test)]
+mod skeleton_tests;
 
 // Re-export only the components we need
 pub use alert::*;
@@ -107,7 +124,6 @@ pub use touch_button::*;
 pub use swipe_gestures::*;
 pub use pull_to_refresh::*;
 pub use list::*;
-// pub use multi_select::*;  // Temporarily disabled
 pub use pagination::*;
 pub use tabs::*;
 pub use timeline::*;
@@ -123,3 +139,13 @@ pub use combobox::*;
 pub use avatar::*;
 pub use separator::*;
 pub use label::*;
+pub use multi_select::*;
+pub use tree_view::*;
+pub use password_toggle_field::*;
+pub use otp_field::*;
+pub use resizable::*;
+pub use infinite_scroll::*;
+pub use lazy_loading::*;
+pub use alert_dialog::*;
+pub use sheet::*;
+pub use skeleton::*;

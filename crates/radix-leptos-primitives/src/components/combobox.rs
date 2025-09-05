@@ -410,7 +410,7 @@ mod tests {
     #[test] fn test_combobox_options_on_option_select() { assert!(true); }
 
     // Combobox Option tests
-    #[test] fn test_combobox_option_creation() { assert!(true); }
+    #[test] fn test_combobox_option_creation_2() { assert!(true); }
     #[test] fn test_combobox_option_with_class() { assert!(true); }
     #[test] fn test_combobox_option_option() { assert!(true); }
     #[test] fn test_combobox_option_selected() { assert!(true); }
@@ -431,7 +431,6 @@ mod tests {
 
     // Combobox Option tests
     #[test] fn test_combobox_option_default() { assert!(true); }
-    #[test] fn test_combobox_option_creation() { assert!(true); }
 
     // Combobox Group tests
     #[test] fn test_combobox_group_creation() { assert!(true); }

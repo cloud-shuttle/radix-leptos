@@ -51,16 +51,26 @@
 ```
 docs/
 ├── README.md                    # This file - documentation index
-├── ROADMAP.md                   # Development roadmap
-├── RELEASE_NOTES.md            # Release information
-├── CHANGELOG.md                # Version history
-├── CONTRIBUTING.md             # Contribution guidelines
-├── COMPONENTS.md               # Component documentation
-├── API_REFERENCE.md            # API documentation
-├── design.md                   # Design system
-├── implementation-plan.md      # Technical implementation
-├── test-strategy.md            # Testing strategy
-├── guides/                     # Detailed guides
+├── user-guide/                  # End-user documentation
+│   ├── README.md               # User guide index
+│   └── COMPONENTS.md           # Component usage guide
+├── developer-guide/             # Contributor documentation
+│   ├── README.md               # Developer guide index
+│   ├── CONTRIBUTING.md         # Contribution guidelines
+│   ├── TDD_GUIDE.md            # Test-driven development
+│   └── TDD_TEMPLATE.md         # Development templates
+├── api-reference/               # API documentation
+│   ├── README.md               # API reference index
+│   └── API_REFERENCE.md        # Complete API docs
+├── releases/                    # Release documentation
+│   ├── README.md               # Release documentation index
+│   ├── CHANGELOG.md            # Version history
+│   ├── RELEASE_NOTES.md        # Release information
+│   └── RELEASE_CONTENT.md      # Release content planning
+├── roadmaps/                    # Project planning
+│   ├── README.md               # Roadmap index
+│   └── ROADMAP.md              # Development roadmap
+├── guides/                      # Detailed guides
 │   ├── PRODUCTION_DEPLOYMENT_GUIDE.md
 │   ├── DEVELOPMENT_WORKFLOW.md
 │   ├── TESTING_GUIDE.md
@@ -78,9 +88,12 @@ docs/
 │   ├── WEEK7_8_TEST_REPORT.md
 │   ├── NIX_SETUP.md
 │   └── CLAUDE.md
-└── assets/                     # Documentation images
-    ├── *.png                   # Component screenshots
-    └── *.jpg                   # Additional images
+├── design.md                    # Design system
+├── implementation-plan.md       # Technical implementation
+├── test-strategy.md             # Testing strategy
+└── assets/                      # Documentation images
+    ├── *.png                    # Component screenshots
+    └── *.jpg                    # Additional images
 ```
 
 ## 🔍 **Quick Navigation**

@@ -20,12 +20,28 @@ This directory contains a comprehensive Playwright test suite for the optimized 
 
 ```
 tests/
-├── radix-leptos-comprehensive.spec.ts    # Main comprehensive test suite
-├── pagination-components.spec.ts          # Pagination component specific tests
-├── performance-stress.spec.ts             # Performance and stress testing
-├── cross-browser.spec.ts                 # Cross-browser compatibility
-├── run-comprehensive-tests.sh            # Test runner script
-└── README.md                             # This documentation
+├── unit/                                 # Unit tests for individual components
+│   ├── components/                      # Component-specific unit tests
+│   ├── core/                           # Core functionality tests
+│   └── utils/                          # Utility function tests
+├── integration/                         # Integration tests for component interactions
+│   ├── component-interactions/         # Component combination tests
+│   ├── user-workflows/                 # End-to-end user scenarios
+│   └── form-integration/               # Form component integration
+├── e2e/                                # End-to-end tests using Playwright
+│   ├── radix-leptos-comprehensive.spec.ts    # Main comprehensive test suite
+│   ├── pagination-components.spec.ts          # Pagination component specific tests
+│   ├── cross-browser.spec.ts                 # Cross-browser compatibility
+│   └── run-comprehensive-tests.sh            # Test runner script
+├── performance/                         # Performance and benchmark tests
+│   ├── benchmarks/                     # Performance benchmarks
+│   ├── stress-tests/                   # Stress testing scenarios
+│   └── quick-performance.spec.ts       # Quick performance tests
+├── accessibility/                       # Accessibility compliance tests
+│   ├── keyboard-navigation/            # Keyboard navigation tests
+│   ├── screen-reader/                  # Screen reader compatibility
+│   └── wcag-compliance/                # WCAG compliance tests
+└── reports/                            # Test reports and coverage
 ```
 
 ## 🎯 **Test Categories**
