@@ -13,7 +13,7 @@ pub fn Toolbar(
     let orientation = orientation.unwrap_or_default();
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes([
+    let class = 
         "toolbar",
         &orientation.to_class(),
         </div>
@@ -58,7 +58,7 @@ pub fn ToolbarToggleGroup(
         });
     }
 
-    let class = merge_classes([
+    let class = 
         "toolbar-toggle-group",
         &variant.to_class(),
         &size.to_class(),
@@ -80,7 +80,7 @@ pub fn ToolbarToggleItem(
     let disabled = disabled.unwrap_or(false);
     let value = value.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = 
         "toolbar-toggle-item",
         }
     };
@@ -118,7 +118,7 @@ pub fn ToolbarSeparator(
 ) -> impl IntoView {
     let orientation = orientation.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = 
         "toolbar-separator",
         &orientation.to_class(),
         class.as_deref().unwrap_or(""),
@@ -149,7 +149,7 @@ pub fn ToolbarButton(
     let size = size.unwrap_or_default();
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes([
+    let class = 
         "toolbar-button",
         &variant.to_class(),
         &size.to_class(),

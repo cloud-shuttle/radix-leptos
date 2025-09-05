@@ -24,7 +24,7 @@ pub fn FileUpload(
     let disabled = disabled.unwrap_or(false);
     let drag_drop_enabled = drag_drop_enabled.unwrap_or(true);
 
-    let class = merge_classes([
+    let class = 
         "file-upload",
         if drag_drop_enabled {
             "drag-drop-enabled"
@@ -77,7 +77,7 @@ pub fn FileUploadInput(
     let accept = accept.unwrap_or_default();
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes([
+    let class = 
         "file-upload-input",
         class.as_deref().unwrap_or(""),
     ]);
@@ -120,7 +120,7 @@ pub fn FileUploadDropZone(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes([
+    let class = 
         "file-upload-drop-zone",
         }
     };
@@ -193,7 +193,7 @@ pub fn FileUploadItem(
 ) -> impl IntoView {
     let file = file.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = 
         "file-upload-item",
         &file.status.to_class(),
         class.as_deref().unwrap_or(""),

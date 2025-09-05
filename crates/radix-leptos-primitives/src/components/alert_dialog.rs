@@ -82,7 +82,7 @@ pub fn AlertDialog(
     let variant = variant.unwrap_or(AlertDialogVariant::Default);
     let onopen_change = onopen_change.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes([
+    let class = 
         "alert-dialog",
         variant.as_str(),
         </div>

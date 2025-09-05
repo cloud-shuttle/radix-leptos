@@ -21,7 +21,7 @@ pub fn CodeEditor(
     let show_line_numbers = show_line_numbers.unwrap_or(true);
     let show_minimap = show_minimap.unwrap_or(false);
 
-    let class = merge_classes([
+    let class = 
         "code-editor",
         </div>
     }
@@ -95,7 +95,7 @@ pub fn CodeSuggestion(
         return view! { <></> }.into_any();
     }
 
-    let class = merge_classes([
+    let class = 
         "code-suggestion",
         class.as_deref().unwrap_or(""),
     ]);
@@ -162,7 +162,7 @@ pub fn CodeError(
         return view! { <></> }.into_any();
     }
 
-    let class = merge_classes([
+    let class = 
         "code-error",
         &error.severity.to_class(),
         class.as_deref().unwrap_or(""),

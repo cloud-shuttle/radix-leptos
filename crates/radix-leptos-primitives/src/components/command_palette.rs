@@ -21,7 +21,7 @@ pub fn CommandPalette(
         return view! { <></> }.into_any();
     }
 
-    let class = merge_classes([
+    let class = 
         "command-palette",
         class.as_deref().unwrap_or(""),
     ]);
@@ -117,7 +117,7 @@ pub fn CommandInput(
     let value = value.unwrap_or_default();
     let placeholder = placeholder.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = 
         "command-input",
         class.as_deref().unwrap_or(""),
     ]);
@@ -148,7 +148,7 @@ pub fn CommandList(
     let commands = commands.unwrap_or_default();
     let selected_index = selected_index.unwrap_or(0);
 
-    let class = merge_classes([
+    let class = 
         "command-list",
         class.as_deref().unwrap_or(""),
     ]);
@@ -180,7 +180,7 @@ pub fn CommandItem(
     let command = command.unwrap_or_default();
     let selected = selected.unwrap_or(false);
 
-    let class = merge_classes([
+    let class = 
         "command-item",
             data-command-id=command.id
             data-selected=selected
@@ -203,7 +203,7 @@ pub fn CommandGroup(
     let title = title.unwrap_or_default();
     let commands = commands.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = 
         "command-group",
         class.as_deref().unwrap_or(""),
     ]);

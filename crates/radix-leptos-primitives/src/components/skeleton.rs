@@ -87,7 +87,7 @@ pub fn Skeleton(
     let lines = lines.unwrap_or(1);
     let animated = animated.unwrap_or(true);
 
-    let class = merge_classes([
+    let class = 
         "skeleton",
         variant.as_str(),
         size.as_str(),

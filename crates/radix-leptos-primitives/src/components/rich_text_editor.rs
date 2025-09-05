@@ -18,7 +18,7 @@ pub fn RichTextEditor(
     let readonly = readonly.unwrap_or(false);
     let placeholder = placeholder.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = 
         "rich-text-editor",
         </div>
     }
@@ -66,7 +66,7 @@ pub fn Toolbar(
         return view! { <></> }.into_any();
     }
 
-    let class = merge_classes([
+    let class = 
         "toolbar",
         &position.to_class(),
         class.as_deref().unwrap_or(""),
@@ -127,7 +127,7 @@ pub fn ToolbarButton(
     let active = active.unwrap_or(false);
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes([
+    let class = 
         "toolbar-button",
         class.as_deref().unwrap_or(""),
     ]);
@@ -157,7 +157,7 @@ pub fn EditorContent(
     let content = content.unwrap_or_default();
     let readonly = readonly.unwrap_or(false);
 
-    let class = merge_classes([
+    let class = 
         "editor-content",
         </div>
     }
@@ -179,7 +179,7 @@ pub fn MarkdownPreview(
         return view! { <></> }.into_any();
     }
 
-    let class = merge_classes([
+    let class = 
         "markdown-preview",
         class.as_deref().unwrap_or(""),
     ]);

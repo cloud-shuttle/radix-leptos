@@ -14,7 +14,7 @@ pub fn Collapsible(
     let disabled = disabled.unwrap_or(false);
     let animated = animated.unwrap_or(true);
 
-    let class = merge_classes([
+    let class = 
         "collapsible",
         }
     };
@@ -44,7 +44,7 @@ pub fn CollapsibleTrigger(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes([
+    let class = 
         "collapsible-trigger",
         </button>
     }
@@ -62,7 +62,7 @@ pub fn CollapsibleContent(
     let open = open.unwrap_or(false);
     let animated = animated.unwrap_or(true);
 
-    let class = merge_classes([
+    let class = 
         "collapsible-content",
         class.as_deref().unwrap_or(""),
     ]);
@@ -112,7 +112,7 @@ pub fn CollapsibleIcon(
     let open = open.unwrap_or(false);
     let animated = animated.unwrap_or(true);
 
-    let class = merge_classes([
+    let class = 
         "collapsible-icon",
         class.as_deref().unwrap_or(""),
     ]);

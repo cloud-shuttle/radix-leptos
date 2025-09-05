@@ -19,7 +19,7 @@ pub fn Timeline(
     let show_dates = show_dates.unwrap_or(true);
     let show_icons = show_icons.unwrap_or(true);
 
-    let class = merge_classes([
+    let class = 
         "timeline",
         &orientation.to_class(),
         class.as_deref().unwrap_or(""),
@@ -198,7 +198,7 @@ pub fn TimelineLine(
     let length = length.unwrap_or(100.0);
     let thickness = thickness.unwrap_or(2.0);
 
-    let class = merge_classes([
+    let class = 
         "timeline-line",
         &orientation.to_class(),
         class.as_deref().unwrap_or(""),
@@ -231,7 +231,7 @@ pub fn TimelineDot(
     let color = color.unwrap_or_default();
     let filled = filled.unwrap_or(true);
 
-    let class = merge_classes([
+    let class = 
         "timeline-dot",
         </div>
     }

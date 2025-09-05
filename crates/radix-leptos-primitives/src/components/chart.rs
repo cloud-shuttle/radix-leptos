@@ -21,7 +21,7 @@ pub fn Chart(
     let config = config.unwrap_or_default();
     let theme = theme.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = 
         "chart",
         &theme.to_class(),
         class.as_deref().unwrap_or(""),
@@ -176,7 +176,7 @@ pub fn ChartTooltip(
         return view! { <></> }.into_any();
     }
 
-    let class = merge_classes([
+    let class = 
         "chart-tooltip",
         &position.to_class(),
         class.as_deref().unwrap_or(""),
@@ -227,7 +227,7 @@ pub fn ChartLegend(
     let items = items.unwrap_or_default();
     let orientation = orientation.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = 
         "chart-legend",
         &orientation.to_class(),
         class.as_deref().unwrap_or(""),

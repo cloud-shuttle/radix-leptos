@@ -436,7 +436,7 @@ pub fn ButtonVariantSection(
     let variants_clone2 = variants.clone();
     let variants_clone3 = variants.clone();
 
-    let class = merge_classes([
+    let class = 
         "variant-section",
         &component_type,
         class.as_deref().unwrap_or(""),
@@ -503,7 +503,7 @@ pub fn InputVariantSection(
     let variants_clone2 = variants.clone();
     let variants_clone3 = variants.clone();
 
-    let class = merge_classes([
+    let class = 
         "variant-section",
         &component_type,
         class.as_deref().unwrap_or(""),

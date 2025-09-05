@@ -391,7 +391,7 @@ pub fn LayoutBuilder(
     let layout_type = layout_type.unwrap_or_else(|| "grid".to_string());
     let on_layout_change = on_layout_change.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes([
+    let class = 
         "layout-builder",
         &layout_type,
         class.as_deref().unwrap_or(""),
@@ -459,7 +459,7 @@ pub fn SpacingLayoutSection(
     let on_change = on_change.unwrap_or_else(|| Callback::new(|_| {}));
     let layout_clone = layout.clone();
 
-    let class = merge_classes([
+    let class = 
         "layout-section",
         &layout_type,
         class.as_deref().unwrap_or(""),
@@ -514,7 +514,7 @@ pub fn BreakpointLayoutSection(
     let on_change = on_change.unwrap_or_else(|| Callback::new(|_| {}));
     let layout_clone = layout.clone();
 
-    let class = merge_classes([
+    let class = 
         "layout-section",
         &layout_type,
         class.as_deref().unwrap_or(""),
@@ -600,7 +600,7 @@ pub fn GridLayoutSection(
     let grid_clone2 = grid.clone();
     let grid_clone3 = grid.clone();
 
-    let class = merge_classes([
+    let class = 
         "layout-section",
         "grid-section",
         class.as_deref().unwrap_or(""),
@@ -666,7 +666,7 @@ pub fn FlexboxLayoutSection(
     let flexbox_clone3 = flexbox.clone();
     let flexbox_clone4 = flexbox.clone();
 
-    let class = merge_classes([
+    let class = 
         "layout-section",
         "flexbox-section",
         class.as_deref().unwrap_or(""),
@@ -735,7 +735,7 @@ pub fn ContainerLayoutSection(
     let container_clone3 = container.clone();
     let container_clone4 = container.clone();
 
-    let class = merge_classes([
+    let class = 
         "layout-section",
         "container-section",
         class.as_deref().unwrap_or(""),

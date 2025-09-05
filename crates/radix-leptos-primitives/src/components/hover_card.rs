@@ -60,8 +60,7 @@ pub fn HoverCardTrigger(
 
     let class = merge_classes([
         "hover-card-trigger",
-        }
-    };
+    ]);
 
     let handle_mouse_leave = move |_| {
         if !disabled {
@@ -126,7 +125,7 @@ pub fn HoverCardContent(
         return view! { <></> }.into_any();
     }
 
-    let class = merge_classes([
+    let class = 
         "hover-card-content",
         &side.to_class(),
         &align.to_class(),

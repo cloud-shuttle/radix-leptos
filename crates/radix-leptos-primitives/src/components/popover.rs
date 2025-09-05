@@ -51,7 +51,7 @@ pub fn PopoverTrigger(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes([
+    let class = 
         "popover-trigger",
         }
     };
@@ -92,7 +92,7 @@ pub fn PopoverContent(
         return view! { <></> }.into_any();
     }
 
-    let class = merge_classes([
+    let class = 
         "popover-content",
         &side.to_class(),
         &align.to_class(),

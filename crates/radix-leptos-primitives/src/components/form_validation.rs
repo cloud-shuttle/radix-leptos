@@ -16,7 +16,7 @@ pub fn FormValidationProvider(
     let (field_errors, set_field_errors) = create_signal(HashMap::<String, FieldError>::new());
     let (form_errors, set_form_errors) = create_signal(Vec::<FormError>::new());
 
-    let class = merge_classes([
+    let class = 
         "form-validation-provider",
         validation_mode.as_str(),
         class.as_deref().unwrap_or(""),
@@ -58,7 +58,7 @@ pub fn FormField(
     let required = required.unwrap_or(false);
     let validation_rules = validation_rules.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = 
         "form-field",
     };
 
@@ -93,7 +93,7 @@ pub fn FormLabel(
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] for_id: Option<String>,
 ) -> impl IntoView {
-    let class = merge_classes([
+    let class = 
         "form-label",
         class.as_deref().unwrap_or(""),
     ]);
@@ -118,7 +118,7 @@ pub fn FormFieldError(
 ) -> impl IntoView {
     let name = name.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = 
         "form-field-error",
         class.as_deref().unwrap_or(""),
     ]);
@@ -149,7 +149,7 @@ pub fn FormErrorSummary(
     let show_field_errors = show_field_errors.unwrap_or(true);
     let show_form_errors = show_form_errors.unwrap_or(true);
 
-    let class = merge_classes([
+    let class = 
         "form-error-summary",
         class.as_deref().unwrap_or(""),
     ]);

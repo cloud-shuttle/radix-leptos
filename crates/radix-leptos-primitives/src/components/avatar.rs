@@ -21,7 +21,7 @@ pub fn Avatar(
     let shape = shape.unwrap_or_default();
     let loading = loading.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = 
         "avatar",
         &size.to_class(),
         &shape.to_class(),
@@ -121,7 +121,7 @@ pub fn AvatarGroup(
     let maxvisible = maxvisible.unwrap_or(5);
     let spacing = spacing.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = 
         "avatar-group",
         &spacing.to_class(),
         class.as_deref().unwrap_or(""),

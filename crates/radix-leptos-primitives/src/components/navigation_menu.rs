@@ -33,7 +33,7 @@ pub fn NavigationMenu(
         });
     }
 
-    let class = merge_classes([
+    let class = 
         "navigation-menu",
         &orientation.to_class(),
         class.as_deref().unwrap_or(""),
@@ -80,7 +80,7 @@ pub fn NavigationMenuItem(
     let disabled = disabled.unwrap_or(false);
     let value = value.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = 
         "navigation-menu-item",
         }
     };
@@ -118,7 +118,7 @@ pub fn NavigationMenuTrigger(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes([
+    let class = 
         "navigation-menu-trigger",
         }
     };
@@ -190,7 +190,7 @@ pub fn NavigationMenuLink(
     let disabled = disabled.unwrap_or(false);
     let active = active.unwrap_or(false);
 
-    let class = merge_classes([
+    let class = 
         "navigation-menu-link",
         class.as_deref().unwrap_or(""),
     ]);

@@ -436,6 +436,7 @@ pub fn DropdownMenuCheckboxItem(
                             } else {
                                 ""
                             }
+                        }
                     />
                 </div>
                 {children()}
@@ -543,6 +544,7 @@ pub fn DropdownMenuRadioItem(
                             } else {
                                 ""
                             }
+                        }
                     />
                 </div>
                 {children()}
