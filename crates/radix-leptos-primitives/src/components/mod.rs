@@ -143,7 +143,6 @@ pub use calendar::*;
 pub use collapsible::*;
 pub use combobox::*;
 pub use context_menu::*;
-pub use date_picker::*;
 pub use file_upload::*;
 pub use label::*;
 pub use multi_select::*;

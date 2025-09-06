@@ -328,7 +328,7 @@ fn validate_password(
     requirements: &PasswordStrengthRequirements,
 ) -> PasswordValidation {
     let mut errors = Vec::new();
-    let mut warnings = Vec::new();
+    let warnings = Vec::new();
     let mut strength_score = 0;
 
     // Check minimum length

@@ -14,10 +14,6 @@ chrono = { version = "0.4", features = ["serde"] }
 crate-type = ["cdylib"]
 name = "radix_leptos_examples"
 
-[profile.release]
-opt-level = "z"  # Optimize for size
-lto = true       # Link-time optimization
-codegen-units = 1  # Single codegen unit for better optimization
-panic = "abort"  # Smaller panic handling
-strip = true     # Remove debug symbols
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = false
 

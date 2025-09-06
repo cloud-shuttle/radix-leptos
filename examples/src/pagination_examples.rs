@@ -61,19 +61,19 @@ pub fn PaginationExamples() -> impl IntoView {
                             "Previous"
                         </PaginationPrevious>
 
-                        <PaginationItem page=PaginationPage::new(1).with_current(basic_current_page.get() == 1)>
+                        <PaginationItem page=PaginationPage::new(1).withcurrent(basic_current_page.get() == 1)>
                             "1"
                         </PaginationItem>
-                        <PaginationItem page=PaginationPage::new(2).with_current(basic_current_page.get() == 2)>
+                        <PaginationItem page=PaginationPage::new(2).withcurrent(basic_current_page.get() == 2)>
                             "2"
                         </PaginationItem>
-                        <PaginationItem page=PaginationPage::new(3).with_current(basic_current_page.get() == 3)>
+                        <PaginationItem page=PaginationPage::new(3).withcurrent(basic_current_page.get() == 3)>
                             "3"
                         </PaginationItem>
-                        <PaginationItem page=PaginationPage::new(4).with_current(basic_current_page.get() == 4)>
+                        <PaginationItem page=PaginationPage::new(4).withcurrent(basic_current_page.get() == 4)>
                             "4"
                         </PaginationItem>
-                        <PaginationItem page=PaginationPage::new(5).with_current(basic_current_page.get() == 5)>
+                        <PaginationItem page=PaginationPage::new(5).withcurrent(basic_current_page.get() == 5)>
                             "5"
                         </PaginationItem>
 
@@ -81,10 +81,10 @@ pub fn PaginationExamples() -> impl IntoView {
                             "…"
                         </PaginationEllipsis>
 
-                        <PaginationItem page=PaginationPage::new(9).with_current(basic_current_page.get() == 9)>
+                        <PaginationItem page=PaginationPage::new(9).withcurrent(basic_current_page.get() == 9)>
                             "9"
                         </PaginationItem>
-                        <PaginationItem page=PaginationPage::new(10).with_current(basic_current_page.get() == 10)>
+                        <PaginationItem page=PaginationPage::new(10).withcurrent(basic_current_page.get() == 10)>
                             "10"
                         </PaginationItem>
 
@@ -111,7 +111,7 @@ pub fn PaginationExamples() -> impl IntoView {
                     current_page=compact_current_page.get()
                     total_pages=15
                     variant=PaginationVariant::Compact
-                    show_first_last=false
+                    _show_first_last=false
                     on_page_change=handle_compact_page_change.clone()
                 >
                     <PaginationList>
@@ -119,7 +119,7 @@ pub fn PaginationExamples() -> impl IntoView {
                             "Previous"
                         </PaginationPrevious>
 
-                        <PaginationItem page=PaginationPage::new(compact_current_page.get()).with_current(true)>
+                        <PaginationItem page=PaginationPage::new(compact_current_page.get()).withcurrent(true)>
                             {format!("{} of {}", compact_current_page.get(), 15)}
                         </PaginationItem>
 
@@ -160,28 +160,28 @@ pub fn PaginationExamples() -> impl IntoView {
                                 "Previous"
                             </PaginationPrevious>
 
-                            <PaginationItem page=PaginationPage::new(1).with_current(detailed_current_page.get() == 1)>
+                            <PaginationItem page=PaginationPage::new(1).withcurrent(detailed_current_page.get() == 1)>
                                 "1"
                             </PaginationItem>
-                            <PaginationItem page=PaginationPage::new(2).with_current(detailed_current_page.get() == 2)>
+                            <PaginationItem page=PaginationPage::new(2).withcurrent(detailed_current_page.get() == 2)>
                                 "2"
                             </PaginationItem>
-                            <PaginationItem page=PaginationPage::new(3).with_current(detailed_current_page.get() == 3)>
+                            <PaginationItem page=PaginationPage::new(3).withcurrent(detailed_current_page.get() == 3)>
                                 "3"
                             </PaginationItem>
-                            <PaginationItem page=PaginationPage::new(4).with_current(detailed_current_page.get() == 4)>
+                            <PaginationItem page=PaginationPage::new(4).withcurrent(detailed_current_page.get() == 4)>
                                 "4"
                             </PaginationItem>
-                            <PaginationItem page=PaginationPage::new(5).with_current(detailed_current_page.get() == 5)>
+                            <PaginationItem page=PaginationPage::new(5).withcurrent(detailed_current_page.get() == 5)>
                                 "5"
                             </PaginationItem>
-                            <PaginationItem page=PaginationPage::new(6).with_current(detailed_current_page.get() == 6)>
+                            <PaginationItem page=PaginationPage::new(6).withcurrent(detailed_current_page.get() == 6)>
                                 "6"
                             </PaginationItem>
-                            <PaginationItem page=PaginationPage::new(7).with_current(detailed_current_page.get() == 7)>
+                            <PaginationItem page=PaginationPage::new(7).withcurrent(detailed_current_page.get() == 7)>
                                 "7"
                             </PaginationItem>
-                            <PaginationItem page=PaginationPage::new(8).with_current(detailed_current_page.get() == 8)>
+                            <PaginationItem page=PaginationPage::new(8).withcurrent(detailed_current_page.get() == 8)>
                                 "8"
                             </PaginationItem>
 
@@ -218,34 +218,34 @@ pub fn PaginationExamples() -> impl IntoView {
                             "Previous"
                         </PaginationPrevious>
 
-                        <PaginationItem page=PaginationPage::new(1).with_current(custom_current_page.get() == 1)>
+                        <PaginationItem page=PaginationPage::new(1).withcurrent(custom_current_page.get() == 1)>
                             "1"
                         </PaginationItem>
-                        <PaginationItem page=PaginationPage::new(2).with_current(custom_current_page.get() == 2)>
+                        <PaginationItem page=PaginationPage::new(2).withcurrent(custom_current_page.get() == 2)>
                             "2"
                         </PaginationItem>
-                        <PaginationItem page=PaginationPage::new(3).with_current(custom_current_page.get() == 3)>
+                        <PaginationItem page=PaginationPage::new(3).withcurrent(custom_current_page.get() == 3)>
                             "3"
                         </PaginationItem>
-                        <PaginationItem page=PaginationPage::new(4).with_current(custom_current_page.get() == 4)>
+                        <PaginationItem page=PaginationPage::new(4).withcurrent(custom_current_page.get() == 4)>
                             "4"
                         </PaginationItem>
-                        <PaginationItem page=PaginationPage::new(5).with_current(custom_current_page.get() == 5)>
+                        <PaginationItem page=PaginationPage::new(5).withcurrent(custom_current_page.get() == 5)>
                             "5"
                         </PaginationItem>
-                        <PaginationItem page=PaginationPage::new(6).with_current(custom_current_page.get() == 6)>
+                        <PaginationItem page=PaginationPage::new(6).withcurrent(custom_current_page.get() == 6)>
                             "6"
                         </PaginationItem>
-                        <PaginationItem page=PaginationPage::new(7).with_current(custom_current_page.get() == 7)>
+                        <PaginationItem page=PaginationPage::new(7).withcurrent(custom_current_page.get() == 7)>
                             "7"
                         </PaginationItem>
                         <PaginationEllipsis>
                             "…"
                         </PaginationEllipsis>
-                        <PaginationItem page=PaginationPage::new(19).with_current(custom_current_page.get() == 19)>
+                        <PaginationItem page=PaginationPage::new(19).withcurrent(custom_current_page.get() == 19)>
                             "19"
                         </PaginationItem>
-                        <PaginationItem page=PaginationPage::new(20).with_current(custom_current_page.get() == 20)>
+                        <PaginationItem page=PaginationPage::new(20).withcurrent(custom_current_page.get() == 20)>
                             "20"
                         </PaginationItem>
 
@@ -290,28 +290,28 @@ pub fn PaginationExamples() -> impl IntoView {
                                 "Previous"
                             </PaginationPrevious>
 
-                            <PaginationItem page=PaginationPage::new(1).with_current(large_dataset_current_page.get() == 1)>
+                            <PaginationItem page=PaginationPage::new(1).withcurrent(large_dataset_current_page.get() == 1)>
                                 "1"
                             </PaginationItem>
-                            <PaginationItem page=PaginationPage::new(2).with_current(large_dataset_current_page.get() == 2)>
+                            <PaginationItem page=PaginationPage::new(2).withcurrent(large_dataset_current_page.get() == 2)>
                                 "2"
                             </PaginationItem>
-                            <PaginationItem page=PaginationPage::new(3).with_current(large_dataset_current_page.get() == 3)>
+                            <PaginationItem page=PaginationPage::new(3).withcurrent(large_dataset_current_page.get() == 3)>
                                 "3"
                             </PaginationItem>
-                            <PaginationItem page=PaginationPage::new(4).with_current(large_dataset_current_page.get() == 4)>
+                            <PaginationItem page=PaginationPage::new(4).withcurrent(large_dataset_current_page.get() == 4)>
                                 "4"
                             </PaginationItem>
-                            <PaginationItem page=PaginationPage::new(5).with_current(large_dataset_current_page.get() == 5)>
+                            <PaginationItem page=PaginationPage::new(5).withcurrent(large_dataset_current_page.get() == 5)>
                                 "5"
                             </PaginationItem>
                             <PaginationEllipsis>
                                 "…"
                             </PaginationEllipsis>
-                            <PaginationItem page=PaginationPage::new(99).with_current(large_dataset_current_page.get() == 99)>
+                            <PaginationItem page=PaginationPage::new(99).withcurrent(large_dataset_current_page.get() == 99)>
                                 "99"
                             </PaginationItem>
-                            <PaginationItem page=PaginationPage::new(100).with_current(large_dataset_current_page.get() == 100)>
+                            <PaginationItem page=PaginationPage::new(100).withcurrent(large_dataset_current_page.get() == 100)>
                                 "100"
                             </PaginationItem>
 
@@ -349,7 +349,7 @@ pub fn PaginationExamples() -> impl IntoView {
                                 <PaginationPrevious icon="◀️".to_string()>
                                     "Prev"
                                 </PaginationPrevious>
-                                <PaginationItem page=PaginationPage::new(1).with_current(true)>
+                                <PaginationItem page=PaginationPage::new(1).withcurrent(true)>
                                     "1"
                                 </PaginationItem>
                                 <PaginationItem page=PaginationPage::new(2)>
@@ -376,7 +376,7 @@ pub fn PaginationExamples() -> impl IntoView {
                                 <PaginationPrevious icon="◀️".to_string()>
                                     "Previous"
                                 </PaginationPrevious>
-                                <PaginationItem page=PaginationPage::new(1).with_current(true)>
+                                <PaginationItem page=PaginationPage::new(1).withcurrent(true)>
                                     "1"
                                 </PaginationItem>
                                 <PaginationItem page=PaginationPage::new(2)>
@@ -403,7 +403,7 @@ pub fn PaginationExamples() -> impl IntoView {
                                 <PaginationPrevious icon="◀️".to_string()>
                                     "Previous"
                                 </PaginationPrevious>
-                                <PaginationItem page=PaginationPage::new(1).with_current(true)>
+                                <PaginationItem page=PaginationPage::new(1).withcurrent(true)>
                                     "1"
                                 </PaginationItem>
                                 <PaginationItem page=PaginationPage::new(2)>
@@ -445,7 +445,7 @@ pub fn PaginationExamples() -> impl IntoView {
                             "Go to previous page"
                         </PaginationPrevious>
 
-                        <PaginationItem page=PaginationPage::new(1).with_current(true)>
+                        <PaginationItem page=PaginationPage::new(1).withcurrent(true)>
                             "Page 1"
                         </PaginationItem>
                         <PaginationItem page=PaginationPage::new(2)>

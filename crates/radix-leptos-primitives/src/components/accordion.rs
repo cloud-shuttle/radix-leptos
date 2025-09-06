@@ -405,7 +405,7 @@ mod tests {
     fn test_accordion_multiple_state_changes() {
         run_test(|| {
             // Test accordion multiple state change logic
-            let mut open_sections = ["section1".to_string()];
+            let mut open_sections = vec!["section1".to_string()];
             let allow_multiple = true;
             let disabled = false;
 
@@ -416,11 +416,19 @@ mod tests {
 
             // Toggle section (multiple mode)
             let section_to_toggle = "section2".to_string();
-            if !allow_multiple {
+            if allow_multiple {
+                // In multiple mode, add/remove from the array
+                if open_sections.contains(&section_to_toggle) {
+                    open_sections.retain(|s| s != &section_to_toggle);
+                } else {
+                    open_sections.push(section_to_toggle.clone());
+                }
+            } else {
                 // In single mode, close all others and open this one
-                open_sections = [section_to_toggle.clone()];
+                open_sections = vec![section_to_toggle.clone()];
             }
 
+            // After adding section2, we should have 2 sections
             assert_eq!(open_sections.len(), 2);
             assert!(open_sections.contains(&"section1".to_string()));
             assert!(open_sections.contains(&"section2".to_string()));

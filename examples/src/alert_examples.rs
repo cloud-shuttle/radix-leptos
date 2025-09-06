@@ -93,17 +93,17 @@ pub fn AlertExamples() -> impl IntoView {
                 <p>"Alerts that can be dismissed by the user:"</p>
 
                 <div class="alert-grid">
-                    <Alert variant=AlertVariant::Default dismissible=true>
+                    <Alert variant=AlertVariant::Default _dismissible=true>
                         <AlertTitle>"Dismissible Alert"</AlertTitle>
                         <AlertDescription>"This alert can be dismissed by clicking the close button."</AlertDescription>
                     </Alert>
 
-                    <Alert variant=AlertVariant::Success dismissible=true>
+                    <Alert variant=AlertVariant::Success _dismissible=true>
                         <AlertTitle>"Success Alert"</AlertTitle>
                         <AlertDescription>"This success alert can also be dismissed."</AlertDescription>
                     </Alert>
 
-                    <Alert variant=AlertVariant::Warning dismissible=true>
+                    <Alert variant=AlertVariant::Warning _dismissible=true>
                         <AlertTitle>"Warning Alert"</AlertTitle>
                         <AlertDescription>"This warning alert can be dismissed as well."</AlertDescription>
                     </Alert>

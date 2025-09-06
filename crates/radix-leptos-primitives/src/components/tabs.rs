@@ -208,7 +208,7 @@ pub fn TabsTrigger(
             data-disabled=disabled
             role="tab"
             aria-selected="false"
-            aria-controls=("tab-content-".to_string() + &value.clone())
+            aria-controls="tab-content-".to_string() + &value.clone()
         >
         </button>
     }
