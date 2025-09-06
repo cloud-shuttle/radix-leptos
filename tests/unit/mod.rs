@@ -8,8 +8,10 @@
 pub mod test_components;
 pub mod test_theming;
 pub mod tdd_component_tests;
+pub mod property_based_tests;
 
 // Re-export test utilities
 pub use test_components::*;
 pub use test_theming::*;
 pub use tdd_component_tests::*;
+pub use property_based_tests::*;

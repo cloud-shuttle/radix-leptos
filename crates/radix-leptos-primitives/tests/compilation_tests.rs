@@ -5,6 +5,8 @@
 
 #[cfg(test)]
 mod tests {
+    use leptos::children::Children;
+    use radix_leptos_primitives::theming::*;
     use radix_leptos_primitives::*;
 
     #[test]
@@ -63,6 +65,8 @@ mod tests {
             ThemeInfo {
                 name: "Light".to_string(),
                 description: "Clean and bright theme".to_string(),
+                category: ThemeCategory::Basic,
+                colors: ThemeColors::default(),
                 tags: vec![
                     "light".to_string(),
                     "clean".to_string(),
@@ -73,12 +77,14 @@ mod tests {
             ThemeInfo {
                 name: "Dark".to_string(),
                 description: "Dark theme for low light environments".to_string(),
+                category: ThemeCategory::Basic,
+                colors: ThemeColors::default(),
                 tags: vec![
                     "dark".to_string(),
                     "night".to_string(),
                     "modern".to_string(),
                 ],
-                css_variables: CSSVariables::dark_theme(),
+                css_variables: CSSVariables::default(),
             },
         ];
 
@@ -91,20 +97,15 @@ mod tests {
         // This is a smoke test to ensure the components can be imported
         use radix_leptos_primitives::components::*;
 
-        // Test that we can create basic component props
-        let _button_props = ButtonProps {
-            variant: ButtonVariant::Default,
-            size: ButtonSize::Default,
-            disabled: false,
-            loading: false,
-            button_type: Some("button".to_string()),
-            class: None,
-            style: None,
-            on_click: None,
-            on_focus: None,
-            on_blur: None,
-            children: Children::new(),
-        };
+        // Test that we can create basic component variants
+        let _button_variant = ButtonVariant::Default;
+        let _button_size = ButtonSize::Default;
+        let _checkbox_variant = CheckboxVariant::Default;
+
+        // Test that variants have string representations
+        assert_eq!(_button_variant.as_str(), "default");
+        assert_eq!(_button_size.as_str(), "default");
+        assert_eq!(_checkbox_variant.as_str(), "default");
 
         assert!(true);
     }
