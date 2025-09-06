@@ -47,8 +47,8 @@ tarpaulin = "0.27"
 # Dev dependencies are defined in individual crates
 
 [profile.release]
-opt-level = 3
-lto = false
-codegen-units = 1
-panic = "abort"
-strip = true
+opt-level = "z"  # Optimize for size
+lto = true       # Link-time optimization
+codegen-units = 1  # Single codegen unit for better optimization
+panic = "abort"  # Smaller panic handling
+strip = true     # Remove debug symbols
