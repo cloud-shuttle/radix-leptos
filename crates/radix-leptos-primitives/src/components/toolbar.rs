@@ -1,3 +1,7 @@
+use crate::utils::merge_classes;
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Toolbar component for action toolbar functionality
 ///
@@ -13,9 +17,20 @@ pub fn Toolbar(
     let orientation = orientation.unwrap_or_default();
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "toolbar",
         &orientation.to_class(),
+        class.as_deref().unwrap_or(""),
+    ]);
+
+    view! {
+        <div
+            class=class
+            style=style
+            role="toolbar"
+            aria-orientation=orientation.to_aria()
+        >
+            {children.map(|c| c())}
         </div>
     }
 }
@@ -58,11 +73,21 @@ pub fn ToolbarToggleGroup(
         });
     }
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "toolbar-toggle-group",
         &variant.to_class(),
         &size.to_class(),
         &type_.to_class(),
+        class.as_deref().unwrap_or(""),
+    ]);
+
+    view! {
+        <div
+            class=class
+            style=style
+            role="group"
+        >
+            {children.map(|c| c())}
         </div>
     }
 }
@@ -80,14 +105,19 @@ pub fn ToolbarToggleItem(
     let disabled = disabled.unwrap_or(false);
     let value = value.unwrap_or_default();
 
-    let class = merge_classes([
-        "toolbar-toggle-item",
-        }
-    };
+    let class = merge_classes(vec!["toolbar-toggle-item"]);
 
     let handle_keydown = move |ev: web_sys::KeyboardEvent| {
         if !disabled && (ev.key() == "Enter" || ev.key() == " ") {
             ev.prevent_default();
+            if let Some(on_click) = on_click {
+                on_click.run(());
+            }
+        }
+    };
+
+    let handle_click = move |_| {
+        if !disabled {
             if let Some(on_click) = on_click {
                 on_click.run(());
             }
@@ -118,7 +148,7 @@ pub fn ToolbarSeparator(
 ) -> impl IntoView {
     let orientation = orientation.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "toolbar-separator",
         &orientation.to_class(),
         class.as_deref().unwrap_or(""),
@@ -149,16 +179,23 @@ pub fn ToolbarButton(
     let size = size.unwrap_or_default();
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "toolbar-button",
         &variant.to_class(),
         &size.to_class(),
-        }
-    };
+    ]);
 
     let handle_keydown = move |ev: web_sys::KeyboardEvent| {
         if !disabled && (ev.key() == "Enter" || ev.key() == " ") {
             ev.prevent_default();
+            if let Some(on_click) = on_click {
+                on_click.run(());
+            }
+        }
+    };
+
+    let handle_click = move |_| {
+        if !disabled {
             if let Some(on_click) = on_click {
                 on_click.run(());
             }
@@ -331,17 +368,13 @@ impl ToolbarButtonSize {
     }
 }
 
-/// Helper function to merge CSS classes
-fn merge_classes(classes: Vec<&str>) -> String {
-    classes
-        .into_iter()
-        .filter(|c| !c.is_empty())
-        .collect::<Vec<_>>()
-        .join(" ")
-}
-
 #[cfg(test)]
 mod tests {
+    use crate::utils::merge_classes;
+    use crate::{
+        ToolbarButtonSize, ToolbarButtonVariant, ToolbarOrientation, ToolbarSeparatorOrientation,
+        ToolbarToggleGroupSize, ToolbarToggleGroupType, ToolbarToggleGroupVariant,
+    };
     use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
@@ -670,19 +703,19 @@ mod tests {
 
     #[test]
     fn test_merge_classes_single() {
-        let result = merge_classes(["class1"]);
+        let result = merge_classes(vec!["class1"]);
         assert_eq!(result, "class1");
     }
 
     #[test]
     fn test_merge_classes_multiple() {
-        let result = merge_classes(["class1", "class2", "class3"]);
+        let result = merge_classes(vec!["class1", "class2", "class3"]);
         assert_eq!(result, "class1 class2 class3");
     }
 
     #[test]
     fn test_merge_classes_with_empty() {
-        let result = merge_classes(["class1", "", "class3"]);
+        let result = merge_classes(vec!["class1", "", "class3"]);
         assert_eq!(result, "class1 class3");
     }
 

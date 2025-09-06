@@ -1,3 +1,6 @@
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Checkbox component with proper accessibility and styling variants
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -56,13 +59,13 @@ fn merge_classes(existing: Option<&str>, additional: Option<&str>) -> Option<Str
 pub fn Checkbox(
     /// Whether the checkbox is checked
     #[prop(optional, default = false)]
-    _checked: bool,
+    checked: bool,
     /// Whether the checkbox is indeterminate
     #[prop(optional, default = false)]
-    _indeterminate: bool,
+    indeterminate: bool,
     /// Whether the checkbox is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Checkbox styling variant
     #[prop(optional, default = CheckboxVariant::Default)]
     variant: CheckboxVariant,
@@ -152,6 +155,7 @@ pub fn Checkbox(
 
 #[cfg(test)]
 mod tests {
+    use crate::{CheckboxSize, CheckboxVariant};
     use proptest::prelude::*;
 
     // 1. Basic Rendering Tests
@@ -369,9 +373,9 @@ mod tests {
             assert!(!variant.as_str().is_empty());
             assert!(!size.as_str().is_empty());
 
-            assert!(checked  || checked ! );
-            assert!(indeterminate  || indeterminate ! );
-            assert!(disabled  || disabled ! );
+            assert!(checked || !checked);
+            assert!(indeterminate || !indeterminate);
+            assert!(disabled || !disabled);
 
             if disabled {
                 // Disabled checkbox should not be interactive

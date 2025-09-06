@@ -1,3 +1,7 @@
+use crate::utils::merge_classes;
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Toast component - Enhanced notification system with positioning
 #[component]
@@ -21,14 +25,20 @@ pub fn Toast(
     let duration = duration.unwrap_or(5000);
     let dismissible = dismissible.unwrap_or(true);
 
-    let class = merge_classes([
-        "toast",
-        &variant.to_class(),
-        &position.to_class(),
-        if dismissible {
-            "dismissible"
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(
+        vec![
+            "toast",
+            &variant.to_class(),
+            &position.to_class(),
+            if dismissible {
+                "dismissible"
+            } else {
+                "non-dismissible"
+            },
+            class.as_deref().unwrap_or(""),
+        ]
+        .to_vec(),
+    );
 
     view! {
         <div
@@ -60,11 +70,14 @@ pub fn ToastProvider(
     let max_toasts = max_toasts.unwrap_or(5);
     let default_duration = default_duration.unwrap_or(5000);
 
-    let class = merge_classes([
-        "toast-provider",
-        &position.to_class(),
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(
+        vec![
+            "toast-provider",
+            &position.to_class(),
+            class.as_deref().unwrap_or(""),
+        ]
+        .to_vec(),
+    );
 
     view! {
         <div
@@ -91,7 +104,7 @@ pub fn ToastTitle(
 ) -> impl IntoView {
     let title = title.unwrap_or_default();
 
-    let class = merge_classes(["toast-title", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["toast-title", class.as_deref().unwrap_or("")].to_vec());
 
     view! {
         <div
@@ -115,7 +128,7 @@ pub fn ToastDescription(
 ) -> impl IntoView {
     let description = description.unwrap_or_default();
 
-    let class = merge_classes(["toast-description", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["toast-description", class.as_deref().unwrap_or("")].to_vec());
 
     view! {
         <div
@@ -139,7 +152,7 @@ pub fn ToastAction(
 ) -> impl IntoView {
     let label = label.unwrap_or_else(|| "Action".to_string());
 
-    let class = merge_classes(["toast-action", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["toast-action", class.as_deref().unwrap_or("")].to_vec());
 
     let handle_click = move |_| {
         if let Some(callback) = on_click {
@@ -168,7 +181,7 @@ pub fn ToastClose(
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] on_click: Option<Callback<()>>,
 ) -> impl IntoView {
-    let class = merge_classes(["toast-close", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["toast-close", class.as_deref().unwrap_or("")].to_vec());
 
     let handle_click = move |_| {
         if let Some(callback) = on_click {
@@ -268,11 +281,14 @@ pub fn ToastViewport(
 ) -> impl IntoView {
     let position = position.unwrap_or_default();
 
-    let class = merge_classes([
-        "toast-viewport",
-        &position.to_class(),
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(
+        vec![
+            "toast-viewport",
+            &position.to_class(),
+            class.as_deref().unwrap_or(""),
+        ]
+        .to_vec(),
+    );
 
     view! {
         <div
@@ -285,15 +301,6 @@ pub fn ToastViewport(
             {children.map(|c| c())}
         </div>
     }
-}
-
-/// Helper function to merge CSS classes
-fn merge_classes(classes: Vec<&str>) -> String {
-    classes
-        .into_iter()
-        .filter(|c| !c.is_empty())
-        .collect::<Vec<_>>()
-        .join(" ")
 }
 
 #[cfg(test)]

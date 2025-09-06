@@ -1,3 +1,7 @@
+use crate::utils::merge_classes;
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Popover component for floating content containers
 ///
@@ -30,12 +34,13 @@ pub fn Popover(
         });
     }
 
-    let class = merge_classes(["popover", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["popover", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
             class=class
             style=style
+        >
         </div>
     }
 }
@@ -51,8 +56,13 @@ pub fn PopoverTrigger(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes([
-        "popover-trigger",
+    let class = merge_classes(vec!["popover-trigger"]);
+
+    let handle_click = move |_| {
+        if !disabled {
+            if let Some(on_click) = on_click {
+                on_click.run(());
+            }
         }
     };
 
@@ -92,7 +102,7 @@ pub fn PopoverContent(
         return view! { <></> }.into_any();
     }
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "popover-content",
         &side.to_class(),
         &align.to_class(),
@@ -129,7 +139,7 @@ pub fn PopoverPortal(
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] container: Option<String>,
 ) -> impl IntoView {
-    let class = merge_classes(["popover-portal", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["popover-portal", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -153,7 +163,7 @@ pub fn PopoverArrow(
     let width = width.unwrap_or(11.0);
     let height = height.unwrap_or(5.0);
 
-    let class = merge_classes(["popover-arrow", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["popover-arrow", class.as_deref().unwrap_or("")]);
 
     let style = format!(
         "{}; --arrow-width: {}px; --arrow-height: {}px;",
@@ -179,7 +189,7 @@ pub fn PopoverClose(
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] on_click: Option<Callback<()>>,
 ) -> impl IntoView {
-    let class = merge_classes(["popover-close", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["popover-close", class.as_deref().unwrap_or("")]);
 
     let handle_click = move |_| {
         if let Some(on_click) = on_click {
@@ -196,6 +206,29 @@ pub fn PopoverClose(
         >
             {children.map(|c| c())}
         </button>
+    }
+}
+
+/// Popover Variant enum
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
+pub enum PopoverVariant {
+    #[default]
+    Default,
+    Destructive,
+    Success,
+    Warning,
+    Info,
+}
+
+impl PopoverVariant {
+    pub fn to_class(&self) -> &'static str {
+        match self {
+            PopoverVariant::Default => "variant-default",
+            PopoverVariant::Destructive => "variant-destructive",
+            PopoverVariant::Success => "variant-success",
+            PopoverVariant::Warning => "variant-warning",
+            PopoverVariant::Info => "variant-info",
+        }
     }
 }
 
@@ -256,17 +289,10 @@ impl PopoverAlign {
     }
 }
 
-/// Helper function to merge CSS classes
-fn merge_classes(classes: Vec<&str>) -> String {
-    classes
-        .into_iter()
-        .filter(|c| !c.is_empty())
-        .collect::<Vec<_>>()
-        .join(" ")
-}
-
 #[cfg(test)]
 mod tests {
+    use crate::utils::merge_classes;
+    use crate::{PopoverAlign, PopoverSide};
     use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
@@ -448,19 +474,19 @@ mod tests {
 
     #[test]
     fn test_merge_classes_single() {
-        let result = merge_classes(["class1"]);
+        let result = merge_classes(vec!["class1"]);
         assert_eq!(result, "class1");
     }
 
     #[test]
     fn test_merge_classes_multiple() {
-        let result = merge_classes(["class1", "class2", "class3"]);
+        let result = merge_classes(vec!["class1", "class2", "class3"]);
         assert_eq!(result, "class1 class2 class3");
     }
 
     #[test]
     fn test_merge_classes_with_empty() {
-        let result = merge_classes(["class1", "", "class3"]);
+        let result = merge_classes(vec!["class1", "", "class3"]);
         assert_eq!(result, "class1 class3");
     }
 

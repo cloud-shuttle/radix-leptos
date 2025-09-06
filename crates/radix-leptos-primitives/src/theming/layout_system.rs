@@ -1,4 +1,6 @@
 use crate::utils::merge_classes;
+use leptos::callback::Callback;
+use leptos::prelude::*;
 use serde::{Deserialize, Serialize};
 
 /// Layout system for consistent spacing and alignment
@@ -38,7 +40,8 @@ impl Default for SpacingSystem {
             scale: [
                 0.0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 6.0, 8.0, 10.0,
                 12.0, 16.0, 20.0, 24.0, 32.0, 40.0, 48.0, 56.0, 64.0,
-            ],
+            ]
+            .to_vec(),
             directions: [
                 SpacingDirection::All,
                 SpacingDirection::Horizontal,
@@ -47,7 +50,8 @@ impl Default for SpacingSystem {
                 SpacingDirection::Right,
                 SpacingDirection::Bottom,
                 SpacingDirection::Left,
-            ],
+            ]
+            .to_vec(),
         }
     }
 }
@@ -69,14 +73,16 @@ impl Default for BreakpointSystem {
                 Breakpoint::Large,
                 Breakpoint::ExtraLarge,
                 Breakpoint::ExtraExtraLarge,
-            ],
+            ]
+            .to_vec(),
             container_max_widths: [
                 ContainerMaxWidth::Small,
                 ContainerMaxWidth::Medium,
                 ContainerMaxWidth::Large,
                 ContainerMaxWidth::ExtraLarge,
                 ContainerMaxWidth::Fluid,
-            ],
+            ]
+            .to_vec(),
         }
     }
 }
@@ -94,8 +100,8 @@ impl Default for GridSystem {
     fn default() -> Self {
         Self {
             columns: 12,
-            gutters: [16.0, 24.0, 32.0, 48.0],
-            gaps: [8.0, 16.0, 24.0, 32.0, 48.0],
+            gutters: [16.0, 24.0, 32.0, 48.0].to_vec(),
+            gaps: [8.0, 16.0, 24.0, 32.0, 48.0].to_vec(),
             alignments: [
                 GridAlignment::Start,
                 GridAlignment::Center,
@@ -104,7 +110,8 @@ impl Default for GridSystem {
                 GridAlignment::SpaceBetween,
                 GridAlignment::SpaceAround,
                 GridAlignment::SpaceEvenly,
-            ],
+            ]
+            .to_vec(),
         }
     }
 }
@@ -128,8 +135,9 @@ impl Default for FlexboxSystem {
                 FlexDirection::RowReverse,
                 FlexDirection::Column,
                 FlexDirection::ColumnReverse,
-            ],
-            wraps: [FlexWrap::Nowrap, FlexWrap::Wrap, FlexWrap::WrapReverse],
+            ]
+            .to_vec(),
+            wraps: [FlexWrap::Nowrap, FlexWrap::Wrap, FlexWrap::WrapReverse].to_vec(),
             justifications: [
                 JustifyContent::Start,
                 JustifyContent::End,
@@ -137,16 +145,18 @@ impl Default for FlexboxSystem {
                 JustifyContent::SpaceBetween,
                 JustifyContent::SpaceAround,
                 JustifyContent::SpaceEvenly,
-            ],
+            ]
+            .to_vec(),
             alignments: [
                 AlignItems::Start,
                 AlignItems::End,
                 AlignItems::Center,
                 AlignItems::Baseline,
                 AlignItems::Stretch,
-            ],
-            grows: [0.0, 1.0, 2.0, 3.0],
-            shrinks: [0.0, 1.0, 2.0, 3.0],
+            ]
+            .to_vec(),
+            grows: [0.0, 1.0, 2.0, 3.0].to_vec(),
+            shrinks: [0.0, 1.0, 2.0, 3.0].to_vec(),
         }
     }
 }
@@ -169,10 +179,11 @@ impl Default for ContainerSystem {
                 ContainerMaxWidth::Large,
                 ContainerMaxWidth::ExtraLarge,
                 ContainerMaxWidth::Fluid,
-            ],
-            paddings: [16.0, 24.0, 32.0, 48.0],
-            margins: [0.0, 16.0, 24.0, 32.0, 48.0],
-            centers: [true, false],
+            ]
+            .to_vec(),
+            paddings: [16.0, 24.0, 32.0, 48.0].to_vec(),
+            margins: [0.0, 16.0, 24.0, 32.0, 48.0].to_vec(),
+            centers: [true, false].to_vec(),
         }
     }
 }
@@ -391,11 +402,14 @@ pub fn LayoutBuilder(
     let layout_type = layout_type.unwrap_or_else(|| "grid".to_string());
     let on_layout_change = on_layout_change.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes([
-        "layout-builder",
-        &layout_type,
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(
+        [
+            "layout-builder",
+            &layout_type,
+            class.as_deref().unwrap_or(""),
+        ]
+        .to_vec(),
+    );
 
     let (layout, set_layout) = signal(LayoutSystem::default());
 
@@ -459,11 +473,14 @@ pub fn SpacingLayoutSection(
     let on_change = on_change.unwrap_or_else(|| Callback::new(|_| {}));
     let layout_clone = layout.clone();
 
-    let class = merge_classes([
-        "layout-section",
-        &layout_type,
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(
+        [
+            "layout-section",
+            &layout_type,
+            class.as_deref().unwrap_or(""),
+        ]
+        .to_vec(),
+    );
 
     view! {
         <div
@@ -514,11 +531,14 @@ pub fn BreakpointLayoutSection(
     let on_change = on_change.unwrap_or_else(|| Callback::new(|_| {}));
     let layout_clone = layout.clone();
 
-    let class = merge_classes([
-        "layout-section",
-        &layout_type,
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(
+        [
+            "layout-section",
+            &layout_type,
+            class.as_deref().unwrap_or(""),
+        ]
+        .to_vec(),
+    );
 
     view! {
         <div
@@ -551,11 +571,11 @@ pub fn LayoutOptionGroup(
 ) -> impl IntoView {
     let title = title.unwrap_or_default();
     let value = value.unwrap_or(0.0);
-    let _values = values.unwrap_or_default();
+    let _values = values.clone().unwrap_or_default();
     let on_change = on_change.unwrap_or_else(|| Callback::new(|_| {}));
     let on_values_change = on_values_change.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes(["layout-option-group", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(["layout-option-group", class.as_deref().unwrap_or("")].to_vec());
 
     view! {
         <div
@@ -564,20 +584,24 @@ pub fn LayoutOptionGroup(
         >
             <h5 class="option-group-title">{title}</h5>
             <div class="option-list">
-                {if !values.is_empty() {
-                    view! {
-                        <div class="values-list">
-                            {values.into_iter().map(|val| {
-                                view! {
-                                    <div class="layout-value" data-value=val>
-                                        <span class="value-number">{val}</span>
-                                    </div>
-                                }
-                            }).collect::<Vec<_>>()}
-                        </div>
-                    }.into_any()
-                        </div>
-                    }.into_any()
+                {if let Some(values) = values {
+                    if !values.is_empty() {
+                        view! {
+                            <div class="values-list">
+                                {values.into_iter().map(|val| {
+                                    view! {
+                                        <div class="layout-value" data-value=val.to_string()>
+                                            <span class="value-number">{val}</span>
+                                        </div>
+                                    }
+                                }).collect::<Vec<_>>()}
+                            </div>
+                        }.into_any()
+                    } else {
+                        view! { <div></div> }.into_any()
+                    }
+                } else {
+                    view! { <div></div> }.into_any()
                 }}
             </div>
         </div>
@@ -600,11 +624,14 @@ pub fn GridLayoutSection(
     let grid_clone2 = grid.clone();
     let grid_clone3 = grid.clone();
 
-    let class = merge_classes([
-        "layout-section",
-        "grid-section",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(
+        [
+            "layout-section",
+            "grid-section",
+            class.as_deref().unwrap_or(""),
+        ]
+        .to_vec(),
+    );
 
     view! {
         <div
@@ -617,7 +644,7 @@ pub fn GridLayoutSection(
             <div class="layout-options">
                 <LayoutOptionGroup
                     title="Columns".to_string()
-                    values=[grid.columns as f64]
+                    values=[grid.columns as f64].to_vec()
                     on_values_change=Callback::new(move |columns: Vec<f64>| {
                         let mut new_grid = grid_clone1.clone();
                         new_grid.columns = columns[0] as u32;
@@ -666,11 +693,14 @@ pub fn FlexboxLayoutSection(
     let flexbox_clone3 = flexbox.clone();
     let flexbox_clone4 = flexbox.clone();
 
-    let class = merge_classes([
-        "layout-section",
-        "flexbox-section",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(
+        [
+            "layout-section",
+            "flexbox-section",
+            class.as_deref().unwrap_or(""),
+        ]
+        .to_vec(),
+    );
 
     view! {
         <div
@@ -735,11 +765,14 @@ pub fn ContainerLayoutSection(
     let container_clone3 = container.clone();
     let container_clone4 = container.clone();
 
-    let class = merge_classes([
-        "layout-section",
-        "container-section",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(
+        [
+            "layout-section",
+            "container-section",
+            class.as_deref().unwrap_or(""),
+        ]
+        .to_vec(),
+    );
 
     view! {
         <div
@@ -784,6 +817,12 @@ pub fn ContainerLayoutSection(
 
 #[cfg(test)]
 mod layout_system_tests {
+    use crate::theming::{
+        AlignItems, Breakpoint, BreakpointSystem, ContainerMaxWidth, ContainerSystem,
+        FlexDirection, FlexWrap, FlexboxSystem, GridAlignment, GridSystem, JustifyContent,
+        LayoutSystem, SpacingDirection, SpacingSystem,
+    };
+    use leptos::callback::Callback;
     use proptest::prelude::*;
 
     #[test]

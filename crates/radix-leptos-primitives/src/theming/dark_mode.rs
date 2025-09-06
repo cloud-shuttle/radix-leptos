@@ -1,4 +1,8 @@
 use super::css_variables::CSSVariables;
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::context::{provide_context, use_context};
+use leptos::prelude::*;
 
 /// Dark mode toggle component
 #[component]
@@ -37,9 +41,12 @@ pub fn DarkModeToggle(
     };
 
     // Apply dark mode styles
-    let applydark_mode_styles = move |_dark: bool| {
+    let applydark_mode_styles = move |dark: bool| {
         let theme = if dark {
             CSSVariables::dark_theme()
+        } else {
+            CSSVariables::light_theme()
+        };
 
         let css_vars = theme.to_css_string();
         // In a real implementation, this would apply the CSS to the document
@@ -47,7 +54,7 @@ pub fn DarkModeToggle(
     };
 
     // Toggle dark mode
-    let toggledark_mode = move |_| {
+    let toggledark_mode = move |_: ()| {
         let newdark = !isdark.get();
         set_isdark.set(newdark);
 
@@ -66,8 +73,9 @@ pub fn DarkModeToggle(
 
     let class = format!(
         "dark-mode-toggle {} {}",
-            }}
-            <span class="sr-only">
+        class.as_deref().unwrap_or(""),
+        style.as_deref().unwrap_or("")
+    );
 }
 
 /// Dark mode provider component
@@ -128,9 +136,12 @@ pub fn DarkModeProvider(
     };
 
     // Apply dark mode
-    let applydark_mode_styles = move |_dark: bool| {
+    let applydark_mode_styles = move |dark: bool| {
         let theme = if dark {
             CSSVariables::dark_theme()
+        } else {
+            CSSVariables::light_theme()
+        };
 
         let css_vars = theme.to_css_string();
         // In a real implementation, this would apply the CSS to the document
@@ -140,14 +151,14 @@ pub fn DarkModeProvider(
     };
 
     // Toggle dark mode
-    let toggledark_mode = move |_| {
+    let toggledark_mode = move |_: ()| {
         let newdark = !isdark.get();
         set_isdark.set(newdark);
         applydark_mode_styles(newdark);
     };
 
     // Set dark mode
-    let setdark_mode = move |_dark: bool| {
+    let setdark_mode = move |dark: bool| {
         set_isdark.set(dark);
         applydark_mode_styles(dark);
     };
@@ -166,10 +177,7 @@ pub fn DarkModeProvider(
         setdark_mode: Callback::new(move |dark| setdark_mode(dark)),
     });
 
-    let class = format!(
-        "dark-mode-provider {}",
-        </div>
-    }
+    let class = "dark-mode-provider".to_string();
 }
 
 /// Dark mode context
@@ -236,10 +244,7 @@ pub fn DarkModeSwitch(
         }
     };
 
-    let class = format!(
-        "dark-mode-switch {} {} {}",
-        class.unwrap_or_default()
-    );
+    let class = format!("dark-mode-switch {}", class.unwrap_or_default());
 
     view! {
         <label class=class style=style>
@@ -254,6 +259,14 @@ pub fn DarkModeSwitch(
                 <span class="switch-thumb"></span>
             </span>
             <span class="switch-label">
+                {if isdark.get() {
+                    "Dark"
+                } else {
+                    "Light"
+                }}
+            </span>
+        </label>
+    }
 }
 
 /// Dark mode indicator component
@@ -289,20 +302,28 @@ pub fn DarkModeIndicator(
 
     view! {
         <div class=class style=style>
-            {if show_mode {
-                view! {
-                    <div class="current-mode">
-                        <span class="mode-icon">
-                        </span>
-                    </div>
-                }.into_any()
-            }}
+                {if show_mode {
+                    view! {
+                        <div class="current-mode">
+                            <span class="mode-icon">
+                            </span>
+                        </div>
+                    }.into_any()
+                } else {
+                    view! { <div></div> }.into_any()
+                }}
 
             {if show_system {
                 view! {
                     <div class="system-preference">
                         <span class="system-icon">"🖥️"</span>
                         <span class="system-text">
+                            "System"
+                        </span>
+                    </div>
+                }.into_any()
+            } else {
+                view! { <div></div> }.into_any()
             }}
         </div>
     }
@@ -320,7 +341,7 @@ mod tests {
         // Test dark mode state logic
         assert!(isdark != is_light);
         assert!(isdark);
-        assert!(is_light ! );
+        assert!(!is_light);
     }
 
     #[test]
@@ -334,8 +355,8 @@ mod tests {
         // Test toggle state logic
         assert!(enabled != disabled);
         assert!(enabled);
-        assert!(disabled ! );
-        assert!(use_system ! );
+        assert!(!disabled);
+        assert!(!use_system);
         assert!(!custom_class.is_empty());
     }
 
@@ -360,7 +381,7 @@ mod tests {
 
         // Test provider state logic
         assert!(defaultdark);
-        assert!(use_system ! );
+        assert!(!use_system);
         assert!(persist);
         assert!(storage_key == "custom-dark-mode");
     }

@@ -1,3 +1,6 @@
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 use wasm_bindgen::JsCast;
 
 /// Dialog component with proper accessibility and styling variants
@@ -54,6 +57,9 @@ use wasm_bindgen::JsCast;
 pub enum DialogVariant {
     Default,
     Destructive,
+    Success,
+    Warning,
+    Info,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -69,6 +75,9 @@ impl DialogVariant {
         match self {
             DialogVariant::Default => "default",
             DialogVariant::Destructive => "destructive",
+            DialogVariant::Success => "success",
+            DialogVariant::Warning => "warning",
+            DialogVariant::Info => "info",
         }
     }
 }
@@ -162,7 +171,14 @@ pub fn Dialog(
 
     view! {
         <div
-            </div>
+            class=combined_class
+            style=style
+            data-variant=data_variant
+            data-size=data_size
+            on:keydown=handle_keydown
+            on:click=handle_backdrop_click
+        >
+            {children()}
         </div>
     }
 }
@@ -284,6 +300,7 @@ pub fn DialogFooter(
 
 #[cfg(test)]
 mod tests {
+    use crate::{DialogSize, DialogVariant};
     use proptest::prelude::*;
 
     // 1. Basic Rendering Tests
@@ -475,7 +492,7 @@ mod tests {
             assert!(!size.as_str().is_empty());
 
             // Property: Open state should be boolean
-            assert!(open  || open ! );
+            assert!(open || !open);
 
             // Property: Dialog should handle all size combinations
             match size {

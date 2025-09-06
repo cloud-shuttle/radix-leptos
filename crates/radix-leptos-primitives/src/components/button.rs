@@ -1,3 +1,6 @@
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Button component with proper accessibility and styling variants
 ///
@@ -102,10 +105,10 @@ pub fn Button(
     size: ButtonSize,
     /// Whether the button is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Whether the button is in a loading state
     #[prop(optional, default = false)]
-    _loading: bool,
+    loading: bool,
     /// Button type attribute (button, submit, reset)
     #[prop(optional, into)]
     button_type: Option<String>,
@@ -181,13 +184,13 @@ pub fn Button(
                     "⟳"
                 </span>
             </Show>
-            </span>
         </button>
     }
 }
 
 #[cfg(test)]
 mod tests {
+    use crate::{ButtonSize, ButtonVariant};
     use proptest::prelude::*;
     use wasm_bindgen_test::*;
 

@@ -1,3 +1,6 @@
+use leptos::children::Children;
+use leptos::context::use_context;
+use leptos::prelude::*;
 
 /// List item information
 #[derive(Clone, Debug, PartialEq)]
@@ -14,24 +17,24 @@ impl<T: Send + Sync + 'static> ListItem<T> {
         Self {
             id,
             data,
-            disabled: false,
-            selected: false,
-            focused: false,
+            _disabled: false,
+            _selected: false,
+            _focused: false,
         }
     }
 
-    pub fn withdisabled(mut self, _disabled: bool) -> Self {
-        self.disabled = disabled;
+    pub fn withdisabled(mut self, disabled: bool) -> Self {
+        self._disabled = disabled;
         self
     }
 
-    pub fn withselected(mut self, _selected: bool) -> Self {
-        self.selected = selected;
+    pub fn withselected(mut self, selected: bool) -> Self {
+        self._selected = selected;
         self
     }
 
-    pub fn withfocused(mut self, _focused: bool) -> Self {
-        self.focused = focused;
+    pub fn withfocused(mut self, focused: bool) -> Self {
+        self._focused = focused;
         self
     }
 }
@@ -126,7 +129,7 @@ pub fn List<T: Clone + Send + Sync + 'static>(
     variant: ListVariant,
     /// Whether to allow multiple selection
     #[prop(optional, default = false)]
-    _multi_select: bool,
+    multi_select: bool,
     /// Selection change event handler
     #[prop(optional)]
     on_selection_change: Option<Callback<Vec<String>>>,
@@ -157,7 +160,7 @@ pub fn List<T: Clone + Send + Sync + 'static>(
         focused_item: focused_item_signal.into(),
         size: size.clone(),
         variant: variant.clone(),
-        multi_select,
+        _multi_select: multi_select,
         list_id: list_id.clone(),
         on_selection_change,
         on_item_click,
@@ -219,14 +222,20 @@ pub fn ListItem<T: Clone + Send + Sync + 'static>(
         event.prevent_default();
 
         if let Some(item) = item_clone.clone() {
-            if !item.disabled {
+            if !item._disabled {
                 // Handle selection
                 let mut currentselected = context.selected_items.get();
                 let item_id = item.id.clone();
 
-                if context.multi_select {
+                if context._multi_select {
                     if currentselected.contains(&item_id) {
                         currentselected.retain(|id| id != &item_id);
+                    } else {
+                        currentselected.push(item_id);
+                    }
+                } else {
+                    currentselected = vec![item_id];
+                }
 
                 // Call the selection change handler
                 if let Some(callback) = context.on_selection_change.clone() {
@@ -259,7 +268,10 @@ pub fn ListItem<T: Clone + Send + Sync + 'static>(
         if let Some(focused) = focused {
             focused
         } else if let Some(item) = item_forcurrent.as_ref() {
-            item.focused
+            item._focused
+        } else {
+            false
+        }
     });
 
     // Determine if this item is disabled
@@ -267,7 +279,10 @@ pub fn ListItem<T: Clone + Send + Sync + 'static>(
         if let Some(disabled) = disabled {
             disabled
         } else if let Some(item) = item_fordisabled.as_ref() {
-            item.disabled
+            item._disabled
+        } else {
+            false
+        }
     });
 
     // Determine if this item is selected
@@ -275,7 +290,10 @@ pub fn ListItem<T: Clone + Send + Sync + 'static>(
         if let Some(selected) = selected {
             selected
         } else if let Some(item) = item_forselected.as_ref() {
-            item.selected
+            item._selected
+        } else {
+            false
+        }
     });
 
     // Build base classes
@@ -396,7 +414,8 @@ pub fn ListEmpty(
                 view! {
                     <span class="radix-list-empty-message">{msg}</span>
                 }
-                }
+            } else {
+                view! { <span class="radix-list-empty-message">{String::new()}</span> }
             }}
             {children()}
         </div>
@@ -438,7 +457,8 @@ pub fn ListLoading(
                 view! {
                     <span class="radix-list-loading-message">{msg}</span>
                 }
-                }
+            } else {
+                view! { <span class="radix-list-empty-message">{String::new()}</span> }
             }}
             {children()}
         </div>

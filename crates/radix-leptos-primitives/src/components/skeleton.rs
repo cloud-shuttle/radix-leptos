@@ -1,3 +1,6 @@
+use crate::utils::merge_classes;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Skeleton component - Loading placeholder component for better UX
 ///
@@ -87,11 +90,9 @@ pub fn Skeleton(
     let lines = lines.unwrap_or(1);
     let animated = animated.unwrap_or(true);
 
-    let class = merge_classes([
-        "skeleton",
-        variant.as_str(),
-        size.as_str(),
-    }
+    let class = merge_classes(vec!["skeleton", variant.as_str(), size.as_str()].to_vec());
+
+    let mut style_attr = String::new();
     if let Some(h) = height {
         style_attr = format!("{}height: {};", style_attr, h);
     }
@@ -103,10 +104,15 @@ pub fn Skeleton(
                     (0..lines).map(|i| {
                         let line_class = if i == lines - 1 {
                             "skeleton-line skeleton-line-last"
+                        } else {
+                            "skeleton-line"
+                        };
                         view! {
                             <div class=line_class></div>
                         }
                     }).collect::<Vec<_>>()
+                } else {
+                    Vec::new()
                 }}
             </div>
         }
@@ -142,7 +148,7 @@ pub fn SkeletonGroup(
 ) -> impl IntoView {
     let spacing = spacing.unwrap_or_else(|| "1rem".to_string());
 
-    let class = merge_classes(["skeleton-group", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["skeleton-group", class.as_deref().unwrap_or("")].to_vec());
 
     let style_attr = format!("{}gap: {};", style.unwrap_or_default(), spacing);
 
@@ -223,13 +229,6 @@ pub fn SkeletonButton(
 }
 
 // Helper function to merge CSS classes
-fn merge_classes(classes: Vec<&str>) -> String {
-    classes
-        .into_iter()
-        .filter(|c| !c.is_empty())
-        .collect::<Vec<_>>()
-        .join(" ")
-}
 
 #[cfg(test)]
 mod tests {

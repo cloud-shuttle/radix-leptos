@@ -1,3 +1,6 @@
+use leptos::children::Children;
+use leptos::context::use_context;
+use leptos::prelude::*;
 
 /// Pagination page information
 #[derive(Clone, Debug, PartialEq)]
@@ -13,8 +16,8 @@ impl PaginationPage {
         Self {
             number,
             label: None,
-            disabled: false,
-            current: false,
+            _disabled: false,
+            _current: false,
         }
     }
 
@@ -23,13 +26,13 @@ impl PaginationPage {
         self
     }
 
-    pub fn withdisabled(mut self, _disabled: bool) -> Self {
-        self.disabled = disabled;
+    pub fn withdisabled(mut self, disabled: bool) -> Self {
+        self._disabled = disabled;
         self
     }
 
-    pub fn withcurrent(mut self, _current: bool) -> Self {
-        self.current = current;
+    pub fn withcurrent(mut self, current: bool) -> Self {
+        self._current = current;
         self
     }
 }
@@ -178,9 +181,9 @@ pub fn Pagination(
         total_items: total_items_calculated,
         size: size.clone(),
         variant: variant.clone(),
-        show_first_last,
-        show_prev_next,
-        show_page_numbers,
+        _show_first_last,
+        _show_prev_next,
+        _show_page_numbers,
         pagination_id: pagination_id.clone(),
         on_page_change,
     };
@@ -203,9 +206,9 @@ pub fn Pagination(
             data-total-items=total_items_calculated
             data-size=size.as_str()
             data-variant=variant.as_str()
-            data-show-first-last=show_first_last
-            data-show-prev-next=show_prev_next
-            data-show-page-numbers=show_page_numbers
+            data-show-first-last=_show_first_last
+            data-show-prev-next=_show_prev_next
+            data-show-page-numbers=_show_page_numbers
             role="navigation"
             aria-label="Pagination"
         >
@@ -277,7 +280,7 @@ pub fn PaginationItem(
         event.prevent_default();
 
         if let Some(page) = page_clone.clone() {
-            if !page.disabled {
+            if !page._disabled {
                 // Call the page change handler
                 if let Some(callback) = context.on_page_change.clone() {
                     callback.run(page.number);
@@ -294,7 +297,10 @@ pub fn PaginationItem(
         if let Some(current) = current {
             current
         } else if let Some(page) = page_forcurrent.as_ref() {
-            page.current
+            page._current
+        } else {
+            false
+        }
     });
 
     // Determine if this item is disabled
@@ -302,7 +308,10 @@ pub fn PaginationItem(
         if let Some(disabled) = disabled {
             disabled
         } else if let Some(page) = page_fordisabled.as_ref() {
-            page.disabled
+            page._disabled
+        } else {
+            false
+        }
     });
 
     // Build base classes
@@ -386,6 +395,10 @@ pub fn PaginationFirst(
                 data-disabled=isdisabled.get()
                 type="button"
                 role="button"
+                on:click=handle_click
+            >
+                {icon.map(|icon_text| view! {
+                    <span class="radix-pagination-icon">{icon_text}</span>
                 })}
                 {text.map(|button_text| view! {
                     <span class="radix-pagination-text">{button_text}</span>
@@ -450,6 +463,10 @@ pub fn PaginationPrevious(
                 data-disabled=isdisabled.get()
                 type="button"
                 role="button"
+                on:click=handle_click
+            >
+                {icon.map(|icon_text| view! {
+                    <span class="radix-pagination-icon">{icon_text}</span>
                 })}
                 {text.map(|button_text| view! {
                     <span class="radix-pagination-text">{button_text}</span>
@@ -514,6 +531,10 @@ pub fn PaginationNext(
                 data-disabled=isdisabled.get()
                 type="button"
                 role="button"
+                on:click=handle_click
+            >
+                {icon.map(|icon_text| view! {
+                    <span class="radix-pagination-icon">{icon_text}</span>
                 })}
                 {text.map(|button_text| view! {
                     <span class="radix-pagination-text">{button_text}</span>
@@ -577,6 +598,10 @@ pub fn PaginationLast(
                 data-disabled=isdisabled.get()
                 type="button"
                 role="button"
+                on:click=handle_click
+            >
+                {icon.map(|icon_text| view! {
+                    <span class="radix-pagination-icon">{icon_text}</span>
                 })}
                 {text.map(|button_text| view! {
                     <span class="radix-pagination-text">{button_text}</span>
@@ -690,8 +715,8 @@ pub fn PaginationInfo(
                 view! {
                     <span class="radix-pagination-info-text">{info_text}</span>
                 }
-                    </span>
-                }
+            } else {
+                view! { <span class="radix-pagination-info-text">{String::new()}</span> }
             }}
             {children()}
         </div>
@@ -808,6 +833,8 @@ pub fn getvisible_page_numbers(
 
 #[cfg(test)]
 mod tests {
+    use crate::{Pagination, PaginationProps, PaginationSize, PaginationVariant};
+    use leptos::callback::Callback;
     use proptest::prelude::*;
     use wasm_bindgen_test::*;
 
@@ -871,9 +898,9 @@ mod tests {
     proptest! {
         #[test]
         fn test_pagination_properties(
-            _current_page in 1..100usize,
-            __total_pages in 1..100usize,
-            __page_size in 1..50usize
+            current_page in 1..100usize,
+            total_pages in 1..100usize,
+            page_size in 1..50usize
         ) {
             // Property: current_page should never exceed total_pages
             prop_assume!(current_page <= total_pages);

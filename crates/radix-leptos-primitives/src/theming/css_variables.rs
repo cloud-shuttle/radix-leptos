@@ -382,6 +382,33 @@ impl Default for AnimationVariables {
 }
 
 impl CSSVariables {
+    /// Create a light theme variant
+    pub fn light_theme() -> Self {
+        Self {
+            primary: PrimaryColors::default(),
+            secondary: SecondaryColors::default(),
+            neutral: NeutralColors {
+                neutral_50: "#fafafa".to_string(),
+                neutral_100: "#f5f5f5".to_string(),
+                neutral_200: "#e5e5e5".to_string(),
+                neutral_300: "#d4d4d4".to_string(),
+                neutral_400: "#a3a3a3".to_string(),
+                neutral_500: "#737373".to_string(),
+                neutral_600: "#525252".to_string(),
+                neutral_700: "#404040".to_string(),
+                neutral_800: "#262626".to_string(),
+                neutral_900: "#171717".to_string(),
+                neutral_950: "#0a0a0a".to_string(),
+            },
+            semantic: SemanticColors::default(),
+            typography: TypographyVariables::default(),
+            spacing: SpacingVariables::default(),
+            border: BorderVariables::default(),
+            shadow: ShadowVariables::default(),
+            animation: AnimationVariables::default(),
+        }
+    }
+
     /// Create a dark theme variant
     pub fn dark_theme() -> Self {
         Self {
@@ -709,6 +736,8 @@ impl CSSVariables {
 
 #[cfg(test)]
 mod tests {
+    use crate::theming::CSSVariables;
+    use leptos::serde_json;
 
     #[test]
     fn test_css_variables_default() {

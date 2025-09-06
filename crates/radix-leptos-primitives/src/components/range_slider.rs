@@ -30,7 +30,7 @@ pub fn RangeSlider(
     let size = size.unwrap_or(SliderSize::Default);
     let variant = variant.unwrap_or(SliderVariant::Default);
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "range-slider",
     };
 
@@ -124,7 +124,7 @@ pub fn RangeSliderTrack(
     let size = size.unwrap_or(SliderSize::Default);
     let variant = variant.unwrap_or(SliderVariant::Default);
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "range-slider-track",
                 fill_start,
                 fill_start,
@@ -188,7 +188,7 @@ pub fn RangeSliderThumb(
     let variant = variant.unwrap_or(SliderVariant::Default);
     let thumb_type = thumb_type.unwrap_or(ThumbType::Min);
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "range-slider-thumb",
                 position,
                 style.unwrap_or_default()
@@ -329,7 +329,7 @@ pub fn RangeSliderLabel(
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] for_id: Option<String>,
 ) -> impl IntoView {
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "range-slider-label",
         class.as_deref().unwrap_or(""),
     ]);
@@ -360,7 +360,7 @@ pub fn RangeSliderValueDisplay(
     let format = format.unwrap_or(ValueFormat::Number);
     let show_both = show_both.unwrap_or(true);
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "range-slider-value-display",
         class.as_deref().unwrap_or(""),
     ]);
@@ -420,7 +420,7 @@ pub fn RangeSliderMarks(
     let min = min.unwrap_or(0.0);
     let _max = max.unwrap_or(100.0);
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "range-slider-marks",
         orientation.as_str(),
         class.as_deref().unwrap_or(""),

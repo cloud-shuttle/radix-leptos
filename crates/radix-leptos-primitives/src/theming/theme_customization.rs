@@ -1,5 +1,7 @@
 use crate::theming::CSSVariables;
-use super::css_variables::CSSVariables;
+use leptos::callback::Callback;
+use leptos::prelude::*;
+use leptos::serde_json;
 
 /// Theme customization component
 #[component]
@@ -69,6 +71,8 @@ pub fn ThemeCustomizer(
                             on_change=handle_theme_change
                         />
                     }.into_any()
+                } else {
+                    view! { <div></div> }.into_any()
                 }}
 
                 {if show_typography {
@@ -78,6 +82,8 @@ pub fn ThemeCustomizer(
                             on_change=handle_theme_change
                         />
                     }.into_any()
+                } else {
+                    view! { <div></div> }.into_any()
                 }}
 
                 {if show_spacing {
@@ -87,6 +93,8 @@ pub fn ThemeCustomizer(
                             on_change=handle_theme_change
                         />
                     }.into_any()
+                } else {
+                    view! { <div></div> }.into_any()
                 }}
 
                 {if show_border_radius {
@@ -96,6 +104,8 @@ pub fn ThemeCustomizer(
                             on_change=handle_theme_change
                         />
                     }.into_any()
+                } else {
+                    view! { <div></div> }.into_any()
                 }}
 
                 {if show_shadows {
@@ -105,6 +115,8 @@ pub fn ThemeCustomizer(
                             on_change=handle_theme_change
                         />
                     }.into_any()
+                } else {
+                    view! { <div></div> }.into_any()
                 }}
 
                 {if show_animations {
@@ -114,6 +126,8 @@ pub fn ThemeCustomizer(
                             on_change=handle_theme_change
                         />
                     }.into_any()
+                } else {
+                    view! { <div></div> }.into_any()
                 }}
             </div>
 
@@ -733,6 +747,8 @@ pub fn ThemePreview(
 
 #[cfg(test)]
 mod tests {
+    use crate::theming::CSSVariables;
+    use leptos::callback::Callback;
 
     #[test]
     fn test_theme_customizer_creation() {

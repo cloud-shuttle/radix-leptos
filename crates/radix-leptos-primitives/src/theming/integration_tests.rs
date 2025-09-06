@@ -126,6 +126,9 @@ mod integration_tests {
 
         let new_theme = if isdark {
             CSSVariables::dark_theme()
+        } else {
+            CSSVariables::light_theme()
+        };
 
         assert_eq!(new_theme, light_theme);
 

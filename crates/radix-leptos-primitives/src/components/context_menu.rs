@@ -1,3 +1,7 @@
+use crate::utils::merge_classes;
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Context Menu component - Right-click context menus with keyboard navigation
 #[component]
@@ -14,7 +18,7 @@ pub fn ContextMenu(
     let isopen = create_rw_signal(false);
     let selected_index = create_rw_signal(0);
 
-    let class = merge_classes(["context-menu", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["context-menu", class.as_deref().unwrap_or("")]);
 
     let handle_right_click = move |event: web_sys::MouseEvent| {
         event.prevent_default();
@@ -45,6 +49,9 @@ pub fn ContextMenu(
                 event.prevent_default();
                 let new_index = if selected_index.get() == 0 {
                     items.len() - 1
+                } else {
+                    selected_index.get() - 1
+                };
                 selected_index.set(new_index);
             }
             "Enter" | " " => {
@@ -91,7 +98,7 @@ impl Default for ContextMenuItem {
             id: "item".to_string(),
             label: "Item".to_string(),
             icon: None,
-            disabled: false,
+            _disabled: false,
             separator: false,
             submenu: None,
         }
@@ -109,25 +116,28 @@ pub fn ContextMenuItem(
     #[prop(optional)] on_click: Option<Callback<ContextMenuItem>>,
 ) -> impl IntoView {
     let item = item.unwrap_or_default();
+    let item_for_callback = item.clone();
     let selected = selected.unwrap_or(false);
 
-    let class = merge_classes([
-        "context-menu-item",
-        }
-    };
+    let class = merge_classes(vec!["context-menu-item"]);
 
     view! {
         <div
             class=class
             style=style
             role="menuitem"
-            aria-disabled=item.disabled
-            on:click=handle_click
+            aria-disabled=item._disabled
+            on:click=move |_| {
+                if let Some(callback) = on_click {
+                    callback.run(item_for_callback.clone());
+                }
+            }
             tabindex="0"
         >
             {if item.separator {
                 view! { <hr /> }.into_any()
-                    }}
+            } else {
+                view! {
                     <span class="label">{item.label}</span>
                     {children.map(|c| c())}
                 }.into_any()
@@ -146,19 +156,7 @@ pub fn ContextMenuTrigger(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes([
-        "context-menu-trigger",
-        </div>
-    }
-}
-
-/// Helper function to merge CSS classes
-fn merge_classes(classes: Vec<&str>) -> String {
-    classes
-        .into_iter()
-        .filter(|c| !c.is_empty())
-        .collect::<Vec<_>>()
-        .join(" ")
+    let class = merge_classes(vec!["context-menu-trigger"]);
 }
 
 #[cfg(test)]

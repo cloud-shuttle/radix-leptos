@@ -1,3 +1,5 @@
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Tabs component with proper accessibility and styling variants
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -59,7 +61,7 @@ pub fn Tabs(
     value: Option<String>,
     /// Whether tabs are disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Tabs styling variant
     #[prop(optional, default = TabsVariant::Default)]
     variant: TabsVariant,
@@ -165,7 +167,7 @@ pub fn TabsTrigger(
     value: String,
     /// Whether the tab is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -206,7 +208,8 @@ pub fn TabsTrigger(
             data-disabled=disabled
             role="tab"
             aria-selected="false"
-            aria-controls=format!("tab-content-{}", value.clone())
+            aria-controls=("tab-content-".to_string() + &value.clone())
+        >
         </button>
     }
 }
@@ -247,6 +250,7 @@ pub fn TabsContent(
 
 #[cfg(test)]
 mod tests {
+    use crate::{TabsSize, TabsVariant};
     use proptest::prelude::*;
 
     // 1. Basic Rendering Tests
@@ -482,6 +486,7 @@ mod tests {
             // Disabled tabs should not respond to interactions
             if trigger_clicked && !disabled {
                 assert!(false); // Should not execute
+            }
         });
     }
 
@@ -505,7 +510,7 @@ mod tests {
             assert!(!variant.as_str().is_empty());
             assert!(!size.as_str().is_empty());
 
-            assert!(disabled  || disabled ! );
+            assert!(disabled || !disabled);
 
             match &value {
                 Some(v) => assert!(!v.is_empty()),

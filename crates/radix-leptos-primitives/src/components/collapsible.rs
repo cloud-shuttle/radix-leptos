@@ -1,3 +1,7 @@
+use crate::utils::merge_classes;
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Collapsible component - Collapsible content areas with smooth animations
 #[component]
@@ -14,10 +18,7 @@ pub fn Collapsible(
     let disabled = disabled.unwrap_or(false);
     let animated = animated.unwrap_or(true);
 
-    let class = merge_classes([
-        "collapsible",
-        }
-    };
+    let class = merge_classes(vec!["collapsible"]);
 
     view! {
         <div
@@ -26,7 +27,15 @@ pub fn Collapsible(
             role="button"
             aria-expanded=open.get()
             aria-disabled=disabled
-            on:click=handle_click
+            on:click=move |_| {
+                if !disabled {
+                    let new_open = !open.get();
+                    open.set(new_open);
+                    if let Some(callback) = onopen_change {
+                        callback.run(new_open);
+                    }
+                }
+            }
             tabindex="0"
         >
             {children.map(|c| c())}
@@ -44,10 +53,7 @@ pub fn CollapsibleTrigger(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes([
-        "collapsible-trigger",
-        </button>
-    }
+    let class = merge_classes(vec!["collapsible-trigger"]);
 }
 
 /// Collapsible Content component
@@ -62,10 +68,7 @@ pub fn CollapsibleContent(
     let open = open.unwrap_or(false);
     let animated = animated.unwrap_or(true);
 
-    let class = merge_classes([
-        "collapsible-content",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(vec!["collapsible-content", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -87,7 +90,7 @@ pub fn CollapsibleHeader(
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let class = merge_classes(["collapsible-header", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["collapsible-header", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -104,6 +107,7 @@ pub fn CollapsibleHeader(
 /// Collapsible Icon component
 #[component]
 pub fn CollapsibleIcon(
+    #[prop(optional)] children: Option<Children>,
     #[prop(optional)] class: Option<String>,
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] open: Option<bool>,
@@ -112,10 +116,7 @@ pub fn CollapsibleIcon(
     let open = open.unwrap_or(false);
     let animated = animated.unwrap_or(true);
 
-    let class = merge_classes([
-        "collapsible-icon",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(vec!["collapsible-icon", class.as_deref().unwrap_or("")]);
 
     view! {
         <span
@@ -123,16 +124,12 @@ pub fn CollapsibleIcon(
             style=style
             aria-hidden="true"
         >
+            {children.map(|c| c())}
+        </span>
+    }
 }
 
 /// Helper function to merge CSS classes
-fn merge_classes(classes: Vec<&str>) -> String {
-    classes
-        .into_iter()
-        .filter(|c| !c.is_empty())
-        .collect::<Vec<_>>()
-        .join(" ")
-}
 
 #[cfg(test)]
 mod tests {

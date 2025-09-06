@@ -1,4 +1,7 @@
 use crate::utils::merge_classes;
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 use wasm_bindgen::JsCast;
 
 /// Date Picker component - Date selection with validation
@@ -27,10 +30,7 @@ pub fn DatePicker(
     let format = format.unwrap_or_else(|| "YYYY-MM-DD".to_string());
     let locale = locale.unwrap_or_else(|| "en-US".to_string());
 
-    let class = merge_classes([
-        "date-picker",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(vec!["date-picker", class.as_deref().unwrap_or("")]);
 
     let handle_change = move |new_value: String| {
         if let Some(callback) = on_change {
@@ -74,10 +74,7 @@ pub fn DatePickerInput(
     let required = required.unwrap_or(false);
     let format = format.unwrap_or_else(|| "YYYY-MM-DD".to_string());
 
-    let class = merge_classes([
-        "date-picker-input",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(vec!["date-picker-input", class.as_deref().unwrap_or("")]);
 
     let handle_change = move |event: web_sys::Event| {
         if let Some(input) = event
@@ -131,10 +128,7 @@ pub fn DatePickerTrigger(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes([
-        "date-picker-trigger",
-        }
-    };
+    let class = merge_classes(vec!["date-picker-trigger"]);
 
     view! {
         <button
@@ -143,7 +137,11 @@ pub fn DatePickerTrigger(
             type="button"
             disabled=disabled
             aria-label="Open date picker"
-            on:click=handle_click
+            on:click=move |_| {
+                if let Some(callback) = on_click {
+                    callback.run(());
+                }
+            }
         >
             {children.map(|c| c())}
         </button>
@@ -165,7 +163,7 @@ pub fn DatePickerCalendar(
     let min_date = min_date.unwrap_or_default();
     let max_date = max_date.unwrap_or_default();
 
-    let class = merge_classes(["date-picker-calendar", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["date-picker-calendar", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -209,10 +207,13 @@ pub fn DatePickerValidation(
 ) -> impl IntoView {
     let validation = validation.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "date-picker-validation",
         if validation.is_valid {
             "valid"
+        } else {
+            "invalid"
+        },
         class.as_deref().unwrap_or(""),
     ]);
 
@@ -226,7 +227,11 @@ pub fn DatePickerValidation(
             {if !validation.is_valid {
                 if let Some(error_message) = validation.error_message {
                     view! { <span class="error-message">{error_message}</span> }.into_any()
+                } else {
+                    view! { <span class="error-message">{String::new()}</span> }.into_any()
                 }
+            } else {
+                view! { <span class="error-message">{String::new()}</span> }.into_any()
             }}
         </div>
     }
@@ -234,7 +239,11 @@ pub fn DatePickerValidation(
 
 #[cfg(test)]
 mod tests {
+    use crate::utils::merge_classes;
+    use crate::{DatePicker, DatePickerProps, DateValidation};
+    use leptos::callback::Callback;
     use proptest::prelude::*;
+    use wasm_bindgen::JsCast;
     use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
@@ -473,19 +482,19 @@ mod tests {
 
     #[test]
     fn test_merge_classes_single() {
-        let result = merge_classes(["class1"]);
+        let result = merge_classes(vec!["class1"]);
         assert_eq!(result, "class1");
     }
 
     #[test]
     fn test_merge_classes_multiple() {
-        let result = merge_classes(["class1", "class2", "class3"]);
+        let result = merge_classes(vec!["class1", "class2", "class3"]);
         assert_eq!(result, "class1 class2 class3");
     }
 
     #[test]
     fn test_merge_classes_with_empty() {
-        let result = merge_classes(["class1", "", "class2", ""]);
+        let result = merge_classes(vec!["class1", "", "class2", ""]);
         assert_eq!(result, "class1 class2");
     }
 
@@ -500,10 +509,12 @@ mod tests {
 
     #[test]
     fn test_date_picker_date_validation() {
-        proptest!(|(__date in ".*")| {
+        proptest!(|(date in ".*")| {
             let is_empty = date.is_empty();
             let validation = DateValidation {
                 is_valid: !is_empty,
+                error_message: if is_empty { Some("Date is required".to_string()) } else { None },
+                parsed_date: if is_empty { None } else { Some(date.clone()) },
             };
             assert!(validation.is_valid == !is_empty);
         });

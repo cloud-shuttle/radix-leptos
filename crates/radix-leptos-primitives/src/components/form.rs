@@ -1,3 +1,6 @@
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Form component with proper accessibility and validation
 ///
@@ -196,7 +199,7 @@ pub fn FormField(
     name: String,
     /// Whether the field is required
     #[prop(optional, default = false)]
-    _required: bool,
+    required: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -264,10 +267,10 @@ pub fn FormInput(
     placeholder: Option<String>,
     /// Whether the input is required
     #[prop(optional, default = false)]
-    _required: bool,
+    required: bool,
     /// Whether the input is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -356,6 +359,7 @@ pub fn FormSubmit(
 
 #[cfg(test)]
 mod tests {
+    use crate::{FormData, FormErrors, FormSize, FormVariant};
     use proptest::prelude::*;
 
     // 1. Basic Rendering Tests
@@ -559,7 +563,7 @@ mod tests {
 
             // Property: Field values can be any string
             // (This is just to ensure no panics with any input)
-            let _ = field_value;
+            let _ = field___value;
         }
     }
 

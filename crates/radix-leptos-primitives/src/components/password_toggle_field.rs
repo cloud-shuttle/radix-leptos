@@ -1,3 +1,6 @@
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 use wasm_bindgen::JsCast;
 
 /// Password Toggle Field component with visibility toggle
@@ -64,9 +67,7 @@ pub fn PasswordToggleField(
     let max_length = max_length.unwrap_or(usize::MAX);
     let strength_requirements = strength_requirements.unwrap_or_default();
 
-    let class = format!(
-        "password-toggle-field {} {} {} {}",
-    );
+    let class = format!("password-toggle-field",);
 
     let style = style.unwrap_or_default();
 
@@ -81,13 +82,13 @@ pub fn PasswordToggleField(
         }
     };
 
-    let handle_focus = move |_| {
+    let handle_focus = move |_: ()| {
         if let Some(callback) = on_focus {
             callback.run(());
         }
     };
 
-    let handle_blur = move |_| {
+    let handle_blur = move |_: ()| {
         if let Some(callback) = on_blur {
             callback.run(());
         }
@@ -105,7 +106,8 @@ pub fn PasswordToggleField(
                 <input
                     class="password-input"
                     on:click=handle_visibility_toggle
-                >
+                />
+            </div>
         </div>
     }
 }
@@ -203,6 +205,8 @@ pub fn PasswordStrengthIndicator(
                                     }).collect::<Vec<_>>()}
                                 </div>
                             }.into_any()
+                        } else {
+                            view! { <div></div> }.into_any()
                         }}
                         {if !validation.warnings.is_empty() {
                             view! {
@@ -212,9 +216,13 @@ pub fn PasswordStrengthIndicator(
                                     }).collect::<Vec<_>>()}
                                 </div>
                             }.into_any()
+                        } else {
+                            view! { <div></div> }.into_any()
                         }}
                     </div>
                 }.into_any()
+            } else {
+                view! { <div></div> }.into_any()
             }}
         </div>
     }
@@ -248,6 +256,8 @@ pub fn PasswordRequirements(
                 <li>
                     {if show_checklist {
                         view! { <span class="checkmark">"✓"</span> }.into_any()
+                    } else {
+                        view! { <div></div> }.into_any()
                     }}
                     {format!("At least {} characters", requirements.min_length)}
                 </li>
@@ -256,40 +266,56 @@ pub fn PasswordRequirements(
                         <li>
                             {if show_checklist {
                                 view! { <span class="checkmark">"✓"</span> }.into_any()
+                            } else {
+                                view! { <div></div> }.into_any()
                             }}
                             "At least one uppercase letter"
                         </li>
                     }.into_any()
+                } else {
+                    view! { <div></div> }.into_any()
                 }}
                 {if requirements.require_lowercase {
                     view! {
                         <li>
                             {if show_checklist {
                                 view! { <span class="checkmark">"✓"</span> }.into_any()
+                            } else {
+                                view! { <div></div> }.into_any()
                             }}
                             "At least one lowercase letter"
                         </li>
                     }.into_any()
+                } else {
+                    view! { <div></div> }.into_any()
                 }}
                 {if requirements.require_numbers {
                     view! {
                         <li>
                             {if show_checklist {
                                 view! { <span class="checkmark">"✓"</span> }.into_any()
+                            } else {
+                                view! { <div></div> }.into_any()
                             }}
                             "At least one number"
                         </li>
                     }.into_any()
+                } else {
+                    view! { <div></div> }.into_any()
                 }}
                 {if requirements.require_symbols {
                     view! {
                         <li>
                             {if show_checklist {
                                 view! { <span class="checkmark">"✓"</span> }.into_any()
+                            } else {
+                                view! { <div></div> }.into_any()
                             }}
                             "At least one symbol"
                         </li>
                     }.into_any()
+                } else {
+                    view! { <div></div> }.into_any()
                 }}
             </ul>
         </div>
@@ -311,6 +337,7 @@ fn validate_password(
             "Password must be at least {} characters long",
             requirements.min_length
         ));
+    }
 
     // Check for uppercase letters
     if requirements.require_uppercase && !password.chars().any(|c| c.is_uppercase()) {
@@ -364,6 +391,8 @@ fn validate_password(
 
 #[cfg(test)]
 mod tests {
+
+    use crate::{PasswordStrengthLevel, PasswordStrengthRequirements, PasswordValidation};
 
     // Component structure tests
     #[test]

@@ -1,4 +1,6 @@
-use crate::theming::{Size, Variant};
+use leptos::callback::Callback;
+use leptos::context::use_context;
+use leptos::prelude::*;
 
 /// Size variants for components
 #[derive(Clone, Debug, PartialEq)]
@@ -249,8 +251,8 @@ pub fn SizeSelector(
     #[prop(optional)]
     style: Option<String>,
 ) -> impl IntoView {
-    let sizes =
-        sizes.unwrap_or_else(|| [Size::Xs, Size::Sm, Size::Md, Size::Lg, Size::Xl, Size::Xxl]);
+    let sizes = sizes
+        .unwrap_or_else(|| [Size::Xs, Size::Sm, Size::Md, Size::Lg, Size::Xl, Size::Xxl].to_vec());
 
     let (selected_size, setselected_size) = signal(current_size.unwrap_or_default());
 
@@ -323,6 +325,7 @@ pub fn VariantSelector(
             Variant::Ghost,
             Variant::Link,
         ]
+        .to_vec()
     });
 
     let (selected_variant, setselected_variant) = signal(current_variant.unwrap_or_default());
@@ -409,6 +412,8 @@ pub fn SizeVariantPreview(
                         </span>
                     </div>
                 }.into_any()
+            } else {
+                view! { <div></div> }.into_any()
             }}
 
             {if show_variant {
@@ -420,6 +425,8 @@ pub fn SizeVariantPreview(
                         </span>
                     </div>
                 }.into_any()
+            } else {
+                view! { <div></div> }.into_any()
             }}
         </div>
     }
@@ -427,6 +434,7 @@ pub fn SizeVariantPreview(
 
 #[cfg(test)]
 mod tests {
+    use crate::theming::{Size, Variant};
 
     #[test]
     fn test_size_enum() {

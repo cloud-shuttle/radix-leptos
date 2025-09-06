@@ -1,5 +1,6 @@
 #[cfg(test)]
 mod tests {
+    use crate::theming::CSSVariables;
     use leptos::serde_json;
 
     #[test]

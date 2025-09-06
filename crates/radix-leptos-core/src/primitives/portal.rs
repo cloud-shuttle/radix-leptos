@@ -64,6 +64,7 @@ pub fn use_portal_context() -> Option<PortalContext> {
 
 #[cfg(test)]
 mod tests {
+    use crate::PortalContext;
 
     #[test]
     fn test_portal_context() {

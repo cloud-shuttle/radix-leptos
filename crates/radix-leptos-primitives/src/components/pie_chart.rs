@@ -21,7 +21,7 @@ pub fn PieChart(
     let show_percentages = show_percentages.unwrap_or(true);
     let show_legend = show_legend.unwrap_or(true);
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "pie-chart",
         class.as_deref().unwrap_or(""),
     ]);
@@ -142,7 +142,7 @@ pub fn PieChartSlice(
     let slice = slice.unwrap_or_default();
     let inner_radius = inner_radius.unwrap_or(0.0);
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "pie-chart-slice",
         class.as_deref().unwrap_or(""),
     ]);
@@ -177,7 +177,7 @@ pub fn PieChartLabel(
     let position = position.unwrap_or_default();
     let show_percentage = show_percentage.unwrap_or(true);
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "pie-chart-label",
         &position.to_class(),
             data-label=slice.label.clone()

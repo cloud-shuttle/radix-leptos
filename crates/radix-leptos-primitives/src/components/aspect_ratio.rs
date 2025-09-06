@@ -1,3 +1,6 @@
+use crate::utils::merge_classes;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Aspect Ratio component - Maintain aspect ratio containers
 #[component]
@@ -17,7 +20,7 @@ pub fn AspectRatio(
     let width = width.unwrap_or(100.0);
     let height = height.unwrap_or(width / ratio);
 
-    let class = merge_classes(["aspect-ratio", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["aspect-ratio", class.as_deref().unwrap_or("")]);
 
     let container_style = format!(
         "position: relative; width: {}%; padding-bottom: {}%; {}",
@@ -64,7 +67,10 @@ pub fn AspectRatioContainer(
 ) -> impl IntoView {
     let ratio = ratio.unwrap_or(16.0 / 9.0);
 
-    let class = merge_classes(["aspect-ratio-container", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec![
+        "aspect-ratio-container",
+        class.as_deref().unwrap_or(""),
+    ]);
 
     let style = format!("aspect-ratio: {} / 1; {}", ratio, style.unwrap_or_default());
 
@@ -93,7 +99,7 @@ pub fn AspectRatioWrapper(
     let ratio = ratio.unwrap_or(16.0 / 9.0);
     let fit = fit.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "aspect-ratio-wrapper",
         &fit.to_class(),
         class.as_deref().unwrap_or(""),
@@ -149,13 +155,6 @@ impl AspectRatioFit {
 }
 
 /// Helper function to merge CSS classes
-fn merge_classes(classes: Vec<&str>) -> String {
-    classes
-        .into_iter()
-        .filter(|c| !c.is_empty())
-        .collect::<Vec<_>>()
-        .join(" ")
-}
 
 #[cfg(test)]
 mod tests {

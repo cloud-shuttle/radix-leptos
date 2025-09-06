@@ -1,3 +1,8 @@
+use crate::utils::merge_classes;
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::html;
+use leptos::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::{KeyboardEvent, MouseEvent};
 
@@ -25,14 +30,6 @@ impl Default for DropdownMenuItemVariant {
     fn default() -> Self {
         DropdownMenuItemVariant::Default
     }
-}
-
-fn merge_classes(classes: Vec<&str>) -> String {
-    classes
-        .into_iter()
-        .filter(|s| !s.is_empty())
-        .collect::<Vec<_>>()
-        .join(" ")
 }
 
 #[component]
@@ -72,7 +69,7 @@ pub fn DropdownMenu(
     let base_classes = ["radix-dropdown-menu", "relative", "inline-block"];
 
     let class_value = class.unwrap_or_default();
-    let classes = merge_classes(base_classes);
+    let classes = merge_classes(base_classes.to_vec());
     let final_class = format!("{} {}", classes, class_value);
 
     view! {
@@ -139,7 +136,7 @@ pub fn DropdownMenuTrigger(
     ];
 
     let class_value = class.unwrap_or_default();
-    let classes = merge_classes(base_classes);
+    let classes = merge_classes(base_classes.to_vec());
     let final_class = format!("{} {}", classes, class_value);
 
     view! {
@@ -189,7 +186,7 @@ pub fn DropdownMenuContent(
     ];
 
     let class_value = class.unwrap_or_default();
-    let classes = merge_classes(base_classes);
+    let classes = merge_classes(base_classes.to_vec());
     let final_class = format!("{} {}", classes, class_value);
 
     view! {
@@ -269,7 +266,7 @@ pub fn DropdownMenuItem(
         "disabled:opacity-50",
     ];
 
-    let mut all_classes = base_classes;
+    let mut all_classes = base_classes.to_vec();
     all_classes.extend(variant_classes);
 
     let class_value = class.unwrap_or_default();
@@ -305,7 +302,7 @@ pub fn DropdownMenuSeparator(
     ];
 
     let class_value = class.unwrap_or_default();
-    let classes = merge_classes(base_classes);
+    let classes = merge_classes(base_classes.to_vec());
     let final_class = format!("{} {}", classes, class_value);
 
     view! {
@@ -332,7 +329,7 @@ pub fn DropdownMenuLabel(
     ];
 
     let class_value = class.unwrap_or_default();
-    let classes = merge_classes(base_classes);
+    let classes = merge_classes(base_classes.to_vec());
     let final_class = format!("{} {}", classes, class_value);
 
     view! {
@@ -407,7 +404,7 @@ pub fn DropdownMenuCheckboxItem(
     ];
 
     let class_value = class.unwrap_or_default();
-    let classes = merge_classes(base_classes);
+    let classes = merge_classes(base_classes.to_vec());
     let final_class = format!("{} {}", classes, class_value);
 
     view! {
@@ -515,7 +512,7 @@ pub fn DropdownMenuRadioItem(
     ];
 
     let class_value = class.unwrap_or_default();
-    let classes = merge_classes(base_classes);
+    let classes = merge_classes(base_classes.to_vec());
     let final_class = format!("{} {}", classes, class_value);
 
     view! {
@@ -555,6 +552,7 @@ pub fn DropdownMenuRadioItem(
 
 #[cfg(test)]
 mod tests {
+    use crate::{DropdownMenuItemVariant, DropdownMenuSize};
     use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
@@ -701,25 +699,25 @@ mod tests {
 
     #[test]
     fn test_merge_classes_empty() {
-        let result = merge_classes(Vec::new());
+        let result = crate::utils::merge_classes(Vec::new());
         assert_eq!(result, "");
     }
 
     #[test]
     fn test_merge_classes_single() {
-        let result = merge_classes(["class1"]);
+        let result = crate::utils::merge_classes(vec!["class1"]);
         assert_eq!(result, "class1");
     }
 
     #[test]
     fn test_merge_classes_multiple() {
-        let result = merge_classes(["class1", "class2", "class3"]);
+        let result = crate::utils::merge_classes(vec!["class1", "class2", "class3"]);
         assert_eq!(result, "class1 class2 class3");
     }
 
     #[test]
     fn test_merge_classes_with_empty() {
-        let result = merge_classes(["class1", "", "class3"]);
+        let result = crate::utils::merge_classes(vec!["class1", "", "class3"]);
         assert_eq!(result, "class1 class3");
     }
 

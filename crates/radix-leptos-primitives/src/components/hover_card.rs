@@ -1,3 +1,7 @@
+use crate::utils::merge_classes;
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Hover Card component for contextual hover information
 ///
@@ -34,12 +38,13 @@ pub fn HoverCard(
         });
     }
 
-    let class = merge_classes(["hover-card", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["hover-card", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
             class=class
             style=style
+        >
         </div>
     }
 }
@@ -58,11 +63,9 @@ pub fn HoverCardTrigger(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes([
-        "hover-card-trigger",
-    ]);
+    let class = merge_classes(vec!["hover-card-trigger"]);
 
-    let handle_mouse_leave = move |_| {
+    let handle_mouse_leave = move |_: ()| {
         if !disabled {
             if let Some(on_mouse_leave) = on_mouse_leave {
                 on_mouse_leave.run(());
@@ -83,6 +86,18 @@ pub fn HoverCardTrigger(
             if let Some(on_blur) = on_blur {
                 on_blur.run(());
             }
+        }
+    };
+
+    let handle_mouse_enter = move |_| {
+        if let Some(callback) = on_mouse_enter {
+            callback.run(());
+        }
+    };
+
+    let handle_mouse_leave = move |_| {
+        if let Some(callback) = on_mouse_leave {
+            callback.run(());
         }
     };
 
@@ -125,7 +140,7 @@ pub fn HoverCardContent(
         return view! { <></> }.into_any();
     }
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "hover-card-content",
         &side.to_class(),
         &align.to_class(),
@@ -162,7 +177,7 @@ pub fn HoverCardPortal(
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] container: Option<String>,
 ) -> impl IntoView {
-    let class = merge_classes(["hover-card-portal", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["hover-card-portal", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -186,7 +201,7 @@ pub fn HoverCardArrow(
     let width = width.unwrap_or(11.0);
     let height = height.unwrap_or(5.0);
 
-    let class = merge_classes(["hover-card-arrow", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["hover-card-arrow", class.as_deref().unwrap_or("")]);
 
     let style = format!(
         "{}; --arrow-width: {}px; --arrow-height: {}px;",
@@ -261,17 +276,9 @@ impl HoverCardAlign {
     }
 }
 
-/// Helper function to merge CSS classes
-fn merge_classes(classes: Vec<&str>) -> String {
-    classes
-        .into_iter()
-        .filter(|c| !c.is_empty())
-        .collect::<Vec<_>>()
-        .join(" ")
-}
-
 #[cfg(test)]
 mod tests {
+    use crate::{HoverCardAlign, HoverCardSide};
     use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
@@ -517,25 +524,25 @@ mod tests {
     // Helper Function Tests
     #[test]
     fn test_merge_classes_empty() {
-        let result = merge_classes(Vec::new());
+        let result = crate::utils::merge_classes(Vec::new());
         assert_eq!(result, "");
     }
 
     #[test]
     fn test_merge_classes_single() {
-        let result = merge_classes(["class1"]);
+        let result = crate::utils::merge_classes(vec!["class1"]);
         assert_eq!(result, "class1");
     }
 
     #[test]
     fn test_merge_classes_multiple() {
-        let result = merge_classes(["class1", "class2", "class3"]);
+        let result = crate::utils::merge_classes(vec!["class1", "class2", "class3"]);
         assert_eq!(result, "class1 class2 class3");
     }
 
     #[test]
     fn test_merge_classes_with_empty() {
-        let result = merge_classes(["class1", "", "class3"]);
+        let result = crate::utils::merge_classes(vec!["class1", "", "class3"]);
         assert_eq!(result, "class1 class3");
     }
 

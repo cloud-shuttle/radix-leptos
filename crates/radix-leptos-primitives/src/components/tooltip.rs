@@ -1,3 +1,6 @@
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Tooltip component with proper accessibility and positioning
 ///
@@ -122,10 +125,10 @@ fn merge_classes(existing: Option<&str>, additional: Option<&str>) -> Option<Str
 pub fn Tooltip(
     /// Whether the tooltip is open
     #[prop(optional, default = false)]
-    _open: bool,
+    open: bool,
     /// Whether the tooltip is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Tooltip styling variant
     #[prop(optional, default = TooltipVariant::Default)]
     variant: TooltipVariant,
@@ -317,6 +320,7 @@ pub fn TooltipArrow(
 
 #[cfg(test)]
 mod tests {
+    use crate::{TooltipPosition, TooltipSize, TooltipVariant};
     use proptest::prelude::*;
 
     // 1. Basic Rendering Tests
@@ -649,12 +653,12 @@ mod tests {
             assert!(!position.as_str().is_empty());
 
             // Property: Open and disabled should be boolean
-            assert!(open  || open ! );
-            assert!(disabled  || disabled ! );
+            assert!(open || !open);
+            assert!(disabled || !disabled);
 
             // Property: Delay and duration should be reasonable values
-            assert!(delay <= 2000);
-            assert!(duration <= 2000);
+            assert!(__delay <= 2000);
+            assert!(__duration <= 2000);
 
             // Property: Disabled tooltip should not be open
             if disabled {
@@ -663,7 +667,7 @@ mod tests {
             }
 
             // Property: Delay should be reasonable for UX
-            if delay > 1000 {
+            if __delay > 1000 {
                 // Very long delays might not be good UX
                 // This could be a business rule
             }

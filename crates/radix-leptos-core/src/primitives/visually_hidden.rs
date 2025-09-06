@@ -62,6 +62,7 @@ pub fn use_visually_hidden_style() -> &'static str {
 
 #[cfg(test)]
 mod tests {
+    use crate::use_visually_hidden_style;
 
     #[test]
     fn test_visually_hidden_style() {

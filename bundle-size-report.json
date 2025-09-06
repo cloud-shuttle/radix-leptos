@@ -1,0 +1,31 @@
+{
+  "timestamp": "2025-09-06T07:58:55.859Z",
+  "totalSize": 550974,
+  "withinLimits": true,
+  "thresholds": {
+    "wasm": 1048576,
+    "js": 512000,
+    "css": 102400,
+    "total": 2097152
+  },
+  "analysis": [
+    {
+      "file": "examples/pkg/radix_leptos_examples_bg.wasm",
+      "size": 525550,
+      "formattedSize": "513.23 KB",
+      "type": "wasm",
+      "threshold": 1048576,
+      "exceedsThreshold": false,
+      "status": "✅ OK"
+    },
+    {
+      "file": "examples/pkg/radix_leptos_examples.js",
+      "size": 25424,
+      "formattedSize": "24.83 KB",
+      "type": "js",
+      "threshold": 512000,
+      "exceedsThreshold": false,
+      "status": "✅ OK"
+    }
+  ]
+}

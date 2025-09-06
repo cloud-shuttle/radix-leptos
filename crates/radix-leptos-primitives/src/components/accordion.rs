@@ -1,3 +1,6 @@
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Accordion component with proper accessibility and collapsible sections
 ///
@@ -168,8 +171,8 @@ pub fn Accordion(
             style=style
             data-variant=data_variant
             data-size=data_size
-            data-allow-multiple=allow_multiple
-            data-disabled=disabled
+            data-allow-multiple=_allow_multiple
+            data-disabled=_disabled
             on:keydown=handle_keydown
         >
             {children()}
@@ -205,7 +208,7 @@ pub fn AccordionItem(
             class=combined_class
             style=style
             data-value=value
-            data-disabled=disabled
+            data-disabled=_disabled
         >
             {children()}
         </div>
@@ -301,6 +304,7 @@ pub fn AccordionContent(
 
 #[cfg(test)]
 mod tests {
+    use crate::{AccordionSize, AccordionVariant};
     use proptest::prelude::*;
 
     // 1. Basic Rendering Tests
@@ -566,8 +570,8 @@ mod tests {
             assert!(!size.as_str().is_empty());
 
             // Property: Allow multiple and disabled should be boolean
-            assert!(allow_multiple  || allow_multiple ! );
-            assert!(disabled  || disabled ! );
+            assert!(allow_multiple || !allow_multiple);
+            assert!(disabled || !disabled);
 
             // Property: Open sections should be a vector of strings
             for section in &open_sections {

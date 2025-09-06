@@ -1,4 +1,6 @@
-use wasm_bindgen::JsCast;
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Resizable component for resizable panels with constraints
 #[component]
@@ -58,13 +60,19 @@ pub fn Resizable(
     let max_width = max_width.unwrap_or(f64::INFINITY);
     let max_height = max_height.unwrap_or(f64::INFINITY);
     let enabled = enabled.unwrap_or(true);
-    let handles = handles.unwrap_or_else(|| [ResizeHandle::BottomRight]);
+    let handles = handles.unwrap_or_else(|| [ResizeHandle::BottomRight].to_vec());
     let maintain_aspect_ratio = maintain_aspect_ratio.unwrap_or(false);
     let aspect_ratio = aspect_ratio.unwrap_or(1.0);
 
     let class = format!(
-        "resizable {} {}",
-        width, height, min_width, min_height, max_width, max_height, style.unwrap_or_default()
+        "resizable {} {} {} {} {} {} {}",
+        width,
+        height,
+        min_width,
+        min_height,
+        max_width,
+        max_height,
+        style.as_ref().unwrap_or(&String::new())
     );
 
     let handle_resize_start = move |event: web_sys::MouseEvent| {
@@ -130,6 +138,8 @@ pub fn Resizable(
                         }).collect::<Vec<_>>()}
                     </div>
                 }.into_any()
+            } else {
+                view! { <div></div> }.into_any()
             }}
         </div>
     }
@@ -279,9 +289,7 @@ pub fn ResizablePanel(
     let collapsible = collapsible.unwrap_or(false);
     let collapsed = collapsed.unwrap_or(false);
 
-    let class = format!(
-        "resizable-panel {} {}",
-    );
+    let class = format!("resizable-panel",);
 
     let style = style.unwrap_or_default();
 
@@ -306,19 +314,34 @@ pub fn ResizablePanel(
                                     type="button"
                                     on:click=handle_toggle
                                 >
+                                    {if collapsed {
+                                        "Expand"
+                                    } else {
+                                        "Collapse"
+                                    }}
+                                </button>
+                            }.into_any()
+                        } else {
+                            view! { <div></div> }.into_any()
                         }}
                     </div>
                 }.into_any()
+            } else {
+                view! { <div></div> }.into_any()
             }}
             {if !collapsed {
                 view! {
                     <div class="panel-content">
                         {if !content.is_empty() {
                             view! { <div class="panel-text">{content}</div> }.into_any()
+                        } else {
+                            view! { <div></div> }.into_any()
                         }}
                         {children.map(|c| c())}
                     </div>
                 }.into_any()
+            } else {
+                view! { <div></div> }.into_any()
             }}
         </div>
     }
@@ -410,6 +433,7 @@ pub enum SplitterOrientation {
 
 #[cfg(test)]
 mod tests {
+    use crate::{ResizeEvent, ResizeHandle, SplitterOrientation};
 
     // Component structure tests
     #[test]

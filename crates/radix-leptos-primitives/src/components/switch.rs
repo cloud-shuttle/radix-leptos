@@ -1,3 +1,6 @@
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Switch component with proper accessibility and styling variants
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -56,10 +59,10 @@ fn merge_classes(existing: Option<&str>, additional: Option<&str>) -> Option<Str
 pub fn Switch(
     /// Whether the switch is on
     #[prop(optional, default = false)]
-    _checked: bool,
+    checked: bool,
     /// Whether the switch is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Switch styling variant
     #[prop(optional, default = SwitchVariant::Default)]
     variant: SwitchVariant,
@@ -124,9 +127,7 @@ pub fn Switch(
             role="switch"
             aria-checked=checked
             aria-disabled=disabled
-                >
-                </div>
-            </div>
+        >
             {children()}
         </div>
     }
@@ -157,6 +158,7 @@ pub fn SwitchThumb(
 
 #[cfg(test)]
 mod tests {
+    use crate::{SwitchSize, SwitchVariant};
     use proptest::prelude::*;
 
     // 1. Basic Rendering Tests
@@ -365,8 +367,8 @@ mod tests {
             assert!(!variant.as_str().is_empty());
             assert!(!size.as_str().is_empty());
 
-            assert!(checked  || checked ! );
-            assert!(disabled  || disabled ! );
+            assert!(checked || !checked);
+            assert!(disabled || !disabled);
 
             if disabled {
                 // Disabled switch should not be interactive

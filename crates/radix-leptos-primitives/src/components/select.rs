@@ -1,3 +1,6 @@
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Select component with proper accessibility and styling variants
 ///
@@ -112,10 +115,10 @@ pub fn Select(
     value: Option<String>,
     /// Whether the select is open
     #[prop(optional, default = false)]
-    _open: bool,
+    open: bool,
     /// Whether the select is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Select styling variant
     #[prop(optional, default = SelectVariant::Default)]
     variant: SelectVariant,
@@ -279,7 +282,7 @@ pub fn SelectItem(
     value: String,
     /// Whether the item is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -306,12 +309,14 @@ pub fn SelectItem(
             data-value=value
             data-disabled=disabled
             role="option"
+        >
         </div>
     }
 }
 
 #[cfg(test)]
 mod tests {
+    use crate::{SelectSize, SelectVariant};
     use proptest::prelude::*;
 
     // 1. Basic Rendering Tests
@@ -529,8 +534,8 @@ mod tests {
             assert!(!size.as_str().is_empty());
 
             // Property: Open and disabled states should be boolean
-            assert!(open  || open ! );
-            assert!(disabled  || disabled ! );
+            assert!(open || !open);
+            assert!(disabled || !disabled);
 
             // Property: Value should be optional string
             match &value {

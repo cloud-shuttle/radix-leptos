@@ -1,3 +1,6 @@
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Alert component with proper accessibility and styling variants
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -69,7 +72,7 @@ pub fn Alert(
     _dismissible: bool,
     /// Whether the alert is visible
     #[prop(optional, default = true)]
-    _visible: bool,
+    visible: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -122,14 +125,14 @@ pub fn Alert(
             style=style
             data-variant=data_variant
             data-size=data_size
-            data-dismissible=dismissible
+            data-dismissible=_dismissible
             role="alert"
             aria-live="polite"
             aria-atomic="true"
             on:keydown=handle_keydown
         >
             {children()}
-            {if dismissible {
+            {if _dismissible {
                 view! {
                     <button
                         class="radix-alert-dismiss"
@@ -139,6 +142,8 @@ pub fn Alert(
                         "×"
                     </button>
                 }.into_any()
+            } else {
+                view! {}.into_any()
             }}
         </div>
     }
@@ -199,6 +204,7 @@ pub fn AlertDescription(
 
 #[cfg(test)]
 mod tests {
+    use crate::{AlertSize, AlertVariant};
     use proptest::prelude::*;
 
     // 1. Basic Rendering Tests
@@ -437,8 +443,8 @@ mod tests {
             assert!(!variant.as_str().is_empty());
             assert!(!size.as_str().is_empty());
 
-            assert!(dismissible  || dismissible ! );
-            assert!(visible  || visible ! );
+            assert!(dismissible || !dismissible);
+            assert!(visible || !visible);
 
             // Test dismiss behavior
             if !visible {

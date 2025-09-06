@@ -1,3 +1,7 @@
+use crate::utils::merge_classes;
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 use wasm_bindgen::JsCast;
 
 /// Combobox component - Searchable select component with autocomplete
@@ -26,8 +30,15 @@ pub fn Combobox(
     let searchable = searchable.unwrap_or(true);
     let clearable = clearable.unwrap_or(true);
 
-    let class = merge_classes([
-        "combobox",
+    let class = merge_classes(vec!["combobox", class.as_deref().unwrap_or("")]);
+
+    view! {
+        <div
+            class=class
+            style=style
+            role="combobox"
+        >
+            {children.map(|c| c())}
         </div>
     }
 }
@@ -51,10 +62,7 @@ pub fn ComboboxInput(
     let disabled = disabled.unwrap_or(false);
     let required = required.unwrap_or(false);
 
-    let class = merge_classes([
-        "combobox-input",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(vec!["combobox-input", class.as_deref().unwrap_or("")]);
 
     let handle_input = move |event: web_sys::Event| {
         if let Some(input) = event
@@ -120,10 +128,22 @@ pub fn ComboboxOptions(
     let visible = visible.unwrap_or(false);
     let selected_index = selected_index.unwrap_or(0);
 
-    let class = merge_classes([
-        "combobox-options",
+    let class = merge_classes(vec!["combobox-options", class.as_deref().unwrap_or("")]);
+
+    if !visible {
+        return view! { <></> }.into_any();
+    }
+
+    view! {
+        <div
+            class=class
+            style=style
+            role="listbox"
+        >
+            {children.map(|c| c())}
         </div>
     }
+    .into_any()
 }
 
 /// Combobox Option component
@@ -141,10 +161,7 @@ pub fn ComboboxOption(
     let selected = selected.unwrap_or(false);
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes([
-        "combobox-option",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(vec!["combobox-option", class.as_deref().unwrap_or("")]);
 
     let option_clone = option.clone();
     let handle_click = move |_| {
@@ -181,10 +198,7 @@ pub fn ComboboxTrigger(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes([
-        "combobox-trigger",
-        }
-    };
+    let class = merge_classes(vec!["combobox-trigger"]);
 
     view! {
         <button
@@ -193,7 +207,13 @@ pub fn ComboboxTrigger(
             type="button"
             disabled=disabled
             aria-label="Open combobox"
-            on:click=handle_click
+            on:click=move |_| {
+                if !disabled {
+                    if let Some(callback) = on_click {
+                        callback.run(());
+                    }
+                }
+            }
         >
             {children.map(|c| c())}
         </button>
@@ -211,9 +231,7 @@ pub fn ComboboxClearButton(
 ) -> impl IntoView {
     let visible = visible.unwrap_or(false);
 
-    let class = merge_classes([
-        "combobox-clear-button",
-    };
+    let class = merge_classes(vec!["combobox-clear-button"]);
 
     view! {
         <button
@@ -221,7 +239,11 @@ pub fn ComboboxClearButton(
             style=style
             type="button"
             aria-label="Clear selection"
-            on:click=handle_click
+            on:click=move |_| {
+                if let Some(callback) = on_click {
+                    callback.run(());
+                }
+            }
         >
             {children.map(|c| c())}
         </button>
@@ -236,7 +258,7 @@ pub struct ComboboxOption {
     pub value: String,
     pub description: Option<String>,
     pub icon: Option<String>,
-    pub _disabled: bool,
+    pub disabled: bool,
     pub data: Option<String>,
 }
 
@@ -264,7 +286,7 @@ pub fn ComboboxGroup(
 ) -> impl IntoView {
     let label = label.unwrap_or_else(|| "Group".to_string());
 
-    let class = merge_classes(["combobox-group", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["combobox-group", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -284,7 +306,7 @@ pub fn ComboboxSeparator(
     #[prop(optional)] class: Option<String>,
     #[prop(optional)] style: Option<String>,
 ) -> impl IntoView {
-    let class = merge_classes(["combobox-separator", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["combobox-separator", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -295,15 +317,6 @@ pub fn ComboboxSeparator(
         >
         </div>
     }
-}
-
-/// Helper function to merge CSS classes
-fn merge_classes(classes: Vec<&str>) -> String {
-    classes
-        .into_iter()
-        .filter(|c| !c.is_empty())
-        .collect::<Vec<_>>()
-        .join(" ")
 }
 
 #[cfg(test)]

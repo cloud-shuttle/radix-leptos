@@ -1,3 +1,4 @@
+use leptos::prelude::*;
 
 /// Badge variant for different status types
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
@@ -41,10 +42,10 @@ pub fn Badge(
     size: BadgeSize,
     /// Whether the badge is interactive (clickable)
     #[prop(optional, default = false)]
-    _interactive: bool,
+    interactive: bool,
     /// Whether the badge is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -82,7 +83,7 @@ pub fn Badge(
     let class_value = class.unwrap_or_default();
     let children_view = children();
 
-    let mut base_classes = ["radix-badge", &variant_class(), &size_class(), &class_value];
+    let mut base_classes = vec!["radix-badge", &variant_class(), &size_class(), &class_value];
 
     if interactive && !disabled {
         base_classes.push("radix-badge--interactive");
@@ -117,7 +118,7 @@ pub fn BadgeCount(
     size: BadgeSize,
     /// Whether to show the badge when count is 0
     #[prop(optional, default = false)]
-    _show_zero: bool,
+    show_zero: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -147,9 +148,9 @@ pub fn BadgeCount(
                             {display_count()}
                         </span>
                     </Badge>
-                }
+                }.into_any()
             } else {
-                view! { <></> }
+                view! { <></> }.into_any()
             }
         }}
     }
@@ -166,7 +167,7 @@ pub fn BadgeDot(
     size: BadgeSize,
     /// Whether the dot is pulsing
     #[prop(optional, default = false)]
-    _pulsing: bool,
+    pulsing: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,

@@ -21,7 +21,7 @@ pub fn BarChart(
     let show_values = show_values.unwrap_or(false);
     let show_grid = show_grid.unwrap_or(true);
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "bar-chart",
         &orientation.to_class(),
         </div>
@@ -163,7 +163,7 @@ pub fn BarChartBar(
     let width = width.unwrap_or(20.0);
     let height = height.unwrap_or(100.0);
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "bar-chart-bar",
         class.as_deref().unwrap_or(""),
     ]);
@@ -195,7 +195,7 @@ pub fn BarChartGroup(
     let category = category.unwrap_or_default();
     let bars = bars.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "bar-chart-group",
         class.as_deref().unwrap_or(""),
     ]);

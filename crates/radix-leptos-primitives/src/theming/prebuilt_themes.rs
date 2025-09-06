@@ -1,5 +1,7 @@
 use crate::theming::css_variables::*;
 use crate::utils::merge_classes;
+use leptos::callback::Callback;
+use leptos::prelude::*;
 use serde::{Deserialize, Serialize};
 
 /// Pre-built theme collection with industry-specific themes
@@ -52,9 +54,10 @@ pub fn ThemeSelector(
             ThemeCategory::Industry,
             ThemeCategory::Style,
         ]
+        .to_vec()
     });
 
-    let class = merge_classes(["theme-selector", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(["theme-selector", class.as_deref().unwrap_or("")].to_vec());
 
     let handle_theme_change = Callback::new(move |theme_name: String| {
         if let Some(callback) = on_theme_change {
@@ -111,11 +114,14 @@ pub fn ThemeCategorySection(
     let show_preview = show_preview.unwrap_or(true);
     let on_theme_change = on_theme_change.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes([
-        "theme-category-section",
-        category.as_str(),
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(
+        [
+            "theme-category-section",
+            category.as_str(),
+            class.as_deref().unwrap_or(""),
+        ]
+        .to_vec(),
+    );
 
     view! {
         <div
@@ -157,10 +163,7 @@ pub fn ThemeCard(
     let show_preview = show_preview.unwrap_or(true);
     let on_select = on_select.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes([
-        "theme-card",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(["theme-card", class.as_deref().unwrap_or("")].to_vec());
 
     let theme_name = theme.name.clone();
     let theme_name_clone = theme_name.clone();
@@ -190,6 +193,8 @@ pub fn ThemeCard(
                         <ThemePreview colors=theme.colors.clone() />
                     </div>
                 }.into_any()
+            } else {
+                view! { <div></div> }.into_any()
             }}
 
             <div class="theme-info">
@@ -216,7 +221,7 @@ pub fn ThemePreview(
 ) -> impl IntoView {
     let colors = colors.unwrap_or_default();
 
-    let class = merge_classes(["theme-preview", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(["theme-preview", class.as_deref().unwrap_or("")].to_vec());
 
     view! {
         <div
@@ -290,7 +295,7 @@ impl Default for ThemeInfo {
             description: "Default theme".to_string(),
             category: ThemeCategory::Basic,
             colors: ThemeColors::default(),
-            tags: ["default".to_string()],
+            tags: ["default".to_string()].to_vec(),
             css_variables: CSSVariables::default(),
         }
     }
@@ -338,7 +343,7 @@ fn get_themes_by_categories(
 
     for category in categories {
         let themes = match category {
-            ThemeCategory::Basic => [
+            ThemeCategory::Basic => vec![
                 ThemeInfo {
                     name: "Light".to_string(),
                     description: "Clean and bright theme for everyday use".to_string(),
@@ -360,7 +365,8 @@ fn get_themes_by_categories(
                         "light".to_string(),
                         "clean".to_string(),
                         "modern".to_string(),
-                    ],
+                    ]
+                    .to_vec(),
                     css_variables: create_light_theme(),
                 },
                 ThemeInfo {
@@ -384,7 +390,8 @@ fn get_themes_by_categories(
                         "dark".to_string(),
                         "night".to_string(),
                         "modern".to_string(),
-                    ],
+                    ]
+                    .to_vec(),
                     css_variables: createdark_theme(),
                 },
                 ThemeInfo {
@@ -408,11 +415,12 @@ fn get_themes_by_categories(
                         "accessibility".to_string(),
                         "high-contrast".to_string(),
                         "wcag".to_string(),
-                    ],
+                    ]
+                    .to_vec(),
                     css_variables: create_high_contrast_theme(),
                 },
             ],
-            ThemeCategory::Industry => [
+            ThemeCategory::Industry => vec![
                 ThemeInfo {
                     name: "Finance".to_string(),
                     description: "Professional theme for financial applications".to_string(),
@@ -434,7 +442,8 @@ fn get_themes_by_categories(
                         "finance".to_string(),
                         "professional".to_string(),
                         "corporate".to_string(),
-                    ],
+                    ]
+                    .to_vec(),
                     css_variables: create_finance_theme(),
                 },
                 ThemeInfo {
@@ -458,7 +467,8 @@ fn get_themes_by_categories(
                         "healthcare".to_string(),
                         "medical".to_string(),
                         "calming".to_string(),
-                    ],
+                    ]
+                    .to_vec(),
                     css_variables: create_healthcare_theme(),
                 },
                 ThemeInfo {
@@ -482,11 +492,12 @@ fn get_themes_by_categories(
                         "education".to_string(),
                         "learning".to_string(),
                         "engaging".to_string(),
-                    ],
+                    ]
+                    .to_vec(),
                     css_variables: create_education_theme(),
                 },
             ],
-            ThemeCategory::Style => [
+            ThemeCategory::Style => vec![
                 ThemeInfo {
                     name: "Minimal".to_string(),
                     description: "Minimalist theme with clean lines".to_string(),
@@ -508,7 +519,8 @@ fn get_themes_by_categories(
                         "minimal".to_string(),
                         "clean".to_string(),
                         "simple".to_string(),
-                    ],
+                    ]
+                    .to_vec(),
                     css_variables: create_minimal_theme(),
                 },
                 ThemeInfo {
@@ -532,8 +544,34 @@ fn get_themes_by_categories(
                         "vibrant".to_string(),
                         "colorful".to_string(),
                         "bold".to_string(),
-                    ],
+                    ]
+                    .to_vec(),
                     css_variables: create_vibrant_theme(),
+                },
+                ThemeInfo {
+                    name: "Elegant".to_string(),
+                    description: "Sophisticated theme with refined aesthetics".to_string(),
+                    category: *category,
+                    colors: ThemeColors {
+                        primary: "#2c3e50".to_string(),
+                        secondary: "#34495e".to_string(),
+                        accent: "#e74c3c".to_string(),
+                        neutral: "#95a5a6".to_string(),
+                        text: "#2c3e50".to_string(),
+                        background: "#ecf0f1".to_string(),
+                        surface: "#ffffff".to_string(),
+                        error: "#e74c3c".to_string(),
+                        warning: "#f39c12".to_string(),
+                        success: "#27ae60".to_string(),
+                        info: "#3498db".to_string(),
+                    },
+                    tags: [
+                        "elegant".to_string(),
+                        "sophisticated".to_string(),
+                        "refined".to_string(),
+                    ]
+                    .to_vec(),
+                    css_variables: create_elegant_theme(),
                 },
             ],
             _ => Vec::new(),
@@ -623,8 +661,24 @@ fn create_vibrant_theme() -> CSSVariables {
     theme
 }
 
+fn create_elegant_theme() -> CSSVariables {
+    let mut theme = CSSVariables::default();
+    theme.primary.primary_500 = "#2c3e50".to_string();
+    theme.secondary.secondary_500 = "#34495e".to_string();
+    theme.semantic.info = "#e74c3c".to_string();
+    theme.semantic.success = "#27ae60".to_string();
+    theme
+}
+
 #[cfg(test)]
 mod prebuilt_themes_tests {
+    use crate::theming::prebuilt_themes::{
+        create_ecommerce_theme, create_education_theme, create_finance_theme, create_gaming_theme,
+        create_healthcare_theme, create_high_contrast_theme, create_light_theme,
+        create_minimal_theme, create_vibrant_theme, createdark_theme, get_themes_by_categories,
+    };
+    use crate::theming::{PrebuiltThemes, ThemeCategory, ThemeColors, ThemeInfo};
+    use leptos::callback::Callback;
     use proptest::prelude::*;
 
     #[test]
@@ -781,7 +835,7 @@ mod prebuilt_themes_tests {
 
     #[test]
     fn test_theme_colors_property_based() {
-        proptest!(|(__color in ".*")| {
+        proptest!(|(color in ".*")| {
             let colors = ThemeColors {
                 primary: color.clone(),
                 secondary: color.clone(),

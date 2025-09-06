@@ -1,3 +1,6 @@
+use crate::utils::merge_classes;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Separator component - Visual dividers with orientation support
 #[component]
@@ -15,17 +18,15 @@ pub fn Separator(
     let thickness = thickness.unwrap_or_default();
     let color = color.unwrap_or_default();
 
-    let class = merge_classes([
-        "separator",
-        &orientation.to_class(),
-        &thickness.to_class(),
+    let class =
+        merge_classes(vec!["separator", &orientation.to_class(), &thickness.to_class()].to_vec());
     let aria_orientation = orientation.to_aria_orientation();
 
     view! {
         <div
             class=class
             style=style
-            role=role
+            role=if decorative { "none" } else { "separator" }
             aria-orientation=aria_orientation
             data-thickness=thickness.to_string()
             data-color=color
@@ -48,12 +49,15 @@ pub fn SeparatorLine(
     let thickness = thickness.unwrap_or_default();
     let color = color.unwrap_or_default();
 
-    let class = merge_classes([
-        "separator-line",
-        &orientation.to_class(),
-        &thickness.to_class(),
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(
+        vec![
+            "separator-line",
+            &orientation.to_class(),
+            &thickness.to_class(),
+            class.as_deref().unwrap_or(""),
+        ]
+        .to_vec(),
+    );
 
     let aria_orientation = orientation.to_aria_orientation();
 
@@ -81,11 +85,14 @@ pub fn SeparatorText(
     let text = text.unwrap_or_default();
     let orientation = orientation.unwrap_or_default();
 
-    let class = merge_classes([
-        "separator-text",
-        &orientation.to_class(),
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(
+        vec![
+            "separator-text",
+            &orientation.to_class(),
+            class.as_deref().unwrap_or(""),
+        ]
+        .to_vec(),
+    );
 
     view! {
         <div
@@ -173,12 +180,15 @@ pub fn SeparatorGroup(
     let spacing = spacing.unwrap_or_default();
     let orientation = orientation.unwrap_or_default();
 
-    let class = merge_classes([
-        "separator-group",
-        &spacing.to_class(),
-        &orientation.to_class(),
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(
+        vec![
+            "separator-group",
+            &spacing.to_class(),
+            &orientation.to_class(),
+            class.as_deref().unwrap_or(""),
+        ]
+        .to_vec(),
+    );
 
     view! {
         <div
@@ -219,15 +229,6 @@ impl SeparatorSpacing {
             SeparatorSpacing::Loose => "loose",
         }
     }
-}
-
-/// Helper function to merge CSS classes
-fn merge_classes(classes: Vec<&str>) -> String {
-    classes
-        .into_iter()
-        .filter(|c| !c.is_empty())
-        .collect::<Vec<_>>()
-        .join(" ")
 }
 
 #[cfg(test)]

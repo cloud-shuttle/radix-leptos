@@ -21,7 +21,7 @@ pub fn Chart(
     let config = config.unwrap_or_default();
     let theme = theme.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "chart",
         &theme.to_class(),
         class.as_deref().unwrap_or(""),
@@ -176,7 +176,7 @@ pub fn ChartTooltip(
         return view! { <></> }.into_any();
     }
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "chart-tooltip",
         &position.to_class(),
         class.as_deref().unwrap_or(""),
@@ -227,7 +227,7 @@ pub fn ChartLegend(
     let items = items.unwrap_or_default();
     let orientation = orientation.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "chart-legend",
         &orientation.to_class(),
         class.as_deref().unwrap_or(""),
@@ -584,19 +584,19 @@ mod tests {
 
     #[test]
     fn test_merge_classes_single() {
-        let result = merge_classes(["class1"]);
+        let result = merge_classes(vec!["class1"]);
         assert_eq!(result, "class1");
     }
 
     #[test]
     fn test_merge_classes_multiple() {
-        let result = merge_classes(["class1", "class2", "class3"]);
+        let result = merge_classes(vec!["class1", "class2", "class3"]);
         assert_eq!(result, "class1 class2 class3");
     }
 
     #[test]
     fn test_merge_classes_with_empty() {
-        let result = merge_classes(["class1", "", "class3"]);
+        let result = merge_classes(vec!["class1", "", "class3"]);
         assert_eq!(result, "class1 class3");
     }
 

@@ -13,7 +13,7 @@ pub fn DataTable(
     let filterable = filterable.unwrap_or(true);
     let selectable = selectable.unwrap_or(false);
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "data-table",
         </div>
     }

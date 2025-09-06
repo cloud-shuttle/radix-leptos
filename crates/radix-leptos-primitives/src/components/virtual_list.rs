@@ -17,7 +17,7 @@ pub fn VirtualList(
     let container_height = container_height.unwrap_or(400.0);
     let overscan = overscan.unwrap_or(5);
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "virtual-list",
         class.as_deref().unwrap_or(""),
     ]);
@@ -67,7 +67,7 @@ pub fn VirtualListViewport(
     let scroll_top = scroll_top.unwrap_or(0.0);
     let scroll_left = scroll_left.unwrap_or(0.0);
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "virtual-list-viewport",
         class.as_deref().unwrap_or(""),
     ]);
@@ -98,7 +98,7 @@ pub fn VirtualListItem(
     let item = item.unwrap_or_default();
     let index = index.unwrap_or(0);
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "virtual-list-item",
         </div>
     }

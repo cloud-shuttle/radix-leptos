@@ -1,3 +1,6 @@
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Radio Group component with proper accessibility and styling variants
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -59,7 +62,7 @@ pub fn RadioGroup(
     value: Option<String>,
     /// Whether the radio group is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Radio group styling variant
     #[prop(optional, default = RadioGroupVariant::Default)]
     variant: RadioGroupVariant,
@@ -130,7 +133,7 @@ pub fn RadioGroupItem(
     value: String,
     /// Whether the item is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -170,6 +173,7 @@ pub fn RadioGroupItem(
             data-value=value
             data-disabled=disabled
             role="radio"
+        >
         </div>
     }
 }
@@ -200,6 +204,7 @@ pub fn RadioGroupIndicator(
 
 #[cfg(test)]
 mod tests {
+    use crate::{RadioGroupSize, RadioGroupVariant};
     use proptest::prelude::*;
 
     // 1. Basic Rendering Tests
@@ -435,7 +440,7 @@ mod tests {
             assert!(!variant.as_str().is_empty());
             assert!(!size.as_str().is_empty());
 
-            assert!(disabled  || disabled ! );
+            assert!(disabled || !disabled);
 
             match &value {
                 Some(v) => assert!(!v.is_empty()),

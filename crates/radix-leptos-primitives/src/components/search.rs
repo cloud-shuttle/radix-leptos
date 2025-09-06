@@ -1,3 +1,7 @@
+use crate::utils::merge_classes;
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 use wasm_bindgen::JsCast;
 
 /// Search component - Search input with suggestions and filtering
@@ -25,10 +29,7 @@ pub fn Search(
     let max_suggestions = max_suggestions.unwrap_or(10);
     let debounce_ms = debounce_ms.unwrap_or(300);
 
-    let class = merge_classes([
-        "search",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(vec!["search", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -63,10 +64,7 @@ pub fn SearchInput(
     let disabled = disabled.unwrap_or(false);
     let required = required.unwrap_or(false);
 
-    let class = merge_classes([
-        "search-input",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(vec!["search-input", class.as_deref().unwrap_or("")]);
 
     let handle_input = move |event: web_sys::Event| {
         if let Some(input) = event
@@ -132,10 +130,7 @@ pub fn SearchSuggestions(
     let visible = visible.unwrap_or(false);
     let selected_index = selected_index.unwrap_or(0);
 
-    let class = merge_classes([
-        "search-suggestions",
-        </div>
-    }
+    let class = merge_classes(vec!["search-suggestions"]);
 }
 
 /// Search Suggestion Item component
@@ -151,9 +146,7 @@ pub fn SearchSuggestionItem(
     let suggestion = suggestion.unwrap_or_default();
     let selected = selected.unwrap_or(false);
 
-    let class = merge_classes([
-        "search-suggestion-item",
-    };
+    let class = merge_classes(vec!["search-suggestion-item"]);
 
     view! {
         <div
@@ -161,8 +154,12 @@ pub fn SearchSuggestionItem(
             style=style
             role="option"
             aria-selected=selected
-            aria-label=suggestion.text
-            on:click=handle_click
+            aria-label=suggestion.text.clone()
+            on:click=move |_| {
+                if let Some(callback) = on_click {
+                    callback.run(suggestion.clone());
+                }
+            }
         >
             {children.map(|c| c())}
         </div>
@@ -180,9 +177,7 @@ pub fn SearchClearButton(
 ) -> impl IntoView {
     let visible = visible.unwrap_or(false);
 
-    let class = merge_classes([
-        "search-clear-button",
-    };
+    let class = merge_classes(vec!["search-clear-button"]);
 
     view! {
         <button
@@ -190,7 +185,11 @@ pub fn SearchClearButton(
             style=style
             type="button"
             aria-label="Clear search"
-            on:click=handle_click
+            on:click=move |_| {
+                if let Some(callback) = on_click {
+                    callback.run(());
+                }
+            }
         >
             {children.map(|c| c())}
         </button>
@@ -234,7 +233,7 @@ pub fn SearchFilter(
     let filters = filters.unwrap_or_default();
     let selected_filters = selected_filters.unwrap_or_default();
 
-    let class = merge_classes(["search-filter", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["search-filter", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -266,15 +265,6 @@ impl Default for SearchFilterOption {
             count: None,
         }
     }
-}
-
-/// Helper function to merge CSS classes
-fn merge_classes(classes: Vec<&str>) -> String {
-    classes
-        .into_iter()
-        .filter(|c| !c.is_empty())
-        .collect::<Vec<_>>()
-        .join(" ")
 }
 
 #[cfg(test)]

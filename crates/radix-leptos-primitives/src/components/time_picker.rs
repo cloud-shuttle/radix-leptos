@@ -1,4 +1,6 @@
-use crate::utils::merge_classes;
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 use wasm_bindgen::JsCast;
 
 /// Time Picker component - Time selection with validation
@@ -28,7 +30,7 @@ pub fn TimePicker(
     let _step = step.unwrap_or(1);
 
     let class = format!(
-        "time-picker {} {} {} {}",
+        "time-picker {} {}",
         format.as_str(),
         class.as_deref().unwrap_or("")
     );
@@ -78,7 +80,7 @@ pub fn TimePickerInput(
     let _step = step.unwrap_or(1);
 
     let class = format!(
-        "time-picker-input {} {} {} {}",
+        "time-picker-input {} {}",
         format.as_str(),
         class.as_deref().unwrap_or("")
     );
@@ -184,7 +186,7 @@ pub fn TimePickerDropdown(
             <div class="time-picker-content">
                 <TimePickerGrid
                     format=format
-                    step=step
+                    step=step.unwrap_or(1)
                     min_time=min_time
                     max_time=max_time
                     on_time_select=handle_time_select
@@ -224,7 +226,7 @@ pub fn TimePickerGrid(
     };
 
     // Generate time options based on format and step
-    let time_options = generate_time_options(format, step, &min_time, &max_time);
+    let time_options = generate_time_options(format, step.unwrap_or(1), &min_time, &max_time);
 
     view! {
         <div
@@ -299,7 +301,7 @@ fn generate_time_options(
 
     match format {
         TimeFormat::TwentyFourHour => {
-            for _hour in 0..24 {
+            for hour in 0..24 {
                 for minute in (0..60).step_by(step as usize) {
                     let time = format!("{:02}:{:02}", hour, minute);
                     if is_time_in_range(&time, min_time, max_time) {
@@ -309,8 +311,10 @@ fn generate_time_options(
             }
         }
         TimeFormat::TwelveHour => {
-            for _hour in 1..=12 {
+            for hour in 1..=12 {
                 for minute in (0..60).step_by(step as usize) {
+                    let displayhour = if hour == 0 { 12 } else { hour };
+                    let period = if hour < 12 { "AM" } else { "PM" };
                     let time = format!("{:02}:{:02} {}", displayhour, minute, period);
                     if is_time_in_range(&time, min_time, max_time) {
                         options.push(time);
@@ -365,6 +369,15 @@ pub fn validate_time(time: &str, format: TimeFormat) -> TimeValidation {
                     minute: Some(parsed.1),
                     second: Some(parsed.2),
                 }
+            } else {
+                TimeValidation {
+                    is_valid: false,
+                    error_message: Some("Invalid 24-hour time format".to_string()),
+                    parsed_time: None,
+                    hour: None,
+                    minute: None,
+                    second: None,
+                }
             }
         }
         TimeFormat::TwelveHour => {
@@ -376,6 +389,15 @@ pub fn validate_time(time: &str, format: TimeFormat) -> TimeValidation {
                     hour: Some(parsed.0),
                     minute: Some(parsed.1),
                     second: Some(parsed.2),
+                }
+            } else {
+                TimeValidation {
+                    is_valid: false,
+                    error_message: Some("Invalid 12-hour time format".to_string()),
+                    parsed_time: None,
+                    hour: None,
+                    minute: None,
+                    second: None,
                 }
             }
         }
@@ -473,6 +495,10 @@ fn parse_12hour_time(time: &str) -> Result<(u32, u32, u32), String> {
 
 #[cfg(test)]
 mod time_picker_tests {
+    use crate::time_picker::{
+        generate_time_options, is_time_in_range, parse_12hour_time, parse_24hour_time,
+    };
+    use crate::{validate_time, TimeFormat, TimeValidation};
     use proptest::prelude::*;
 
     #[test]
@@ -585,7 +611,7 @@ mod time_picker_tests {
     // Property-based tests
     #[test]
     fn test_time_picker_property_based() {
-        proptest!(|(__time in ".*")| {
+        proptest!(|(time in ".*")| {
             let validation = validate_time(&time, TimeFormat::TwentyFourHour);
             // Validation should always return a result
 

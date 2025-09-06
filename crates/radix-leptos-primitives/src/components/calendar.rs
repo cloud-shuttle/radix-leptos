@@ -1,3 +1,7 @@
+use crate::utils::merge_classes;
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Calendar component - Date picker and calendar component
 #[component]
@@ -23,7 +27,7 @@ pub fn Calendar(
     let first_day_of_week = first_day_of_week.unwrap_or(0);
     let show_week_numbers = show_week_numbers.unwrap_or(false);
 
-    let class = merge_classes(["calendar", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["calendar", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -54,7 +58,7 @@ pub fn CalendarHeader(
     let month = month.unwrap_or_else(|| "January".to_string());
     let year = year.unwrap_or(2024);
 
-    let class = merge_classes(["calendar-header", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["calendar-header", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -77,7 +81,7 @@ pub fn CalendarNavigation(
     #[prop(optional)] on_next: Option<Callback<()>>,
     #[prop(optional)] on_today: Option<Callback<()>>,
 ) -> impl IntoView {
-    let class = merge_classes(["calendar-navigation", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["calendar-navigation", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -138,7 +142,7 @@ pub fn CalendarGrid(
     let month = month.unwrap_or_else(|| "January".to_string());
     let year = year.unwrap_or(2024);
 
-    let class = merge_classes(["calendar-grid", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["calendar-grid", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -173,10 +177,7 @@ pub fn CalendarDay(
     let isdisabled = isdisabled.unwrap_or(false);
     let is_other_month = is_other_month.unwrap_or(false);
 
-    let class = merge_classes([
-        "calendar-day",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(vec!["calendar-day", class.as_deref().unwrap_or("")]);
 
     let handle_click = move |_| {
         if !isdisabled {
@@ -212,7 +213,7 @@ pub fn CalendarWeekHeader(
     let locale = locale.unwrap_or_else(|| "en-US".to_string());
     let first_day_of_week = first_day_of_week.unwrap_or(0);
 
-    let class = merge_classes(["calendar-week-header", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["calendar-week-header", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -229,13 +230,6 @@ pub fn CalendarWeekHeader(
 }
 
 /// Helper function to merge CSS classes
-fn merge_classes(classes: Vec<&str>) -> String {
-    classes
-        .into_iter()
-        .filter(|c| !c.is_empty())
-        .collect::<Vec<_>>()
-        .join(" ")
-}
 
 #[cfg(test)]
 mod tests {

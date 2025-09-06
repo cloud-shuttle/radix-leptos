@@ -22,7 +22,7 @@ pub fn Gauge(
     let show_ticks = show_ticks.unwrap_or(true);
     let animated = animated.unwrap_or(true);
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "gauge",
         </div>
     }
@@ -128,7 +128,7 @@ pub fn GaugeArc(
     let stroke_width = stroke_width.unwrap_or(20.0);
     let color = color.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "gauge-arc",
         class.as_deref().unwrap_or(""),
     ]);
@@ -160,7 +160,7 @@ pub fn GaugeNeedle(
     let length = length.unwrap_or(80.0);
     let color = color.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "gauge-needle",
         class.as_deref().unwrap_or(""),
     ]);
@@ -193,7 +193,7 @@ pub fn GaugeTick(
     let color = color.unwrap_or_default();
     let label = label.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "gauge-tick",
         class.as_deref().unwrap_or(""),
     ]);
@@ -226,7 +226,7 @@ pub fn GaugeValue(
     let unit = unit.unwrap_or_default();
     let format = format.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "gauge-value",
         class.as_deref().unwrap_or(""),
     ]);

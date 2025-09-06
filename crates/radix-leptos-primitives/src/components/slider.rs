@@ -1,3 +1,6 @@
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Slider component with proper accessibility and styling variants
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -68,7 +71,7 @@ pub fn Slider(
     step: f64,
     /// Whether the slider is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Slider styling variant
     #[prop(optional, default = SliderVariant::Default)]
     variant: SliderVariant,
@@ -175,6 +178,7 @@ pub fn Slider(
             aria-valuemax=max
             aria-valuenow=value
             aria-disabled=disabled
+        >
         </div>
     }
 }
@@ -250,6 +254,7 @@ pub fn SliderThumb(
 
 #[cfg(test)]
 mod tests {
+    use crate::{SliderSize, SliderVariant};
     use proptest::prelude::*;
 
     // 1. Basic Rendering Tests
@@ -285,8 +290,8 @@ mod tests {
         run_test(|| {
             let value = 0.0;
             let min = 0.0;
-            let _max = 100.0;
-            let _step = 1.0;
+            let max = 100.0;
+            let step = 1.0;
             let disabled = false;
             let variant = SliderVariant::Default;
             let size = SliderSize::Default;
@@ -306,8 +311,8 @@ mod tests {
         run_test(|| {
             let value = 50.0;
             let min = 10.0;
-            let _max = 90.0;
-            let _step = 5.0;
+            let max = 90.0;
+            let step = 5.0;
             let disabled = false;
             let variant = SliderVariant::Destructive;
             let size = SliderSize::Lg;
@@ -327,8 +332,8 @@ mod tests {
         run_test(|| {
             let value = 25.0;
             let min = 0.0;
-            let _max = 100.0;
-            let _step = 1.0;
+            let max = 100.0;
+            let step = 1.0;
             let disabled = true;
             let variant = SliderVariant::Ghost;
             let size = SliderSize::Sm;
@@ -349,12 +354,12 @@ mod tests {
         run_test(|| {
             let value = 50.0;
             let min = 0.0;
-            let _max = 100.0;
-            let _step = 1.0;
+            let max = 100.0;
+            let step = 1.0;
 
             // Test percentage calculation
-            let percentage = if _max > min {
-                ((value - min) / (_max - min) * 100.0f64).clamp(0.0f64, 100.0f64)
+            let percentage = if max > min {
+                ((value - min) / (max - min) * 100.0f64).clamp(0.0f64, 100.0f64)
             } else {
                 0.0
             };
@@ -367,8 +372,8 @@ mod tests {
     fn test_slider_value_bounds() {
         run_test(|| {
             let min = 10.0;
-            let _max = 90.0;
-            let _step = 5.0;
+            let max = 90.0;
+            let step = 5.0;
 
             // Test value clamping
             let value_below_min: f64 = 5.0;
@@ -477,11 +482,11 @@ mod tests {
             // Test zero range
             let value = 0.0;
             let min = 0.0;
-            let _max = 0.0;
+            let max = 0.0;
             let _step = 1.0;
 
-            let percentage = if _max > min {
-                ((value - min) / (_max - min) * 100.0f64).clamp(0.0f64, 100.0f64)
+            let percentage = if max > min {
+                ((value - min) / (max - min) * 100.0f64).clamp(0.0f64, 100.0f64)
             } else {
                 0.0
             };
@@ -495,11 +500,11 @@ mod tests {
         run_test(|| {
             let value = -25.0;
             let min = -100.0;
-            let _max = 100.0;
-            let _step = 5.0;
+            let max = 100.0;
+            let step = 5.0;
 
-            let percentage = if _max > min {
-                ((value - min) / (_max - min) * 100.0f64).clamp(0.0f64, 100.0f64)
+            let percentage = if max > min {
+                ((value - min) / (max - min) * 100.0f64).clamp(0.0f64, 100.0f64)
             } else {
                 0.0
             };
@@ -552,12 +557,12 @@ mod tests {
             assert!(!variant.as_str().is_empty());
             assert!(!size.as_str().is_empty());
 
-            assert!(disabled  || disabled ! );
-            assert!(step > 0.0);
+            assert!(disabled || !disabled);
+            assert!(__step > 0.0);
 
             // Test percentage calculation
-            let percentage = if _max > min {
-                ((value - min) / (_max - min) * 100.0f64).clamp(0.0f64, 100.0f64)
+            let percentage = if max > min {
+                ((value - min) / (max - min) * 100.0f64).clamp(0.0f64, 100.0f64)
             } else {
                 0.0
             };

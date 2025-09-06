@@ -1,3 +1,6 @@
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 use wasm_bindgen::JsCast;
 
 /// One-Time Password Field component for OTP input with validation
@@ -57,10 +60,7 @@ pub fn OtpField(
     let auto_submit = auto_submit.unwrap_or(true);
     let input_type = input_type.unwrap_or_default();
 
-    let class = format!(
-        "otp-field {} {} {}",
-        class.unwrap_or_default()
-    );
+    let class = format!("otp-field {}", class.unwrap_or_default());
 
     let style = style.unwrap_or_default();
 
@@ -68,7 +68,7 @@ pub fn OtpField(
     let chars: Vec<char> = value.chars().take(length).collect();
     let mut inputs = Vec::new();
 
-    for __i in 0..length {
+    for i in 0..length {
         let char_value = chars.get(i).copied().unwrap_or(' ');
         let input_type_str = match input_type {
             OtpInputType::Numeric => "tel",
@@ -190,11 +190,17 @@ pub fn OtpFieldWithValidation(
 
     let validation = validate_otp(&value, length, &input_type);
     let class = format!(
-        "otp-field-with-validation {} {} {} {}",
+        "otp-field-with-validation {} {}",
         if validation.is_valid {
             "valid"
+        } else {
+            "invalid"
+        },
         if validation.is_complete {
             "complete"
+        } else {
+            "incomplete"
+        }
     );
 
     let style = style.unwrap_or_default();
@@ -212,15 +218,17 @@ pub fn OtpFieldWithValidation(
             >
                 <></>
             </OtpField>
-            {if show_errors && !validation.errors.is_empty() {
-                view! {
-                    <div class="otp-errors">
-                        {validation.errors.into_iter().map(|error| {
-                            view! { <div class="error">{error}</div> }
-                        }).collect::<Vec<_>>()}
-                    </div>
-                }.into_any()
-            }}
+        {if show_errors && !validation.errors.is_empty() {
+            view! {
+                <div class="otp-errors">
+                    {validation.errors.into_iter().map(|error| {
+                        view! { <div class="error">{error}</div> }
+                    }).collect::<Vec<_>>()}
+                </div>
+            }.into_any()
+        } else {
+            view! { <div></div> }.into_any()
+        }}
         </div>
     }
 }
@@ -251,6 +259,14 @@ pub fn OtpTimer(
     let running = running.unwrap_or(false);
     let class = format!(
         "otp-timer {} {}",
+        if running { "running" } else { "stopped" },
+        class.as_deref().unwrap_or("")
+    );
+
+    view! {
+        <div class=class style=style>
+            <div class="timer-display">
+                {format!("{:02}:{:02}", duration / 60, duration % 60)}
             </div>
             <button
                 class="timer-reset"
@@ -292,6 +308,9 @@ pub fn OtpResend(
         "otp-resend {} {}",
         if available {
             "available"
+        } else {
+            "unavailable"
+        },
         class.unwrap_or_default()
     );
 
@@ -313,6 +332,10 @@ pub fn OtpResend(
                         "Resend OTP"
                     </button>
                 }.into_any()
+            } else {
+                view! {
+                    <span class="cooldown-text">
+                        {format!("Resend available in {}s", cooldown)}
                     </span>
                 }.into_any()
             }}
@@ -373,6 +396,8 @@ fn validate_otp(value: &str, expected_length: usize, input_type: &OtpInputType) 
 
 #[cfg(test)]
 mod tests {
+    use crate::{OtpField, OtpFieldProps, OtpInputType, OtpValidation};
+    use leptos::callback::Callback;
 
     // Component structure tests
     #[test]

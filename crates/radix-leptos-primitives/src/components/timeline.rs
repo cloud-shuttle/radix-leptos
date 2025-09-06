@@ -1,3 +1,7 @@
+use crate::utils::merge_classes;
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Timeline component - Event visualization
 #[component]
@@ -19,7 +23,7 @@ pub fn Timeline(
     let show_dates = show_dates.unwrap_or(true);
     let show_icons = show_icons.unwrap_or(true);
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "timeline",
         &orientation.to_class(),
         class.as_deref().unwrap_or(""),
@@ -167,7 +171,7 @@ pub fn TimelineItem(
     let event = event.unwrap_or_default();
     let position = position.unwrap_or(0.0);
 
-    let class = merge_classes(["timeline-item", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["timeline-item", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -198,7 +202,7 @@ pub fn TimelineLine(
     let length = length.unwrap_or(100.0);
     let thickness = thickness.unwrap_or(2.0);
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "timeline-line",
         &orientation.to_class(),
         class.as_deref().unwrap_or(""),
@@ -231,20 +235,10 @@ pub fn TimelineDot(
     let color = color.unwrap_or_default();
     let filled = filled.unwrap_or(true);
 
-    let class = merge_classes([
-        "timeline-dot",
-        </div>
-    }
+    let class = merge_classes(vec!["timeline-dot"]);
 }
 
 /// Helper function to merge CSS classes
-fn merge_classes(classes: Vec<&str>) -> String {
-    classes
-        .into_iter()
-        .filter(|c| !c.is_empty())
-        .collect::<Vec<_>>()
-        .join(" ")
-}
 
 #[cfg(test)]
 mod tests {

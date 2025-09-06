@@ -1,3 +1,7 @@
+use crate::utils::merge_classes;
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Label component - Form labels with accessibility features
 #[component]
@@ -18,7 +22,7 @@ pub fn Label(
     let size = size.unwrap_or_default();
     let variant = variant.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "label",
         &size.to_class(),
         &variant.to_class(),
@@ -59,13 +63,7 @@ pub fn LabelText(
     let text = text.unwrap_or_default();
     let required = required.unwrap_or(false);
 
-    let class = merge_classes([
-        "label-text",
-            {if required {
-                view! { <span class="required-indicator" aria-label="required">"*"</span> }.into_any()
-            }}
-        </span>
-    }
+    let class = merge_classes(vec!["label-text"]);
 }
 
 /// Label Description component
@@ -78,7 +76,7 @@ pub fn LabelDescription(
 ) -> impl IntoView {
     let description = description.unwrap_or_default();
 
-    let class = merge_classes(["label-description", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["label-description", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -104,10 +102,7 @@ pub fn LabelError(
     let error = error.unwrap_or_default();
     let visible = visible.unwrap_or(false);
 
-    let class = merge_classes([
-        "label-error",
-        </div>
-    }
+    let class = merge_classes(vec!["label-error"]);
 }
 
 /// Label Group component
@@ -122,7 +117,7 @@ pub fn LabelGroup(
     let orientation = orientation.unwrap_or_default();
     let spacing = spacing.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "label-group",
         &orientation.to_class(),
         &spacing.to_class(),
@@ -255,15 +250,6 @@ impl LabelSpacing {
             LabelSpacing::Loose => "loose",
         }
     }
-}
-
-/// Helper function to merge CSS classes
-fn merge_classes(classes: Vec<&str>) -> String {
-    classes
-        .into_iter()
-        .filter(|c| !c.is_empty())
-        .collect::<Vec<_>>()
-        .join(" ")
 }
 
 #[cfg(test)]

@@ -1,4 +1,6 @@
-use wasm_bindgen::JsCast;
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Multi-Select component for selecting multiple options with search functionality
 #[component]
@@ -55,8 +57,9 @@ pub fn MultiSelect(
 
     let class = format!(
         "multi-select {} {}",
-        </div>
-    }
+        class.as_deref().unwrap_or(""),
+        style.as_deref().unwrap_or("")
+    );
 }
 
 /// Multi-Select option structure
@@ -90,11 +93,9 @@ pub fn MultiSelectTrigger(
     let open = open.unwrap_or(false);
     let class = format!(
         "multi-select-trigger {} {}",
-            }
-        >
-            {children.map(|c| c())}
-        </button>
-    }
+        class.as_deref().unwrap_or(""),
+        style.as_deref().unwrap_or("")
+    );
 }
 
 /// Multi-Select content component
@@ -115,8 +116,9 @@ pub fn MultiSelectContent(
     let visible = visible.unwrap_or(false);
     let class = format!(
         "multi-select-content {} {}",
-        </div>
-    }
+        class.as_deref().unwrap_or(""),
+        style.as_deref().unwrap_or("")
+    );
 }
 
 /// Multi-Select option component
@@ -143,11 +145,8 @@ pub fn MultiSelectOption(
     children: Option<Children>,
 ) -> impl IntoView {
     let selected = selected.unwrap_or(false);
-    let disabled = disabled.unwrap_or(option.disabled);
-    let class = format!(
-        "multi-select-option {} {} {}",
-        class.unwrap_or_default()
-    );
+    let disabled = disabled.unwrap_or(option._disabled);
+    let class = format!("multi-select-option {}", class.unwrap_or_default());
 
     let style = style.unwrap_or_default();
 
@@ -204,8 +203,9 @@ pub fn MultiSelectSearch(
     let disabled = disabled.unwrap_or(false);
     let class = format!(
         "multi-select-search {} {}",
-        }
-    };
+        class.as_deref().unwrap_or(""),
+        style.as_deref().unwrap_or("")
+    );
 
     view! {
         <input
@@ -215,7 +215,11 @@ pub fn MultiSelectSearch(
             placeholder=placeholder
             value=value
             disabled=disabled
-            on:input=handle_input
+            on:input=move |ev| {
+                if let Some(callback) = on_change {
+                    callback.run(event_target_value(&ev));
+                }
+            }
         />
     }
 }
@@ -262,6 +266,8 @@ pub fn MultiSelectTag(
 
 #[cfg(test)]
 mod tests {
+    use crate::{MultiSelect, MultiSelectOption, MultiSelectProps};
+    use leptos::callback::Callback;
 
     // Component structure tests
     #[test]
@@ -288,13 +294,13 @@ mod tests {
         let option = MultiSelectOption {
             value: "test".to_string(),
             label: "Test Option".to_string(),
-            disabled: false,
+            _disabled: false,
             description: Some("Test description".to_string()),
             group: Some("test-group".to_string()),
         };
         assert_eq!(option.value, "test");
         assert_eq!(option.label, "Test Option");
-        assert!(!option.disabled);
+        assert!(!option._disabled);
         assert!(option.description.is_some());
         assert!(option.group.is_some());
     }
@@ -304,7 +310,7 @@ mod tests {
         let option = MultiSelectOption::default();
         assert_eq!(option.value, "");
         assert_eq!(option.label, "");
-        assert!(!option.disabled);
+        assert!(!option._disabled);
         assert!(option.description.is_none());
         assert!(option.group.is_none());
     }

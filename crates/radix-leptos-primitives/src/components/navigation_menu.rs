@@ -1,3 +1,7 @@
+use crate::utils::merge_classes;
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Navigation Menu component for main navigation
 ///
@@ -33,7 +37,7 @@ pub fn NavigationMenu(
         });
     }
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "navigation-menu",
         &orientation.to_class(),
         class.as_deref().unwrap_or(""),
@@ -58,7 +62,7 @@ pub fn NavigationMenuList(
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let class = merge_classes(["navigation-menu-list", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["navigation-menu-list", class.as_deref().unwrap_or("")]);
 
     view! {
         <ul class=class style=style role="menubar">
@@ -80,9 +84,7 @@ pub fn NavigationMenuItem(
     let disabled = disabled.unwrap_or(false);
     let value = value.unwrap_or_default();
 
-    let class = merge_classes([
-        "navigation-menu-item",
-    ]);
+    let class = merge_classes(vec!["navigation-menu-item"]);
 
     let handle_keydown = move |ev: web_sys::KeyboardEvent| {
         if !disabled && (ev.key() == "Enter" || ev.key() == " ") {
@@ -101,6 +103,7 @@ pub fn NavigationMenuItem(
         >
             <button
                 role="menuitem"
+            >
             </button>
         </li>
     }
@@ -117,14 +120,19 @@ pub fn NavigationMenuTrigger(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes([
-        "navigation-menu-trigger",
-        }
-    };
+    let class = merge_classes(vec!["navigation-menu-trigger"]);
 
     let handle_keydown = move |ev: web_sys::KeyboardEvent| {
         if !disabled && (ev.key() == "Enter" || ev.key() == " ") {
             ev.prevent_default();
+            if let Some(on_click) = on_click {
+                on_click.run(());
+            }
+        }
+    };
+
+    let handle_click = move |_| {
+        if !disabled {
             if let Some(on_click) = on_click {
                 on_click.run(());
             }
@@ -160,7 +168,10 @@ pub fn NavigationMenuContent(
         return view! { <></> }.into_any();
     }
 
-    let class = merge_classes(["navigation-menu-content", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec![
+        "navigation-menu-content",
+        class.as_deref().unwrap_or(""),
+    ]);
 
     view! {
         <div
@@ -189,10 +200,7 @@ pub fn NavigationMenuLink(
     let disabled = disabled.unwrap_or(false);
     let active = active.unwrap_or(false);
 
-    let class = merge_classes([
-        "navigation-menu-link",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(vec!["navigation-menu-link", class.as_deref().unwrap_or("")]);
 
     let handle_click = move |_| {
         if !disabled {
@@ -209,9 +217,17 @@ pub fn NavigationMenuLink(
                 style=style
                 href=href
                 on:click=handle_click
+            >
+                {children.map(|c| c())}
             </a>
         }
         .into_any()
+    } else {
+        view! {
+            <button
+                class=class
+                style=style
+                on:click=handle_click
             >
                 {children.map(|c| c())}
             </button>
@@ -226,7 +242,10 @@ pub fn NavigationMenuSeparator(
     #[prop(optional)] class: Option<String>,
     #[prop(optional)] style: Option<String>,
 ) -> impl IntoView {
-    let class = merge_classes(["navigation-menu-separator", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec![
+        "navigation-menu-separator",
+        class.as_deref().unwrap_or(""),
+    ]);
 
     view! {
         <div
@@ -262,17 +281,10 @@ impl NavigationMenuOrientation {
     }
 }
 
-/// Helper function to merge CSS classes
-fn merge_classes(classes: Vec<&str>) -> String {
-    classes
-        .into_iter()
-        .filter(|c| !c.is_empty())
-        .collect::<Vec<_>>()
-        .join(" ")
-}
-
 #[cfg(test)]
 mod tests {
+    use crate::utils::merge_classes;
+    use crate::NavigationMenuOrientation;
     use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
@@ -498,25 +510,25 @@ mod tests {
     // Helper Function Tests
     #[test]
     fn test_merge_classes_empty() {
-        let result = merge_classes(Vec::new());
+        let result = crate::utils::merge_classes(Vec::new());
         assert_eq!(result, "");
     }
 
     #[test]
     fn test_merge_classes_single() {
-        let result = merge_classes(["class1"]);
+        let result = crate::utils::merge_classes(vec!["class1"]);
         assert_eq!(result, "class1");
     }
 
     #[test]
     fn test_merge_classes_multiple() {
-        let result = merge_classes(["class1", "class2", "class3"]);
+        let result = crate::utils::merge_classes(vec!["class1", "class2", "class3"]);
         assert_eq!(result, "class1 class2 class3");
     }
 
     #[test]
     fn test_merge_classes_with_empty() {
-        let result = merge_classes(["class1", "", "class3"]);
+        let result = crate::utils::merge_classes(vec!["class1", "", "class3"]);
         assert_eq!(result, "class1 class3");
     }
 

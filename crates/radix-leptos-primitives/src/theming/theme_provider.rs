@@ -1,5 +1,8 @@
 use crate::theming::CSSVariables;
-use super::css_variables::CSSVariables;
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::context::{provide_context, use_context};
+use leptos::prelude::*;
 
 /// Theme provider component for managing global theme state
 #[component]
@@ -31,9 +34,12 @@ pub fn ThemeProvider(
     let (system_preference, set_system_preference) = signal(false);
 
     // Apply theme changes
-    let apply_theme = move |new_theme: CSSVariables, _dark: bool| {
+    let apply_theme = move |new_theme: CSSVariables, dark: bool| {
         let css_vars = if dark {
             CSSVariables::dark_theme()
+        } else {
+            CSSVariables::light_theme()
+        };
 
         setcurrent_theme.set(css_vars.clone());
         set_isdark.set(dark);
@@ -56,7 +62,7 @@ pub fn ThemeProvider(
     };
 
     // Set dark mode
-    let setdark_mode = move |_dark: bool| {
+    let setdark_mode = move |dark: bool| {
         apply_theme(current_theme.get(), dark);
     };
 
@@ -73,11 +79,11 @@ pub fn ThemeProvider(
     let class = format!(
         "theme-provider {} {}",
         current_theme.get().to_css_string(),
-        style.unwrap_or_default()
+        style.as_ref().unwrap_or(&String::new())
     );
 
     view! {
-        <div class=class style=style>
+        <div class=class style=style.unwrap_or_default()>
             {children.map(|c| c())}
         </div>
     }
@@ -165,6 +171,11 @@ pub fn ThemeToggle(
             class=class
             style=style
             on:click=move |_| toggledark_mode.run(())
+        >
+            {if isdark.get() {
+                "🌙"
+            } else {
+                "☀️"
             }}
         </button>
     }
@@ -194,6 +205,7 @@ pub fn ThemeSelector(
             ("Light".to_string(), CSSVariables::default()),
             ("Dark".to_string(), CSSVariables::dark_theme()),
         ]
+        .to_vec()
     });
 
     let (selected_theme, setselected_theme) =
@@ -245,6 +257,7 @@ pub fn ThemeSelector(
 
 #[cfg(test)]
 mod tests {
+    use crate::theming::CSSVariables;
 
     #[test]
     fn test_theme_provider_creation() {

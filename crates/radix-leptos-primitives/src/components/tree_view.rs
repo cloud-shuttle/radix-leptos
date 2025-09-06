@@ -1,4 +1,6 @@
-use wasm_bindgen::JsCast;
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Tree View component for displaying hierarchical data
 #[component]
@@ -47,9 +49,7 @@ pub fn TreeView(
     let show_lines = show_lines.unwrap_or(false);
     let show_node_icons = show_node_icons.unwrap_or(true);
 
-    let class = format!(
-        "tree-view {} {} {} {}",
-    );
+    let class = format!("tree-view",);
 
     let style = style.unwrap_or_default();
 
@@ -125,13 +125,26 @@ pub fn TreeNode(
         "tree-node {} {} {} {} {}",
         if node.expanded {
             "expanded"
+        } else {
+            "collapsed"
+        },
+        if node._selected {
+            "selected"
+        } else {
+            "unselected"
+        },
+        if node._disabled {
+            "disabled"
+        } else {
+            "enabled"
+        },
         node.level * 20,
-        style.unwrap_or_default()
+        style.clone().unwrap_or_default()
     );
 
     let node_clone = node.clone();
     let handle_select = move |_| {
-        if !node_clone.disabled {
+        if !node_clone._disabled {
             if let Some(callback) = on_select {
                 callback.run(node_clone.clone());
             }
@@ -139,8 +152,8 @@ pub fn TreeNode(
     };
 
     let node_clone = node.clone();
-    let handle_expand = move |_| {
-        if !node_clone.disabled {
+    let handle_expand = move |_: ()| {
+        if !node_clone._disabled {
             if let Some(callback) = on_expand {
                 callback.run(node_clone.clone());
             }
@@ -149,7 +162,7 @@ pub fn TreeNode(
 
     let node_clone = node.clone();
     let handle_check = move |_| {
-        if !node_clone.disabled {
+        if !node_clone._disabled {
             if let Some(callback) = on_check {
                 callback.run(node_clone.clone());
             }
@@ -157,15 +170,18 @@ pub fn TreeNode(
     };
 
     view! {
-        <div class=class style=style role="treeitem" aria-expanded=node.expanded aria-selected=node.selected>
+        <div class=class style=style role="treeitem" aria-expanded=node.expanded aria-selected=node._selected>
             <div class="tree-node-content">
                 {if show_icons && node.children.is_some() {
                     view! {
                         <button
                             class="tree-expand-icon"
                             type="button"
+                        >
                         </button>
                     }.into_any()
+                } else {
+                    view! { <div></div> }.into_any()
                 }}
 
                 {if checkable {
@@ -173,17 +189,21 @@ pub fn TreeNode(
                         <input
                             class="tree-checkbox"
                             type="checkbox"
-                            checked=node.checked
-                            disabled=node.disabled
+                            checked=node._checked
+                            disabled=node._disabled
                             on:change=handle_check
                         />
                     }.into_any()
+                } else {
+                    view! { <div></div> }.into_any()
                 }}
 
                 {if show_node_icons && node.icon.is_some() {
                     view! {
                         <span class="tree-node-icon">{node.icon.clone().unwrap()}</span>
                     }.into_any()
+                } else {
+                    view! { <div></div> }.into_any()
                 }}
 
                 <span class="tree-node-label" on:click=handle_select>
@@ -213,6 +233,8 @@ pub fn TreeNode(
                         }).collect::<Vec<_>>()}
                     </div>
                 }.into_any()
+            } else {
+                view! { <div></div> }.into_any()
             }}
 
             {children.map(|c| c())}
@@ -253,8 +275,9 @@ pub fn TreeViewSearch(
     let disabled = disabled.unwrap_or(false);
     let class = format!(
         "tree-search {} {}",
-        }
-    };
+        class.as_deref().unwrap_or(""),
+        style.as_deref().unwrap_or("")
+    );
 
     view! {
         <input
@@ -264,7 +287,11 @@ pub fn TreeViewSearch(
             placeholder=placeholder
             value=value
             disabled=disabled
-            on:input=handle_input
+            on:input=move |ev| {
+                if let Some(callback) = on_change {
+                    callback.run(event_target_value(&ev));
+                }
+            }
         />
     }
 }
@@ -306,6 +333,7 @@ pub fn TreeViewActions(
 
 #[cfg(test)]
 mod tests {
+    use crate::TreeNode;
 
     // Component structure tests
     #[test]
@@ -330,9 +358,9 @@ mod tests {
             icon: Some("📁".to_string()),
             children: Some(Vec::new()),
             expanded: false,
-            selected: false,
-            checked: false,
-            disabled: false,
+            _selected: false,
+            _checked: false,
+            _disabled: false,
             level: 0,
             parent_id: None,
         };
@@ -342,9 +370,9 @@ mod tests {
         assert!(node.icon.is_some());
         assert!(node.children.is_some());
         assert!(!node.expanded);
-        assert!(!node.selected);
-        assert!(!node.checked);
-        assert!(!node.disabled);
+        assert!(!node._selected);
+        assert!(!node._checked);
+        assert!(!node._disabled);
         assert_eq!(node.level, 0);
         assert!(node.parent_id.is_none());
     }
@@ -358,9 +386,9 @@ mod tests {
         assert!(node.icon.is_none());
         assert!(node.children.is_none());
         assert!(!node.expanded);
-        assert!(!node.selected);
-        assert!(!node.checked);
-        assert!(!node.disabled);
+        assert!(!node._selected);
+        assert!(!node._checked);
+        assert!(!node._disabled);
         assert_eq!(node.level, 0);
         assert!(node.parent_id.is_none());
     }

@@ -1,3 +1,7 @@
+use crate::utils::merge_classes;
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Toggle Group component for group of toggle buttons
 ///
@@ -41,12 +45,23 @@ pub fn ToggleGroup(
         });
     }
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "toggle-group",
         &variant.to_class(),
         &size.to_class(),
         &orientation.to_class(),
         &type_.to_class(),
+        class.as_deref().unwrap_or(""),
+    ]);
+
+    view! {
+        <div
+            class=class
+            style=style
+            role="group"
+            aria-orientation=orientation.to_aria()
+        >
+            {children.map(|c| c())}
         </div>
     }
 }
@@ -64,14 +79,19 @@ pub fn ToggleGroupItem(
     let disabled = disabled.unwrap_or(false);
     let value = value.unwrap_or_default();
 
-    let class = merge_classes([
-        "toggle-group-item",
-        }
-    };
+    let class = merge_classes(vec!["toggle-group-item"]);
 
     let handle_keydown = move |ev: web_sys::KeyboardEvent| {
         if !disabled && (ev.key() == "Enter" || ev.key() == " ") {
             ev.prevent_default();
+            if let Some(on_click) = on_click {
+                on_click.run(());
+            }
+        }
+    };
+
+    let handle_click = move |_| {
+        if !disabled {
             if let Some(on_click) = on_click {
                 on_click.run(());
             }
@@ -181,17 +201,10 @@ impl ToggleGroupType {
     }
 }
 
-/// Helper function to merge CSS classes
-fn merge_classes(classes: Vec<&str>) -> String {
-    classes
-        .into_iter()
-        .filter(|c| !c.is_empty())
-        .collect::<Vec<_>>()
-        .join(" ")
-}
-
 #[cfg(test)]
 mod tests {
+    use crate::utils::merge_classes;
+    use crate::{ToggleGroupOrientation, ToggleGroupSize, ToggleGroupType, ToggleGroupVariant};
     use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
@@ -377,19 +390,19 @@ mod tests {
 
     #[test]
     fn test_merge_classes_single() {
-        let result = merge_classes(["class1"]);
+        let result = merge_classes(vec!["class1"]);
         assert_eq!(result, "class1");
     }
 
     #[test]
     fn test_merge_classes_multiple() {
-        let result = merge_classes(["class1", "class2", "class3"]);
+        let result = merge_classes(vec!["class1", "class2", "class3"]);
         assert_eq!(result, "class1 class2 class3");
     }
 
     #[test]
     fn test_merge_classes_with_empty() {
-        let result = merge_classes(["class1", "", "class3"]);
+        let result = merge_classes(vec!["class1", "", "class3"]);
         assert_eq!(result, "class1 class3");
     }
 

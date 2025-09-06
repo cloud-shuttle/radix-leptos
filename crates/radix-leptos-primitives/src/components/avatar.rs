@@ -1,3 +1,7 @@
+use crate::utils::merge_classes;
+use leptos::callback::Callback;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Avatar component - User profile images with fallbacks
 #[component]
@@ -21,7 +25,7 @@ pub fn Avatar(
     let shape = shape.unwrap_or_default();
     let loading = loading.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "avatar",
         &size.to_class(),
         &shape.to_class(),
@@ -59,7 +63,7 @@ pub fn AvatarImage(
     let src = src.unwrap_or_default();
     let alt = alt.unwrap_or_else(|| "Avatar image".to_string());
 
-    let class = merge_classes(["avatar-image", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["avatar-image", class.as_deref().unwrap_or("")]);
 
     let handle_load = move |_| {
         if let Some(callback) = on_load {
@@ -95,7 +99,7 @@ pub fn AvatarFallback(
 ) -> impl IntoView {
     let text = text.unwrap_or_else(|| "?".to_string());
 
-    let class = merge_classes(["avatar-fallback", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["avatar-fallback", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -121,7 +125,7 @@ pub fn AvatarGroup(
     let maxvisible = maxvisible.unwrap_or(5);
     let spacing = spacing.unwrap_or_default();
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "avatar-group",
         &spacing.to_class(),
         class.as_deref().unwrap_or(""),
@@ -253,13 +257,6 @@ impl AvatarSpacing {
 }
 
 /// Helper function to merge CSS classes
-fn merge_classes(classes: Vec<&str>) -> String {
-    classes
-        .into_iter()
-        .filter(|c| !c.is_empty())
-        .collect::<Vec<_>>()
-        .join(" ")
-}
 
 #[cfg(test)]
 mod tests {

@@ -1,3 +1,6 @@
+use crate::utils::merge_classes;
+use leptos::children::Children;
+use leptos::prelude::*;
 
 /// Scroll Area component for custom scrollable areas
 ///
@@ -13,9 +16,19 @@ pub fn ScrollArea(
     let orientation = orientation.unwrap_or_default();
     let scroll_hidden = scroll_hidden.unwrap_or(false);
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "scroll-area",
         &orientation.to_class(),
+        class.as_deref().unwrap_or(""),
+    ]);
+
+    view! {
+        <div
+            class=class
+            style=style
+            data-orientation=orientation.to_aria()
+        >
+            {children.map(|c| c())}
         </div>
     }
 }
@@ -27,7 +40,7 @@ pub fn ScrollAreaViewport(
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let class = merge_classes(["scroll-area-viewport", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["scroll-area-viewport", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -51,9 +64,19 @@ pub fn ScrollAreaScrollbar(
     let orientation = orientation.unwrap_or_default();
     let force_mount = force_mount.unwrap_or(false);
 
-    let class = merge_classes([
+    let class = merge_classes(vec![
         "scroll-area-scrollbar",
         &orientation.to_class(),
+        class.as_deref().unwrap_or(""),
+    ]);
+
+    view! {
+        <div
+            class=class
+            style=style
+            data-orientation=orientation.to_aria()
+        >
+            {children.map(|c| c())}
         </div>
     }
 }
@@ -64,7 +87,7 @@ pub fn ScrollAreaThumb(
     #[prop(optional)] class: Option<String>,
     #[prop(optional)] style: Option<String>,
 ) -> impl IntoView {
-    let class = merge_classes(["scroll-area-thumb", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["scroll-area-thumb", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -80,7 +103,7 @@ pub fn ScrollAreaCorner(
     #[prop(optional)] class: Option<String>,
     #[prop(optional)] style: Option<String>,
 ) -> impl IntoView {
-    let class = merge_classes(["scroll-area-corner", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec!["scroll-area-corner", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -117,17 +140,10 @@ impl ScrollAreaOrientation {
     }
 }
 
-/// Helper function to merge CSS classes
-fn merge_classes(classes: Vec<&str>) -> String {
-    classes
-        .into_iter()
-        .filter(|c| !c.is_empty())
-        .collect::<Vec<_>>()
-        .join(" ")
-}
-
 #[cfg(test)]
 mod tests {
+    use crate::utils::merge_classes;
+    use crate::ScrollAreaOrientation;
     use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
@@ -243,19 +259,19 @@ mod tests {
 
     #[test]
     fn test_merge_classes_single() {
-        let result = merge_classes(["class1"]);
+        let result = merge_classes(vec!["class1"]);
         assert_eq!(result, "class1");
     }
 
     #[test]
     fn test_merge_classes_multiple() {
-        let result = merge_classes(["class1", "class2", "class3"]);
+        let result = merge_classes(vec!["class1", "class2", "class3"]);
         assert_eq!(result, "class1 class2 class3");
     }
 
     #[test]
     fn test_merge_classes_with_empty() {
-        let result = merge_classes(["class1", "", "class3"]);
+        let result = merge_classes(vec!["class1", "", "class3"]);
         assert_eq!(result, "class1 class3");
     }
 

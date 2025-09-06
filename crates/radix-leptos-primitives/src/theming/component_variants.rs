@@ -1,4 +1,6 @@
 use crate::utils::merge_classes;
+use leptos::callback::Callback;
+use leptos::prelude::*;
 use serde::{Deserialize, Serialize};
 
 /// Component variant system for consistent styling
@@ -39,7 +41,8 @@ impl Default for ButtonVariants {
                 SizeVariant::Medium,
                 SizeVariant::Large,
                 SizeVariant::ExtraLarge,
-            ],
+            ]
+            .to_vec(),
             styles: [
                 StyleVariant::Default,
                 StyleVariant::Primary,
@@ -47,14 +50,16 @@ impl Default for ButtonVariants {
                 StyleVariant::Outline,
                 StyleVariant::Ghost,
                 StyleVariant::Destructive,
-            ],
+            ]
+            .to_vec(),
             states: [
                 StateVariant::Default,
                 StateVariant::Hover,
                 StateVariant::Active,
                 StateVariant::Disabled,
                 StateVariant::Loading,
-            ],
+            ]
+            .to_vec(),
         }
     }
 }
@@ -71,25 +76,28 @@ pub struct InputVariants {
 impl Default for InputVariants {
     fn default() -> Self {
         Self {
-            sizes: [SizeVariant::Small, SizeVariant::Medium, SizeVariant::Large],
+            sizes: [SizeVariant::Small, SizeVariant::Medium, SizeVariant::Large].to_vec(),
             styles: [
                 StyleVariant::Default,
                 StyleVariant::Outline,
                 StyleVariant::Filled,
-            ],
+            ]
+            .to_vec(),
             states: [
                 StateVariant::Default,
                 StateVariant::Focus,
                 StateVariant::Error,
                 StateVariant::Disabled,
-            ],
+            ]
+            .to_vec(),
             types: [
                 InputTypeVariant::Text,
                 InputTypeVariant::Email,
                 InputTypeVariant::Password,
                 InputTypeVariant::Number,
                 InputTypeVariant::Search,
-            ],
+            ]
+            .to_vec(),
         }
     }
 }
@@ -105,18 +113,20 @@ pub struct CardVariants {
 impl Default for CardVariants {
     fn default() -> Self {
         Self {
-            sizes: [SizeVariant::Small, SizeVariant::Medium, SizeVariant::Large],
+            sizes: [SizeVariant::Small, SizeVariant::Medium, SizeVariant::Large].to_vec(),
             styles: [
                 StyleVariant::Default,
                 StyleVariant::Outlined,
                 StyleVariant::Filled,
-            ],
+            ]
+            .to_vec(),
             elevations: [
                 ElevationVariant::None,
                 ElevationVariant::Low,
                 ElevationVariant::Medium,
                 ElevationVariant::High,
-            ],
+            ]
+            .to_vec(),
         }
     }
 }
@@ -132,7 +142,7 @@ pub struct BadgeVariants {
 impl Default for BadgeVariants {
     fn default() -> Self {
         Self {
-            sizes: [SizeVariant::Small, SizeVariant::Medium, SizeVariant::Large],
+            sizes: [SizeVariant::Small, SizeVariant::Medium, SizeVariant::Large].to_vec(),
             styles: [
                 StyleVariant::Default,
                 StyleVariant::Primary,
@@ -140,12 +150,14 @@ impl Default for BadgeVariants {
                 StyleVariant::Success,
                 StyleVariant::Warning,
                 StyleVariant::Error,
-            ],
+            ]
+            .to_vec(),
             shapes: [
                 ShapeVariant::Rounded,
                 ShapeVariant::Pill,
                 ShapeVariant::Square,
-            ],
+            ]
+            .to_vec(),
         }
     }
 }
@@ -161,18 +173,20 @@ pub struct AlertVariants {
 impl Default for AlertVariants {
     fn default() -> Self {
         Self {
-            sizes: [SizeVariant::Small, SizeVariant::Medium, SizeVariant::Large],
+            sizes: [SizeVariant::Small, SizeVariant::Medium, SizeVariant::Large].to_vec(),
             styles: [
                 StyleVariant::Default,
                 StyleVariant::Outlined,
                 StyleVariant::Filled,
-            ],
+            ]
+            .to_vec(),
             types: [
                 AlertTypeVariant::Info,
                 AlertTypeVariant::Success,
                 AlertTypeVariant::Warning,
                 AlertTypeVariant::Error,
-            ],
+            ]
+            .to_vec(),
         }
     }
 }
@@ -370,7 +384,7 @@ pub fn VariantBuilder(
     let component_type = component_type.unwrap_or_else(|| "button".to_string());
     let on_variant_change = on_variant_change.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes(["variant-builder", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(["variant-builder", class.as_deref().unwrap_or("")].to_vec());
 
     let (variants, set_variants) = signal(ComponentVariants::default());
 
@@ -436,11 +450,14 @@ pub fn ButtonVariantSection(
     let variants_clone2 = variants.clone();
     let variants_clone3 = variants.clone();
 
-    let class = merge_classes([
-        "variant-section",
-        &component_type,
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(
+        [
+            "variant-section",
+            &component_type,
+            class.as_deref().unwrap_or(""),
+        ]
+        .to_vec(),
+    );
 
     view! {
         <div
@@ -503,11 +520,14 @@ pub fn InputVariantSection(
     let variants_clone2 = variants.clone();
     let variants_clone3 = variants.clone();
 
-    let class = merge_classes([
-        "variant-section",
-        &component_type,
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(
+        [
+            "variant-section",
+            &component_type,
+            class.as_deref().unwrap_or(""),
+        ]
+        .to_vec(),
+    );
 
     view! {
         <div
@@ -565,7 +585,7 @@ pub fn SizeVariantOptionGroup(
     let options = options.unwrap_or_default();
     let on_change = on_change.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes(["variant-option-group", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(["variant-option-group", class.as_deref().unwrap_or("")].to_vec());
 
     view! {
         <div
@@ -601,7 +621,7 @@ pub fn StyleVariantOptionGroup(
     let options = options.unwrap_or_default();
     let on_change = on_change.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes(["variant-option-group", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(["variant-option-group", class.as_deref().unwrap_or("")].to_vec());
 
     view! {
         <div
@@ -637,7 +657,7 @@ pub fn StateVariantOptionGroup(
     let options = options.unwrap_or_default();
     let on_change = on_change.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes(["variant-option-group", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(["variant-option-group", class.as_deref().unwrap_or("")].to_vec());
 
     view! {
         <div
@@ -662,6 +682,11 @@ pub fn StateVariantOptionGroup(
 
 #[cfg(test)]
 mod component_variants_tests {
+    use crate::theming::{
+        AlertTypeVariant, ButtonVariants, ComponentVariants, ElevationVariant, InputTypeVariant,
+        InputVariants, ShapeVariant, SizeVariant, StateVariant, StyleVariant,
+    };
+    use leptos::callback::Callback;
     use proptest::prelude::*;
 
     #[test]
