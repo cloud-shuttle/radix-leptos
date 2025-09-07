@@ -23,8 +23,8 @@ ssr = ["leptos/ssr", "radix-leptos-core/ssr", "radix-leptos-primitives/ssr"]
 hydrate = ["leptos/hydrate", "radix-leptos-core/hydrate", "radix-leptos-primitives/hydrate"]
 
 [dependencies]
-radix-leptos-core = { version = "0.8.3", path = "../radix-leptos-core" }
-radix-leptos-primitives = { version = "0.8.3", path = "../radix-leptos-primitives" }
+radix-leptos-core = { version = "0.8.4", path = "../radix-leptos-core" }
+radix-leptos-primitives = { version = "0.8.4", path = "../radix-leptos-primitives" }
 leptos.workspace = true
 
 [dev-dependencies]

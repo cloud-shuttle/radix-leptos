@@ -27,7 +27,7 @@ core = []
 full = []
 
 [dependencies]
-radix-leptos-core = { version = "0.8.3", path = "../radix-leptos-core" }
+radix-leptos-core = { version = "0.8.4", path = "../radix-leptos-core" }
 leptos.workspace = true
 web-sys.workspace = true
 # leptos-use.workspace = true
