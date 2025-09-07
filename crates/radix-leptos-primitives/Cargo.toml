@@ -10,6 +10,21 @@ documentation.workspace = true
 description = "Primitive components for Radix-Leptos"
 keywords.workspace = true
 categories.workspace = true
+readme = "README.md"
+
+[package.metadata.docs.rs]
+features = ["default"]
+rustdoc-args = ["--cfg", "docsrs"]
+
+[features]
+default = []
+docsrs = []
+ssr = ["leptos/ssr", "radix-leptos-core/ssr"]
+hydrate = ["leptos/hydrate", "radix-leptos-core/hydrate"]
+
+# Component features
+core = []
+full = []
 
 [dependencies]
 radix-leptos-core = { version = "0.8.3", path = "../radix-leptos-core" }
@@ -29,12 +44,3 @@ wasm-bindgen-test.workspace = true
 console_error_panic_hook.workspace = true
 proptest.workspace = true
 fake.workspace = true
-
-[features]
-default = []
-ssr = ["leptos/ssr", "radix-leptos-core/ssr"]
-hydrate = ["leptos/hydrate", "radix-leptos-core/hydrate"]
-
-# Component features
-core = []
-full = []

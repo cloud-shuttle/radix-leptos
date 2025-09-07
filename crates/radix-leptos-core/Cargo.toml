@@ -10,6 +10,17 @@ documentation.workspace = true
 description = "Core utilities and hooks for Radix-Leptos components"
 keywords.workspace = true
 categories.workspace = true
+readme = "README.md"
+
+[package.metadata.docs.rs]
+features = ["default"]
+rustdoc-args = ["--cfg", "docsrs"]
+
+[features]
+default = []
+docsrs = []
+ssr = ["leptos/ssr"]
+hydrate = ["leptos/hydrate"]
 
 [dependencies]
 leptos.workspace = true
@@ -27,8 +38,3 @@ wasm-bindgen-test.workspace = true
 console_error_panic_hook.workspace = true
 proptest.workspace = true
 fake.workspace = true
-
-[features]
-default = []
-ssr = ["leptos/ssr"]
-hydrate = ["leptos/hydrate"]

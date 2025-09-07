@@ -10,6 +10,17 @@ documentation.workspace = true
 description = "Accessible, unstyled UI primitives for Leptos"
 keywords.workspace = true
 categories.workspace = true
+readme = "README.md"
+
+[package.metadata.docs.rs]
+features = ["default"]
+rustdoc-args = ["--cfg", "docsrs"]
+
+[features]
+default = []
+docsrs = []
+ssr = ["leptos/ssr", "radix-leptos-core/ssr", "radix-leptos-primitives/ssr"]
+hydrate = ["leptos/hydrate", "radix-leptos-core/hydrate", "radix-leptos-primitives/hydrate"]
 
 [dependencies]
 radix-leptos-core = { version = "0.8.3", path = "../radix-leptos-core" }
@@ -18,8 +29,3 @@ leptos.workspace = true
 
 [dev-dependencies]
 wasm-bindgen-test.workspace = true
-
-[features]
-default = []
-ssr = ["leptos/ssr", "radix-leptos-core/ssr", "radix-leptos-primitives/ssr"]
-hydrate = ["leptos/hydrate", "radix-leptos-core/hydrate", "radix-leptos-primitives/hydrate"]

@@ -18,6 +18,7 @@ documentation = "https://docs.rs/radix-leptos"
 description = "Rust port of Radix UI primitives for Leptos - High-performance, accessible UI components with 538KB optimized WASM bundle"
 keywords = ["ui", "components", "accessibility", "leptos", "radix"]
 categories = ["web-programming", "gui", "wasm"]
+readme = "README.md"
 
 [workspace.dependencies]
 leptos = { version = "0.8.8", features = ["ssr", "csr"] }
@@ -29,22 +30,18 @@ wasm-bindgen = "0.2"
 wasm-bindgen-futures = "0.4"
 js-sys = "0.3"
 gloo-timers = { version = "0.3", features = ["futures"] }
-console_error_panic_hook = "0.1"
-thiserror = "1.0"
-serde = { version = "1.0", features = ["derive"] }
+thiserror = "2.0"
 uuid = { version = "1.0", features = ["v4", "js"] }
-chrono = { version = "0.4", features = ["serde"] }
-
-# Dev dependencies
 wasm-bindgen-test = "0.3"
-leptos-testing = "0.1"
+console_error_panic_hook = "0.1"
 proptest = "1.0"
-fake = "2.9"
+fake = "2.0"
+chrono = { version = "0.4", features = ["serde"] }
+serde = { version = "1.0", features = ["derive"] }
+leptos-testing = "0.1"
 criterion = "0.5"
 cargo-mutants = "0.1"
 tarpaulin = "0.27"
-
-# Dev dependencies are defined in individual crates
 
 [profile.release]
 opt-level = "z"  # Optimize for size
