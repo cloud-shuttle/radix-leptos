@@ -267,7 +267,6 @@ pub fn MultiSelectTag(
 #[cfg(test)]
 mod tests {
     use crate::MultiSelectOption;
-    
 
     // Component structure tests
     #[test]

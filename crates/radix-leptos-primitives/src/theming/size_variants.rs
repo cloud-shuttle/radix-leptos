@@ -3,8 +3,7 @@ use leptos::context::use_context;
 use leptos::prelude::*;
 
 /// Size variants for components
-#[derive(Clone, Debug, PartialEq)]
-#[derive(Default)]
+#[derive(Clone, Debug, PartialEq, Default)]
 pub enum Size {
     Xs,
     Sm,
@@ -14,7 +13,6 @@ pub enum Size {
     Xl,
     Xxl,
 }
-
 
 impl Size {
     /// Get the CSS class for the size
@@ -91,8 +89,7 @@ impl Size {
 }
 
 /// Variant system for components
-#[derive(Clone, Debug, PartialEq)]
-#[derive(Default)]
+#[derive(Clone, Debug, PartialEq, Default)]
 pub enum Variant {
     #[default]
     Default,
@@ -103,7 +100,6 @@ pub enum Variant {
     Ghost,
     Link,
 }
-
 
 impl Variant {
     /// Get the CSS class for the variant

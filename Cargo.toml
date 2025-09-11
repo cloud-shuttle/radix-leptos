@@ -8,7 +8,7 @@ members = [
 ]
 
 [workspace.package]
-version = "0.8.4"
+version = "0.8.5"
 authors = ["Radix-Leptos Contributors"]
 edition = "2021"
 license = "MIT"

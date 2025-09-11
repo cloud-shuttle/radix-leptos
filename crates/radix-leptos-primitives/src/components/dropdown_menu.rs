@@ -6,8 +6,7 @@ use leptos::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::{KeyboardEvent, MouseEvent};
 
-#[derive(Clone, Debug, PartialEq)]
-#[derive(Default)]
+#[derive(Clone, Debug, PartialEq, Default)]
 pub enum DropdownMenuSize {
     Small,
     #[default]
@@ -15,16 +14,13 @@ pub enum DropdownMenuSize {
     Large,
 }
 
-
-#[derive(Clone, Debug, PartialEq)]
-#[derive(Default)]
+#[derive(Clone, Debug, PartialEq, Default)]
 pub enum DropdownMenuItemVariant {
     #[default]
     Default,
     Destructive,
     Disabled,
 }
-
 
 #[component]
 pub fn DropdownMenu(

@@ -4,8 +4,7 @@ use leptos::prelude::*;
 use serde::{Deserialize, Serialize};
 
 /// Component variant system for consistent styling
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub struct ComponentVariants {
     pub button: ButtonVariants,
     pub input: InputVariants,
@@ -13,7 +12,6 @@ pub struct ComponentVariants {
     pub badge: BadgeVariants,
     pub alert: AlertVariants,
 }
-
 
 /// Button variants configuration
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

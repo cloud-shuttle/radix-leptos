@@ -250,8 +250,8 @@ pub fn DarkModeSwitch(
         <label class=class style=style>
             <input
                 type="checkbox"
-                checked=isdark
-                disabled=disabled
+                checked=move || isdark.get()
+                disabled=move || disabled
                 on:change=handle_change
                 class="sr-only"
             />

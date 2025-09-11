@@ -5,9 +5,8 @@
 
 #[cfg(test)]
 mod tests {
-    
+
     use radix_leptos_primitives::theming::*;
-    
 
     #[test]
     fn test_theme_provider_compilation() {
@@ -24,10 +23,12 @@ mod tests {
     #[test]
     fn test_component_variants_compilation() {
         // Test that component variants compile correctly
-        let _button_variants = [StyleVariant::Default,
+        let _button_variants = [
+            StyleVariant::Default,
             StyleVariant::Primary,
             StyleVariant::Secondary,
-            StyleVariant::Destructive];
+            StyleVariant::Destructive,
+        ];
 
         let _button_sizes = [SizeVariant::Small, SizeVariant::Medium, SizeVariant::Large];
 
@@ -43,13 +44,15 @@ mod tests {
             96.0,
         ];
 
-        let _directions = [SpacingDirection::All,
+        let _directions = [
+            SpacingDirection::All,
             SpacingDirection::Horizontal,
             SpacingDirection::Vertical,
             SpacingDirection::Top,
             SpacingDirection::Right,
             SpacingDirection::Bottom,
-            SpacingDirection::Left];
+            SpacingDirection::Left,
+        ];
 
         assert!(true);
     }

@@ -1,5 +1,5 @@
-use leptos::prelude::*;
 use leptos::logging::log;
+use leptos::prelude::*;
 use radix_leptos_primitives::components::badge::*;
 
 #[component]

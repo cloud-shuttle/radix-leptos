@@ -237,7 +237,7 @@ pub fn ThemeSelector(
     view! {
         <div class=class style=style>
             <select
-                prop:value=selected_theme
+                prop:value=move || selected_theme.get()
                 on:change=move |ev| {
                     let value = event_target_value(&ev);
                     handle_theme_change(value);

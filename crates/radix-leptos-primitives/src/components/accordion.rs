@@ -496,10 +496,9 @@ mod tests {
             assert!(!allow_multiple);
 
             // Handle click
-            if trigger_clicked
-                && iscurrentlyopen {
-                    // Close the section
-                }
+            if trigger_clicked && iscurrentlyopen {
+                // Close the section
+            }
         });
     }
 

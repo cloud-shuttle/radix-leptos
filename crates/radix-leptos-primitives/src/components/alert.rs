@@ -105,10 +105,12 @@ pub fn Alert(
     };
 
     // Handle keyboard events
-    let handle_keydown = move |e: web_sys::KeyboardEvent| if e.key().as_str() == "Escape" {
-        e.prevent_default();
-        if let Some(on_dismiss) = on_dismiss {
-            on_dismiss.run(());
+    let handle_keydown = move |e: web_sys::KeyboardEvent| {
+        if e.key().as_str() == "Escape" {
+            e.prevent_default();
+            if let Some(on_dismiss) = on_dismiss {
+                on_dismiss.run(());
+            }
         }
     };
 

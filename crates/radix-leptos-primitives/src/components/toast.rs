@@ -26,7 +26,8 @@ pub fn Toast(
     let dismissible = dismissible.unwrap_or(true);
 
     let class = merge_classes(
-        ["toast",
+        [
+            "toast",
             variant.to_class(),
             position.to_class(),
             if dismissible {
@@ -34,7 +35,8 @@ pub fn Toast(
             } else {
                 "non-dismissible"
             },
-            class.as_deref().unwrap_or("")]
+            class.as_deref().unwrap_or(""),
+        ]
         .to_vec(),
     );
 
@@ -69,9 +71,11 @@ pub fn ToastProvider(
     let default_duration = default_duration.unwrap_or(5000);
 
     let class = merge_classes(
-        ["toast-provider",
+        [
+            "toast-provider",
             position.to_class(),
-            class.as_deref().unwrap_or("")]
+            class.as_deref().unwrap_or(""),
+        ]
         .to_vec(),
     );
 
@@ -278,9 +282,11 @@ pub fn ToastViewport(
     let position = position.unwrap_or_default();
 
     let class = merge_classes(
-        ["toast-viewport",
+        [
+            "toast-viewport",
             position.to_class(),
-            class.as_deref().unwrap_or("")]
+            class.as_deref().unwrap_or(""),
+        ]
         .to_vec(),
     );
 

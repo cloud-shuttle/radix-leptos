@@ -167,7 +167,7 @@ pub fn ProgressIndicator(
 #[cfg(test)]
 mod tests {
     use crate::{ProgressSize, ProgressVariant};
-    
+
     use proptest::prelude::*;
 
     // 1. Basic Rendering Tests

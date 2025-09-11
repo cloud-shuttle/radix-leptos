@@ -4,8 +4,7 @@ use leptos::prelude::*;
 use serde::{Deserialize, Serialize};
 
 /// Layout system for consistent spacing and alignment
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub struct LayoutSystem {
     pub spacing: SpacingSystem,
     pub breakpoints: BreakpointSystem,
@@ -13,7 +12,6 @@ pub struct LayoutSystem {
     pub flexbox: FlexboxSystem,
     pub containers: ContainerSystem,
 }
-
 
 /// Spacing system configuration
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

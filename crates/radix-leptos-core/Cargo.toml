@@ -1,6 +1,6 @@
 [package]
 name = "radix-leptos-core"
-version.workspace = true
+version = "0.8.5"
 authors.workspace = true
 edition.workspace = true
 license.workspace = true

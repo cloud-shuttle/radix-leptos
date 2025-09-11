@@ -834,7 +834,7 @@ pub fn getvisible_page_numbers(
 #[cfg(test)]
 mod tests {
     use crate::{PaginationSize, PaginationVariant};
-    
+
     use proptest::prelude::*;
     use wasm_bindgen_test::*;
 

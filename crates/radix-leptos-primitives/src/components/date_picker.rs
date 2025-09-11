@@ -241,9 +241,9 @@ pub fn DatePickerValidation(
 mod tests {
     use crate::utils::merge_classes;
     use crate::DateValidation;
-    
+
     use proptest::prelude::*;
-    
+
     use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);

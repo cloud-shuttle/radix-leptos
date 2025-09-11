@@ -25,7 +25,8 @@ pub enum BadgeSize {
 fn merge_classes(classes: &[&str]) -> String {
     classes
         .iter()
-        .filter(|&&c| !c.is_empty()).copied()
+        .filter(|&&c| !c.is_empty())
+        .copied()
         .collect::<Vec<&str>>()
         .join(" ")
 }

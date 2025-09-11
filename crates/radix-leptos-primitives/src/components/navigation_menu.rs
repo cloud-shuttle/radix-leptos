@@ -286,7 +286,7 @@ impl NavigationMenuOrientation {
 
 #[cfg(test)]
 mod tests {
-    
+
     use crate::NavigationMenuOrientation;
     use wasm_bindgen_test::*;
 
