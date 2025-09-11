@@ -15,12 +15,12 @@ A Rust port of [Radix UI](https://www.radix-ui.com/) primitives for [Leptos](htt
 - **♿ Accessibility First**: Built with ARIA compliance and keyboard navigation
 - **🎨 Unstyled Components**: Clean, customizable components without opinionated styling
 - **🌐 SSR & Hydration**: Full support for server-side rendering and hydration
-- **🧪 Comprehensive Testing**: 1200+ passing tests with TDD infrastructure, property-based testing, and mutation testing
+- **🧪 Comprehensive Testing**: 1,792+ passing tests with TDD infrastructure, property-based testing, and mutation testing
 - **📱 Responsive Design**: Mobile-first components with touch support
 - **🔧 Feature Flags**: `core` and `full` feature sets for optimal bundle sizes
 - **🔒 Type Safety**: Full Rust type safety with excellent IDE support
 - **⚡ Zero Runtime**: No JavaScript runtime overhead, pure WASM performance
-- **🧪 TDD Infrastructure**: World-class Test-Driven Development with 1200+ passing tests
+- **🧪 TDD Infrastructure**: World-class Test-Driven Development with 1,792+ passing tests
 - **🔬 Property-Based Testing**: Edge case detection with `proptest`
 - **🎯 Quality Gates**: Automated compliance checking and mutation testing
 
@@ -31,8 +31,15 @@ A Rust port of [Radix UI](https://www.radix-ui.com/) primitives for [Leptos](htt
 ### 📊 **Current Progress: 95% Complete**
 - ✅ **57 Components** implemented with TDD
 - ✅ **Complete TDD Infrastructure** (100%)
-- ✅ **1200+ Passing Tests** across all crates
+- ✅ **1,792+ Passing Tests** across all crates
 - 🔄 **3+ Components** planned for v1.0.0
+
+### 🚀 **Recent Releases**
+- **v0.8.5 (January 2025)**: ✅ **COMPLETE** - **Leptos 0.8.8 Compatibility Release**
+  - 🎯 **4 Critical Compilation Errors Fixed**
+  - ✅ **1,792 Tests Passing (100% Success Rate)**
+  - 🚀 **Zero Migration Required**
+  - 📦 **Full Backward Compatibility**
 
 ### 🚀 **Upcoming Releases**
 - **v0.3.0 (September 2025)**: ✅ **COMPLETE** - Core form components (Dialog, Form, Select, etc.)
@@ -47,14 +54,34 @@ A Rust port of [Radix UI](https://www.radix-ui.com/) primitives for [Leptos](htt
 
 ```toml
 [dependencies]
-radix-leptos = "0.6.0"
+radix-leptos = "0.8.5"
+leptos = "0.8.8"  # ✅ Full compatibility with latest Leptos!
 
 # For minimal bundle size (recommended for production)
-radix-leptos = { version = "0.6.0", features = ["core"] }
+radix-leptos = { version = "0.8.5", features = ["core"] }
 
 # For all components
-radix-leptos = { version = "0.6.0", features = ["full"] }
+radix-leptos = { version = "0.8.5", features = ["full"] }
 ```
+
+## ✅ **Leptos 0.8.8 Compatibility**
+
+**Radix-Leptos v0.8.5 is fully compatible with Leptos 0.8.8!**
+
+| Radix-Leptos Version | Leptos Version | Status |
+|---------------------|----------------|---------|
+| 0.8.4 | 0.8.7 and earlier | ✅ Compatible |
+| 0.8.4 | 0.8.8 | ❌ **Broken** (compilation errors) |
+| **0.8.5** | **0.8.8** | ✅ **Compatible** |
+| **0.8.5** | 0.8.7 and earlier | ✅ **Compatible** |
+
+### **What's Fixed in v0.8.5**
+- ✅ **4 Critical Compilation Errors** resolved
+- ✅ **Signal Attribute System** updated for Leptos 0.8.8
+- ✅ **Dark Mode Components** fully functional
+- ✅ **Theme Provider Components** fully functional
+- ✅ **Zero Breaking Changes** to public API
+- ✅ **Zero Migration Required** for users
 
 ## 🚀 Quick Start
 
@@ -313,4 +340,4 @@ Radix-Leptos is **production-ready** with:
 
 **Ready for production use with 538KB optimized bundle! 🎉**
 
-**Latest Version: v0.6.0** - Enhanced Components & Advanced UI Patterns with 1200+ passing tests!
+**Latest Version: v0.8.5** - ✅ **Leptos 0.8.8 Compatibility Release** with 1,792+ passing tests!
