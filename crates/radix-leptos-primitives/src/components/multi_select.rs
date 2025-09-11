@@ -266,8 +266,8 @@ pub fn MultiSelectTag(
 
 #[cfg(test)]
 mod tests {
-    use crate::{MultiSelect, MultiSelectOption, MultiSelectProps};
-    use leptos::callback::Callback;
+    use crate::MultiSelectOption;
+    
 
     // Component structure tests
     #[test]

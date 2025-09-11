@@ -4,20 +4,17 @@ use leptos::prelude::*;
 
 /// Size variants for components
 #[derive(Clone, Debug, PartialEq)]
+#[derive(Default)]
 pub enum Size {
     Xs,
     Sm,
+    #[default]
     Md,
     Lg,
     Xl,
     Xxl,
 }
 
-impl Default for Size {
-    fn default() -> Self {
-        Size::Md
-    }
-}
 
 impl Size {
     /// Get the CSS class for the size
@@ -95,7 +92,9 @@ impl Size {
 
 /// Variant system for components
 #[derive(Clone, Debug, PartialEq)]
+#[derive(Default)]
 pub enum Variant {
+    #[default]
     Default,
     Primary,
     Secondary,
@@ -105,11 +104,6 @@ pub enum Variant {
     Link,
 }
 
-impl Default for Variant {
-    fn default() -> Self {
-        Variant::Default
-    }
-}
 
 impl Variant {
     /// Get the CSS class for the variant

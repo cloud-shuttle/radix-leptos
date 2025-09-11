@@ -105,18 +105,18 @@ pub fn Alert(
     };
 
     // Handle keyboard events
-    let handle_keydown = move |e: web_sys::KeyboardEvent| match e.key().as_str() {
-        "Escape" => {
-            e.prevent_default();
-            if let Some(on_dismiss) = on_dismiss {
-                on_dismiss.run(());
-            }
+    let handle_keydown = move |e: web_sys::KeyboardEvent| if e.key().as_str() == "Escape" {
+        e.prevent_default();
+        if let Some(on_dismiss) = on_dismiss {
+            on_dismiss.run(());
         }
-        _ => {}
     };
 
     if !visible {
-        return view! { <></> }.into_any();
+        return {
+            let _: () = view! { <></> };
+            ().into_any()
+        };
     }
 
     view! {
@@ -143,7 +143,8 @@ pub fn Alert(
                     </button>
                 }.into_any()
             } else {
-                view! {}.into_any()
+                let _: () = view! {};
+                ().into_any()
             }}
         </div>
     }
@@ -443,8 +444,9 @@ mod tests {
             assert!(!variant.as_str().is_empty());
             assert!(!size.as_str().is_empty());
 
-            assert!(dismissible || !dismissible);
-            assert!(visible || !visible);
+            // Test that boolean properties are properly typed
+            assert!(matches!(dismissible, true | false));
+            assert!(matches!(visible, true | false));
 
             // Test dismiss behavior
             if !visible {

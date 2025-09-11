@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod tests {
     use crate::theming::{
-        ButtonVariants, ComponentVariants, InputTypeVariant, InputVariants, SizeVariant,
+        ButtonVariants, ComponentVariants, InputVariants, SizeVariant,
         StateVariant, StyleVariant,
     };
 

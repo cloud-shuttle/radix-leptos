@@ -131,7 +131,10 @@ pub fn ComboboxOptions(
     let class = merge_classes(vec!["combobox-options", class.as_deref().unwrap_or("")]);
 
     if !visible {
-        return view! { <></> }.into_any();
+        return {
+            let _: () = view! { <></> };
+            ().into_any()
+        };
     }
 
     view! {

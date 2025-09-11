@@ -1,5 +1,4 @@
 use leptos::prelude::*;
-use leptos::*;
 use radix_leptos_primitives::*;
 
 #[component]

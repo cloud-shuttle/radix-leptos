@@ -130,9 +130,9 @@ pub fn Resizable(
                             view! {
                                 <ResizeHandle
                                     handle=handle
-                                    on_resize_start=on_resize_start.clone().unwrap_or_else(|| Callback::new(|_| {}))
-                                    on_resize=on_resize.clone().unwrap_or_else(|| Callback::new(|_| {}))
-                                    on_resize_end=on_resize_end.clone().unwrap_or_else(|| Callback::new(|_| {}))
+                                    on_resize_start=on_resize_start.unwrap_or_else(|| Callback::new(|_| {}))
+                                    on_resize=on_resize.unwrap_or_else(|| Callback::new(|_| {}))
+                                    on_resize_end=on_resize_end.unwrap_or_else(|| Callback::new(|_| {}))
                                 />
                             }
                         }).collect::<Vec<_>>()}
@@ -289,7 +289,7 @@ pub fn ResizablePanel(
     let collapsible = collapsible.unwrap_or(false);
     let collapsed = collapsed.unwrap_or(false);
 
-    let class = format!("resizable-panel",);
+    let class = "resizable-panel".to_string();
 
     let style = style.unwrap_or_default();
 

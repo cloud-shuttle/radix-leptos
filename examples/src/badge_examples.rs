@@ -1,6 +1,5 @@
-use leptos::logging::log;
 use leptos::prelude::*;
-use leptos::*;
+use leptos::logging::log;
 use radix_leptos_primitives::components::badge::*;
 
 #[component]
@@ -162,16 +161,16 @@ pub fn BadgeExamples() -> impl IntoView {
                 <p>"Badges that display counts with various configurations."</p>
 
                 <div class="badge-grid">
-                    <BadgeCount count=(move || count.get())() variant=BadgeVariant::Error />
+                    <BadgeCount count=count.get() variant=BadgeVariant::Error />
 
                     <BadgeCount
-                        count=(move || notification_count.get())()
+                        count=notification_count.get()
                         variant=BadgeVariant::Primary
                         size=BadgeSize::Medium
                     />
 
                     <BadgeCount
-                        count=(move || message_count.get())()
+                        count=message_count.get()
                         variant=BadgeVariant::Info
                         show_zero=true
                     />

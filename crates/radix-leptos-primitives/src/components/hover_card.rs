@@ -137,7 +137,10 @@ pub fn HoverCardContent(
     let align_offset = align_offset.unwrap_or(0.0);
 
     if !visible {
-        return view! { <></> }.into_any();
+        return {
+            let _: () = view! { <></> };
+            ().into_any()
+        };
     }
 
     let class = merge_classes(vec![

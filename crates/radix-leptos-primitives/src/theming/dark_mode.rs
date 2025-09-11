@@ -174,7 +174,7 @@ pub fn DarkModeProvider(
         isdark,
         system_preference,
         toggledark_mode: Callback::new(move |_| toggledark_mode(())),
-        setdark_mode: Callback::new(move |dark| setdark_mode(dark)),
+        setdark_mode: Callback::new(setdark_mode),
     });
 
     let class = "dark-mode-provider".to_string();

@@ -17,21 +17,25 @@ use leptos::prelude::*;
 ///
 /// # Example
 ///
-/// ```rust
+/// ```rust,no_run
+/// use leptos::prelude::*;
 /// use radix_leptos_primitives::*;
 ///
 /// #[component]
 /// fn MyComponent() -> impl IntoView {
-///     let (loading, setloading) = create_signal(true);
+///     let (loading, set_loading) = create_signal(true);
 ///
 ///     view! {
 ///         <div class="content">
-///             if loading.get() {
-///                 <div class="loading-state">
-///                     <Skeleton variant=SkeletonVariant::Circular size=SkeletonSize::Large />
-///                     <Skeleton variant=SkeletonVariant::Text lines=3 />
-///                     <Skeleton variant=SkeletonVariant::Rectangular width="200px" height="100px" />
-///                 </div>
+///             {if loading.get() {
+///                 view! {
+///                     <div class="loading-state">
+///                         <Skeleton variant=SkeletonVariant::Circular size=SkeletonSize::Large />
+///                         <Skeleton variant=SkeletonVariant::Text lines=3 />
+///                         <Skeleton variant=SkeletonVariant::Rectangular width="200px" height="100px" />
+///                     </div>
+///                 }
+///             }}
 ///         </div>
 ///     }
 /// }
@@ -90,7 +94,7 @@ pub fn Skeleton(
     let lines = lines.unwrap_or(1);
     let animated = animated.unwrap_or(true);
 
-    let class = merge_classes(vec!["skeleton", variant.as_str(), size.as_str()].to_vec());
+    let class = merge_classes(["skeleton", variant.as_str(), size.as_str()].to_vec());
 
     let mut style_attr = String::new();
     if let Some(h) = height {
@@ -148,7 +152,7 @@ pub fn SkeletonGroup(
 ) -> impl IntoView {
     let spacing = spacing.unwrap_or_else(|| "1rem".to_string());
 
-    let class = merge_classes(vec!["skeleton-group", class.as_deref().unwrap_or("")].to_vec());
+    let class = merge_classes(["skeleton-group", class.as_deref().unwrap_or("")].to_vec());
 
     let style_attr = format!("{}gap: {};", style.unwrap_or_default(), spacing);
 

@@ -19,7 +19,8 @@ use wasm_bindgen::JsCast;
 ///
 /// # Example
 ///
-/// ```rust
+/// ```rust,no_run
+/// use leptos::prelude::*;
 /// use radix_leptos_primitives::*;
 ///
 /// #[component]
@@ -492,7 +493,7 @@ mod tests {
             assert!(!size.as_str().is_empty());
 
             // Property: Open state should be boolean
-            assert!(open || !open);
+            assert!(matches!(open, true | false));
 
             // Property: Dialog should handle all size combinations
             match size {

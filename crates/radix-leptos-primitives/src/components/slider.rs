@@ -557,7 +557,8 @@ mod tests {
             assert!(!variant.as_str().is_empty());
             assert!(!size.as_str().is_empty());
 
-            assert!(disabled || !disabled);
+            // Test that disabled property is properly typed
+            assert!(matches!(disabled, true | false));
             assert!(__step > 0.0);
 
             // Test percentage calculation
@@ -567,7 +568,7 @@ mod tests {
                 0.0
             };
 
-            assert!(percentage >= 0.0 && percentage <= 100.0);
+            assert!((0.0..=100.0).contains(&percentage));
 
             if disabled {
                 // Disabled slider should not be interactive

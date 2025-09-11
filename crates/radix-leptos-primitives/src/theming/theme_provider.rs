@@ -72,8 +72,8 @@ pub fn ThemeProvider(
         isdark,
         system_preference,
         toggledark_mode: Callback::new(move |_| toggledark_mode(())),
-        set_theme: Callback::new(move |theme| set_theme(theme)),
-        setdark_mode: Callback::new(move |dark| setdark_mode(dark)),
+        set_theme: Callback::new(set_theme),
+        setdark_mode: Callback::new(setdark_mode),
     });
 
     let class = format!(

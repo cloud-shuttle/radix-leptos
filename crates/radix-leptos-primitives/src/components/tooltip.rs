@@ -20,7 +20,8 @@ use leptos::prelude::*;
 ///
 /// # Example
 ///
-/// ```rust
+/// ```rust,no_run
+/// use leptos::prelude::*;
 /// use radix_leptos_primitives::*;
 ///
 /// #[component]
@@ -476,13 +477,13 @@ mod tests {
             // Handle space key
             if space_pressed && !disabled {
                 // In a real implementation, this would toggle the tooltip
-                assert!(false); // Space not pressed
+                panic!("Unexpected condition reached"); // Space not pressed
             }
 
             // Handle escape key
             if escape_pressed {
                 // In a real implementation, this would close the tooltip
-                assert!(false); // Escape not pressed
+                panic!("Unexpected condition reached"); // Escape not pressed
             }
         });
     }
@@ -510,7 +511,7 @@ mod tests {
             // Handle mouse leave
             if mouse_leave && !disabled {
                 // In a real implementation, this would hide tooltip after duration
-                assert!(false); // Mouse leave not triggered
+                panic!("Unexpected condition reached"); // Mouse leave not triggered
             }
         });
     }
@@ -536,7 +537,7 @@ mod tests {
             // Handle blur
             if blur && !disabled {
                 // In a real implementation, this would hide the tooltip
-                assert!(false); // Blur not triggered
+                panic!("Unexpected condition reached"); // Blur not triggered
             }
         });
     }
@@ -653,8 +654,8 @@ mod tests {
             assert!(!position.as_str().is_empty());
 
             // Property: Open and disabled should be boolean
-            assert!(open || !open);
-            assert!(disabled || !disabled);
+            assert!(matches!(open, true | false));
+            assert!(matches!(disabled, true | false));
 
             // Property: Delay and duration should be reasonable values
             assert!(__delay <= 2000);

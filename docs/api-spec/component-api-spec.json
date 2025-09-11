@@ -1,0 +1,391 @@
+{
+  "api_version": "0.8.3",
+  "last_updated": "2024-12-19T00:00:00Z",
+  "components": {
+    "Button": {
+      "name": "Button",
+      "description": "A versatile button component with multiple variants and sizes",
+      "category": "form",
+      "version_added": "0.1.0",
+      "deprecated": false,
+      "props": [
+        {
+          "name": "variant",
+          "type": "Option<ButtonVariant>",
+          "optional": true,
+          "default": "ButtonVariant::Default",
+          "description": "Visual style variant of the button",
+          "examples": ["Default", "Destructive", "Outline", "Secondary", "Ghost", "Link"]
+        },
+        {
+          "name": "size",
+          "type": "Option<ButtonSize>",
+          "optional": true,
+          "default": "ButtonSize::Default",
+          "description": "Size variant of the button",
+          "examples": ["Default", "Sm", "Lg", "Icon"]
+        },
+        {
+          "name": "disabled",
+          "type": "Option<bool>",
+          "optional": true,
+          "default": "false",
+          "description": "Whether the button is disabled",
+          "examples": ["true", "false"]
+        },
+        {
+          "name": "on_click",
+          "type": "Option<Callback<()>>",
+          "optional": true,
+          "description": "Click event handler",
+          "examples": ["Callback::new(|_| println!(\"Clicked!\"))"]
+        },
+        {
+          "name": "class",
+          "type": "Option<String>",
+          "optional": true,
+          "description": "Additional CSS classes",
+          "examples": ["\"bg-blue-500 hover:bg-blue-600\""]
+        },
+        {
+          "name": "style",
+          "type": "Option<String>",
+          "optional": true,
+          "description": "Inline styles",
+          "examples": ["\"background-color: blue;\""]
+        },
+        {
+          "name": "children",
+          "type": "Children",
+          "optional": false,
+          "description": "Button content",
+          "examples": ["\"Click me!\"", "<Icon />"]
+        }
+      ],
+      "variants": [
+        {
+          "name": "Default",
+          "description": "Primary button style",
+          "css_classes": ["btn", "btn-primary"]
+        },
+        {
+          "name": "Destructive",
+          "description": "Destructive action style",
+          "css_classes": ["btn", "btn-destructive"]
+        },
+        {
+          "name": "Outline",
+          "description": "Outlined button style",
+          "css_classes": ["btn", "btn-outline"]
+        },
+        {
+          "name": "Secondary",
+          "description": "Secondary button style",
+          "css_classes": ["btn", "btn-secondary"]
+        },
+        {
+          "name": "Ghost",
+          "description": "Ghost button style",
+          "css_classes": ["btn", "btn-ghost"]
+        },
+        {
+          "name": "Link",
+          "description": "Link button style",
+          "css_classes": ["btn", "btn-link"]
+        }
+      ],
+      "sizes": [
+        {
+          "name": "Default",
+          "description": "Standard button size",
+          "css_classes": ["btn-md"]
+        },
+        {
+          "name": "Sm",
+          "description": "Small button size",
+          "css_classes": ["btn-sm"]
+        },
+        {
+          "name": "Lg",
+          "description": "Large button size",
+          "css_classes": ["btn-lg"]
+        },
+        {
+          "name": "Icon",
+          "description": "Icon-only button size",
+          "css_classes": ["btn-icon"]
+        }
+      ],
+      "events": [
+        {
+          "name": "click",
+          "type": "web_sys::Event",
+          "description": "Triggered when the button is clicked"
+        }
+      ],
+      "accessibility": {
+        "aria_attributes": ["aria-label", "aria-disabled", "aria-pressed"],
+        "keyboard_navigation": true,
+        "screen_reader_support": true
+      },
+      "examples": [
+        {
+          "title": "Basic Button",
+          "description": "A simple button with default styling",
+          "code": "<Button>\"Click me!\"</Button>"
+        },
+        {
+          "title": "Button with Variant",
+          "description": "A destructive button for dangerous actions",
+          "code": "<Button variant=ButtonVariant::Destructive>\"Delete\"</Button>"
+        },
+        {
+          "title": "Button with Event Handler",
+          "description": "A button that handles click events",
+          "code": "<Button on_click=Callback::new(|_| println!(\"Clicked!\"))>\"Submit\"</Button>"
+        }
+      ]
+    },
+    "Checkbox": {
+      "name": "Checkbox",
+      "description": "Accessible checkbox with indeterminate state support",
+      "category": "form",
+      "version_added": "0.1.0",
+      "deprecated": false,
+      "props": [
+        {
+          "name": "checked",
+          "type": "Option<bool>",
+          "optional": true,
+          "default": "false",
+          "description": "Whether the checkbox is checked",
+          "examples": ["true", "false"]
+        },
+        {
+          "name": "indeterminate",
+          "type": "Option<bool>",
+          "optional": true,
+          "default": "false",
+          "description": "Whether the checkbox is in indeterminate state",
+          "examples": ["true", "false"]
+        },
+        {
+          "name": "disabled",
+          "type": "Option<bool>",
+          "optional": true,
+          "default": "false",
+          "description": "Whether the checkbox is disabled",
+          "examples": ["true", "false"]
+        },
+        {
+          "name": "on_change",
+          "type": "Option<Callback<bool>>",
+          "optional": true,
+          "description": "Change event handler",
+          "examples": ["Callback::new(|checked| println!(\"Checked: {}\", checked))"]
+        },
+        {
+          "name": "class",
+          "type": "Option<String>",
+          "optional": true,
+          "description": "Additional CSS classes",
+          "examples": ["\"custom-checkbox\""]
+        },
+        {
+          "name": "style",
+          "type": "Option<String>",
+          "optional": true,
+          "description": "Inline styles",
+          "examples": ["\"border: 2px solid blue;\""]
+        }
+      ],
+      "variants": [
+        {
+          "name": "Default",
+          "description": "Standard checkbox style",
+          "css_classes": ["checkbox", "checkbox-default"]
+        },
+        {
+          "name": "Bordered",
+          "description": "Checkbox with border",
+          "css_classes": ["checkbox", "checkbox-bordered"]
+        },
+        {
+          "name": "Ghost",
+          "description": "Ghost checkbox style",
+          "css_classes": ["checkbox", "checkbox-ghost"]
+        }
+      ],
+      "sizes": [
+        {
+          "name": "Default",
+          "description": "Standard checkbox size",
+          "css_classes": ["checkbox-md"]
+        },
+        {
+          "name": "Sm",
+          "description": "Small checkbox size",
+          "css_classes": ["checkbox-sm"]
+        },
+        {
+          "name": "Lg",
+          "description": "Large checkbox size",
+          "css_classes": ["checkbox-lg"]
+        }
+      ],
+      "events": [
+        {
+          "name": "change",
+          "type": "bool",
+          "description": "Triggered when the checkbox state changes"
+        }
+      ],
+      "accessibility": {
+        "aria_attributes": ["aria-checked", "aria-disabled", "aria-labelledby"],
+        "keyboard_navigation": true,
+        "screen_reader_support": true
+      },
+      "examples": [
+        {
+          "title": "Basic Checkbox",
+          "description": "A simple checkbox",
+          "code": "<Checkbox />"
+        },
+        {
+          "title": "Checked Checkbox",
+          "description": "A pre-checked checkbox",
+          "code": "<Checkbox checked=true />"
+        },
+        {
+          "title": "Checkbox with Change Handler",
+          "description": "A checkbox that responds to changes",
+          "code": "<Checkbox on_change=Callback::new(|checked| println!(\"Checked: {}\", checked)) />"
+        }
+      ]
+    },
+    "Dialog": {
+      "name": "Dialog",
+      "description": "Modal dialog component with overlay and focus management",
+      "category": "advanced",
+      "version_added": "0.2.0",
+      "deprecated": false,
+      "props": [
+        {
+          "name": "open",
+          "type": "Option<bool>",
+          "optional": true,
+          "default": "false",
+          "description": "Whether the dialog is open",
+          "examples": ["true", "false"]
+        },
+        {
+          "name": "on_open_change",
+          "type": "Option<Callback<bool>>",
+          "optional": true,
+          "description": "Handler for open state changes",
+          "examples": ["Callback::new(|open| println!(\"Dialog open: {}\", open))"]
+        },
+        {
+          "name": "variant",
+          "type": "Option<DialogVariant>",
+          "optional": true,
+          "default": "DialogVariant::Default",
+          "description": "Visual style variant",
+          "examples": ["Default", "Bordered", "Ghost"]
+        },
+        {
+          "name": "size",
+          "type": "Option<DialogSize>",
+          "optional": true,
+          "default": "DialogSize::Default",
+          "description": "Size variant",
+          "examples": ["Default", "Sm", "Lg", "Xl"]
+        },
+        {
+          "name": "class",
+          "type": "Option<String>",
+          "optional": true,
+          "description": "Additional CSS classes",
+          "examples": ["\"custom-dialog\""]
+        },
+        {
+          "name": "style",
+          "type": "Option<String>",
+          "optional": true,
+          "description": "Inline styles",
+          "examples": ["\"max-width: 500px;\""]
+        },
+        {
+          "name": "children",
+          "type": "Children",
+          "optional": false,
+          "description": "Dialog content",
+          "examples": ["<DialogContent>...</DialogContent>"]
+        }
+      ],
+      "variants": [
+        {
+          "name": "Default",
+          "description": "Standard dialog style",
+          "css_classes": ["dialog", "dialog-default"]
+        },
+        {
+          "name": "Bordered",
+          "description": "Dialog with border",
+          "css_classes": ["dialog", "dialog-bordered"]
+        },
+        {
+          "name": "Ghost",
+          "description": "Ghost dialog style",
+          "css_classes": ["dialog", "dialog-ghost"]
+        }
+      ],
+      "sizes": [
+        {
+          "name": "Default",
+          "description": "Standard dialog size",
+          "css_classes": ["dialog-md"]
+        },
+        {
+          "name": "Sm",
+          "description": "Small dialog size",
+          "css_classes": ["dialog-sm"]
+        },
+        {
+          "name": "Lg",
+          "description": "Large dialog size",
+          "css_classes": ["dialog-lg"]
+        },
+        {
+          "name": "Xl",
+          "description": "Extra large dialog size",
+          "css_classes": ["dialog-xl"]
+        }
+      ],
+      "events": [
+        {
+          "name": "open_change",
+          "type": "bool",
+          "description": "Triggered when the dialog open state changes"
+        }
+      ],
+      "accessibility": {
+        "aria_attributes": ["aria-modal", "aria-labelledby", "aria-describedby"],
+        "keyboard_navigation": true,
+        "screen_reader_support": true
+      },
+      "examples": [
+        {
+          "title": "Basic Dialog",
+          "description": "A simple modal dialog",
+          "code": "<Dialog open=true><DialogContent>\"Hello World!\"</DialogContent></Dialog>"
+        },
+        {
+          "title": "Controlled Dialog",
+          "description": "A dialog with controlled open state",
+          "code": "<Dialog open=is_open on_open_change=set_is_open><DialogContent>\"Controlled Dialog\"</DialogContent></Dialog>"
+        }
+      ]
+    }
+  }
+}

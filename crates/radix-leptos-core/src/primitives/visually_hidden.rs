@@ -12,6 +12,7 @@ use leptos::prelude::*;
 /// # Example
 ///
 /// ```rust
+/// use leptos::prelude::*;
 /// use radix_leptos_core::VisuallyHidden;
 ///
 /// #[component]

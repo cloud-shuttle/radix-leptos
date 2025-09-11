@@ -282,7 +282,7 @@ pub fn PaginationItem(
         if let Some(page) = page_clone.clone() {
             if !page._disabled {
                 // Call the page change handler
-                if let Some(callback) = context.on_page_change.clone() {
+                if let Some(callback) = context.on_page_change {
                     callback.run(page.number);
                 }
             }
@@ -369,7 +369,7 @@ pub fn PaginationFirst(
 
         if context.current_page.get() > 1 {
             // Call the page change handler
-            if let Some(callback) = context.on_page_change.clone() {
+            if let Some(callback) = context.on_page_change {
                 callback.run(1);
             }
         }
@@ -437,7 +437,7 @@ pub fn PaginationPrevious(
         let current = context.current_page.get();
         if current > 1 {
             // Call the page change handler
-            if let Some(callback) = context.on_page_change.clone() {
+            if let Some(callback) = context.on_page_change {
                 callback.run(current - 1);
             }
         }
@@ -505,7 +505,7 @@ pub fn PaginationNext(
         let current = context.current_page.get();
         if current < context.total_pages {
             // Call the page change handler
-            if let Some(callback) = context.on_page_change.clone() {
+            if let Some(callback) = context.on_page_change {
                 callback.run(current + 1);
             }
         }
@@ -572,7 +572,7 @@ pub fn PaginationLast(
 
         if context.current_page.get() < context.total_pages {
             // Call the page change handler
-            if let Some(callback) = context.on_page_change.clone() {
+            if let Some(callback) = context.on_page_change {
                 callback.run(context.total_pages);
             }
         }
@@ -833,8 +833,8 @@ pub fn getvisible_page_numbers(
 
 #[cfg(test)]
 mod tests {
-    use crate::{Pagination, PaginationProps, PaginationSize, PaginationVariant};
-    use leptos::callback::Callback;
+    use crate::{PaginationSize, PaginationVariant};
+    
     use proptest::prelude::*;
     use wasm_bindgen_test::*;
 

@@ -167,7 +167,7 @@ pub fn ProgressIndicator(
 #[cfg(test)]
 mod tests {
     use crate::{ProgressSize, ProgressVariant};
-    use js_sys::Math::max;
+    
     use proptest::prelude::*;
 
     // 1. Basic Rendering Tests
@@ -428,7 +428,8 @@ mod tests {
             assert!(!variant.as_str().is_empty());
             assert!(!size.as_str().is_empty());
 
-            assert!(indeterminate || !indeterminate);
+            // Test that indeterminate property is properly typed
+            assert!(matches!(indeterminate, true | false));
             assert!(__max > 0.0);
 
             // Test percentage calculation
@@ -438,7 +439,7 @@ mod tests {
                 0.0
             };
 
-            assert!(percentage >= 0.0 && percentage <= 100.0);
+            assert!((0.0..=100.0).contains(&percentage));
 
             // Test ARIA attributes
             // ARIA attributes are properly set in the component

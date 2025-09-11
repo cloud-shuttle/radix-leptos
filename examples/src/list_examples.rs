@@ -163,9 +163,9 @@ pub fn ListExamples() -> impl IntoView {
                 <List
                     items=basic_items_1.clone()
                     selected_items=basic_selected_items.get()
-                    on_selection_change=handle_basic_selection.clone()
-                    on_item_click=handle_item_click.clone()
-                    on_item_focus=handle_item_focus.clone()
+                    on_selection_change=handle_basic_selection
+                    on_item_click=handle_item_click
+                    on_item_focus=handle_item_focus
                 >
                     {basic_items_1.clone().into_iter().map(|item| {
                         let item_data = item.data.clone();
@@ -197,9 +197,9 @@ pub fn ListExamples() -> impl IntoView {
                     selected_items=multi_selected_items.get()
                     multi_select=true
                     variant=ListVariant::Bordered
-                    on_selection_change=handle_multi_selection.clone()
-                    on_item_click=handle_item_click.clone()
-                    on_item_focus=handle_item_focus.clone()
+                    on_selection_change=handle_multi_selection
+                    on_item_click=handle_item_click
+                    on_item_focus=handle_item_focus
                 >
                     {multi_items_1.clone().into_iter().map(|item| {
                         let item_data = item.data.clone();
@@ -237,14 +237,14 @@ pub fn ListExamples() -> impl IntoView {
                     selected_items=large_dataset_selected_items.get()
                     variant=ListVariant::Striped
                     size=ListSize::Small
-                    on_selection_change=handle_large_dataset_selection.clone()
-                    on_item_click=handle_item_click.clone()
-                    on_item_focus=handle_item_focus.clone()
+                    on_selection_change=handle_large_dataset_selection
+                    on_item_click=handle_item_click
+                    on_item_focus=handle_item_focus
                 >
                     {large_dataset_items.clone().into_iter().take(50).map(|item| {
                         let item_data = item.data.clone();
                         let item_id = item.id.clone();
-                        let index_str = item_id.split('-').last().unwrap_or("0").to_string();
+                        let index_str = item_id.split('-').next_back().unwrap_or("0").to_string();
                         let item_clone = item.clone();
                         view! {
                             <ListItem item=item_clone>
@@ -273,14 +273,14 @@ pub fn ListExamples() -> impl IntoView {
                     items=virtualized_items.clone()
                     selected_items=virtualized_selected_items.get()
                     variant=ListVariant::Compact
-                    on_selection_change=handle_virtualized_selection.clone()
-                    on_item_click=handle_item_click.clone()
-                    on_item_focus=handle_item_focus.clone()
+                    on_selection_change=handle_virtualized_selection
+                    on_item_click=handle_item_click
+                    on_item_focus=handle_item_focus
                 >
                     {virtualized_items.clone().into_iter().take(100).map(|item| {
                         let item_data = item.data.clone();
                         let item_id = item.id.clone();
-                        let id_str = item_id.split('-').last().unwrap_or("0").to_string();
+                        let id_str = item_id.split('-').next_back().unwrap_or("0").to_string();
                         let item_clone = item.clone();
                         view! {
                             <ListItem item=item_clone>

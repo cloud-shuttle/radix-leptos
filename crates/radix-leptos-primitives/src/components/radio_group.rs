@@ -335,22 +335,22 @@ mod tests {
             assert!(!space_pressed);
             assert!(!disabled);
 
-            if arrow_down_pressed && !disabled {}
+            arrow_down_pressed && !disabled;
 
             if arrow_up_pressed && !disabled {
-                assert!(false);
+                panic!("Unexpected condition reached");
             }
 
             if home_pressed && !disabled {
-                assert!(false);
+                panic!("Unexpected condition reached");
             }
 
             if end_pressed && !disabled {
-                assert!(false);
+                panic!("Unexpected condition reached");
             }
 
             if (enter_pressed || space_pressed) && !disabled {
-                assert!(false);
+                panic!("Unexpected condition reached");
             }
         });
     }
@@ -440,7 +440,8 @@ mod tests {
             assert!(!variant.as_str().is_empty());
             assert!(!size.as_str().is_empty());
 
-            assert!(disabled || !disabled);
+            // Test that disabled property is properly typed
+            assert!(matches!(disabled, true | false));
 
             match &value {
                 Some(v) => assert!(!v.is_empty()),

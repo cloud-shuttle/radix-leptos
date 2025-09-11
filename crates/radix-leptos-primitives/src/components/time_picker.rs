@@ -145,7 +145,10 @@ pub fn TimePickerDropdown(
     let max_time = max_time.unwrap_or_default();
 
     if !visible {
-        return view! { <></> }.into_any();
+        return {
+            let _: () = view! { <></> };
+            ().into_any()
+        };
     }
 
     let class = format!(

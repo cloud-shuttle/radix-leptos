@@ -165,7 +165,10 @@ pub fn NavigationMenuContent(
     let visible = visible.map(|v| v.get()).unwrap_or(true);
 
     if !visible {
-        return view! { <></> }.into_any();
+        return {
+            let _: () = view! { <></> };
+            ().into_any()
+        };
     }
 
     let class = merge_classes(vec![
@@ -283,7 +286,7 @@ impl NavigationMenuOrientation {
 
 #[cfg(test)]
 mod tests {
-    use crate::utils::merge_classes;
+    
     use crate::NavigationMenuOrientation;
     use wasm_bindgen_test::*;
 

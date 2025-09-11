@@ -26,17 +26,15 @@ pub fn Toast(
     let dismissible = dismissible.unwrap_or(true);
 
     let class = merge_classes(
-        vec![
-            "toast",
-            &variant.to_class(),
-            &position.to_class(),
+        ["toast",
+            variant.to_class(),
+            position.to_class(),
             if dismissible {
                 "dismissible"
             } else {
                 "non-dismissible"
             },
-            class.as_deref().unwrap_or(""),
-        ]
+            class.as_deref().unwrap_or("")]
         .to_vec(),
     );
 
@@ -71,11 +69,9 @@ pub fn ToastProvider(
     let default_duration = default_duration.unwrap_or(5000);
 
     let class = merge_classes(
-        vec![
-            "toast-provider",
-            &position.to_class(),
-            class.as_deref().unwrap_or(""),
-        ]
+        ["toast-provider",
+            position.to_class(),
+            class.as_deref().unwrap_or("")]
         .to_vec(),
     );
 
@@ -104,7 +100,7 @@ pub fn ToastTitle(
 ) -> impl IntoView {
     let title = title.unwrap_or_default();
 
-    let class = merge_classes(vec!["toast-title", class.as_deref().unwrap_or("")].to_vec());
+    let class = merge_classes(["toast-title", class.as_deref().unwrap_or("")].to_vec());
 
     view! {
         <div
@@ -128,7 +124,7 @@ pub fn ToastDescription(
 ) -> impl IntoView {
     let description = description.unwrap_or_default();
 
-    let class = merge_classes(vec!["toast-description", class.as_deref().unwrap_or("")].to_vec());
+    let class = merge_classes(["toast-description", class.as_deref().unwrap_or("")].to_vec());
 
     view! {
         <div
@@ -152,7 +148,7 @@ pub fn ToastAction(
 ) -> impl IntoView {
     let label = label.unwrap_or_else(|| "Action".to_string());
 
-    let class = merge_classes(vec!["toast-action", class.as_deref().unwrap_or("")].to_vec());
+    let class = merge_classes(["toast-action", class.as_deref().unwrap_or("")].to_vec());
 
     let handle_click = move |_| {
         if let Some(callback) = on_click {
@@ -181,7 +177,7 @@ pub fn ToastClose(
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] on_click: Option<Callback<()>>,
 ) -> impl IntoView {
-    let class = merge_classes(vec!["toast-close", class.as_deref().unwrap_or("")].to_vec());
+    let class = merge_classes(["toast-close", class.as_deref().unwrap_or("")].to_vec());
 
     let handle_click = move |_| {
         if let Some(callback) = on_click {
@@ -282,11 +278,9 @@ pub fn ToastViewport(
     let position = position.unwrap_or_default();
 
     let class = merge_classes(
-        vec![
-            "toast-viewport",
-            &position.to_class(),
-            class.as_deref().unwrap_or(""),
-        ]
+        ["toast-viewport",
+            position.to_class(),
+            class.as_deref().unwrap_or("")]
         .to_vec(),
     );
 

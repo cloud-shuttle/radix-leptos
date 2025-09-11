@@ -238,12 +238,12 @@ pub fn ListItem<T: Clone + Send + Sync + 'static>(
                 }
 
                 // Call the selection change handler
-                if let Some(callback) = context.on_selection_change.clone() {
+                if let Some(callback) = context.on_selection_change {
                     callback.run(currentselected);
                 }
 
                 // Call the item click handler
-                if let Some(callback) = context.on_item_click.clone() {
+                if let Some(callback) = context.on_item_click {
                     callback.run(item);
                 }
             }
@@ -253,7 +253,7 @@ pub fn ListItem<T: Clone + Send + Sync + 'static>(
     let item_for_focus = item.clone();
     let handle_focus = move |_event: web_sys::FocusEvent| {
         if let Some(item) = item_for_focus.clone() {
-            if let Some(callback) = context.on_item_focus.clone() {
+            if let Some(callback) = context.on_item_focus {
                 callback.run(item);
             }
         }

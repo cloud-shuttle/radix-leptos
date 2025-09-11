@@ -19,7 +19,7 @@ pub fn Separator(
     let color = color.unwrap_or_default();
 
     let class =
-        merge_classes(vec!["separator", &orientation.to_class(), &thickness.to_class()].to_vec());
+        merge_classes(["separator", orientation.to_class(), thickness.to_class()].to_vec());
     let aria_orientation = orientation.to_aria_orientation();
 
     view! {
@@ -50,12 +50,10 @@ pub fn SeparatorLine(
     let color = color.unwrap_or_default();
 
     let class = merge_classes(
-        vec![
-            "separator-line",
-            &orientation.to_class(),
-            &thickness.to_class(),
-            class.as_deref().unwrap_or(""),
-        ]
+        ["separator-line",
+            orientation.to_class(),
+            thickness.to_class(),
+            class.as_deref().unwrap_or("")]
         .to_vec(),
     );
 
@@ -86,11 +84,9 @@ pub fn SeparatorText(
     let orientation = orientation.unwrap_or_default();
 
     let class = merge_classes(
-        vec![
-            "separator-text",
-            &orientation.to_class(),
-            class.as_deref().unwrap_or(""),
-        ]
+        ["separator-text",
+            orientation.to_class(),
+            class.as_deref().unwrap_or("")]
         .to_vec(),
     );
 
@@ -181,12 +177,10 @@ pub fn SeparatorGroup(
     let orientation = orientation.unwrap_or_default();
 
     let class = merge_classes(
-        vec![
-            "separator-group",
-            &spacing.to_class(),
-            &orientation.to_class(),
-            class.as_deref().unwrap_or(""),
-        ]
+        ["separator-group",
+            spacing.to_class(),
+            orientation.to_class(),
+            class.as_deref().unwrap_or("")]
         .to_vec(),
     );
 

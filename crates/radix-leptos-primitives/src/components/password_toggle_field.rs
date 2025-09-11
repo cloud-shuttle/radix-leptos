@@ -67,7 +67,7 @@ pub fn PasswordToggleField(
     let max_length = max_length.unwrap_or(usize::MAX);
     let strength_requirements = strength_requirements.unwrap_or_default();
 
-    let class = format!("password-toggle-field",);
+    let class = "password-toggle-field".to_string();
 
     let style = style.unwrap_or_default();
 

@@ -18,7 +18,8 @@ use leptos::prelude::*;
 ///
 /// # Example
 ///
-/// ```rust
+/// ```rust,no_run
+/// use leptos::prelude::*;
 /// use radix_leptos_primitives::*;
 ///
 /// #[component]
@@ -534,8 +535,8 @@ mod tests {
             assert!(!size.as_str().is_empty());
 
             // Property: Open and disabled states should be boolean
-            assert!(open || !open);
-            assert!(disabled || !disabled);
+            assert!(matches!(open, true | false));
+            assert!(matches!(disabled, true | false));
 
             // Property: Value should be optional string
             match &value {

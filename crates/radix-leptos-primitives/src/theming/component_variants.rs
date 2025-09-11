@@ -5,6 +5,7 @@ use serde::{Deserialize, Serialize};
 
 /// Component variant system for consistent styling
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Default)]
 pub struct ComponentVariants {
     pub button: ButtonVariants,
     pub input: InputVariants,
@@ -13,17 +14,6 @@ pub struct ComponentVariants {
     pub alert: AlertVariants,
 }
 
-impl Default for ComponentVariants {
-    fn default() -> Self {
-        Self {
-            button: ButtonVariants::default(),
-            input: InputVariants::default(),
-            card: CardVariants::default(),
-            badge: BadgeVariants::default(),
-            alert: AlertVariants::default(),
-        }
-    }
-}
 
 /// Button variants configuration
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

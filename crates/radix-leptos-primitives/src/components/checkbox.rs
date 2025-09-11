@@ -286,10 +286,10 @@ mod tests {
             assert!(!disabled);
             assert!(!checked);
 
-            if space_pressed && !disabled {}
+            space_pressed && !disabled;
 
             if enter_pressed && !disabled {
-                assert!(false);
+                panic!("Unexpected condition reached");
             }
         });
     }
@@ -373,9 +373,10 @@ mod tests {
             assert!(!variant.as_str().is_empty());
             assert!(!size.as_str().is_empty());
 
-            assert!(checked || !checked);
-            assert!(indeterminate || !indeterminate);
-            assert!(disabled || !disabled);
+            // Test that boolean properties are properly typed
+            assert!(matches!(checked, true | false));
+            assert!(matches!(indeterminate, true | false));
+            assert!(matches!(disabled, true | false));
 
             if disabled {
                 // Disabled checkbox should not be interactive

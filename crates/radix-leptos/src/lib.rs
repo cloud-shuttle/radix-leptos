@@ -15,6 +15,7 @@
 //!
 //! ```rust
 //! use radix_leptos::*;
+//! use leptos::prelude::*;
 //!
 //! #[component]
 //! fn App() -> impl IntoView {
@@ -26,7 +27,7 @@
 //!             
 //!             <Separator />
 //!             
-//!             <Label html_for="input">
+//!             <Label for_id="input".to_string()>
 //!                 "Email"
 //!             </Label>
 //!             <input id="input" type="email" />

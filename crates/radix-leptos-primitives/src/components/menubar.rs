@@ -146,7 +146,10 @@ pub fn MenubarContent(
     let visible = visible.map(|v| v.get()).unwrap_or(true);
 
     if !visible {
-        return view! { <></> }.into_any();
+        return {
+            let _: () = view! { <></> };
+            ().into_any()
+        };
     }
 
     let class = merge_classes(vec!["menubar-content", class.as_deref().unwrap_or("")]);

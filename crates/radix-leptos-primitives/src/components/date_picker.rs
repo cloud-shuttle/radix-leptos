@@ -240,10 +240,10 @@ pub fn DatePickerValidation(
 #[cfg(test)]
 mod tests {
     use crate::utils::merge_classes;
-    use crate::{DatePicker, DatePickerProps, DateValidation};
-    use leptos::callback::Callback;
+    use crate::DateValidation;
+    
     use proptest::prelude::*;
-    use wasm_bindgen::JsCast;
+    
     use wasm_bindgen_test::*;
 
     wasm_bindgen_test_configure!(run_in_browser);
@@ -516,7 +516,7 @@ mod tests {
                 error_message: if is_empty { Some("Date is required".to_string()) } else { None },
                 parsed_date: if is_empty { None } else { Some(date.clone()) },
             };
-            assert!(validation.is_valid == !is_empty);
+            assert!(validation.is_valid != is_empty);
         });
     }
 

@@ -51,7 +51,7 @@ pub fn PaginationExamples() -> impl IntoView {
                 <Pagination
                     current_page=basic_current_page.get()
                     total_pages=10
-                    on_page_change=handle_basic_page_change.clone()
+                    on_page_change=handle_basic_page_change
                 >
                     <PaginationList>
                         <PaginationFirst icon="⏮️".to_string()>
@@ -112,7 +112,7 @@ pub fn PaginationExamples() -> impl IntoView {
                     total_pages=15
                     variant=PaginationVariant::Compact
                     _show_first_last=false
-                    on_page_change=handle_compact_page_change.clone()
+                    on_page_change=handle_compact_page_change
                 >
                     <PaginationList>
                         <PaginationPrevious icon="◀️".to_string()>
@@ -145,7 +145,7 @@ pub fn PaginationExamples() -> impl IntoView {
                     total_items=240
                     page_size=30
                     variant=PaginationVariant::Detailed
-                    on_page_change=handle_detailed_page_change.clone()
+                    on_page_change=handle_detailed_page_change
                 >
                     <PaginationContent>
                         <PaginationInfo format="Page {current} of {total_pages} ({start}-{end} of {total} items)".to_string()>
@@ -208,7 +208,7 @@ pub fn PaginationExamples() -> impl IntoView {
                 <Pagination
                     current_page=custom_current_page.get()
                     total_pages=20
-                    on_page_change=handle_custom_page_change.clone()
+                    on_page_change=handle_custom_page_change
                 >
                     <PaginationList>
                         <PaginationFirst icon="⏮️".to_string()>
@@ -275,7 +275,7 @@ pub fn PaginationExamples() -> impl IntoView {
                     total_items=10000
                     page_size=100
                     size=PaginationSize::Large
-                    on_page_change=handle_large_dataset_page_change.clone()
+                    on_page_change=handle_large_dataset_page_change
                 >
                     <PaginationContent>
                         <PaginationInfo>

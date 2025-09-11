@@ -88,7 +88,7 @@ pub fn ThemeSelector(
                             themes=category_themes
                             current_theme=current_theme.clone()
                             show_preview=show_preview
-                            on_theme_change=handle_theme_change.clone()
+                            on_theme_change=handle_theme_change
                         />
                     }
                 }).collect::<Vec<_>>()}
@@ -139,7 +139,7 @@ pub fn ThemeCategorySection(
                             theme=theme
                             selected=isselected
                             show_preview=show_preview
-                            on_select=on_theme_change.clone()
+                            on_select=on_theme_change
                         />
                     }
                 }).collect::<Vec<_>>()}

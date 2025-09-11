@@ -5,9 +5,9 @@
 
 #[cfg(test)]
 mod tests {
-    use leptos::children::Children;
+    
     use radix_leptos_primitives::theming::*;
-    use radix_leptos_primitives::*;
+    
 
     #[test]
     fn test_theme_provider_compilation() {
@@ -24,14 +24,12 @@ mod tests {
     #[test]
     fn test_component_variants_compilation() {
         // Test that component variants compile correctly
-        let _button_variants = vec![
-            StyleVariant::Default,
+        let _button_variants = [StyleVariant::Default,
             StyleVariant::Primary,
             StyleVariant::Secondary,
-            StyleVariant::Destructive,
-        ];
+            StyleVariant::Destructive];
 
-        let _button_sizes = vec![SizeVariant::Small, SizeVariant::Medium, SizeVariant::Large];
+        let _button_sizes = [SizeVariant::Small, SizeVariant::Medium, SizeVariant::Large];
 
         assert!(true);
     }
@@ -45,15 +43,13 @@ mod tests {
             96.0,
         ];
 
-        let _directions = vec![
-            SpacingDirection::All,
+        let _directions = [SpacingDirection::All,
             SpacingDirection::Horizontal,
             SpacingDirection::Vertical,
             SpacingDirection::Top,
             SpacingDirection::Right,
             SpacingDirection::Bottom,
-            SpacingDirection::Left,
-        ];
+            SpacingDirection::Left];
 
         assert!(true);
     }
@@ -184,6 +180,12 @@ pub struct ButtonProps {
 }
 
 pub struct Children;
+
+impl Default for Children {
+    fn default() -> Self {
+        Self::new()
+    }
+}
 
 impl Children {
     pub fn new() -> Self {

@@ -377,26 +377,26 @@ mod tests {
             assert!(!end_pressed);
             assert!(!disabled);
 
-            if arrow_left_pressed && !disabled {}
+            arrow_left_pressed && !disabled;
 
             if arrow_right_pressed && !disabled {
-                assert!(false);
+                panic!("Unexpected condition reached");
             }
 
             if arrow_up_pressed && !disabled {
-                assert!(false);
+                panic!("Unexpected condition reached");
             }
 
             if arrow_down_pressed && !disabled {
-                assert!(false);
+                panic!("Unexpected condition reached");
             }
 
             if home_pressed && !disabled {
-                assert!(false);
+                panic!("Unexpected condition reached");
             }
 
             if end_pressed && !disabled {
-                assert!(false);
+                panic!("Unexpected condition reached");
             }
         });
     }
@@ -485,7 +485,7 @@ mod tests {
 
             // Disabled tabs should not respond to interactions
             if trigger_clicked && !disabled {
-                assert!(false); // Should not execute
+                panic!("Unexpected condition reached"); // Should not execute
             }
         });
     }
@@ -510,7 +510,8 @@ mod tests {
             assert!(!variant.as_str().is_empty());
             assert!(!size.as_str().is_empty());
 
-            assert!(disabled || !disabled);
+            // Test that disabled property is properly typed
+            assert!(matches!(disabled, true | false));
 
             match &value {
                 Some(v) => assert!(!v.is_empty()),

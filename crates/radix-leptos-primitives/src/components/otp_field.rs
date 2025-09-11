@@ -213,8 +213,8 @@ pub fn OtpFieldWithValidation(
                 disabled=disabled
                 required=required
                 input_type=input_type
-                on_change=on_change.clone().unwrap_or_else(|| Callback::new(|_| {}))
-                on_complete=on_complete.clone().unwrap_or_else(|| Callback::new(|_| {}))
+                on_change=on_change.unwrap_or_else(|| Callback::new(|_| {}))
+                on_complete=on_complete.unwrap_or_else(|| Callback::new(|_| {}))
             >
                 <></>
             </OtpField>
@@ -396,8 +396,8 @@ fn validate_otp(value: &str, expected_length: usize, input_type: &OtpInputType) 
 
 #[cfg(test)]
 mod tests {
-    use crate::{OtpField, OtpFieldProps, OtpInputType, OtpValidation};
-    use leptos::callback::Callback;
+    use crate::{OtpInputType, OtpValidation};
+    
 
     // Component structure tests
     #[test]

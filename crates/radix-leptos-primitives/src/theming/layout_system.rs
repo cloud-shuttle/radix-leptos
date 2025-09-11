@@ -5,6 +5,7 @@ use serde::{Deserialize, Serialize};
 
 /// Layout system for consistent spacing and alignment
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Default)]
 pub struct LayoutSystem {
     pub spacing: SpacingSystem,
     pub breakpoints: BreakpointSystem,
@@ -13,17 +14,6 @@ pub struct LayoutSystem {
     pub containers: ContainerSystem,
 }
 
-impl Default for LayoutSystem {
-    fn default() -> Self {
-        Self {
-            spacing: SpacingSystem::default(),
-            breakpoints: BreakpointSystem::default(),
-            grid: GridSystem::default(),
-            flexbox: FlexboxSystem::default(),
-            containers: ContainerSystem::default(),
-        }
-    }
-}
 
 /// Spacing system configuration
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

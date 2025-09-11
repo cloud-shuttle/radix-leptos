@@ -7,30 +7,24 @@ use wasm_bindgen::JsCast;
 use web_sys::{KeyboardEvent, MouseEvent};
 
 #[derive(Clone, Debug, PartialEq)]
+#[derive(Default)]
 pub enum DropdownMenuSize {
     Small,
+    #[default]
     Medium,
     Large,
 }
 
-impl Default for DropdownMenuSize {
-    fn default() -> Self {
-        DropdownMenuSize::Medium
-    }
-}
 
 #[derive(Clone, Debug, PartialEq)]
+#[derive(Default)]
 pub enum DropdownMenuItemVariant {
+    #[default]
     Default,
     Destructive,
     Disabled,
 }
 
-impl Default for DropdownMenuItemVariant {
-    fn default() -> Self {
-        DropdownMenuItemVariant::Default
-    }
-}
 
 #[component]
 pub fn DropdownMenu(

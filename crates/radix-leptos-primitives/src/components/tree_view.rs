@@ -49,7 +49,7 @@ pub fn TreeView(
     let show_lines = show_lines.unwrap_or(false);
     let show_node_icons = show_node_icons.unwrap_or(true);
 
-    let class = format!("tree-view",);
+    let class = "tree-view".to_string();
 
     let style = style.unwrap_or_default();
 
@@ -223,9 +223,9 @@ pub fn TreeNode(
                                     checkable=checkable
                                     show_lines=show_lines
                                     show_node_icons=show_node_icons
-                                    on_select=on_select.clone().unwrap_or_else(|| Callback::new(|_| {}))
-                                    on_expand=on_expand.clone().unwrap_or_else(|| Callback::new(|_| {}))
-                                    on_check=on_check.clone().unwrap_or_else(|| Callback::new(|_| {}))
+                                    on_select=on_select.unwrap_or_else(|| Callback::new(|_| {}))
+                                    on_expand=on_expand.unwrap_or_else(|| Callback::new(|_| {}))
+                                    on_check=on_check.unwrap_or_else(|| Callback::new(|_| {}))
                                 >
                                     <></>
                                 </TreeNode>

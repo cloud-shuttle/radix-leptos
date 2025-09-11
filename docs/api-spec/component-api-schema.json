@@ -1,0 +1,218 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://radix-leptos.dev/schemas/component-api.json",
+  "title": "Radix-Leptos Component API Schema",
+  "description": "JSON Schema for validating Radix-Leptos component API contracts",
+  "version": "0.8.3",
+  "type": "object",
+  "definitions": {
+    "ComponentProp": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the prop"
+        },
+        "type": {
+          "type": "string",
+          "description": "The Rust type of the prop"
+        },
+        "optional": {
+          "type": "boolean",
+          "description": "Whether the prop is optional"
+        },
+        "default": {
+          "description": "Default value for the prop"
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable description of the prop"
+        },
+        "examples": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Example values for the prop"
+        }
+      },
+      "required": ["name", "type", "optional", "description"]
+    },
+    "ComponentVariant": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the variant"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the variant"
+        },
+        "css_classes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "CSS classes applied for this variant"
+        }
+      },
+      "required": ["name", "description"]
+    },
+    "ComponentSize": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the size"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the size"
+        },
+        "css_classes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "CSS classes applied for this size"
+        }
+      },
+      "required": ["name", "description"]
+    },
+    "ComponentEvent": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the event"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the event payload"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of when the event is triggered"
+        }
+      },
+      "required": ["name", "type", "description"]
+    }
+  },
+  "properties": {
+    "components": {
+      "type": "object",
+      "patternProperties": {
+        "^[A-Z][a-zA-Z0-9]*$": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "The component name"
+            },
+            "description": {
+              "type": "string",
+              "description": "Brief description of the component"
+            },
+            "category": {
+              "type": "string",
+              "enum": ["form", "feedback", "media", "navigation", "advanced", "mobile"],
+              "description": "Category of the component"
+            },
+            "props": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ComponentProp"
+              },
+              "description": "List of component props"
+            },
+            "variants": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ComponentVariant"
+              },
+              "description": "Available visual variants"
+            },
+            "sizes": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ComponentSize"
+              },
+              "description": "Available size options"
+            },
+            "events": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ComponentEvent"
+              },
+              "description": "Events emitted by the component"
+            },
+            "accessibility": {
+              "type": "object",
+              "properties": {
+                "aria_attributes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "ARIA attributes supported"
+                },
+                "keyboard_navigation": {
+                  "type": "boolean",
+                  "description": "Whether component supports keyboard navigation"
+                },
+                "screen_reader_support": {
+                  "type": "boolean",
+                  "description": "Whether component is screen reader accessible"
+                }
+              },
+              "required": ["keyboard_navigation", "screen_reader_support"]
+            },
+            "examples": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
+                  }
+                },
+                "required": ["title", "code"]
+              },
+              "description": "Usage examples for the component"
+            },
+            "version_added": {
+              "type": "string",
+              "description": "Version when component was first added"
+            },
+            "deprecated": {
+              "type": "boolean",
+              "description": "Whether component is deprecated"
+            },
+            "deprecation_version": {
+              "type": "string",
+              "description": "Version when component was deprecated"
+            }
+          },
+          "required": ["name", "description", "category", "props", "accessibility", "version_added"]
+        }
+      }
+    },
+    "api_version": {
+      "type": "string",
+      "description": "Version of the API specification"
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the API specification was last updated"
+    }
+  },
+  "required": ["components", "api_version", "last_updated"]
+}

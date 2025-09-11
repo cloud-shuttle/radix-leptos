@@ -17,7 +17,8 @@ use leptos::prelude::*;
 ///
 /// # Example
 ///
-/// ```rust
+/// ```rust,no_run
+/// use leptos::prelude::*;
 /// use radix_leptos_primitives::*;
 ///
 /// #[component]

@@ -19,7 +19,8 @@ use leptos::prelude::*;
 ///
 /// # Example
 ///
-/// ```rust
+/// ```rust,no_run
+/// use leptos::prelude::*;
 /// use radix_leptos_primitives::*;
 ///
 /// #[component]
@@ -495,11 +496,10 @@ mod tests {
             assert!(!allow_multiple);
 
             // Handle click
-            if trigger_clicked {
-                if iscurrentlyopen {
+            if trigger_clicked
+                && iscurrentlyopen {
                     // Close the section
                 }
-            }
         });
     }
 
@@ -578,8 +578,9 @@ mod tests {
             assert!(!size.as_str().is_empty());
 
             // Property: Allow multiple and disabled should be boolean
-            assert!(allow_multiple || !allow_multiple);
-            assert!(disabled || !disabled);
+            // Test that boolean properties are properly typed
+            assert!(matches!(allow_multiple, true | false));
+            assert!(matches!(disabled, true | false));
 
             // Property: Open sections should be a vector of strings
             for section in &open_sections {

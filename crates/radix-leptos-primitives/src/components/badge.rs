@@ -25,8 +25,7 @@ pub enum BadgeSize {
 fn merge_classes(classes: &[&str]) -> String {
     classes
         .iter()
-        .filter(|&&c| !c.is_empty())
-        .map(|&s| s)
+        .filter(|&&c| !c.is_empty()).copied()
         .collect::<Vec<&str>>()
         .join(" ")
 }
@@ -150,7 +149,8 @@ pub fn BadgeCount(
                     </Badge>
                 }.into_any()
             } else {
-                view! { <></> }.into_any()
+                let _: () = view! { <></> };
+                ().into_any()
             }
         }}
     }
@@ -202,9 +202,9 @@ pub fn BadgeDot(
         <span
             class=merge_classes(&[
                 "radix-badge-dot",
-                &variant_class(),
-                &size_class(),
-                &pulsing_class(),
+                variant_class(),
+                size_class(),
+                pulsing_class(),
                 &class_value,
             ])
             role="status"

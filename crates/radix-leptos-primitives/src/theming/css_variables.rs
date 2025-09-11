@@ -1,5 +1,6 @@
 /// CSS variable system for theming
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Default)]
 pub struct CSSVariables {
     /// Primary color variables
     pub primary: PrimaryColors,
@@ -182,21 +183,6 @@ pub struct AnimationVariables {
     pub ease_in_out: String,
 }
 
-impl Default for CSSVariables {
-    fn default() -> Self {
-        Self {
-            primary: PrimaryColors::default(),
-            secondary: SecondaryColors::default(),
-            neutral: NeutralColors::default(),
-            semantic: SemanticColors::default(),
-            typography: TypographyVariables::default(),
-            spacing: SpacingVariables::default(),
-            border: BorderVariables::default(),
-            shadow: ShadowVariables::default(),
-            animation: AnimationVariables::default(),
-        }
-    }
-}
 
 impl Default for PrimaryColors {
     fn default() -> Self {
