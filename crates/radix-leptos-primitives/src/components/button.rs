@@ -1,6 +1,7 @@
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
+use crate::utils::{merge_optional_classes, generate_id};
 
 /// Button component with proper accessibility and styling variants
 ///
@@ -78,23 +79,6 @@ impl ButtonSize {
     }
 }
 
-/// Generate a simple unique ID for components
-fn generate_id(prefix: &str) -> String {
-    static COUNTER: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
-    let id = COUNTER.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
-    format!("{}-{}", prefix, id)
-}
-
-/// Merge CSS classes
-fn merge_classes(existing: Option<&str>, additional: Option<&str>) -> Option<String> {
-    match (existing, additional) {
-        (Some(a), Some(b)) => Some(format!("{} {}", a, b)),
-        (Some(a), None) => Some(a.to_string()),
-        (None, Some(b)) => Some(b.to_string()),
-        (None, None) => None,
-    }
-}
-
 /// Button component with accessibility and variant support
 #[component]
 pub fn Button(
@@ -139,7 +123,7 @@ pub fn Button(
 
     // Merge classes with data attributes for CSS targeting
     let base_classes = "radix-button";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     // Handle click events
@@ -185,6 +169,7 @@ pub fn Button(
                     "⟳"
                 </span>
             </Show>
+            {children()}
         </button>
     }
 }

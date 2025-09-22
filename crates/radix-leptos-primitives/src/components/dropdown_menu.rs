@@ -1,4 +1,4 @@
-use crate::utils::merge_classes;
+use crate::utils::{merge_classes, generate_id};
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::html;
@@ -260,7 +260,7 @@ pub fn DropdownMenuItem(
     all_classes.extend(variant_classes);
 
     let class_value = class.unwrap_or_default();
-    let classes = merge_classes(all_classes);
+    let classes = merge_classes(all_classes.iter().map(|s| s.as_ref()).collect());
     let final_class = format!("{} {}", classes, class_value);
 
     view! {

@@ -1,6 +1,7 @@
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
+use crate::utils::{merge_optional_classes, generate_id};
 
 /// Accordion component with proper accessibility and collapsible sections
 ///
@@ -89,23 +90,6 @@ impl AccordionSize {
     }
 }
 
-/// Generate a simple unique ID for components
-fn generate_id(prefix: &str) -> String {
-    static COUNTER: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
-    let id = COUNTER.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
-    format!("{}-{}", prefix, id)
-}
-
-/// Merge CSS classes
-fn merge_classes(existing: Option<&str>, additional: Option<&str>) -> Option<String> {
-    match (existing, additional) {
-        (Some(a), Some(b)) => Some(format!("{} {}", a, b)),
-        (Some(a), None) => Some(a.to_string()),
-        (None, Some(b)) => Some(b.to_string()),
-        (None, None) => None,
-    }
-}
-
 /// Accordion root component
 #[component]
 pub fn Accordion(
@@ -144,7 +128,7 @@ pub fn Accordion(
 
     // Merge classes with data attributes for CSS targeting
     let base_classes = "radix-accordion";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     // Handle keyboard navigation
@@ -201,7 +185,7 @@ pub fn AccordionItem(
     let __item_id = generate_id(&format!("accordion-item-{}", value));
 
     let base_classes = "radix-accordion-item";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {
@@ -231,7 +215,7 @@ pub fn AccordionTrigger(
     let trigger_id = generate_id("accordion-trigger");
 
     let base_classes = "radix-accordion-trigger";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     // Handle trigger click
@@ -284,7 +268,7 @@ pub fn AccordionContent(
     let content_id = generate_id("accordion-content");
 
     let base_classes = "radix-accordion-content";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {
@@ -307,6 +291,7 @@ pub fn AccordionContent(
 mod tests {
     use crate::{AccordionSize, AccordionVariant};
     use proptest::prelude::*;
+use crate::utils::{merge_optional_classes, generate_id};
 
     // 1. Basic Rendering Tests
     #[test]

@@ -3,6 +3,7 @@ mod sheet_tests {
     use leptos::callback::Callback;
     use proptest::prelude::*;
     use crate::components::sheet::*;
+use crate::utils::{merge_optional_classes, generate_id};
 
     // Test Sheet component creation
     #[test]

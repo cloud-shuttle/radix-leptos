@@ -1,6 +1,7 @@
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
+use crate::utils::{merge_optional_classes, generate_id};
 
 /// Slider component with proper accessibility and styling variants
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -37,22 +38,6 @@ impl SliderSize {
     }
 }
 
-/// Generate a simple unique ID for components
-fn generate_id(prefix: &str) -> String {
-    static COUNTER: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
-    let id = COUNTER.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
-    format!("{}-{}", prefix, id)
-}
-
-/// Merge CSS classes
-fn merge_classes(existing: Option<&str>, additional: Option<&str>) -> Option<String> {
-    match (existing, additional) {
-        (Some(a), Some(b)) => Some(format!("{} {}", a, b)),
-        (Some(a), None) => Some(a.to_string()),
-        (None, Some(b)) => Some(b.to_string()),
-        (None, None) => None,
-    }
-}
 
 /// Slider root component
 #[component]
@@ -101,7 +86,7 @@ pub fn Slider(
 
     // Merge classes with data attributes for CSS targeting
     let base_classes = "radix-slider";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     // Handle keyboard navigation
@@ -194,7 +179,7 @@ pub fn SliderTrack(
     style: Option<String>,
 ) -> impl IntoView {
     let base_classes = "radix-slider-track";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {
@@ -217,7 +202,7 @@ pub fn SliderRange(
     style: Option<String>,
 ) -> impl IntoView {
     let base_classes = "radix-slider-range";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {
@@ -240,7 +225,7 @@ pub fn SliderThumb(
     style: Option<String>,
 ) -> impl IntoView {
     let base_classes = "radix-slider-thumb";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {
@@ -256,6 +241,7 @@ pub fn SliderThumb(
 mod tests {
     use crate::{SliderSize, SliderVariant};
     use proptest::prelude::*;
+use crate::utils::{merge_optional_classes, generate_id};
 
     // 1. Basic Rendering Tests
     #[test]

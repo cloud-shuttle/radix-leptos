@@ -434,6 +434,7 @@ pub enum SplitterOrientation {
 #[cfg(test)]
 mod tests {
     use crate::{ResizeEvent, ResizeHandle, SplitterOrientation};
+use crate::utils::{merge_optional_classes, generate_id};
 
     // Component structure tests
     #[test]

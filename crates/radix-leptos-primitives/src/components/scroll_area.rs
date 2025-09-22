@@ -1,4 +1,4 @@
-use crate::utils::merge_classes;
+use crate::utils::{merge_classes, generate_id};
 use leptos::children::Children;
 use leptos::prelude::*;
 
@@ -142,7 +142,7 @@ impl ScrollAreaOrientation {
 
 #[cfg(test)]
 mod tests {
-    use crate::utils::merge_classes;
+    use crate::utils::{merge_classes, generate_id};
     use crate::ScrollAreaOrientation;
     use wasm_bindgen_test::*;
 

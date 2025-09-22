@@ -1,4 +1,4 @@
-use crate::utils::merge_classes;
+use crate::utils::{merge_classes, generate_id};
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
@@ -115,18 +115,18 @@ pub fn ContextMenuItem(
     #[prop(optional)] selected: Option<bool>,
     #[prop(optional)] on_click: Option<Callback<ContextMenuItem>>,
 ) -> impl IntoView {
-    let item = item.unwrap_or_default();
-    let item_for_callback = item.clone();
-    let selected = selected.unwrap_or(false);
+    let _item = item.unwrap_or_default();
+    let item_for_callback = _item.clone();
+    let _selected = selected.unwrap_or(false);
 
-    let class = merge_classes(vec!["context-menu-item"]);
+    let _class = merge_classes(vec!["context-menu-item"]);
 
     view! {
         <div
-            class=class
+            class=_class
             style=style
             role="menuitem"
-            aria-disabled=item._disabled
+            aria-disabled=_item._disabled
             on:click=move |_| {
                 if let Some(callback) = on_click {
                     callback.run(item_for_callback.clone());
@@ -134,11 +134,11 @@ pub fn ContextMenuItem(
             }
             tabindex="0"
         >
-            {if item.separator {
+            {if _item.separator {
                 view! { <hr /> }.into_any()
             } else {
                 view! {
-                    <span class="label">{item.label}</span>
+                    <span class="label">{_item.label}</span>
                     {children.map(|c| c())}
                 }.into_any()
             }}
@@ -154,9 +154,20 @@ pub fn ContextMenuTrigger(
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] disabled: Option<bool>,
 ) -> impl IntoView {
-    let disabled = disabled.unwrap_or(false);
+    let _disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes(vec!["context-menu-trigger"]);
+    let _class = merge_classes(vec!["context-menu-trigger"]);
+
+    view! {
+        <div
+            class=_class
+            style=style
+            role="button"
+            aria-disabled=_disabled
+        >
+            {children.map(|c| c())}
+        </div>
+    }
 }
 
 #[cfg(test)]

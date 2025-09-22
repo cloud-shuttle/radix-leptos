@@ -57,21 +57,21 @@ pub fn PasswordToggleField(
     /// Children content
     children: Option<Children>,
 ) -> impl IntoView {
-    let value = value.unwrap_or_default();
-    let placeholder = placeholder.unwrap_or_else(|| "Enter password...".to_string());
-    let disabled = disabled.unwrap_or(false);
-    let required = required.unwrap_or(false);
-    let readonly = readonly.unwrap_or(false);
-    let visible = visible.unwrap_or(false);
-    let min_length = min_length.unwrap_or(0);
-    let max_length = max_length.unwrap_or(usize::MAX);
-    let strength_requirements = strength_requirements.unwrap_or_default();
+    let _value = value.unwrap_or_default();
+    let _placeholder = placeholder.unwrap_or_else(|| "Enter password...".to_string());
+    let _disabled = disabled.unwrap_or(false);
+    let _required = required.unwrap_or(false);
+    let _readonly = readonly.unwrap_or(false);
+    let _visible = visible.unwrap_or(false);
+    let _min_length = min_length.unwrap_or(0);
+    let _max_length = max_length.unwrap_or(usize::MAX);
+    let _strength_requirements = strength_requirements.unwrap_or_default();
 
     let class = "password-toggle-field".to_string();
 
     let style = style.unwrap_or_default();
 
-    let handle_input = move |event: web_sys::Event| {
+    let _handle_input = move |event: web_sys::Event| {
         if let Some(input) = event
             .target()
             .and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok())
@@ -96,7 +96,7 @@ pub fn PasswordToggleField(
 
     let handle_visibility_toggle = move |_| {
         if let Some(callback) = on_visibility_toggle {
-            callback.run(!visible);
+            callback.run(!visible.unwrap_or(false));
         }
     };
 
@@ -393,6 +393,7 @@ fn validate_password(
 mod tests {
 
     use crate::{PasswordStrengthLevel, PasswordStrengthRequirements, PasswordValidation};
+use crate::utils::{merge_optional_classes, generate_id};
 
     // Component structure tests
     #[test]

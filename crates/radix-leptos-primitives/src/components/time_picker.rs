@@ -503,6 +503,7 @@ mod time_picker_tests {
     };
     use crate::{validate_time, TimeFormat, TimeValidation};
     use proptest::prelude::*;
+use crate::utils::{merge_optional_classes, generate_id};
 
     #[test]
     fn test_time_picker_component_creation() {

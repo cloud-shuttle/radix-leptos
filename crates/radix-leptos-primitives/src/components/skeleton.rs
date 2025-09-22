@@ -1,4 +1,4 @@
-use crate::utils::merge_classes;
+use crate::utils::{merge_classes, generate_id};
 use leptos::children::Children;
 use leptos::prelude::*;
 
@@ -94,7 +94,7 @@ pub fn Skeleton(
     let lines = lines.unwrap_or(1);
     let animated = animated.unwrap_or(true);
 
-    let class = merge_classes(["skeleton", variant.as_str(), size.as_str()].to_vec());
+    let class = merge_classes(vec!["skeleton", variant.as_str(), size.as_str()]);
 
     let mut style_attr = String::new();
     if let Some(h) = height {

@@ -1,4 +1,5 @@
 use leptos::prelude::*;
+use crate::utils::{merge_classes, generate_id};
 
 /// Badge variant for different status types
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
@@ -21,15 +22,6 @@ pub enum BadgeSize {
     Large,
 }
 
-/// Merge CSS classes with proper spacing
-fn merge_classes(classes: &[&str]) -> String {
-    classes
-        .iter()
-        .filter(|&&c| !c.is_empty())
-        .copied()
-        .collect::<Vec<&str>>()
-        .join(" ")
-}
 
 /// Root Badge component
 #[component]
@@ -93,7 +85,7 @@ pub fn Badge(
 
     view! {
         <span
-            class=merge_classes(&final_classes)
+            class=merge_classes(final_classes)
             role="status"
             on:click=handle_click
         >
@@ -201,7 +193,7 @@ pub fn BadgeDot(
 
     view! {
         <span
-            class=merge_classes(&[
+            class=merge_classes(vec![
                 "radix-badge-dot",
                 variant_class(),
                 size_class(),

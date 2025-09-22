@@ -1,4 +1,4 @@
-use crate::utils::merge_classes;
+use crate::utils::{merge_classes, generate_id};
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
@@ -294,7 +294,7 @@ impl PopoverAlign {
 
 #[cfg(test)]
 mod tests {
-    use crate::utils::merge_classes;
+    use crate::utils::{merge_classes, generate_id};
     use crate::{PopoverAlign, PopoverSide};
     use wasm_bindgen_test::*;
 

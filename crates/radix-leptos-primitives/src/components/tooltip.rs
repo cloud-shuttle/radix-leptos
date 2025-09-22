@@ -1,6 +1,7 @@
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
+use crate::utils::{merge_optional_classes, generate_id};
 
 /// Tooltip component with proper accessibility and positioning
 ///
@@ -104,22 +105,6 @@ impl TooltipPosition {
     }
 }
 
-/// Generate a simple unique ID for components
-fn generate_id(prefix: &str) -> String {
-    static COUNTER: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
-    let id = COUNTER.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
-    format!("{}-{}", prefix, id)
-}
-
-/// Merge CSS classes
-fn merge_classes(existing: Option<&str>, additional: Option<&str>) -> Option<String> {
-    match (existing, additional) {
-        (Some(a), Some(b)) => Some(format!("{} {}", a, b)),
-        (Some(a), None) => Some(a.to_string()),
-        (None, Some(b)) => Some(b.to_string()),
-        (None, None) => None,
-    }
-}
 
 /// Tooltip root component
 #[component]
@@ -168,7 +153,7 @@ pub fn Tooltip(
 
     // Merge classes with data attributes for CSS targeting
     let base_classes = "radix-tooltip";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     // Handle keyboard navigation
@@ -223,7 +208,7 @@ pub fn TooltipTrigger(
     let trigger_id = generate_id("tooltip-trigger");
 
     let base_classes = "radix-tooltip-trigger";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     // Handle mouse events
@@ -279,7 +264,7 @@ pub fn TooltipContent(
     let content_id = generate_id("tooltip-content");
 
     let base_classes = "radix-tooltip-content";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {
@@ -306,7 +291,7 @@ pub fn TooltipArrow(
     style: Option<String>,
 ) -> impl IntoView {
     let base_classes = "radix-tooltip-arrow";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {
@@ -514,6 +499,7 @@ mod tests {
                 panic!("Unexpected condition reached"); // Mouse leave not triggered
             }
         });
+use crate::utils::{merge_optional_classes, generate_id};
     }
 
     #[test]

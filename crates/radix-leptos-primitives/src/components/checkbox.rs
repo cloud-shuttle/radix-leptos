@@ -1,6 +1,7 @@
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
+use crate::utils::{merge_optional_classes, generate_id};
 
 /// Checkbox component with proper accessibility and styling variants
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -37,22 +38,6 @@ impl CheckboxSize {
     }
 }
 
-/// Generate a simple unique ID for components
-fn generate_id(prefix: &str) -> String {
-    static COUNTER: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
-    let id = COUNTER.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
-    format!("{}-{}", prefix, id)
-}
-
-/// Merge CSS classes
-fn merge_classes(existing: Option<&str>, additional: Option<&str>) -> Option<String> {
-    match (existing, additional) {
-        (Some(a), Some(b)) => Some(format!("{} {}", a, b)),
-        (Some(a), None) => Some(a.to_string()),
-        (None, Some(b)) => Some(b.to_string()),
-        (None, None) => None,
-    }
-}
 
 /// Checkbox root component
 #[component]
@@ -96,7 +81,7 @@ pub fn Checkbox(
 
     // Merge classes with data attributes for CSS targeting
     let base_classes = "radix-checkbox";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     // Handle keyboard navigation
@@ -157,6 +142,7 @@ pub fn Checkbox(
 mod tests {
     use crate::{CheckboxSize, CheckboxVariant};
     use proptest::prelude::*;
+use crate::utils::{merge_optional_classes, generate_id};
 
     // 1. Basic Rendering Tests
     #[test]

@@ -1,4 +1,4 @@
-use crate::utils::merge_classes;
+use crate::utils::{merge_classes, generate_id};
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
@@ -21,10 +21,10 @@ pub fn FileUpload(
     #[prop(optional)] on_upload_complete: Option<Callback<Vec<FileInfo>>>,
     #[prop(optional)] on_upload_error: Option<Callback<String>>,
 ) -> impl IntoView {
-    let multiple = multiple.unwrap_or(false);
-    let accept = accept.unwrap_or_default();
-    let max_size = max_size.unwrap_or(10 * 1024 * 1024); // 10MB default
-    let max_files = max_files.unwrap_or(10);
+    let _multiple = multiple.unwrap_or(false);
+    let _accept = accept.unwrap_or_default();
+    let _max_size = max_size.unwrap_or(10 * 1024 * 1024); // 10MB default
+    let _max_files = max_files.unwrap_or(10);
     let disabled = disabled.unwrap_or(false);
     let drag_drop_enabled = drag_drop_enabled.unwrap_or(true);
 
@@ -58,9 +58,9 @@ pub fn FileUpload(
             role="button"
             aria-label="File upload area"
             data-multiple=multiple
-            data-accept=accept
-            data-max-size=max_size
-            data-max-files=max_files
+            data-accept=_accept
+            data-max-size=_max_size
+            data-max-files=_max_files
             on:drop=handle_drop
             on:dragover=handle_dragover
             tabindex="0"
@@ -87,7 +87,7 @@ pub fn FileUploadInput(
     let class = merge_classes(vec!["file-upload-input", class.as_deref().unwrap_or("")]);
 
     let handle_change = move |event: web_sys::Event| {
-        if let Some(input) = event
+        if let Some(_input) = event
             .target()
             .and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok())
         {

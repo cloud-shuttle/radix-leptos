@@ -62,6 +62,7 @@ pub fn TouchButton(
     let handle_mouse_down = move |_| {
         if !disabled {
             set_is_pressed.set(true);
+use crate::utils::{merge_optional_classes, generate_id};
         }
     };
 
@@ -158,6 +159,7 @@ pub fn TouchIconButton(
     let handle_mouse_down = move |_| {
         if !disabled {
             set_is_pressed.set(true);
+use crate::utils::{merge_optional_classes, generate_id};
         }
     };
 
@@ -254,6 +256,7 @@ pub fn FloatingActionButton(
     let handle_mouse_down = move |_| {
         if !disabled {
             set_is_pressed.set(true);
+use crate::utils::{merge_optional_classes, generate_id};
         }
     };
 

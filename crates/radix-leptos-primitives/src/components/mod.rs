@@ -27,25 +27,43 @@ pub mod scroll_area;
 pub mod toggle;
 pub mod toggle_group;
 pub mod toolbar;
-// pub mod chart;
-// pub mod data_table;
-// pub mod virtual_list;
-// pub mod split_pane;
-// pub mod line_chart;
-// pub mod bar_chart;
-// pub mod pie_chart;
-// pub mod scatter_plot;
-// pub mod drag_drop;
-// pub mod rich_text_editor;
-// pub mod color_picker;
-// pub mod image_viewer;
-// pub mod code_editor;
+// #[cfg(feature = "experimental")]
+// pub mod chart;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub mod data_table;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub mod virtual_list;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub mod split_pane;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub mod line_chart;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub mod bar_chart;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub mod pie_chart;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub mod scatter_plot;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub mod drag_drop;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub mod rich_text_editor;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub mod color_picker;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub mod image_viewer;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub mod code_editor;  // Has syntax errors, needs fixing
 pub mod timeline;
-// pub mod gauge;
-// pub mod command_palette;
-// pub mod touch_button;
-// pub mod swipe_gestures;
-// pub mod pull_to_refresh;
+// #[cfg(feature = "experimental")]
+// pub mod gauge;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub mod command_palette;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub mod touch_button;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub mod swipe_gestures;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub mod pull_to_refresh;  // Has syntax errors, needs fixing
 pub mod aspect_ratio;
 pub mod avatar;
 pub mod calendar;
@@ -66,15 +84,19 @@ pub mod separator;
 pub mod tabs;
 pub mod toast;
 pub mod tree_view;
-// pub mod infinite_scroll;
-// pub mod lazyloading;
-// pub mod lazyloading_optimized;
+// #[cfg(feature = "experimental")]
+// pub mod infinite_scroll;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub mod lazy_loading;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub mod lazy_loading_optimized;  // Has syntax errors, needs fixing
 pub mod alert_dialog;
 pub mod sheet;
 pub mod skeleton;
 pub mod time_picker; // TDD: GREEN phase - enabling component
-                     // pub mod range_slider;  // TDD: Need to fix tests first
-                     // pub mod form_validation;  // TDD: Need to fix tests first
+// #[cfg(feature = "experimental")]
+// pub mod range_slider;  // TDD: Need to fix tests first
+pub mod form_validation;  // TDD: GREEN phase - enabling component
 
 // Test modules - temporarily disabled
 // #[cfg(test)]
@@ -113,30 +135,43 @@ pub use toast::*;
 pub use toggle::*;
 pub use toggle_group::*;
 pub use toolbar::*;
-// pub use chart::*;
-// pub use data_table::*;
-// pub use virtual_list::*;
-// pub use split_pane::*;
-// pub use line_chart::*;
-// pub use bar_chart::*;
-// pub use pie_chart::*;
-// pub use scatter_plot::*;
-// pub use drag_drop::*;
-// pub use rich_text_editor::*;
-// pub use color_picker::*;
-// pub use image_viewer::*;
-// pub use code_editor::*;
-// pub use timeline::*;
-// pub use gauge::*;
-// pub use command_palette::*;
-// pub use touch_button::*;
-// pub use swipe_gestures::*;
-// pub use pull_to_refresh::*;
-// pub use list::*;
-// pub use pagination::*;
+// #[cfg(feature = "experimental")]
+// pub use chart::*;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub use data_table::*;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub use virtual_list::*;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub use split_pane::*;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub use line_chart::*;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub use bar_chart::*;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub use pie_chart::*;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub use scatter_plot::*;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub use drag_drop::*;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub use rich_text_editor::*;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub use color_picker::*;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub use image_viewer::*;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub use code_editor::*;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub use gauge::*;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub use command_palette::*;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub use touch_button::*;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub use swipe_gestures::*;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub use pull_to_refresh::*;  // Has syntax errors, needs fixing
 pub use tabs::*;
-// pub use timeline::*;
-// pub use toast::*;
 pub use aspect_ratio::*;
 pub use avatar::*;
 pub use calendar::*;
@@ -152,12 +187,16 @@ pub use resizable::*;
 pub use search::*;
 pub use separator::*;
 pub use tree_view::*;
-// pub use infinite_scroll::*;
-// pub use lazyloading::*;
-// pub use lazyloading_optimized::*;
+// #[cfg(feature = "experimental")]
+// pub use infinite_scroll::*;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub use lazy_loading::*;  // Has syntax errors, needs fixing
+// #[cfg(feature = "experimental")]
+// pub use lazy_loading_optimized::*;  // Has syntax errors, needs fixing
 pub use alert_dialog::*;
 pub use sheet::*;
 pub use skeleton::*;
 pub use time_picker::*; // TDD: GREEN phase - enabling component
-                        // pub use range_slider::*;  // TDD: Need to fix tests first
-                        // pub use form_validation::*;  // TDD: Need to fix tests first
+// #[cfg(feature = "experimental")]
+// pub use range_slider::*;  // TDD: Need to fix tests first
+pub use form_validation::*;  // TDD: GREEN phase - enabling component

@@ -1,4 +1,4 @@
-use crate::utils::merge_classes;
+use crate::utils::{merge_classes, generate_id};
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
@@ -203,7 +203,7 @@ impl ToggleGroupType {
 
 #[cfg(test)]
 mod tests {
-    use crate::utils::merge_classes;
+    use crate::utils::{merge_classes, generate_id};
     use crate::{ToggleGroupOrientation, ToggleGroupSize, ToggleGroupType, ToggleGroupVariant};
     use wasm_bindgen_test::*;
 

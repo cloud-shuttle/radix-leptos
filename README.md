@@ -17,7 +17,7 @@ A Rust port of [Radix UI](https://www.radix-ui.com/) primitives for [Leptos](htt
 - **🌐 SSR & Hydration**: Full support for server-side rendering and hydration
 - **🧪 Comprehensive Testing**: 1,792+ passing tests with TDD infrastructure, property-based testing, and mutation testing
 - **📱 Responsive Design**: Mobile-first components with touch support
-- **🔧 Feature Flags**: `core` and `full` feature sets for optimal bundle sizes
+- **🔧 Feature Flags**: `core`, `experimental`, and `full` feature sets for optimal bundle sizes
 - **🔒 Type Safety**: Full Rust type safety with excellent IDE support
 - **⚡ Zero Runtime**: No JavaScript runtime overhead, pure WASM performance
 - **🧪 TDD Infrastructure**: World-class Test-Driven Development with 1,792+ passing tests
@@ -62,6 +62,9 @@ radix-leptos = { version = "0.8.5", features = ["core"] }
 
 # For all components
 radix-leptos = { version = "0.8.5", features = ["full"] }
+
+# For experimental components (use with caution)
+radix-leptos = { version = "0.8.5", features = ["experimental"] }
 ```
 
 ## ✅ **Leptos 0.8.8 Compatibility**
@@ -103,6 +106,45 @@ pub fn App() -> impl IntoView {
     }
 }
 ```
+
+## 🏗️ **Module Structure & Feature Flags**
+
+Radix-Leptos is organized into a clean, modular architecture with feature flags for optimal bundle sizes:
+
+### **📦 Core Modules**
+
+- **`components/`** - All UI components organized by functionality
+- **`theming/`** - Theme system with prebuilt themes and customization
+- **`utils/`** - Shared utilities (merge_classes, generate_id, etc.)
+
+### **🔧 Feature Flags**
+
+| Feature | Description | Components Included |
+|---------|-------------|-------------------|
+| `core` | **Production-ready components** | Button, Checkbox, Dialog, Form, Input, Select, etc. |
+| `experimental` | **Incomplete/experimental components** | Chart, DataTable, VirtualList, RichTextEditor, etc. |
+| `full` | **All components** | `core` + `experimental` |
+
+### **📁 Component Organization**
+
+```
+components/
+├── Core Components (always available)
+│   ├── button.rs, checkbox.rs, dialog.rs
+│   ├── form.rs, input.rs, select.rs
+│   └── pagination/, form_validation/
+├── Experimental Components (feature-gated)
+│   ├── chart.rs, data_table.rs
+│   ├── virtual_list.rs, rich_text_editor.rs
+│   └── [Many more...]
+└── mod.rs (with feature gating)
+```
+
+### **🎯 Usage Recommendations**
+
+- **Production**: Use `features = ["core"]` for stable, tested components
+- **Development**: Use `features = ["full"]` for access to all components
+- **Experimental**: Use `features = ["experimental"]` to test incomplete components
 
 ## 📝 More Examples
 

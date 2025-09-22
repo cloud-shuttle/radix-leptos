@@ -2,6 +2,7 @@ use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
 use wasm_bindgen::JsCast;
+use crate::utils::{merge_optional_classes, generate_id};
 
 /// Dialog component with proper accessibility and styling variants
 ///
@@ -94,22 +95,6 @@ impl DialogSize {
     }
 }
 
-/// Generate a simple unique ID for components
-fn generate_id(prefix: &str) -> String {
-    static COUNTER: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
-    let id = COUNTER.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
-    format!("{}-{}", prefix, id)
-}
-
-/// Merge CSS classes
-fn merge_classes(existing: Option<&str>, additional: Option<&str>) -> Option<String> {
-    match (existing, additional) {
-        (Some(a), Some(b)) => Some(format!("{} {}", a, b)),
-        (Some(a), None) => Some(a.to_string()),
-        (None, Some(b)) => Some(b.to_string()),
-        (None, None) => None,
-    }
-}
 
 /// Dialog root component
 #[component]
@@ -145,7 +130,7 @@ pub fn Dialog(
 
     // Merge classes with data attributes for CSS targeting
     let base_classes = "radix-dialog";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     // Handle escape key
@@ -197,7 +182,7 @@ pub fn DialogContent(
     children: Children,
 ) -> impl IntoView {
     let base_classes = "radix-dialog-content";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {
@@ -220,7 +205,7 @@ pub fn DialogHeader(
     children: Children,
 ) -> impl IntoView {
     let base_classes = "radix-dialog-header";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {
@@ -243,7 +228,7 @@ pub fn DialogTitle(
     children: Children,
 ) -> impl IntoView {
     let base_classes = "radix-dialog-title";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {
@@ -266,7 +251,7 @@ pub fn DialogDescription(
     children: Children,
 ) -> impl IntoView {
     let base_classes = "radix-dialog-description";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {
@@ -289,7 +274,7 @@ pub fn DialogFooter(
     children: Children,
 ) -> impl IntoView {
     let base_classes = "radix-dialog-footer";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {
@@ -303,6 +288,7 @@ pub fn DialogFooter(
 mod tests {
     use crate::{DialogSize, DialogVariant};
     use proptest::prelude::*;
+use crate::utils::{merge_optional_classes, generate_id};
 
     // 1. Basic Rendering Tests
     #[test]

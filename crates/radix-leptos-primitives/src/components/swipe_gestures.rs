@@ -26,6 +26,7 @@ pub fn SwipeableCard(
     // Handle mouse events for desktop compatibility
     let handle_mouse_down = move |event: web_sys::MouseEvent| {
         set_start_x.set(event.client_x() as f64);
+use crate::utils::{merge_optional_classes, generate_id};
         setcurrent_x.set(event.client_x() as f64);
         set_is_swiping.set(true);
         set_translate_x.set(0.0);
@@ -102,6 +103,7 @@ pub fn SwipeableListItem(
     // Handle mouse events for desktop compatibility
     let handle_mouse_down = move |event: web_sys::MouseEvent| {
         set_start_x.set(event.client_x() as f64);
+use crate::utils::{merge_optional_classes, generate_id};
         setcurrent_x.set(event.client_x() as f64);
         set_is_swiping.set(true);
         set_translate_x.set(0.0);

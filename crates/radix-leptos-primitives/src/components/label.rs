@@ -1,4 +1,4 @@
-use crate::utils::merge_classes;
+use crate::utils::{merge_classes, generate_id};
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
@@ -64,6 +64,14 @@ pub fn LabelText(
     let required = required.unwrap_or(false);
 
     let class = merge_classes(vec!["label-text"]);
+
+    view! {
+        <span class=class style=style>
+            {text}
+            {if required { "*" } else { "" }}
+            {children.map(|c| c())}
+        </span>
+    }
 }
 
 /// Label Description component
@@ -103,6 +111,13 @@ pub fn LabelError(
     let visible = visible.unwrap_or(false);
 
     let class = merge_classes(vec!["label-error"]);
+
+    view! {
+        <div class=class style=style aria-live="polite">
+            {if visible { error } else { "".to_string() }}
+            {children.map(|c| c())}
+        </div>
+    }
 }
 
 /// Label Group component

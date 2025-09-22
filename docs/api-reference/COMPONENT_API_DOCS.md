@@ -1,6 +1,20 @@
 # Radix-Leptos Component API Documentation
 
-This document provides comprehensive API documentation for all Radix-Leptos components, generated using TDD principles and comprehensive testing.
+This document provides comprehensive API documentation for all Radix-Leptos components, organized by feature flags and module structure.
+
+## 🔧 Feature Flags
+
+Components are organized into feature flags for optimal bundle sizes:
+
+- **`core`**: Production-ready components (always available)
+- **`experimental`**: Incomplete/experimental components (feature-gated)
+- **`full`**: All components (`core` + `experimental`)
+
+## 📦 Module Structure
+
+- **`components/`**: All UI components organized by functionality
+- **`theming/`**: Theme system with prebuilt themes and customization
+- **`utils/`**: Shared utilities (merge_classes, generate_id, etc.)
 
 ## Table of Contents
 
@@ -26,6 +40,37 @@ This document provides comprehensive API documentation for all Radix-Leptos comp
 - [Table](#table)
 - [Skeleton](#skeleton)
 - [And more...](#additional-components)
+
+## 🏗️ **Modular Components**
+
+### **Pagination System**
+
+The pagination system has been refactored into modular components:
+
+- **`Pagination`**: Main pagination component
+- **`PaginationContext`**: Context provider for pagination state
+- **`PaginationItems`**: Individual pagination items
+- **`PaginationHelpers`**: Utility functions
+
+### **Form Validation System**
+
+The form validation system has been refactored into modular components:
+
+- **`FormValidationProvider`**: Context provider for validation state
+- **`FormField`**: Individual form field with validation
+- **`FormLabel`**: Form field labels
+- **`FormFieldError`**: Field-specific error display
+- **`FormErrorSummary`**: Summary of all form errors
+- **`ValidationEngine`**: Core validation logic
+
+### **Theming System**
+
+The theming system has been refactored into modular components:
+
+- **`PrebuiltThemes`**: Light and dark theme variants
+- **`ComponentVariants`**: Component-specific styling variants
+- **`LayoutSystem`**: Layout utilities and responsive design
+- **`ThemeCustomization`**: Theme customization tools
 
 ---
 

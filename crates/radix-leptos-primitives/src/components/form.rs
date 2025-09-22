@@ -1,6 +1,7 @@
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
+use crate::utils::{merge_optional_classes, generate_id};
 
 /// Form component with proper accessibility and validation
 ///
@@ -104,22 +105,6 @@ pub struct FormErrors {
     pub global_errors: Vec<String>,
 }
 
-/// Generate a simple unique ID for components
-fn generate_id(prefix: &str) -> String {
-    static COUNTER: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
-    let id = COUNTER.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
-    format!("{}-{}", prefix, id)
-}
-
-/// Merge CSS classes
-fn merge_classes(existing: Option<&str>, additional: Option<&str>) -> Option<String> {
-    match (existing, additional) {
-        (Some(a), Some(b)) => Some(format!("{} {}", a, b)),
-        (Some(a), None) => Some(a.to_string()),
-        (None, Some(b)) => Some(b.to_string()),
-        (None, None) => None,
-    }
-}
 
 /// Form root component
 #[component]
@@ -159,7 +144,7 @@ pub fn Form(
 
     // Merge classes with data attributes for CSS targeting
     let base_classes = "radix-form";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     // Handle form submission
@@ -213,7 +198,7 @@ pub fn FormField(
     let __field_id = generate_id(&format!("field-{}", name));
 
     let base_classes = "radix-form-field";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {
@@ -241,7 +226,7 @@ pub fn FormLabel(
     children: Children,
 ) -> impl IntoView {
     let base_classes = "radix-form-label";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {
@@ -285,7 +270,7 @@ pub fn FormInput(
     let input_id = generate_id("input");
 
     let base_classes = "radix-form-input";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     // Handle input change
@@ -325,7 +310,7 @@ pub fn FormError(
     style: Option<String>,
 ) -> impl IntoView {
     let base_classes = "radix-form-error";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {
@@ -348,7 +333,7 @@ pub fn FormSubmit(
     children: Children,
 ) -> impl IntoView {
     let base_classes = "radix-form-submit";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {
@@ -362,6 +347,7 @@ pub fn FormSubmit(
 mod tests {
     use crate::{FormData, FormErrors, FormSize, FormVariant};
     use proptest::prelude::*;
+use crate::utils::{merge_optional_classes, generate_id};
 
     // 1. Basic Rendering Tests
     #[test]

@@ -1,4 +1,5 @@
 use wasm_bindgen::JsCast;
+use crate::utils::{merge_optional_classes, generate_id};
 
 /// Lazy Loading component for lazy loading utilities
 #[component]

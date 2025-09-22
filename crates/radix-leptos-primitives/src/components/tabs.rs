@@ -1,5 +1,6 @@
 use leptos::children::Children;
 use leptos::prelude::*;
+use crate::utils::{merge_optional_classes, generate_id};
 
 /// Tabs component with proper accessibility and styling variants
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -37,21 +38,6 @@ impl TabsSize {
 }
 
 /// Generate a simple unique ID for components
-fn generate_id(prefix: &str) -> String {
-    static COUNTER: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
-    let id = COUNTER.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
-    format!("{}-{}", prefix, id)
-}
-
-/// Merge CSS classes
-fn merge_classes(existing: Option<&str>, additional: Option<&str>) -> Option<String> {
-    match (existing, additional) {
-        (Some(a), Some(b)) => Some(format!("{} {}", a, b)),
-        (Some(a), None) => Some(a.to_string()),
-        (None, Some(b)) => Some(b.to_string()),
-        (None, None) => None,
-    }
-}
 
 /// Tabs root component
 #[component]
@@ -88,7 +74,7 @@ pub fn Tabs(
 
     // Merge classes with data attributes for CSS targeting
     let base_classes = "radix-tabs";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     // Handle keyboard navigation
@@ -147,7 +133,7 @@ pub fn TabsList(
     children: Children,
 ) -> impl IntoView {
     let base_classes = "radix-tabs-list";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {
@@ -180,7 +166,7 @@ pub fn TabsTrigger(
     let __trigger_id = generate_id(&format!("tab-trigger-{}", value));
 
     let base_classes = "radix-tabs-trigger";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     // Handle click
@@ -209,7 +195,10 @@ pub fn TabsTrigger(
             role="tab"
             aria-selected="false"
             aria-controls="tab-content-".to_string() + &value.clone()
+            on:click=handle_click
+            on:keydown=handle_keydown
         >
+            {children()}
         </button>
     }
 }
@@ -231,7 +220,7 @@ pub fn TabsContent(
     let __content_id = generate_id(&format!("tab-content-{}", value));
 
     let base_classes = "radix-tabs-content";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {

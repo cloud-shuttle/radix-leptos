@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 use std::sync::Arc;
 use std::time::Duration;
+use crate::utils::{merge_optional_classes, generate_id};
 
 /// Optimized lazy loading component with advanced features
 #[component]

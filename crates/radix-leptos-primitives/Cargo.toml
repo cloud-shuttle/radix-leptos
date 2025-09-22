@@ -24,7 +24,8 @@ hydrate = ["leptos/hydrate", "radix-leptos-core/hydrate"]
 
 # Component features
 core = []
-full = []
+experimental = []
+full = ["core", "experimental"]
 
 [dependencies]
 radix-leptos-core = { version = "0.8.5", path = "../radix-leptos-core" }

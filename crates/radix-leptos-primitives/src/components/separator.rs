@@ -1,4 +1,4 @@
-use crate::utils::merge_classes;
+use crate::utils::{merge_classes, generate_id};
 use leptos::children::Children;
 use leptos::prelude::*;
 
@@ -18,7 +18,7 @@ pub fn Separator(
     let thickness = thickness.unwrap_or_default();
     let color = color.unwrap_or_default();
 
-    let class = merge_classes(["separator", orientation.to_class(), thickness.to_class()].to_vec());
+    let class = merge_classes(vec!["separator", orientation.to_class(), thickness.to_class()]);
     let aria_orientation = orientation.to_aria_orientation();
 
     view! {

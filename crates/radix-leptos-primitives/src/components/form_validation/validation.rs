@@ -1,187 +1,5 @@
 use std::collections::HashMap;
-use crate::utils::merge_classes;
-
-/// Form Validation System - Comprehensive validation with real-time feedback
-#[component]
-pub fn FormValidationProvider(
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] style: Option<String>,
-    #[prop(optional)] children: Option<Children>,
-    #[prop(optional)] validation_mode: Option<ValidationMode>,
-    #[prop(optional)] on_validation_change: Option<Callback<FormValidationState>>,
-) -> impl IntoView {
-    let validation_mode = validation_mode.unwrap_or(ValidationMode::OnChange);
-    
-    let (validation_state, set_validation_state) = create_signal(FormValidationState::default());
-    let (field_errors, set_field_errors) = create_signal(HashMap::<String, FieldError>::new());
-    let (form_errors, set_form_errors) = create_signal(Vec::<FormError>::new());
-
-    let class = merge_classes(vec![
-        "form-validation-provider",
-        validation_mode.as_str(),
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    let handle_validation_change = move |new_state: FormValidationState| {
-        set_validation_state.set(new_state.clone());
-        if let Some(callback) = on_validation_change {
-            callback.run(new_state);
-        }
-    };
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="form"
-            aria-label="Form with validation"
-        >
-            {children.map(|c| c())}
-        </div>
-    }
-}
-
-/// Form Field with Validation
-#[component]
-pub fn FormField(
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] style: Option<String>,
-    #[prop(optional)] children: Option<Children>,
-    #[prop(optional)] name: Option<String>,
-    #[prop(optional)] label: Option<String>,
-    #[prop(optional)] required: Option<bool>,
-    #[prop(optional)] validation_rules: Option<Vec<ValidationRule>>,
-    #[prop(optional)] on_validation: Option<Callback<FieldValidationResult>>,
-) -> impl IntoView {
-    let name = name.unwrap_or_default();
-    let label = label.unwrap_or_default();
-    let required = required.unwrap_or(false);
-    let validation_rules = validation_rules.unwrap_or_default();
-
-    let class = merge_classes(vec![
-        "form-field",
-    };
-
-    view! {
-        <div
-            class=class
-            style=style
-            data-field-name=name
-            data-required=required
-        >
-            {if !label.is_empty() {
-                view! {
-                    <FormLabel for_id=name.clone()>
-                        {label}
-                        {if required {
-                            view! { <span class="required-indicator">"*"</span> }
-                        }}
-                    </FormLabel>
-                }.into_any()
-            }}
-            {children.map(|c| c())}
-            <FormFieldError name=name.clone() />
-        </div>
-    }
-}
-
-/// Form Label component
-#[component]
-pub fn FormLabel(
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] style: Option<String>,
-    #[prop(optional)] children: Option<Children>,
-    #[prop(optional)] for_id: Option<String>,
-) -> impl IntoView {
-    let class = merge_classes(vec![
-        "form-label",
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <label
-            class=class
-            style=style
-            for=for_id
-        >
-            {children.map(|c| c())}
-        </label>
-    }
-}
-
-/// Form Field Error component
-#[component]
-pub fn FormFieldError(
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] style: Option<String>,
-    #[prop(optional)] name: Option<String>,
-) -> impl IntoView {
-    let name = name.unwrap_or_default();
-
-    let class = merge_classes(vec![
-        "form-field-error",
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="alert"
-            aria-live="polite"
-            data-field-name=name
-        >
-            // Error message will be displayed here
-        </div>
-    }
-}
-
-/// Form Error Summary component
-#[component]
-pub fn FormErrorSummary(
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] style: Option<String>,
-    #[prop(optional)] errors: Option<Vec<FormError>>,
-    #[prop(optional)] show_field_errors: Option<bool>,
-    #[prop(optional)] show_form_errors: Option<bool>,
-) -> impl IntoView {
-    let errors = errors.unwrap_or_default();
-    let show_field_errors = show_field_errors.unwrap_or(true);
-    let show_form_errors = show_form_errors.unwrap_or(true);
-
-    let class = merge_classes(vec![
-        "form-error-summary",
-        class.as_deref().unwrap_or(""),
-    ]);
-
-    view! {
-        <div
-            class=class
-            style=style
-            role="alert"
-            aria-live="polite"
-            aria-label="Form errors"
-        >
-            {if !errors.is_empty() {
-                view! {
-                    <div class="error-summary-header">
-                        <h3>"Please correct the following errors:"</h3>
-                    </div>
-                    <ul class="error-summary-list">
-                        {errors.into_iter().map(|error| {
-                            view! {
-                                <li class="error-summary-item">
-                                    <span class="error-field">{error.field}</span>
-                                    <span class="error-message">{error.message}</span>
-                                </li>
-                            }
-                        }).collect::<Vec<_>>()}
-                    </ul>
-                }.into_any()
-            }}
-        </div>
-    }
-}
+use regex::Regex;
 
 /// Validation Mode enum
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -283,9 +101,9 @@ impl Default for FieldValidationResult {
 #[derive(Debug, Clone, PartialEq)]
 pub struct FormValidationState {
     pub is_valid: bool,
-    pub __is_submitting: bool,
-    pub __is_dirty: bool,
-    pub __is_touched: bool,
+    pub is_submitting: bool,
+    pub is_dirty: bool,
+    pub is_touched: bool,
     pub field_errors: HashMap<String, FieldError>,
     pub form_errors: Vec<FormError>,
 }
@@ -378,6 +196,18 @@ impl ValidationEngine {
         self.custom_validators.insert(name, validator);
     }
 
+    pub fn has_rules(&self) -> bool {
+        !self.rules.is_empty()
+    }
+
+    pub fn has_rule_for_field(&self, field_name: &str) -> bool {
+        self.rules.contains_key(field_name)
+    }
+
+    pub fn has_custom_validators(&self) -> bool {
+        !self.custom_validators.is_empty()
+    }
+
     pub fn validate_field(&self, field_name: &str, value: &str) -> FieldValidationResult {
         let mut result = FieldValidationResult {
             field_name: field_name.to_string(),
@@ -434,6 +264,9 @@ impl ValidationEngine {
                         is_valid: false,
                         message: Some(rule.message.clone()),
                     }
+                } else {
+                    ValidationResult::default()
+                }
             }
             ValidationRuleType::MinLength(min_len) => {
                 if value.len() < *min_len {
@@ -441,6 +274,9 @@ impl ValidationEngine {
                         is_valid: false,
                         message: Some(rule.message.clone()),
                     }
+                } else {
+                    ValidationResult::default()
+                }
             }
             ValidationRuleType::MaxLength(max_len) => {
                 if value.len() > *max_len {
@@ -448,6 +284,9 @@ impl ValidationEngine {
                         is_valid: false,
                         message: Some(rule.message.clone()),
                     }
+                } else {
+                    ValidationResult::default()
+                }
             }
             ValidationRuleType::Min(min_val) => {
                 if let Ok(num) = value.parse::<f64>() {
@@ -456,6 +295,14 @@ impl ValidationEngine {
                             is_valid: false,
                             message: Some(rule.message.clone()),
                         }
+                    } else {
+                        ValidationResult::default()
+                    }
+                } else {
+                    ValidationResult {
+                        is_valid: false,
+                        message: Some(rule.message.clone()),
+                    }
                 }
             }
             ValidationRuleType::Max(max_val) => {
@@ -465,15 +312,31 @@ impl ValidationEngine {
                             is_valid: false,
                             message: Some(rule.message.clone()),
                         }
+                    } else {
+                        ValidationResult::default()
+                    }
+                } else {
+                    ValidationResult {
+                        is_valid: false,
+                        message: Some(rule.message.clone()),
+                    }
                 }
             }
             ValidationRuleType::Pattern(pattern) => {
-                if let Ok(regex) = regex::Regex::new(pattern) {
+                if let Ok(regex) = Regex::new(pattern) {
                     if !regex.is_match(value) {
                         ValidationResult {
                             is_valid: false,
                             message: Some(rule.message.clone()),
                         }
+                    } else {
+                        ValidationResult::default()
+                    }
+                } else {
+                    ValidationResult {
+                        is_valid: false,
+                        message: Some(rule.message.clone()),
+                    }
                 }
             }
             ValidationRuleType::Email => {
@@ -482,6 +345,9 @@ impl ValidationEngine {
                         is_valid: false,
                         message: Some(rule.message.clone()),
                     }
+                } else {
+                    ValidationResult::default()
+                }
             }
             ValidationRuleType::Url => {
                 if !is_valid_url(value) {
@@ -489,6 +355,9 @@ impl ValidationEngine {
                         is_valid: false,
                         message: Some(rule.message.clone()),
                     }
+                } else {
+                    ValidationResult::default()
+                }
             }
             ValidationRuleType::Phone => {
                 if !is_valid_phone(value) {
@@ -496,6 +365,9 @@ impl ValidationEngine {
                         is_valid: false,
                         message: Some(rule.message.clone()),
                     }
+                } else {
+                    ValidationResult::default()
+                }
             }
             ValidationRuleType::Date => {
                 if !is_valid_date(value) {
@@ -503,6 +375,9 @@ impl ValidationEngine {
                         is_valid: false,
                         message: Some(rule.message.clone()),
                     }
+                } else {
+                    ValidationResult::default()
+                }
             }
             ValidationRuleType::Time => {
                 if !is_valid_time(value) {
@@ -510,6 +385,9 @@ impl ValidationEngine {
                         is_valid: false,
                         message: Some(rule.message.clone()),
                     }
+                } else {
+                    ValidationResult::default()
+                }
             }
             ValidationRuleType::Number => {
                 if !is_valid_number(value) {
@@ -517,6 +395,9 @@ impl ValidationEngine {
                         is_valid: false,
                         message: Some(rule.message.clone()),
                     }
+                } else {
+                    ValidationResult::default()
+                }
             }
             ValidationRuleType::Integer => {
                 if !is_valid_integer(value) {
@@ -524,10 +405,15 @@ impl ValidationEngine {
                         is_valid: false,
                         message: Some(rule.message.clone()),
                     }
+                } else {
+                    ValidationResult::default()
+                }
             }
             ValidationRuleType::Custom(name) => {
                 if let Some(validator) = self.custom_validators.get(name) {
                     validator(value)
+                } else {
+                    ValidationResult::default()
                 }
             }
         }
@@ -535,109 +421,97 @@ impl ValidationEngine {
 }
 
 /// Email validation
-fn is_valid_email(email: &str) -> bool {
-    let email_regex = regex::Regex::new(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").unwrap();
+pub fn is_valid_email(email: &str) -> bool {
+    let email_regex = Regex::new(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").unwrap();
     email_regex.is_match(email)
 }
 
 /// URL validation
-fn is_valid_url(url: &str) -> bool {
-    let url_regex = regex::Regex::new(r"^https?://[^\s/$.?#].[^\s]*$").unwrap();
+pub fn is_valid_url(url: &str) -> bool {
+    let url_regex = Regex::new(r"^https?://[^\s/$.?#].[^\s]*$").unwrap();
     url_regex.is_match(url)
 }
 
 /// Phone validation
-fn is_valid_phone(phone: &str) -> bool {
-    let phone_regex = regex::Regex::new(r"^\+?[\d\s\-\(\)]{10,}$").unwrap();
+pub fn is_valid_phone(phone: &str) -> bool {
+    let phone_regex = Regex::new(r"^\+?[\d\s\-\(\)]{10,}$").unwrap();
     phone_regex.is_match(phone)
 }
 
 /// Date validation
-fn is_valid_date(date: &str) -> bool {
-    let date_regex = regex::Regex::new(r"^\d{4}-\d{2}-\d{2}$").unwrap();
-    date_regex.is_match(date)
+pub fn is_valid_date(date: &str) -> bool {
+    let date_regex = Regex::new(r"^\d{4}-\d{2}-\d{2}$").unwrap();
+    if !date_regex.is_match(date) {
+        return false;
+    }
+    
+    // Parse the date to validate actual values
+    let parts: Vec<&str> = date.split('-').collect();
+    if parts.len() != 3 {
+        return false;
+    }
+    
+    let year: i32 = parts[0].parse().unwrap_or(0);
+    let month: u32 = parts[1].parse().unwrap_or(0);
+    let day: u32 = parts[2].parse().unwrap_or(0);
+    
+    // Basic validation
+    if year < 1 || month < 1 || month > 12 || day < 1 || day > 31 {
+        return false;
+    }
+    
+    // More specific validation for days per month
+    let days_in_month = match month {
+        1 | 3 | 5 | 7 | 8 | 10 | 12 => 31,
+        4 | 6 | 9 | 11 => 30,
+        2 => if is_leap_year(year) { 29 } else { 28 },
+        _ => return false,
+    };
+    
+    day <= days_in_month
+}
+
+/// Helper function to check if a year is a leap year
+fn is_leap_year(year: i32) -> bool {
+    (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)
 }
 
 /// Time validation
-fn is_valid_time(time: &str) -> bool {
-    let time_regex = regex::Regex::new(r"^\d{2}:\d{2}(:\d{2})?$").unwrap();
-    time_regex.is_match(time)
+pub fn is_valid_time(time: &str) -> bool {
+    let time_regex = Regex::new(r"^\d{2}:\d{2}(:\d{2})?$").unwrap();
+    if !time_regex.is_match(time) {
+        return false;
+    }
+    
+    // Parse the time to validate actual values
+    let parts: Vec<&str> = time.split(':').collect();
+    if parts.len() < 2 || parts.len() > 3 {
+        return false;
+    }
+    
+    let hour: u32 = parts[0].parse().unwrap_or(99);
+    let minute: u32 = parts[1].parse().unwrap_or(99);
+    let second: u32 = if parts.len() == 3 { parts[2].parse().unwrap_or(99) } else { 0 };
+    
+    // Validate ranges
+    hour < 24 && minute < 60 && second < 60
 }
 
 /// Number validation
-fn is_valid_number(number: &str) -> bool {
+pub fn is_valid_number(number: &str) -> bool {
     number.parse::<f64>().is_ok()
 }
 
 /// Integer validation
-fn is_valid_integer(integer: &str) -> bool {
+pub fn is_valid_integer(integer: &str) -> bool {
     integer.parse::<i64>().is_ok()
 }
 
 #[cfg(test)]
-mod form_validation_tests {
+mod validation_tests {
+    use super::*;
     use proptest::prelude::*;
-
-    #[test]
-    fn test_form_validation_provider_creation() {
-        let runtime = create_runtime();
-        let _view = view! {
-            <FormValidationProvider>
-                <div>"Test form"</div>
-            </FormValidationProvider>
-        };
-        runtime.dispose();
-        
-    }
-
-    #[test]
-    fn test_form_field_creation() {
-        let runtime = create_runtime();
-        let _view = view! {
-            <FormField name="email" label="Email" required=true>
-                <input type="email" />
-            </FormField>
-        };
-        runtime.dispose();
-        
-    }
-
-    #[test]
-    fn test_form_label_creation() {
-        let runtime = create_runtime();
-        let _view = view! {
-            <FormLabel for_id="email">"Email Address"</FormLabel>
-        };
-        runtime.dispose();
-        
-    }
-
-    #[test]
-    fn test_form_field_error_creation() {
-        let runtime = create_runtime();
-        let _view = view! {
-            <FormFieldError name="email" />
-        };
-        runtime.dispose();
-        
-    }
-
-    #[test]
-    fn test_form_error_summary_creation() {
-        let runtime = create_runtime();
-        let errors = [
-            FormError {
-                field: "email".to_string(),
-                message: "Invalid email format".to_string(),
-                error_type: ErrorType::Validation,
-            }
-        ];
-        let _view = view! {
-            <FormErrorSummary errors=errors />
-        };
-        runtime.dispose();
-        
-    }
+use crate::utils::{merge_optional_classes, generate_id};
 
     #[test]
     fn test_validation_mode_enum() {
@@ -705,7 +579,6 @@ mod form_validation_tests {
             rule_type: ValidationRuleType::Required,
             message: "Field is required".to_string(),
             value: None,
-            custom_validator: None,
         };
         engine.add_rule("email".to_string(), rule);
         assert!(engine.rules.contains_key("email"));
@@ -718,7 +591,6 @@ mod form_validation_tests {
             rule_type: ValidationRuleType::Required,
             message: "Field is required".to_string(),
             value: None,
-            custom_validator: None,
         };
         engine.add_rule("email".to_string(), rule);
         
@@ -738,7 +610,6 @@ mod form_validation_tests {
             rule_type: ValidationRuleType::Required,
             message: "Field is required".to_string(),
             value: None,
-            custom_validator: None,
         };
         engine.add_rule("email".to_string(), rule);
         
@@ -816,12 +687,11 @@ mod form_validation_tests {
     // Property-based tests
     #[test]
     fn test_validation_rule_property_based() {
-        proptest!(|(__message in ".*")| {
+        proptest!(|(message in ".*")| {
             let rule = ValidationRule {
                 rule_type: ValidationRuleType::Required,
                 message: message.clone(),
                 value: None,
-                custom_validator: None,
             };
             assert_eq!(rule.message, message);
         });
@@ -836,49 +706,5 @@ mod form_validation_tests {
             };
             assert_eq!(result.is_valid, is_valid);
         });
-    }
-
-    // Integration Tests
-    #[test]
-    fn test_form_validation_workflow() {
-        // Test complete form validation workflow
-        
-    }
-
-    #[test]
-    fn test_form_validation_accessibility() {
-        // Test form validation accessibility features
-        
-    }
-
-    #[test]
-    fn test_form_validation_performance() {
-        // Test form validation performance
-        
-    }
-
-    #[test]
-    fn test_form_validation_error_handling() {
-        // Test form validation error handling
-        
-    }
-
-    // Performance Tests
-    #[test]
-    fn test_validation_engine_performance() {
-        // Test validation engine performance
-        
-    }
-
-    #[test]
-    fn test_form_validation_memory_usage() {
-        // Test form validation memory usage
-        
-    }
-
-    #[test]
-    fn test_validation_rule_performance() {
-        // Test validation rule performance
-        
     }
 }

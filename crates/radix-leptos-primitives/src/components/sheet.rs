@@ -1,4 +1,4 @@
-use crate::utils::merge_classes;
+use crate::utils::{merge_classes, generate_id};
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
@@ -136,7 +136,7 @@ pub fn Sheet(
     let size = size.unwrap_or(SheetSize::Medium);
     let onopen_change = onopen_change.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes(["sheet", position.as_str(), size.as_str()].to_vec());
+    let class = merge_classes(vec!["sheet", position.as_str(), size.as_str()]);
 }
 
 /// Sheet content component
@@ -146,7 +146,7 @@ pub fn SheetContent(
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let class = merge_classes(["sheet-content", class.as_deref().unwrap_or("")].to_vec());
+    let class = merge_classes(vec!["sheet-content", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -165,7 +165,7 @@ pub fn SheetHeader(
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let class = merge_classes(["sheet-header", class.as_deref().unwrap_or("")].to_vec());
+    let class = merge_classes(vec!["sheet-header", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -184,7 +184,7 @@ pub fn SheetTitle(
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let class = merge_classes(["sheet-title", class.as_deref().unwrap_or("")].to_vec());
+    let class = merge_classes(vec!["sheet-title", class.as_deref().unwrap_or("")]);
 
     view! {
         <h2
@@ -203,7 +203,7 @@ pub fn SheetDescription(
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let class = merge_classes(["sheet-description", class.as_deref().unwrap_or("")].to_vec());
+    let class = merge_classes(vec!["sheet-description", class.as_deref().unwrap_or("")]);
 
     view! {
         <p
@@ -222,7 +222,7 @@ pub fn SheetBody(
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let class = merge_classes(["sheet-body", class.as_deref().unwrap_or("")].to_vec());
+    let class = merge_classes(vec!["sheet-body", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -241,7 +241,7 @@ pub fn SheetFooter(
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let class = merge_classes(["sheet-footer", class.as_deref().unwrap_or("")].to_vec());
+    let class = merge_classes(vec!["sheet-footer", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -263,7 +263,7 @@ pub fn SheetClose(
 ) -> impl IntoView {
     let on_click = on_click.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes(["sheet-close", class.as_deref().unwrap_or("")].to_vec());
+    let class = merge_classes(vec!["sheet-close", class.as_deref().unwrap_or("")]);
 
     view! {
         <button

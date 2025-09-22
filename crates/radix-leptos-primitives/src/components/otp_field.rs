@@ -397,6 +397,7 @@ fn validate_otp(value: &str, expected_length: usize, input_type: &OtpInputType) 
 #[cfg(test)]
 mod tests {
     use crate::{OtpInputType, OtpValidation};
+use crate::utils::{merge_optional_classes, generate_id};
 
     // Component structure tests
     #[test]

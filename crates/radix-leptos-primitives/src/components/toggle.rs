@@ -1,4 +1,4 @@
-use crate::utils::merge_classes;
+use crate::utils::{merge_classes, generate_id};
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
@@ -122,7 +122,7 @@ impl ToggleSize {
 
 #[cfg(test)]
 mod tests {
-    use crate::utils::merge_classes;
+    use crate::utils::{merge_classes, generate_id};
     use crate::{ToggleSize, ToggleVariant};
     use wasm_bindgen_test::*;
 

@@ -58,6 +58,19 @@ radix-leptos/
 ├── 🔧 crates/                         # Rust crates
 │   ├── radix-leptos-core/             # Core utilities
 │   ├── radix-leptos-primitives/       # UI components
+│   │   ├── src/
+│   │   │   ├── components/             # All UI components
+│   │   │   │   ├── core/               # Production-ready components
+│   │   │   │   ├── experimental/       # Feature-gated components
+│   │   │   │   └── mod.rs              # Component exports with feature flags
+│   │   │   ├── theming/                # Theme system
+│   │   │   │   ├── prebuilt_themes/    # Light/dark themes
+│   │   │   │   ├── component_variants/ # Component styling variants
+│   │   │   │   ├── layout_system/      # Layout utilities
+│   │   │   │   └── theme_customization/ # Theme customization tools
+│   │   │   ├── utils.rs                # Shared utilities
+│   │   │   └── lib.rs                  # Library entry point
+│   │   └── Cargo.toml                  # Feature flags configuration
 │   └── radix-leptos/                  # Main library
 ├── 📜 scripts/                        # Build and utility scripts
 │   └── prepare-release.sh             # Release preparation script
@@ -92,6 +105,55 @@ radix-leptos/
 - **Logical**: Related files grouped together
 - **Scalable**: Easy to add new components
 - **Professional**: Industry-standard structure
+
+## 🏗️ **Module Architecture & Feature Flags**
+
+### **📦 Component Organization**
+
+The `radix-leptos-primitives` crate is organized into a clean, modular architecture:
+
+```
+src/
+├── components/                    # All UI components
+│   ├── Core Components           # Production-ready (always available)
+│   │   ├── button.rs, checkbox.rs, dialog.rs
+│   │   ├── form.rs, input.rs, select.rs
+│   │   ├── pagination/           # Modular pagination system
+│   │   └── form_validation/      # Modular form validation
+│   ├── Experimental Components   # Feature-gated (incomplete)
+│   │   ├── chart.rs, data_table.rs
+│   │   ├── virtual_list.rs, rich_text_editor.rs
+│   │   └── [Many more...]
+│   └── mod.rs                    # Feature-gated exports
+├── theming/                      # Theme system
+│   ├── prebuilt_themes/          # Light/dark themes
+│   ├── component_variants/       # Component styling variants
+│   ├── layout_system/            # Layout utilities
+│   └── theme_customization/      # Theme customization tools
+├── utils.rs                      # Shared utilities
+└── lib.rs                        # Library entry point
+```
+
+### **🔧 Feature Flags**
+
+| Feature | Description | Components |
+|---------|-------------|------------|
+| `core` | **Production-ready** | Button, Checkbox, Dialog, Form, Input, Select, etc. |
+| `experimental` | **Incomplete/experimental** | Chart, DataTable, VirtualList, RichTextEditor, etc. |
+| `full` | **All components** | `core` + `experimental` |
+
+### **🎯 Usage Examples**
+
+```toml
+# Production (recommended)
+radix-leptos = { version = "0.8.5", features = ["core"] }
+
+# Development (all components)
+radix-leptos = { version = "0.8.5", features = ["full"] }
+
+# Experimental (use with caution)
+radix-leptos = { version = "0.8.5", features = ["experimental"] }
+```
 
 ## 🔍 **Quick Navigation**
 

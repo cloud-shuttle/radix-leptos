@@ -6,6 +6,7 @@ This directory contains all documentation for the radix-leptos project.
 
 ### `api-reference/`
 - **API_REFERENCE.md** - Complete API documentation for all components
+- **COMPONENT_API_DOCS.md** - Detailed component API documentation
 - **README.md** - API reference overview and usage
 
 ### `assets/`
@@ -22,6 +23,9 @@ This directory contains all documentation for the radix-leptos project.
 
 ### `guides/`
 - **16 markdown files** - Various implementation and usage guides
+
+### `architecture/`
+- **MODULE_ARCHITECTURE.md** - Comprehensive guide to module structure and feature flags
 
 ### `implementation/`
 - **TDD_IMPLEMENTATION_SUMMARY.md** - Summary of TDD implementation approach

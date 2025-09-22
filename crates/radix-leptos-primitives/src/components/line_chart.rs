@@ -239,7 +239,7 @@ pub fn LineChartPoint(
 }
 
 /// Helper function to merge CSS classes
-fn merge_classes(classes: Vec<&str>) -> String {
+fn merge_optional_classes(classes: Vec<&str>) -> String {
     classes
         .into_iter()
         .filter(|c| !c.is_empty())
@@ -251,6 +251,7 @@ fn merge_classes(classes: Vec<&str>) -> String {
 mod tests {
     use wasm_bindgen_test::*;
     use proptest::prelude::*;
+use crate::utils::{merge_classes, generate_id};
 
     wasm_bindgen_test_configure!(run_in_browser);
 

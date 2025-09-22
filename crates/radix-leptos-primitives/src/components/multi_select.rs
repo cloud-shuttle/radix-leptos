@@ -47,19 +47,29 @@ pub fn MultiSelect(
     /// Children content
     children: Option<Children>,
 ) -> impl IntoView {
-    let value = value.unwrap_or_default();
-    let options = options.unwrap_or_default();
-    let placeholder = placeholder.unwrap_or_else(|| "Select options...".to_string());
-    let disabled = disabled.unwrap_or(false);
-    let required = required.unwrap_or(false);
-    let max_selections = max_selections.unwrap_or(usize::MAX);
-    let searchable = searchable.unwrap_or(true);
+    let _value = value.unwrap_or_default();
+    let _options = options.unwrap_or_default();
+    let _placeholder = placeholder.unwrap_or_else(|| "Select options...".to_string());
+    let _disabled = disabled.unwrap_or(false);
+    let _required = required.unwrap_or(false);
+    let _max_selections = max_selections.unwrap_or(usize::MAX);
+    let _searchable = searchable.unwrap_or(true);
 
-    let class = format!(
+    let _class = format!(
         "multi-select {} {}",
         class.as_deref().unwrap_or(""),
         style.as_deref().unwrap_or("")
     );
+
+    view! {
+        <div
+            class=_class
+            role="combobox"
+            aria-multiselectable=true
+        >
+            {children.map(|c| c())}
+        </div>
+    }
 }
 
 /// Multi-Select option structure
@@ -90,12 +100,27 @@ pub fn MultiSelectTrigger(
     /// Children content
     children: Option<Children>,
 ) -> impl IntoView {
-    let open = open.unwrap_or(false);
-    let class = format!(
+    let _open = open.unwrap_or(false);
+    let _class = format!(
         "multi-select-trigger {} {}",
         class.as_deref().unwrap_or(""),
         style.as_deref().unwrap_or("")
     );
+
+    view! {
+        <button
+            class=_class
+            role="button"
+            aria-expanded=_open
+            on:click=move |_| {
+                if let Some(callback) = on_click {
+                    callback.run(());
+                }
+            }
+        >
+            {children.map(|c| c())}
+        </button>
+    }
 }
 
 /// Multi-Select content component
@@ -113,12 +138,22 @@ pub fn MultiSelectContent(
     /// Children content
     children: Option<Children>,
 ) -> impl IntoView {
-    let visible = visible.unwrap_or(false);
-    let class = format!(
+    let _visible = visible.unwrap_or(false);
+    let _class = format!(
         "multi-select-content {} {}",
         class.as_deref().unwrap_or(""),
         style.as_deref().unwrap_or("")
     );
+
+    view! {
+        <div
+            class=_class
+            role="listbox"
+            aria-hidden=!_visible
+        >
+            {children.map(|c| c())}
+        </div>
+    }
 }
 
 /// Multi-Select option component
@@ -267,6 +302,7 @@ pub fn MultiSelectTag(
 #[cfg(test)]
 mod tests {
     use crate::MultiSelectOption;
+use crate::utils::{merge_optional_classes, generate_id};
 
     // Component structure tests
     #[test]

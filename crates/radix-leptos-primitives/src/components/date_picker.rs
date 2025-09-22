@@ -1,4 +1,4 @@
-use crate::utils::merge_classes;
+use crate::utils::{merge_classes, generate_id};
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
@@ -21,18 +21,18 @@ pub fn DatePicker(
     #[prop(optional)] on_change: Option<Callback<String>>,
     #[prop(optional)] on_validation: Option<Callback<DateValidation>>,
 ) -> impl IntoView {
-    let value = value.unwrap_or_default();
-    let placeholder = placeholder.unwrap_or_else(|| "Select date".to_string());
-    let min_date = min_date.unwrap_or_default();
-    let max_date = max_date.unwrap_or_default();
-    let disabled = disabled.unwrap_or(false);
-    let required = required.unwrap_or(false);
+    let _value = value.unwrap_or_default();
+    let _placeholder = placeholder.unwrap_or_else(|| "Select date".to_string());
+    let _min_date = min_date.unwrap_or_default();
+    let _max_date = max_date.unwrap_or_default();
+    let _disabled = disabled.unwrap_or(false);
+    let _required = required.unwrap_or(false);
     let format = format.unwrap_or_else(|| "YYYY-MM-DD".to_string());
     let locale = locale.unwrap_or_else(|| "en-US".to_string());
 
     let class = merge_classes(vec!["date-picker", class.as_deref().unwrap_or("")]);
 
-    let handle_change = move |new_value: String| {
+    let _handle_change = move |new_value: String| {
         if let Some(callback) = on_change {
             callback.run(new_value);
         }
@@ -46,8 +46,8 @@ pub fn DatePicker(
             aria-label="Date picker"
             data-format=format
             data-locale=locale
-            data-min-date=min_date
-            data-max-date=max_date
+            data-min-date=_min_date
+            data-max-date=_max_date
         >
             {children.map(|c| c())}
         </div>
@@ -239,7 +239,7 @@ pub fn DatePickerValidation(
 
 #[cfg(test)]
 mod tests {
-    use crate::utils::merge_classes;
+    use crate::utils::{merge_classes, generate_id};
     use crate::DateValidation;
 
     use proptest::prelude::*;

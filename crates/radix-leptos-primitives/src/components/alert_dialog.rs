@@ -1,4 +1,4 @@
-use crate::utils::merge_classes;
+use crate::utils::{merge_classes, generate_id};
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
@@ -87,7 +87,7 @@ pub fn AlertDialog(
     let variant = variant.unwrap_or(AlertDialogVariant::Default);
     let onopen_change = onopen_change.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes(["alert-dialog", variant.as_str()].to_vec());
+    let class = merge_classes(vec!["alert-dialog", variant.as_str()]);
 }
 
 /// AlertDialog title component
@@ -97,7 +97,7 @@ pub fn AlertDialogTitle(
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let class = merge_classes(["alert-dialog-title", class.as_deref().unwrap_or("")].to_vec());
+    let class = merge_classes(vec!["alert-dialog-title", class.as_deref().unwrap_or("")]);
 
     view! {
         <h2
@@ -118,7 +118,7 @@ pub fn AlertDialogDescription(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let class =
-        merge_classes(["alert-dialog-description", class.as_deref().unwrap_or("")].to_vec());
+        merge_classes(vec!["alert-dialog-description", class.as_deref().unwrap_or("")]);
 
     view! {
         <p
@@ -138,7 +138,7 @@ pub fn AlertDialogFooter(
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let class = merge_classes(["alert-dialog-footer", class.as_deref().unwrap_or("")].to_vec());
+    let class = merge_classes(vec!["alert-dialog-footer", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -160,7 +160,7 @@ pub fn AlertDialogAction(
 ) -> impl IntoView {
     let on_click = on_click.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes(["alert-dialog-action", class.as_deref().unwrap_or("")].to_vec());
+    let class = merge_classes(vec!["alert-dialog-action", class.as_deref().unwrap_or("")]);
 
     view! {
         <button
@@ -183,7 +183,7 @@ pub fn AlertDialogCancel(
 ) -> impl IntoView {
     let on_click = on_click.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes(["alert-dialog-cancel", class.as_deref().unwrap_or("")].to_vec());
+    let class = merge_classes(vec!["alert-dialog-cancel", class.as_deref().unwrap_or("")]);
 
     view! {
         <button

@@ -1,4 +1,4 @@
-use crate::utils::merge_classes;
+use crate::utils::{merge_classes, generate_id};
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
@@ -370,7 +370,7 @@ impl ToolbarButtonSize {
 
 #[cfg(test)]
 mod tests {
-    use crate::utils::merge_classes;
+    use crate::utils::{merge_classes, generate_id};
     use crate::{
         ToolbarButtonSize, ToolbarButtonVariant, ToolbarOrientation, ToolbarSeparatorOrientation,
         ToolbarToggleGroupSize, ToolbarToggleGroupType, ToolbarToggleGroupVariant,

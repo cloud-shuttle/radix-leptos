@@ -3,6 +3,7 @@ mod alert_dialog_tests {
     use leptos::callback::Callback;
     use proptest::prelude::*;
     use crate::components::alert_dialog::*;
+use crate::utils::{merge_optional_classes, generate_id};
 
     // Test AlertDialog component creation
     #[test]

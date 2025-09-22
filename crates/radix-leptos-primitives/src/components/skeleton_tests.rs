@@ -3,6 +3,7 @@ mod skeleton_tests {
     use leptos::callback::Callback;
     use proptest::prelude::*;
     use crate::components::skeleton::*;
+use crate::utils::{merge_optional_classes, generate_id};
 
     // Test Skeleton component creation
     #[test]

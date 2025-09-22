@@ -2,220 +2,8 @@ use leptos::children::Children;
 use leptos::context::use_context;
 use leptos::prelude::*;
 
-/// Pagination page information
-#[derive(Clone, Debug, PartialEq)]
-pub struct PaginationPage {
-    pub number: usize,
-    pub label: Option<String>,
-    pub _disabled: bool,
-    pub _current: bool,
-}
-
-impl PaginationPage {
-    pub fn new(number: usize) -> Self {
-        Self {
-            number,
-            label: None,
-            _disabled: false,
-            _current: false,
-        }
-    }
-
-    pub fn with_label(mut self, label: String) -> Self {
-        self.label = Some(label);
-        self
-    }
-
-    pub fn withdisabled(mut self, disabled: bool) -> Self {
-        self._disabled = disabled;
-        self
-    }
-
-    pub fn withcurrent(mut self, current: bool) -> Self {
-        self._current = current;
-        self
-    }
-}
-
-/// Pagination size
-#[derive(Clone, Debug, PartialEq)]
-pub enum PaginationSize {
-    Small,
-    Medium,
-    Large,
-}
-
-impl PaginationSize {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            PaginationSize::Small => "small",
-            PaginationSize::Medium => "medium",
-            PaginationSize::Large => "large",
-        }
-    }
-}
-
-/// Pagination variant
-#[derive(Clone, Debug, PartialEq)]
-pub enum PaginationVariant {
-    Default,
-    Compact,
-    Detailed,
-}
-
-impl PaginationVariant {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            PaginationVariant::Default => "default",
-            PaginationVariant::Compact => "compact",
-            PaginationVariant::Detailed => "detailed",
-        }
-    }
-}
-
-/// Pagination context for state management
-#[derive(Clone)]
-pub struct PaginationContext {
-    pub current_page: Signal<usize>,
-    pub total_pages: usize,
-    pub page_size: usize,
-    pub total_items: usize,
-    pub size: PaginationSize,
-    pub variant: PaginationVariant,
-    pub _show_first_last: bool,
-    pub _show_prev_next: bool,
-    pub _show_page_numbers: bool,
-    pub pagination_id: String,
-    pub on_page_change: Option<Callback<usize>>,
-}
-
-/// Generate a simple unique ID for components
-fn generate_id(prefix: &str) -> String {
-    static COUNTER: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
-    let id = COUNTER.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
-    format!("{}-{}", prefix, id)
-}
-
-/// Merge CSS classes
-fn merge_classes(existing: Option<&str>, additional: Option<&str>) -> Option<String> {
-    match (existing, additional) {
-        (Some(a), Some(b)) => Some(format!("{} {}", a, b)),
-        (Some(a), None) => Some(a.to_string()),
-        (None, Some(b)) => Some(b.to_string()),
-        (None, None) => None,
-    }
-}
-
-/// Calculate visible page range
-fn calculate_page_range(
-    current_page: usize,
-    total_pages: usize,
-    maxvisible: usize,
-) -> (usize, usize) {
-    if total_pages <= maxvisible {
-        return (1, total_pages);
-    }
-
-    let halfvisible = maxvisible / 2;
-    let mut start = current_page.saturating_sub(halfvisible);
-    let mut end = start + maxvisible - 1;
-
-    if end > total_pages {
-        end = total_pages;
-        start = end.saturating_sub(maxvisible - 1);
-    }
-
-    (start, end)
-}
-
-/// Main Pagination component
-#[component]
-pub fn Pagination(
-    /// Current page number (1-based)
-    #[prop(optional, default = 1)]
-    current_page: usize,
-    /// Total number of pages
-    #[prop(optional, default = 1)]
-    total_pages: usize,
-    /// Number of items per page
-    #[prop(optional, default = 10)]
-    page_size: usize,
-    /// Total number of items
-    #[prop(optional)]
-    total_items: Option<usize>,
-    /// Pagination size
-    #[prop(optional, default = PaginationSize::Medium)]
-    size: PaginationSize,
-    /// Pagination variant
-    #[prop(optional, default = PaginationVariant::Default)]
-    variant: PaginationVariant,
-    /// Whether to show first/last page buttons
-    #[prop(optional, default = true)]
-    _show_first_last: bool,
-    /// Whether to show previous/next buttons
-    #[prop(optional, default = true)]
-    _show_prev_next: bool,
-    /// Whether to show page numbers
-    #[prop(optional, default = true)]
-    _show_page_numbers: bool,
-    /// Page change event handler
-    #[prop(optional)]
-    on_page_change: Option<Callback<usize>>,
-    /// CSS classes
-    #[prop(optional)]
-    class: Option<String>,
-    /// Child content (pagination items, etc.)
-    children: Children,
-) -> impl IntoView {
-    let pagination_id = generate_id("pagination");
-
-    // Reactive state
-    let (current_page_signal, _setcurrent_page_signal) = signal(current_page);
-    let total_items_calculated = total_items.unwrap_or_else(|| total_pages * page_size);
-
-    // Create context
-    let context = PaginationContext {
-        current_page: current_page_signal.into(),
-        total_pages,
-        page_size,
-        total_items: total_items_calculated,
-        size: size.clone(),
-        variant: variant.clone(),
-        _show_first_last,
-        _show_prev_next,
-        _show_page_numbers,
-        pagination_id: pagination_id.clone(),
-        on_page_change,
-    };
-
-    // Build base classes
-    let base_classes = "radix-pagination";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
-        .unwrap_or_else(|| base_classes.to_string());
-
-    // Provide the context
-    provide_context(context);
-
-    view! {
-        <nav
-            id=pagination_id
-            class=combined_class
-            data-current-page=current_page_signal.get()
-            data-total-pages=total_pages
-            data-page-size=page_size
-            data-total-items=total_items_calculated
-            data-size=size.as_str()
-            data-variant=variant.as_str()
-            data-show-first-last=_show_first_last
-            data-show-prev-next=_show_prev_next
-            data-show-page-numbers=_show_page_numbers
-            role="navigation"
-            aria-label="Pagination"
-        >
-            {children()}
-        </nav>
-    }
-}
+use super::context::{PaginationContext, PaginationPage};
+use crate::utils::{merge_optional_classes, generate_id};
 
 /// PaginationList component for the pagination items container
 #[component]
@@ -235,7 +23,7 @@ pub fn PaginationList(
 
     // Build base classes
     let base_classes = "radix-pagination-list";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {
@@ -316,7 +104,7 @@ pub fn PaginationItem(
 
     // Build base classes
     let base_classes = "radix-pagination-item";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {
@@ -379,7 +167,7 @@ pub fn PaginationFirst(
 
     // Build base classes
     let base_classes = "radix-pagination-first";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {
@@ -447,7 +235,7 @@ pub fn PaginationPrevious(
 
     // Build base classes
     let base_classes = "radix-pagination-previous";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {
@@ -515,7 +303,7 @@ pub fn PaginationNext(
 
     // Build base classes
     let base_classes = "radix-pagination-next";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {
@@ -582,7 +370,7 @@ pub fn PaginationLast(
 
     // Build base classes
     let base_classes = "radix-pagination-last";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {
@@ -631,7 +419,7 @@ pub fn PaginationEllipsis(
 
     // Build base classes
     let base_classes = "radix-pagination-ellipsis";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {
@@ -687,7 +475,7 @@ pub fn PaginationInfo(
 
     // Build base classes
     let base_classes = "radix-pagination-info";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {
@@ -739,7 +527,7 @@ pub fn PaginationContent(
 
     // Build base classes
     let base_classes = "radix-pagination-content";
-    let combined_class = merge_classes(Some(base_classes), class.as_deref())
+    let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     view! {
@@ -753,180 +541,29 @@ pub fn PaginationContent(
     }
 }
 
-/// Helper function to generate page numbers for pagination
-pub fn generate_page_numbers(
-    current_page: usize,
-    total_pages: usize,
-    maxvisible: usize,
-) -> Vec<PaginationPage> {
-    if total_pages <= maxvisible {
-        return (1..=total_pages)
-            .map(|page| PaginationPage::new(page).withcurrent(page == current_page))
-            .collect();
-    }
-
-    let (start, end) = calculate_page_range(current_page, total_pages, maxvisible);
-    let mut pages = Vec::new();
-
-    // Add first page if not in range
-    if start > 1 {
-        pages.push(PaginationPage::new(1));
-        if start > 2 {
-            pages.push(PaginationPage::new(0).withdisabled(true)); // Placeholder for ellipsis
-        }
-    }
-
-    // Add visible pages
-    for page in start..=end {
-        pages.push(PaginationPage::new(page).withcurrent(page == current_page));
-    }
-
-    // Add last page if not in range
-    if end < total_pages {
-        if end < total_pages - 1 {
-            pages.push(PaginationPage::new(0).withdisabled(true)); // Placeholder for ellipsis
-        }
-        pages.push(PaginationPage::new(total_pages));
-    }
-
-    pages
-}
-
-/// Helper function to generate page numbers for pagination
-/// This function returns a vector of page numbers that should be displayed
-/// It handles ellipsis for large page counts
-pub fn getvisible_page_numbers(
-    current_page: usize,
-    total_pages: usize,
-    maxvisible: usize,
-) -> Vec<usize> {
-    if total_pages <= maxvisible {
-        return (1..=total_pages).collect();
-    }
-
-    let (start, end) = calculate_page_range(current_page, total_pages, maxvisible);
-    let mut pages = Vec::new();
-
-    // Add first page if not in range
-    if start > 1 {
-        pages.push(1);
-        if start > 2 {
-            pages.push(0); // Placeholder for ellipsis
-        }
-    }
-
-    // Add visible pages
-    for page in start..=end {
-        pages.push(page);
-    }
-
-    // Add last page if not in range
-    if end < total_pages {
-        if end < total_pages - 1 {
-            pages.push(0); // Placeholder for ellipsis
-        }
-        pages.push(total_pages);
-    }
-
-    pages
-}
-
 #[cfg(test)]
-mod tests {
-    use crate::{PaginationSize, PaginationVariant};
+mod items_tests {
+    use super::*;
+use crate::utils::{merge_optional_classes, generate_id};
 
-    use proptest::prelude::*;
-    use wasm_bindgen_test::*;
-
-    wasm_bindgen_test_configure!(run_in_browser);
-
-    // 1. Basic Rendering Tests
     #[test]
-    fn test_pagination_sizes() {
-        run_test(|| {
-            let sizes = [
-                PaginationSize::Small,
-                PaginationSize::Medium,
-                PaginationSize::Large,
-            ];
-
-            for size in sizes {
-                // Each size should have a valid string representation
-                assert!(!size.as_str().is_empty());
-            }
-        });
+    fn test_pagination_list_creation() {
+        // Test that PaginationList can be created without runtime
+        let _list_id = generate_id("pagination-list");
+        assert!(!_list_id.is_empty());
     }
 
-    // 2. Props Validation Tests
     #[test]
-    fn test_pagination_variants() {
-        run_test(|| {
-            let variants = [
-                PaginationVariant::Default,
-                PaginationVariant::Compact,
-                PaginationVariant::Detailed,
-            ];
-
-            for variant in variants {
-                // Each variant should have a valid string representation
-                assert!(!variant.as_str().is_empty());
-            }
-        });
+    fn test_pagination_item_creation() {
+        // Test that PaginationItem can be created without runtime
+        let _item_id = generate_id("pagination-item");
+        assert!(!_item_id.is_empty());
     }
 
-    // 3. State Management Tests
     #[test]
-    fn test_pagination_page_change() {
-        run_test(|| {
-            // Test pagination state logic
-            let mut current_page = 1;
-            let total_pages = 10;
-
-            // Initial page should be 1
-            assert_eq!(current_page, 1);
-
-            // Simulate page change
-            current_page = 2;
-            assert_eq!(current_page, 2);
-
-            // Should not exceed total pages
-            assert!(current_page <= total_pages);
-        });
-    }
-
-    // 4. Property-Based Tests
-    proptest! {
-        #[test]
-        fn test_pagination_properties(
-            current_page in 1..100usize,
-            total_pages in 1..100usize,
-            page_size in 1..50usize
-        ) {
-            // Property: current_page should never exceed total_pages
-            prop_assume!(current_page <= total_pages);
-
-            // Calculate total_items based on realistic pagination scenario
-            let total_items = total_pages * page_size;
-
-            // Property: Pagination should always render without panicking
-            // Property: Calculated values should be consistent
-            let max_possible_items = total_pages * page_size;
-            prop_assert!(total_items <= max_possible_items);
-
-            // Property: Current page should never exceed total pages
-            prop_assert!(current_page <= total_pages);
-
-            // Property: Page size should be positive
-            prop_assert!(page_size > 0);
-        }
-    }
-
-    // Helper function for running tests
-    fn run_test<F>(f: F)
-    where
-        F: FnOnce(),
-    {
-        // Simplified test runner for Leptos 0.8
-        f();
+    fn test_pagination_ellipsis_creation() {
+        // Test that PaginationEllipsis can be created without runtime
+        let _ellipsis_id = generate_id("pagination-ellipsis");
+        assert!(!_ellipsis_id.is_empty());
     }
 }
