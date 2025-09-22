@@ -216,7 +216,7 @@ let id = generate_id("button");
 
 ```toml
 [dependencies]
-radix-leptos = { version = "0.8.5", features = ["core"] }
+radix-leptos = { version = "0.9.0", features = ["core"] }
 ```
 
 ```rust
@@ -239,7 +239,7 @@ pub fn MyApp() -> impl IntoView {
 
 ```toml
 [dependencies]
-radix-leptos = { version = "0.8.5", features = ["full"] }
+radix-leptos = { version = "0.9.0", features = ["full"] }
 ```
 
 ```rust
@@ -262,7 +262,7 @@ pub fn MyApp() -> impl IntoView {
 
 ```toml
 [dependencies]
-radix-leptos = { version = "0.8.5", features = ["experimental"] }
+radix-leptos = { version = "0.9.0", features = ["experimental"] }
 ```
 
 ```rust
@@ -291,7 +291,7 @@ pub fn MyApp() -> impl IntoView {
 radix-leptos = "0.8.4"
 
 # After
-radix-leptos = { version = "0.8.5", features = ["core"] }
+radix-leptos = { version = "0.9.0", features = ["core"] }
 ```
 
 #### **2. Update Imports**
@@ -321,10 +321,10 @@ use radix_leptos::{Chart, DataTable}; // Feature-gated
 
 ```toml
 # Minimal bundle (production)
-radix-leptos = { version = "0.8.5", features = ["core"] }
+radix-leptos = { version = "0.9.0", features = ["core"] }
 
 # Full bundle (development)
-radix-leptos = { version = "0.8.5", features = ["full"] }
+radix-leptos = { version = "0.9.0", features = ["full"] }
 ```
 
 ## 🎯 Best Practices
@@ -359,7 +359,7 @@ use radix_leptos::Chart;
 
 // Solution: Enable experimental features
 // Cargo.toml
-radix-leptos = { version = "0.8.5", features = ["experimental"] }
+radix-leptos = { version = "0.9.0", features = ["experimental"] }
 ```
 
 #### **Feature Flag Conflicts**
@@ -369,7 +369,7 @@ radix-leptos = { version = "0.8.5", features = ["experimental"] }
 radix-leptos = { version = "0.8.5", features = ["core", "experimental"] }
 
 # Solution: Use 'full' instead
-radix-leptos = { version = "0.8.5", features = ["full"] }
+radix-leptos = { version = "0.9.0", features = ["full"] }
 ```
 
 #### **Build Errors**
@@ -392,5 +392,5 @@ cargo build --features core
 ---
 
 **Last Updated**: January 2025  
-**Version**: 0.8.5  
+**Version**: 0.9.0  
 **Status**: ✅ Production Ready

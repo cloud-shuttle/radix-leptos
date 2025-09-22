@@ -1,6 +1,6 @@
 [package]
 name = "radix-leptos-primitives"
-version = "0.8.5"
+version = "0.9.0"
 authors.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -28,7 +28,7 @@ experimental = []
 full = ["core", "experimental"]
 
 [dependencies]
-radix-leptos-core = { version = "0.8.5", path = "../radix-leptos-core" }
+radix-leptos-core = { version = "0.9.0", path = "../radix-leptos-core" }
 leptos.workspace = true
 web-sys.workspace = true
 # leptos-use.workspace = true

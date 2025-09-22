@@ -31,14 +31,15 @@ A Rust port of [Radix UI](https://www.radix-ui.com/) primitives for [Leptos](htt
 ### 📊 **Current Progress: 95% Complete**
 - ✅ **57 Components** implemented with TDD
 - ✅ **Complete TDD Infrastructure** (100%)
-- ✅ **1,792+ Passing Tests** across all crates
+- ✅ **1,865+ Passing Tests** across all crates
 - 🔄 **3+ Components** planned for v1.0.0
 
 ### 🚀 **Recent Releases**
-- **v0.8.5 (January 2025)**: ✅ **COMPLETE** - **Leptos 0.8.8 Compatibility Release**
-  - 🎯 **4 Critical Compilation Errors Fixed**
-  - ✅ **1,792 Tests Passing (100% Success Rate)**
-  - 🚀 **Zero Migration Required**
+- **v0.9.0 (January 2025)**: ✅ **COMPLETE** - **Architecture Refactoring & Critical Fixes Release**
+  - 🏗️ **Complete Architecture Refactoring** (modular components)
+  - 🔧 **45 Critical Compilation Errors Fixed** → 0 errors
+  - ✅ **1,865 Tests Passing (100% Success Rate)**
+  - 🚀 **Feature Gating System** (core/experimental/full)
   - 📦 **Full Backward Compatibility**
 
 ### 🚀 **Upcoming Releases**
@@ -54,7 +55,7 @@ A Rust port of [Radix UI](https://www.radix-ui.com/) primitives for [Leptos](htt
 
 ```toml
 [dependencies]
-radix-leptos = "0.8.5"
+radix-leptos = "0.9.0"
 leptos = "0.8.8"  # ✅ Full compatibility with latest Leptos!
 
 # For minimal bundle size (recommended for production)
