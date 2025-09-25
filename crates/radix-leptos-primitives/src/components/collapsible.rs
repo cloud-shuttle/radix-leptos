@@ -29,10 +29,10 @@ pub fn Collapsible(
             aria-disabled=disabled
             on:click=move |_| {
                 if !disabled {
-                    let new_open = !open.get();
-                    open.set(new_open);
+                    let newopen = !open.get();
+                    open.set(newopen);
                     if let Some(callback) = onopen_change {
-                        callback.run(new_open);
+                        callback.run(newopen);
                     }
                 }
             }
@@ -208,7 +208,7 @@ mod tests {
 
     #[test]
     fn test_collapsible_state_validation() {
-        proptest!(|(___open: bool, _disabled: bool, __animated: bool)| {
+        proptest!(|(open: bool, disabled: bool, __animated: bool)| {
 
         });
     }

@@ -15,7 +15,7 @@ pub struct DatePickerContext {
     pub on_change: Option<Callback<NaiveDate>>,
     pub on_calendaropen: Option<Callback<()>>,
     pub on_calendar_close: Option<Callback<()>>,
-    pub _disabled: bool,
+    pub disabled: bool,
     pub date_picker_id: String,
 }
 
@@ -68,7 +68,7 @@ pub fn DatePicker(
     on_calendar_close: Option<Callback<()>>,
     /// Whether the date picker is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -212,7 +212,7 @@ pub fn DatePickerTrigger(
 pub fn DatePickerCalendar(
     /// Whether the calendar is visible
     #[prop(optional, default = false)]
-    __open: bool,
+    _open: bool,
     /// Current month to display
     #[prop(optional)]
     current_month: Option<NaiveDate>,

@@ -6,7 +6,7 @@ pub struct BreadcrumbItem {
     pub label: String,
     pub href: Option<String>,
     pub icon: Option<String>,
-    pub _disabled: bool,
+    pub disabled: bool,
     pub _current: bool,
 }
 
@@ -32,7 +32,7 @@ impl BreadcrumbItem {
         self
     }
 
-    pub fn withdisabled(mut self, _disabled: bool) -> Self {
+    pub fn withdisabled(mut self, disabled: bool) -> Self {
         self.disabled = disabled;
         self
     }

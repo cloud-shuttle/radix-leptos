@@ -1,4 +1,4 @@
-use crate::utils::{merge_classes, generate_id};
+use crate::utils::merge_classes;
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
@@ -69,7 +69,7 @@ pub fn ToggleGroup(
 /// Toggle Group Item component
 #[component]
 pub fn ToggleGroupItem(
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)] _class: Option<String>,
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] value: Option<String>,
@@ -203,7 +203,7 @@ impl ToggleGroupType {
 
 #[cfg(test)]
 mod tests {
-    use crate::utils::{merge_classes, generate_id};
+    use crate::utils::merge_classes;
     use crate::{ToggleGroupOrientation, ToggleGroupSize, ToggleGroupType, ToggleGroupVariant};
     use wasm_bindgen_test::*;
 

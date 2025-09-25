@@ -5,369 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carousel Component Examples</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .carousel-examples {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-
-        h1 {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin: 0;
-        }
-
-        .example-section {
-            padding: 40px;
-            border-bottom: 1px solid #e1e5e9;
-        }
-
-        .example-section:last-child {
-            border-bottom: none;
-        }
-
-        h2 {
-            color: #2d3748;
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        p {
-            color: #718096;
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-        }
-
-        .example-container {
-            background: #f7fafc;
-            border-radius: 8px;
-            padding: 20px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .slide-content {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            border-radius: 8px;
-        }
-
-        .slide-content img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .slide-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .slide-overlay h3 {
-            font-size: 1.5rem;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .slide-overlay p {
-            font-size: 1rem;
-            margin: 0;
-            opacity: 0.9;
-        }
-
-        /* Carousel specific styles */
-        .radix-carousel {
-            position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .radix-carousel--small {
-            height: 200px;
-        }
-
-        .radix-carousel--medium {
-            height: 400px;
-        }
-
-        .radix-carousel--large {
-            height: 500px;
-        }
-
-        .radix-carousel__slides {
-            display: flex;
-            transition: transform 0.3s ease-in-out;
-            height: 100%;
-        }
-
-        .radix-carousel__slide {
-            flex: 0 0 100%;
-            height: 100%;
-        }
-
-        .radix-carousel__navigation {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.9);
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            z-index: 10;
-        }
-
-        .radix-carousel__navigation:hover {
-            background: white;
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .radix-carousel__navigation--prev {
-            left: 10px;
-        }
-
-        .radix-carousel__navigation--next {
-            right: 10px;
-        }
-
-        .radix-carousel__dots {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 8px;
-            z-index: 10;
-        }
-
-        .radix-carousel__dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .radix-carousel__dot--active {
-            background: white;
-            transform: scale(1.2);
-        }
-
-        .radix-carousel__autoplay-controls {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            display: flex;
-            gap: 8px;
-            z-index: 10;
-        }
-
-        .radix-carousel__autoplay-button {
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 6px 12px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
-
-        .radix-carousel__autoplay-button:hover {
-            background: rgba(0, 0, 0, 0.8);
-        }
-
-        /* Responsive design */
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            h1 {
-                font-size: 2rem;
-                padding: 20px;
-            }
-
-            .example-section {
-                padding: 20px;
-            }
-
-            h2 {
-                font-size: 1.5rem;
-            }
-
-            .example-container {
-                padding: 15px;
-            }
-
-            .radix-carousel--medium {
-                height: 300px;
-            }
-
-            .radix-carousel--large {
-                height: 400px;
-            }
-
-            .slide-overlay {
-                padding: 15px;
-            }
-
-            .slide-overlay h3 {
-                font-size: 1.2rem;
-            }
-
-            .slide-overlay p {
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.8rem;
-                padding: 15px;
-            }
-
-            .example-section {
-                padding: 15px;
-            }
-
-            .radix-carousel--medium {
-                height: 250px;
-            }
-
-            .radix-carousel--large {
-                height: 300px;
-            }
-
-            .radix-carousel__navigation {
-                width: 35px;
-                height: 35px;
-            }
-
-            .slide-overlay {
-                padding: 10px;
-            }
-
-            .slide-overlay h3 {
-                font-size: 1.1rem;
-            }
-
-            .slide-overlay p {
-                font-size: 0.8rem;
-            }
-        }
-
-        /* Loading animation */
-        .loading {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 200px;
-            font-size: 1.2rem;
-            color: #718096;
-        }
-
-        .spinner {
-            border: 3px solid #f3f4f6;
-            border-top: 3px solid #667eea;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin-right: 10px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Error state */
-        .error {
-            background: #fed7d7;
-            color: #c53030;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            margin: 20px;
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+        .carousel { position: relative; overflow: hidden; border-radius: 8px; }
+        .carousel-content { display: flex; transition: transform 0.3s ease; }
+        .carousel-item { min-width: 100%; padding: 40px; text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .carousel-controls { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+        .carousel-btn { padding: 10px 20px; border: none; border-radius: 6px; background: #3b82f6; color: white; cursor: pointer; }
     </style>
 </head>
 <body>
-    <div id="app">
-        <div class="loading">
-            <div class="spinner"></div>
-            Loading Carousel Examples...
+    <div class="container">
+        <h1>Carousel Component Examples</h1>
+        <div class="carousel">
+            <div class="carousel-content" id="carousel-content">
+                <div class="carousel-item">
+                    <h3>Slide 1</h3>
+                    <p>This is the first slide of the carousel component.</p>
+                </div>
+                <div class="carousel-item">
+                    <h3>Slide 2</h3>
+                    <p>This is the second slide with different content.</p>
+                </div>
+                <div class="carousel-item">
+                    <h3>Slide 3</h3>
+                    <p>This is the third slide demonstrating navigation.</p>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-controls">
+            <button class="carousel-btn" onclick="previousSlide()">Previous</button>
+            <button class="carousel-btn" onclick="nextSlide()">Next</button>
         </div>
     </div>
-
-    <script type="module">
-        import init, { start_carousel_examples } from './pkg/radix_leptos_examples.js';
-
-        async function run() {
-            try {
-                await init();
-                console.log('WASM initialized successfully');
-                
-                // Clear loading state
-                document.getElementById('app').innerHTML = '';
-                
-                // Start the carousel examples
-                start_carousel_examples();
-                console.log('Carousel examples started');
-            } catch (error) {
-                console.error('Failed to initialize:', error);
-                document.getElementById('app').innerHTML = `
-                    <div class="error">
-                        <h2>Failed to load Carousel Examples</h2>
-                        <p>Error: ${error.message}</p>
-                        <p>Please make sure you've built the WASM module with:</p>
-                        <code>cd examples && wasm-pack build</code>
-                    </div>
-                `;
-            }
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 3;
+        
+        function updateCarousel() {
+            const content = document.getElementById('carousel-content');
+            content.style.transform = `translateX(-${currentSlide * 100}%)`;
         }
-
-        run();
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+        
+        function previousSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
     </script>
 </body>
 </html>

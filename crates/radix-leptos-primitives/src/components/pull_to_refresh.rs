@@ -141,7 +141,7 @@ pub fn RefreshButton(
     // Handle mouse events for visual feedback
     let handle_mouse_down = move |_| {
         set_is_pressed.set(true);
-use crate::utils::{merge_optional_classes, generate_id};
+use crate::utils::merge_optional_classes;
     };
 
     let handle_mouse_up = move |_| {

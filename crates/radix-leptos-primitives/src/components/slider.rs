@@ -73,7 +73,7 @@ pub fn Slider(
     #[prop(optional)]
     on_value_change: Option<Callback<f64>>,
     /// Child content
-    children: Children,
+    _children: Children,
 ) -> impl IntoView {
     let __slider_id = generate_id("slider");
     let __track_id = generate_id("slider-track");
@@ -90,7 +90,7 @@ pub fn Slider(
         .unwrap_or_else(|| base_classes.to_string());
 
     // Handle keyboard navigation
-    let handle_keydown = move |e: web_sys::KeyboardEvent| {
+    let _handle_keydown = move |e: web_sys::KeyboardEvent| {
         if disabled {
             return;
         }
@@ -141,7 +141,7 @@ pub fn Slider(
     };
 
     // Calculate percentage for visual representation
-    let percentage = if max > min {
+    let _percentage = if max > min {
         ((value - min) / (max - min) * 100.0).clamp(0.0, 100.0)
     } else {
         0.0

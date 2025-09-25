@@ -62,7 +62,7 @@ pub fn DialogRoot(
 pub fn DialogTrigger(
     /// Whether the trigger is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,

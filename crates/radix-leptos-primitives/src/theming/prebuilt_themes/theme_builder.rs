@@ -6,7 +6,7 @@ pub fn create_light_theme() -> CSSVariables {
     CSSVariables::default()
 }
 
-pub fn create_dark_theme() -> CSSVariables {
+pub fn createdark_theme() -> CSSVariables {
     CSSVariables::dark_theme()
 }
 
@@ -145,7 +145,7 @@ pub fn get_themes_by_categories(
                         "modern".to_string(),
                     ]
                     .to_vec(),
-                    css_variables: create_dark_theme(),
+                    css_variables: createdark_theme(),
                 },
                 ThemeInfo {
                     name: "High Contrast".to_string(),
@@ -343,7 +343,7 @@ mod theme_builder_tests {
     #[test]
     fn test_theme_creation_functions() {
         let light_theme = create_light_theme();
-        let dark_theme = create_dark_theme();
+        let dark_theme = createdark_theme();
         let high_contrast_theme = create_high_contrast_theme();
         let finance_theme = create_finance_theme();
         let healthcare_theme = create_healthcare_theme();

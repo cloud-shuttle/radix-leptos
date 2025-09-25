@@ -68,7 +68,7 @@ pub fn Audio(
     _interactive: bool,
     /// Whether the audio is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -173,7 +173,7 @@ pub fn AudioWithCustomControls(
     _interactive: bool,
     /// Whether the audio is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -279,7 +279,7 @@ pub fn AudioPlayer(
     _interactive: bool,
     /// Whether the audio is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,

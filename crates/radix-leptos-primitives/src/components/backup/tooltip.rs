@@ -59,10 +59,10 @@ fn merge_classes(existing: Option<&str>, additional: Option<&str>) -> Option<Str
 pub fn Tooltip(
     /// Whether the tooltip is open
     #[prop(optional, default = false)]
-    _open: bool,
+    open: bool,
     /// Whether the tooltip is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Delay before showing tooltip (in milliseconds)
     #[prop(optional, default = 700)]
     delay_duration: u32,
@@ -96,7 +96,7 @@ pub fn Tooltip(
 pub fn TooltipTrigger(
     /// Whether the trigger is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -137,7 +137,7 @@ pub fn TooltipContent(
     align: TooltipAlignment,
     /// Whether the tooltip is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,

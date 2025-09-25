@@ -28,16 +28,16 @@ pub fn MultiSelect(
     searchable: Option<bool>,
     /// Callback when selection changes
     #[prop(optional)]
-    on_change: Option<Callback<Vec<String>>>,
+    _on_change: Option<Callback<Vec<String>>>,
     /// Callback when search query changes
     #[prop(optional)]
-    on_search: Option<Callback<String>>,
+    _on_search: Option<Callback<String>>,
     /// Callback when option is selected
     #[prop(optional)]
-    on_option_select: Option<Callback<MultiSelectOption>>,
+    _on_option_select: Option<Callback<MultiSelectOption>>,
     /// Callback when option is deselected
     #[prop(optional)]
-    on_option_deselect: Option<Callback<MultiSelectOption>>,
+    _on_option_deselect: Option<Callback<MultiSelectOption>>,
     /// Additional CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -50,7 +50,7 @@ pub fn MultiSelect(
     let _value = value.unwrap_or_default();
     let _options = options.unwrap_or_default();
     let _placeholder = placeholder.unwrap_or_else(|| "Select options...".to_string());
-    let _disabled = disabled.unwrap_or(false);
+    let disabled = disabled.unwrap_or(false);
     let _required = required.unwrap_or(false);
     let _max_selections = max_selections.unwrap_or(usize::MAX);
     let _searchable = searchable.unwrap_or(true);
@@ -77,7 +77,7 @@ pub fn MultiSelect(
 pub struct MultiSelectOption {
     pub value: String,
     pub label: String,
-    pub _disabled: bool,
+    pub disabled: bool,
     pub description: Option<String>,
     pub group: Option<String>,
 }
@@ -100,7 +100,7 @@ pub fn MultiSelectTrigger(
     /// Children content
     children: Option<Children>,
 ) -> impl IntoView {
-    let _open = open.unwrap_or(false);
+    let open = open.unwrap_or(false);
     let _class = format!(
         "multi-select-trigger {} {}",
         class.as_deref().unwrap_or(""),
@@ -111,7 +111,7 @@ pub fn MultiSelectTrigger(
         <button
             class=_class
             role="button"
-            aria-expanded=_open
+            aria-expanded=open
             on:click=move |_| {
                 if let Some(callback) = on_click {
                     callback.run(());
@@ -138,7 +138,7 @@ pub fn MultiSelectContent(
     /// Children content
     children: Option<Children>,
 ) -> impl IntoView {
-    let _visible = visible.unwrap_or(false);
+    let visible = visible.unwrap_or(false);
     let _class = format!(
         "multi-select-content {} {}",
         class.as_deref().unwrap_or(""),
@@ -149,7 +149,7 @@ pub fn MultiSelectContent(
         <div
             class=_class
             role="listbox"
-            aria-hidden=!_visible
+            aria-hidden=!visible
         >
             {children.map(|c| c())}
         </div>
@@ -180,7 +180,7 @@ pub fn MultiSelectOption(
     children: Option<Children>,
 ) -> impl IntoView {
     let selected = selected.unwrap_or(false);
-    let disabled = disabled.unwrap_or(option._disabled);
+    let disabled = disabled.unwrap_or(option.disabled);
     let class = format!("multi-select-option {}", class.unwrap_or_default());
 
     let style = style.unwrap_or_default();
@@ -302,7 +302,7 @@ pub fn MultiSelectTag(
 #[cfg(test)]
 mod tests {
     use crate::MultiSelectOption;
-use crate::utils::{merge_optional_classes, generate_id};
+use crate::utils::merge_optional_classes;
 
     // Component structure tests
     #[test]
@@ -329,13 +329,13 @@ use crate::utils::{merge_optional_classes, generate_id};
         let option = MultiSelectOption {
             value: "test".to_string(),
             label: "Test Option".to_string(),
-            _disabled: false,
+            disabled: false,
             description: Some("Test description".to_string()),
             group: Some("test-group".to_string()),
         };
         assert_eq!(option.value, "test");
         assert_eq!(option.label, "Test Option");
-        assert!(!option._disabled);
+        assert!(!option.disabled);
         assert!(option.description.is_some());
         assert!(option.group.is_some());
     }
@@ -345,7 +345,7 @@ use crate::utils::{merge_optional_classes, generate_id};
         let option = MultiSelectOption::default();
         assert_eq!(option.value, "");
         assert_eq!(option.label, "");
-        assert!(!option._disabled);
+        assert!(!option.disabled);
         assert!(option.description.is_none());
         assert!(option.group.is_none());
     }

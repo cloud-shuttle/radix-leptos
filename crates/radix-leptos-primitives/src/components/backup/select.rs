@@ -43,7 +43,7 @@ pub fn Select(
     default_value: Option<String>,
     /// Whether the select is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Whether the select is required
     #[prop(optional, default = false)]
     _required: bool,
@@ -89,7 +89,7 @@ pub fn Select(
 pub fn SelectTrigger(
     /// Whether the trigger is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -201,7 +201,7 @@ pub fn SelectValue(
 pub fn SelectContent(
     /// Whether the content is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -240,7 +240,7 @@ pub fn SelectItem(
     value: String,
     /// Whether this item is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,

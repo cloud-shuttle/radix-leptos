@@ -47,7 +47,7 @@ pub fn PasswordToggleField(
     on_blur: Option<Callback<()>>,
     /// Callback when field is validated
     #[prop(optional)]
-    on_validation: Option<Callback<PasswordValidation>>,
+    _on_validation: Option<Callback<PasswordValidation>>,
     /// Additional CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -55,14 +55,14 @@ pub fn PasswordToggleField(
     #[prop(optional)]
     style: Option<String>,
     /// Children content
-    children: Option<Children>,
+    _children: Option<Children>,
 ) -> impl IntoView {
     let _value = value.unwrap_or_default();
     let _placeholder = placeholder.unwrap_or_else(|| "Enter password...".to_string());
-    let _disabled = disabled.unwrap_or(false);
+    let disabled = disabled.unwrap_or(false);
     let _required = required.unwrap_or(false);
     let _readonly = readonly.unwrap_or(false);
-    let _visible = visible.unwrap_or(false);
+    let visible = visible.unwrap_or(false);
     let _min_length = min_length.unwrap_or(0);
     let _max_length = max_length.unwrap_or(usize::MAX);
     let _strength_requirements = strength_requirements.unwrap_or_default();
@@ -82,13 +82,13 @@ pub fn PasswordToggleField(
         }
     };
 
-    let handle_focus = move |_: ()| {
+    let _handle_focus = move |_: ()| {
         if let Some(callback) = on_focus {
             callback.run(());
         }
     };
 
-    let handle_blur = move |_: ()| {
+    let _handle_blur = move |_: ()| {
         if let Some(callback) = on_blur {
             callback.run(());
         }
@@ -96,7 +96,7 @@ pub fn PasswordToggleField(
 
     let handle_visibility_toggle = move |_| {
         if let Some(callback) = on_visibility_toggle {
-            callback.run(!visible.unwrap_or(false));
+            callback.run(!visible);
         }
     };
 
@@ -393,7 +393,7 @@ fn validate_password(
 mod tests {
 
     use crate::{PasswordStrengthLevel, PasswordStrengthRequirements, PasswordValidation};
-use crate::utils::{merge_optional_classes, generate_id};
+use crate::utils::merge_optional_classes;
 
     // Component structure tests
     #[test]

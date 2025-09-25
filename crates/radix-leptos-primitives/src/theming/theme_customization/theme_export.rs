@@ -2,9 +2,9 @@ use crate::theming::CSSVariables;
 use leptos::prelude::*;
 use leptos::serde_json;
 
-/// Theme preview component
+/// Theme export preview component
 #[component]
-pub fn ThemePreview(
+pub fn ThemeExportPreview(
     /// Theme to preview
     theme: ReadSignal<CSSVariables>,
     /// Additional CSS classes

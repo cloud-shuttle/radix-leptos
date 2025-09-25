@@ -166,8 +166,8 @@ mod spacing_tests {
 
         let invalid_spacing = SpacingSystem {
             base_unit: 0.0,
-            scale: vec![],
-            directions: vec![],
+            scale: Vec::new(),
+            directions: Vec::new(),
         };
         assert!(!spacing_utils::validate_spacing_system(&invalid_spacing));
     }

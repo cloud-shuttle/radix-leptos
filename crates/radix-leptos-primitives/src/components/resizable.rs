@@ -61,8 +61,8 @@ pub fn Resizable(
     let max_height = max_height.unwrap_or(f64::INFINITY);
     let enabled = enabled.unwrap_or(true);
     let handles = handles.unwrap_or_else(|| [ResizeHandle::BottomRight].to_vec());
-    let maintain_aspect_ratio = maintain_aspect_ratio.unwrap_or(false);
-    let aspect_ratio = aspect_ratio.unwrap_or(1.0);
+    let _maintain_aspect_ratio = maintain_aspect_ratio.unwrap_or(false);
+    let _aspect_ratio = aspect_ratio.unwrap_or(1.0);
 
     let class = format!(
         "resizable {} {} {} {} {} {} {}",
@@ -434,7 +434,7 @@ pub enum SplitterOrientation {
 #[cfg(test)]
 mod tests {
     use crate::{ResizeEvent, ResizeHandle, SplitterOrientation};
-use crate::utils::{merge_optional_classes, generate_id};
+use crate::utils::merge_optional_classes;
 
     // Component structure tests
     #[test]

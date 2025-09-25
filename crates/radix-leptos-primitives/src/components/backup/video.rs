@@ -66,7 +66,7 @@ pub fn Video(
     _interactive: bool,
     /// Whether the video is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,

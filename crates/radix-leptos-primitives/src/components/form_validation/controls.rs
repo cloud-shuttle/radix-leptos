@@ -1,9 +1,9 @@
-use crate::utils::{merge_classes, generate_id};
+use crate::utils::merge_classes;
 use leptos::callback::Callback;
 use leptos::prelude::*;
 use std::collections::HashMap;
 
-use super::validation::{FormValidationState, FormError, ValidationMode, FieldError, ErrorType};
+use super::validation::{FormValidationState, FormError, ValidationMode, FieldError};
 
 /// Form Validation System - Comprehensive validation with real-time feedback
 #[component]
@@ -97,6 +97,7 @@ pub fn FormErrorSummary(
 #[cfg(test)]
 mod controls_tests {
     use super::*;
+    use crate::form_validation::ErrorType;
 
     #[test]
     fn test_form_validation_provider_creation() {

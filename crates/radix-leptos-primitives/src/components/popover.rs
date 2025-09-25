@@ -1,4 +1,4 @@
-use crate::utils::{merge_classes, generate_id};
+use crate::utils::merge_classes;
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
@@ -10,7 +10,7 @@ use leptos::prelude::*;
 pub fn Popover(
     #[prop(optional)] class: Option<String>,
     #[prop(optional)] style: Option<String>,
-    #[prop(optional)] children: Option<Children>,
+    #[prop(optional)] _children: Option<Children>,
     #[prop(optional)] defaultopen: Option<bool>,
     #[prop(optional)] open: Option<ReadSignal<bool>>,
     #[prop(optional)] onopen_change: Option<Callback<bool>>,
@@ -48,7 +48,7 @@ pub fn Popover(
 /// Popover Trigger component
 #[component]
 pub fn PopoverTrigger(
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)] _class: Option<String>,
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] disabled: Option<bool>,
@@ -294,7 +294,7 @@ impl PopoverAlign {
 
 #[cfg(test)]
 mod tests {
-    use crate::utils::{merge_classes, generate_id};
+    use crate::utils::merge_classes;
     use crate::{PopoverAlign, PopoverSide};
     use wasm_bindgen_test::*;
 

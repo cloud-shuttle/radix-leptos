@@ -51,7 +51,7 @@ pub fn Carousel(
     _interactive: bool,
     /// Whether the carousel is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -218,7 +218,7 @@ pub fn CarouselWithCustomNavigation(
     _interactive: bool,
     /// Whether the carousel is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,

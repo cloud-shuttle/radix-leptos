@@ -157,7 +157,7 @@ impl ChartTheme {
 pub struct LegendItem {
     pub name: String,
     pub color: String,
-    pub _visible: bool,
+    pub visible: bool,
 }
 
 /// Chart Tooltip component
@@ -297,7 +297,7 @@ fn merge_optional_classes(classes: Vec<&str>) -> String {
 mod tests {
     use wasm_bindgen_test::*;
     use proptest::prelude::*;
-use crate::utils::{merge_classes, generate_id};
+use crate::utils::merge_classes;
 
     wasm_bindgen_test_configure!(run_in_browser);
 

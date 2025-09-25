@@ -45,7 +45,7 @@ impl RadioGroupSize {
 pub fn RadioGroup(
     /// Selected value
     #[prop(optional)]
-    value: Option<String>,
+    _value: Option<String>,
     /// Whether the radio group is disabled
     #[prop(optional, default = false)]
     disabled: bool,
@@ -63,7 +63,7 @@ pub fn RadioGroup(
     style: Option<String>,
     /// Value change event handler
     #[prop(optional)]
-    on_value_change: Option<Callback<String>>,
+    _on_value_change: Option<Callback<String>>,
     /// Child content
     children: Children,
 ) -> impl IntoView {

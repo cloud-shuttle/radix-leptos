@@ -8,8 +8,8 @@ use crate::utils::{merge_optional_classes, generate_id};
 pub struct ListItem<T: Send + Sync + 'static> {
     pub id: String,
     pub data: T,
-    pub _disabled: bool,
-    pub _selected: bool,
+    pub disabled: bool,
+    pub selected: bool,
     pub _focused: bool,
 }
 
@@ -18,19 +18,19 @@ impl<T: Send + Sync + 'static> ListItem<T> {
         Self {
             id,
             data,
-            _disabled: false,
-            _selected: false,
+            disabled: false,
+            selected: false,
             _focused: false,
         }
     }
 
     pub fn withdisabled(mut self, disabled: bool) -> Self {
-        self._disabled = disabled;
+        self.disabled = disabled;
         self
     }
 
     pub fn withselected(mut self, selected: bool) -> Self {
-        self._selected = selected;
+        self.selected = selected;
         self
     }
 
@@ -207,7 +207,7 @@ pub fn ListItem<T: Clone + Send + Sync + 'static>(
         event.prevent_default();
 
         if let Some(item) = item_clone.clone() {
-            if !item._disabled {
+            if !item.disabled {
                 // Handle selection
                 let mut currentselected = context.selected_items.get();
                 let item_id = item.id.clone();
@@ -264,7 +264,7 @@ pub fn ListItem<T: Clone + Send + Sync + 'static>(
         if let Some(disabled) = disabled {
             disabled
         } else if let Some(item) = item_fordisabled.as_ref() {
-            item._disabled
+            item.disabled
         } else {
             false
         }
@@ -275,7 +275,7 @@ pub fn ListItem<T: Clone + Send + Sync + 'static>(
         if let Some(selected) = selected {
             selected
         } else if let Some(item) = item_forselected.as_ref() {
-            item._selected
+            item.selected
         } else {
             false
         }

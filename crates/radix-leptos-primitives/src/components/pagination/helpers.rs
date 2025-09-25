@@ -1,5 +1,104 @@
 use super::PaginationPage;
-use crate::utils::{merge_optional_classes, generate_id};
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::utils::{merge_optional_classes, generate_id};
+
+    #[test]
+    fn test_calculate_page_range_basic() {
+        // Test basic functionality
+        assert_eq!(calculate_page_range(1, 10, 5), (0, 4)); // saturating_sub(1, 2) = 0
+        assert_eq!(calculate_page_range(5, 10, 5), (3, 7));
+        assert_eq!(calculate_page_range(10, 10, 5), (6, 10));
+    }
+
+    #[test]
+    fn test_calculate_page_range_edge_cases() {
+        // Test edge cases
+        assert_eq!(calculate_page_range(1, 1, 5), (1, 1));
+        assert_eq!(calculate_page_range(1, 3, 5), (1, 3));
+        assert_eq!(calculate_page_range(5, 3, 5), (1, 3));
+    }
+
+    #[test]
+    fn test_calculate_page_range_boundary_conditions() {
+        // Test boundary conditions
+        assert_eq!(calculate_page_range(1, 100, 7), (0, 6)); // saturating_sub(1, 3) = 0
+        assert_eq!(calculate_page_range(50, 100, 7), (47, 53));
+        assert_eq!(calculate_page_range(100, 100, 7), (94, 100));
+    }
+
+    #[test]
+    fn test_generate_page_numbers_basic() {
+        let pages = generate_page_numbers(5, 10, 7);
+        assert!(!pages.is_empty());
+        assert!(pages.iter().any(|p| p.number == 5 && p._current));
+    }
+
+    #[test]
+    fn test_generate_page_numbers_small_total() {
+        let pages = generate_page_numbers(2, 3, 7);
+        assert_eq!(pages.len(), 3);
+        assert!(pages.iter().any(|p| p.number == 2 && p._current));
+    }
+
+    #[test]
+    fn test_generate_page_numbers_large_total() {
+        let pages = generate_page_numbers(50, 100, 7);
+        assert!(pages.len() >= 7);
+        assert!(pages.iter().any(|p| p.number == 50 && p._current));
+    }
+
+    #[test]
+    fn test_pagination_page_creation() {
+        let page = PaginationPage::new(5);
+        assert_eq!(page.number, 5);
+        assert!(!page._current);
+        assert!(!page.disabled);
+    }
+
+    #[test]
+    fn test_pagination_page_with_current() {
+        let page = PaginationPage::new(5).withcurrent(true);
+        assert_eq!(page.number, 5);
+        assert!(page._current);
+        assert!(!page.disabled);
+    }
+
+    #[test]
+    fn test_pagination_page_withdisabled() {
+        let page = PaginationPage::new(0).withdisabled(true);
+        assert_eq!(page.number, 0);
+        assert!(!page._current);
+        assert!(page.disabled);
+    }
+
+    #[test]
+    fn test_merge_optional_classes() {
+        // Test the utility function
+        let result = merge_optional_classes(Some("base"), Some("additional"));
+        assert_eq!(result, Some("base additional".to_string()));
+        
+        let result = merge_optional_classes(Some("base"), None);
+        assert_eq!(result, Some("base".to_string()));
+        
+        let result = merge_optional_classes(None, Some("additional"));
+        assert_eq!(result, Some("additional".to_string()));
+        
+        let result = merge_optional_classes(None, None);
+        assert_eq!(result, None);
+    }
+
+    #[test]
+    fn test_generate_id() {
+        let id1 = generate_id("test");
+        let id2 = generate_id("test");
+        assert!(id1.starts_with("test-"));
+        assert!(id2.starts_with("test-"));
+        assert_ne!(id1, id2); // Should be unique
+    }
+}
 
 
 

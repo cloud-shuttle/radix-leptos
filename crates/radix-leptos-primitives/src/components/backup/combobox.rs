@@ -15,7 +15,7 @@ pub struct ComboboxContext {
     pub filtered_options: Memo<Vec<ComboboxOption>>,
     pub on_change: Option<Callback<String>>,
     pub on_search: Option<Callback<String>>,
-    pub _disabled: bool,
+    pub disabled: bool,
     pub combobox_id: String,
 }
 
@@ -38,7 +38,7 @@ impl ComboboxOption {
         }
     }
 
-    pub fn withdisabled(mut self, _disabled: bool) -> Self {
+    pub fn withdisabled(mut self, disabled: bool) -> Self {
         self.disabled = Some(disabled);
         self
     }
@@ -80,7 +80,7 @@ pub fn Combobox(
     placeholder: Option<String>,
     /// Whether the combobox is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Whether the combobox supports search/filtering
     #[prop(optional, default = true)]
     __searchable: bool,
@@ -168,7 +168,7 @@ pub fn Combobox(
 pub fn ComboboxTrigger(
     /// Whether the trigger is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Placeholder text
     #[prop(optional)]
     placeholder: Option<String>,
@@ -312,13 +312,13 @@ pub fn ComboboxItem(
     label: String,
     /// Whether the item is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Whether the item is focused (optional, will use context if not provided)
     #[prop(optional, default = false)]
     _focused: bool,
     /// Whether the item is selected (optional, will use context if not provided)
     #[prop(optional, default = false)]
-    _selected: bool,
+    selected: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -403,7 +403,7 @@ pub fn ComboboxInput(
     placeholder: Option<String>,
     /// Whether the input is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,

@@ -59,10 +59,10 @@ fn merge_classes(existing: Option<&str>, additional: Option<&str>) -> Option<Str
 pub fn Popover(
     /// Whether the popover is open
     #[prop(optional, default = false)]
-    _open: bool,
+    open: bool,
     /// Whether the popover is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -93,7 +93,7 @@ pub fn Popover(
 pub fn PopoverTrigger(
     /// Whether the trigger is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -159,7 +159,7 @@ pub fn PopoverContent(
     align: PopoverAlignment,
     /// Whether the popover is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -199,7 +199,7 @@ pub fn PopoverContent(
 pub fn PopoverClose(
     /// Whether the close button is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,

@@ -101,7 +101,7 @@ impl DialogSize {
 pub fn Dialog(
     /// Whether the dialog is open
     #[prop(optional, default = false)]
-    _open: bool,
+    open: bool,
     /// Dialog styling variant
     #[prop(optional, default = DialogVariant::Default)]
     variant: DialogVariant,
@@ -121,8 +121,8 @@ pub fn Dialog(
     children: Children,
 ) -> impl IntoView {
     let ___dialog_id = generate_id("dialog");
-    let title_id = generate_id("dialog-title");
-    let description_id = generate_id("dialog-description");
+    let _title_id = generate_id("dialog-title");
+    let _description_id = generate_id("dialog-description");
 
     // Build data attributes for styling
     let data_variant = variant.as_str();

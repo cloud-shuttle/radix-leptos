@@ -1,13 +1,13 @@
 use leptos::callback::Callback;
 use leptos::prelude::*;
-use crate::utils::{merge_optional_classes, generate_id};
+use crate::utils::generate_id;
 
 /// Pagination page information
 #[derive(Clone, Debug, PartialEq)]
 pub struct PaginationPage {
     pub number: usize,
     pub label: Option<String>,
-    pub _disabled: bool,
+    pub disabled: bool,
     pub _current: bool,
 }
 
@@ -16,7 +16,7 @@ impl PaginationPage {
         Self {
             number,
             label: None,
-            _disabled: false,
+            disabled: false,
             _current: false,
         }
     }
@@ -27,7 +27,7 @@ impl PaginationPage {
     }
 
     pub fn withdisabled(mut self, disabled: bool) -> Self {
-        self._disabled = disabled;
+        self.disabled = disabled;
         self
     }
 
@@ -207,7 +207,7 @@ use crate::utils::{merge_optional_classes, generate_id};
         assert_eq!(page.number, 1);
         assert_eq!(page.label, Some("First".to_string()));
         assert_eq!(page._current, true);
-        assert_eq!(page._disabled, false);
+        assert_eq!(page.disabled, false);
     }
 
     #[test]

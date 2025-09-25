@@ -69,9 +69,9 @@ pub struct TreeNode {
     pub icon: Option<String>,
     pub children: Option<Vec<TreeNode>>,
     pub expanded: bool,
-    pub _selected: bool,
-    pub _checked: bool,
-    pub _disabled: bool,
+    pub selected: bool,
+    pub checked: bool,
+    pub disabled: bool,
     pub level: usize,
     pub parent_id: Option<String>,
 }
@@ -128,12 +128,12 @@ pub fn TreeNode(
         } else {
             "collapsed"
         },
-        if node._selected {
+        if node.selected {
             "selected"
         } else {
             "unselected"
         },
-        if node._disabled {
+        if node.disabled {
             "disabled"
         } else {
             "enabled"
@@ -144,7 +144,7 @@ pub fn TreeNode(
 
     let node_clone = node.clone();
     let handle_select = move |_| {
-        if !node_clone._disabled {
+        if !node_clone.disabled {
             if let Some(callback) = on_select {
                 callback.run(node_clone.clone());
             }
@@ -153,7 +153,7 @@ pub fn TreeNode(
 
     let node_clone = node.clone();
     let handle_expand = move |_: ()| {
-        if !node_clone._disabled {
+        if !node_clone.disabled {
             if let Some(callback) = on_expand {
                 callback.run(node_clone.clone());
             }
@@ -162,7 +162,7 @@ pub fn TreeNode(
 
     let node_clone = node.clone();
     let handle_check = move |_| {
-        if !node_clone._disabled {
+        if !node_clone.disabled {
             if let Some(callback) = on_check {
                 callback.run(node_clone.clone());
             }
@@ -170,7 +170,7 @@ pub fn TreeNode(
     };
 
     view! {
-        <div class=class style=style role="treeitem" aria-expanded=node.expanded aria-selected=node._selected>
+        <div class=class style=style role="treeitem" aria-expanded=node.expanded aria-selected=node.selected>
             <div class="tree-node-content">
                 {if show_icons && node.children.is_some() {
                     view! {
@@ -189,8 +189,8 @@ pub fn TreeNode(
                         <input
                             class="tree-checkbox"
                             type="checkbox"
-                            checked=node._checked
-                            disabled=node._disabled
+                            checked=node.checked
+                            disabled=node.disabled
                             on:change=handle_check
                         />
                     }.into_any()
@@ -334,7 +334,7 @@ pub fn TreeViewActions(
 #[cfg(test)]
 mod tests {
     use crate::TreeNode;
-use crate::utils::{merge_optional_classes, generate_id};
+use crate::utils::merge_optional_classes;
 
     // Component structure tests
     #[test]
@@ -359,9 +359,9 @@ use crate::utils::{merge_optional_classes, generate_id};
             icon: Some("📁".to_string()),
             children: Some(Vec::new()),
             expanded: false,
-            _selected: false,
-            _checked: false,
-            _disabled: false,
+            selected: false,
+            checked: false,
+            disabled: false,
             level: 0,
             parent_id: None,
         };
@@ -371,9 +371,9 @@ use crate::utils::{merge_optional_classes, generate_id};
         assert!(node.icon.is_some());
         assert!(node.children.is_some());
         assert!(!node.expanded);
-        assert!(!node._selected);
-        assert!(!node._checked);
-        assert!(!node._disabled);
+        assert!(!node.selected);
+        assert!(!node.checked);
+        assert!(!node.disabled);
         assert_eq!(node.level, 0);
         assert!(node.parent_id.is_none());
     }
@@ -387,9 +387,9 @@ use crate::utils::{merge_optional_classes, generate_id};
         assert!(node.icon.is_none());
         assert!(node.children.is_none());
         assert!(!node.expanded);
-        assert!(!node._selected);
-        assert!(!node._checked);
-        assert!(!node._disabled);
+        assert!(!node.selected);
+        assert!(!node.checked);
+        assert!(!node.disabled);
         assert_eq!(node.level, 0);
         assert!(node.parent_id.is_none());
     }

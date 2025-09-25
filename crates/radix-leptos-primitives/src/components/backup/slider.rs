@@ -47,7 +47,7 @@ pub struct SliderContext {
     pub max: f64,
     pub step: f64,
     pub orientation: SliderOrientation,
-    pub _disabled: bool,
+    pub disabled: bool,
     pub on_change: Option<Callback<f64>>,
     pub on_change_commit: Option<Callback<f64>>,
     pub slider_id: String,
@@ -66,7 +66,7 @@ pub struct RangeSliderContext {
     pub max: f64,
     pub step: f64,
     pub orientation: SliderOrientation,
-    pub _disabled: bool,
+    pub disabled: bool,
     pub on_change: Option<Callback<(f64, f64)>>,
     pub on_change_commit: Option<Callback<(f64, f64)>>,
     pub range_slider_id: String,
@@ -122,7 +122,7 @@ pub fn Slider(
     _marks: Option<Vec<SliderMark>>,
     /// Whether the slider is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Change event handler
     #[prop(optional)]
     on_change: Option<Callback<f64>>,
@@ -212,7 +212,7 @@ pub fn RangeSlider(
     _marks: Option<Vec<SliderMark>>,
     /// Whether the slider is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Change event handler
     #[prop(optional)]
     on_change: Option<Callback<(f64, f64)>>,

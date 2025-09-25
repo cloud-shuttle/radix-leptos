@@ -66,7 +66,7 @@ pub fn TextInput(
     placeholder: Option<String>,
     /// Whether the input is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Whether the input is required
     #[prop(optional, default = false)]
     _required: bool,
@@ -135,7 +135,7 @@ pub fn TextInputWithLabel(
     placeholder: Option<String>,
     /// Whether the input is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Whether the input is required
     #[prop(optional, default = false)]
     _required: bool,

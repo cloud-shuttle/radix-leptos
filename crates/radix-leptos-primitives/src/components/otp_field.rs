@@ -35,7 +35,7 @@ pub fn OtpField(
     on_complete: Option<Callback<String>>,
     /// Callback when OTP is submitted
     #[prop(optional)]
-    on_submit: Option<Callback<String>>,
+    _on_submit: Option<Callback<String>>,
     /// Callback when input is focused
     #[prop(optional)]
     on_focus: Option<Callback<usize>>,
@@ -56,8 +56,8 @@ pub fn OtpField(
     let length = length.unwrap_or(6);
     let disabled = disabled.unwrap_or(false);
     let required = required.unwrap_or(false);
-    let auto_focus = auto_focus.unwrap_or(true);
-    let auto_submit = auto_submit.unwrap_or(true);
+    let _auto_focus = auto_focus.unwrap_or(true);
+    let _auto_submit = auto_submit.unwrap_or(true);
     let input_type = input_type.unwrap_or_default();
 
     let class = format!("otp-field {}", class.unwrap_or_default());
@@ -244,7 +244,7 @@ pub fn OtpTimer(
     running: Option<bool>,
     /// Callback when timer expires
     #[prop(optional)]
-    on_expire: Option<Callback<()>>,
+    _on_expire: Option<Callback<()>>,
     /// Callback when timer is reset
     #[prop(optional)]
     on_reset: Option<Callback<()>>,
@@ -397,7 +397,7 @@ fn validate_otp(value: &str, expected_length: usize, input_type: &OtpInputType) 
 #[cfg(test)]
 mod tests {
     use crate::{OtpInputType, OtpValidation};
-use crate::utils::{merge_optional_classes, generate_id};
+use crate::utils::merge_optional_classes;
 
     // Component structure tests
     #[test]

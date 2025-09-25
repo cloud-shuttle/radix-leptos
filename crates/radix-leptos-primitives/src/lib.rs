@@ -6,6 +6,8 @@
 pub mod components;
 pub mod theming;
 pub mod utils;
+pub mod performance;
 
 // Re-export all components at the crate root
 pub use components::*;
+pub use theming::*;

@@ -7,7 +7,7 @@ pub fn TouchButton(
     children: Children,
     /// Whether the button is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Button type
     #[prop(optional, default = "button")]
     button_type: &'static str,
@@ -62,7 +62,7 @@ pub fn TouchButton(
     let handle_mouse_down = move |_| {
         if !disabled {
             set_is_pressed.set(true);
-use crate::utils::{merge_optional_classes, generate_id};
+use crate::utils::merge_optional_classes;
         }
     };
 
@@ -104,7 +104,7 @@ pub fn TouchIconButton(
     icon: Children,
     /// Whether the button is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Button type
     #[prop(optional, default = "button")]
     button_type: &'static str,
@@ -159,7 +159,7 @@ pub fn TouchIconButton(
     let handle_mouse_down = move |_| {
         if !disabled {
             set_is_pressed.set(true);
-use crate::utils::{merge_optional_classes, generate_id};
+use crate::utils::merge_optional_classes;
         }
     };
 
@@ -201,7 +201,7 @@ pub fn FloatingActionButton(
     children: Children,
     /// Whether the button is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Button type
     #[prop(optional, default = "button")]
     button_type: &'static str,
@@ -256,7 +256,7 @@ pub fn FloatingActionButton(
     let handle_mouse_down = move |_| {
         if !disabled {
             set_is_pressed.set(true);
-use crate::utils::{merge_optional_classes, generate_id};
+use crate::utils::merge_optional_classes;
         }
     };
 

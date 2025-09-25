@@ -48,7 +48,7 @@ use std::collections::HashMap;
 pub struct CollectionItem {
     pub value: String,
     pub element: Element,
-    pub _disabled: bool,
+    pub disabled: bool,
 }
 
 impl Clone for CollectionItem {

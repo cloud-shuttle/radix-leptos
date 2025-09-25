@@ -68,7 +68,7 @@ pub fn PaginationItem(
         event.prevent_default();
 
         if let Some(page) = page_clone.clone() {
-            if !page._disabled {
+            if !page.disabled {
                 // Call the page change handler
                 if let Some(callback) = context.on_page_change {
                     callback.run(page.number);
@@ -96,7 +96,7 @@ pub fn PaginationItem(
         if let Some(disabled) = disabled {
             disabled
         } else if let Some(page) = page_fordisabled.as_ref() {
-            page._disabled
+            page.disabled
         } else {
             false
         }

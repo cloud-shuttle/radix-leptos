@@ -53,7 +53,7 @@ pub fn Image(
     _interactive: bool,
     /// Whether the image is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,

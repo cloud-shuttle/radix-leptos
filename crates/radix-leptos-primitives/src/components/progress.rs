@@ -65,7 +65,7 @@ pub fn Progress(
     #[prop(optional)]
     style: Option<String>,
     /// Child content
-    children: Children,
+    _children: Children,
 ) -> impl IntoView {
     let __progress_id = generate_id("progress");
 

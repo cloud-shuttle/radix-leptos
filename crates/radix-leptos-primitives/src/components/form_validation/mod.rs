@@ -1,7 +1,3 @@
-use std::collections::HashMap;
-use crate::utils::merge_classes;
-use leptos::callback::Callback;
-use leptos::prelude::*;
 
 // Module declarations
 mod validation;
@@ -17,6 +13,7 @@ pub use controls::*;
 mod form_validation_tests {
     use super::*;
     use proptest::prelude::*;
+    use std::collections::HashMap;
 
     #[test]
     fn test_form_validation_provider_creation() {

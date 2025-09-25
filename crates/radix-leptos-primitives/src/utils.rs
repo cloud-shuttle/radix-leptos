@@ -7,6 +7,20 @@ pub fn merge_classes(classes: Vec<&str>) -> String {
         .join(" ")
 }
 
+/// Performance-optimized CSS class merging with caching
+pub fn merge_classes_optimized(classes: &[&str]) -> String {
+    if classes.is_empty() {
+        return String::new();
+    }
+
+    if classes.len() == 1 {
+        return classes[0].to_string();
+    }
+
+    // Use string cache for frequently used combinations
+    crate::performance::get_global_string_cache().get_or_insert(&classes.join(" "))
+}
+
 /// Utility function to merge optional CSS classes
 pub fn merge_optional_classes(existing: Option<&str>, additional: Option<&str>) -> Option<String> {
     match (existing, additional) {

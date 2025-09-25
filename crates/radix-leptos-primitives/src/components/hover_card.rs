@@ -1,4 +1,4 @@
-use crate::utils::{merge_classes, generate_id};
+use crate::utils::merge_classes;
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
@@ -10,7 +10,7 @@ use leptos::prelude::*;
 pub fn HoverCard(
     #[prop(optional)] class: Option<String>,
     #[prop(optional)] style: Option<String>,
-    #[prop(optional)] children: Option<Children>,
+    #[prop(optional)] _children: Option<Children>,
     #[prop(optional)] open_delay: Option<u32>,
     #[prop(optional)] close_delay: Option<u32>,
     #[prop(optional)] defaultopen: Option<bool>,
@@ -18,7 +18,7 @@ pub fn HoverCard(
     #[prop(optional)] onopen_change: Option<Callback<bool>>,
 ) -> impl IntoView {
     let open_delay = open_delay.unwrap_or(700);
-    let close_delay = close_delay.unwrap_or(300);
+    let _close_delay = close_delay.unwrap_or(300);
     let (isopen, set_isopen) = signal(
         open.map(|o| o.get())
             .unwrap_or_else(|| defaultopen.unwrap_or(false)),
@@ -52,7 +52,7 @@ pub fn HoverCard(
 /// Hover Card Trigger component
 #[component]
 pub fn HoverCardTrigger(
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)] _class: Option<String>,
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] disabled: Option<bool>,
@@ -65,7 +65,7 @@ pub fn HoverCardTrigger(
 
     let class = merge_classes(vec!["hover-card-trigger"]);
 
-    let handle_mouse_leave = move |_: ()| {
+    let _handle_mouse_leave = move |_: ()| {
         if !disabled {
             if let Some(on_mouse_leave) = on_mouse_leave {
                 on_mouse_leave.run(());
@@ -554,7 +554,7 @@ mod tests {
     fn test_hover_card_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(____class in ".*", __style in ".*", _open_delay in 0..5000u32, __close_delay in 0..5000u32)| {
+        proptest!(|(____class in ".*", __style in ".*", open_delay in 0..5000u32, __close_delay in 0..5000u32)| {
             // Test that the component can be created with various prop values
 
         });

@@ -4,8 +4,8 @@
 pub struct TableData {
     pub id: String,
     pub cells: Vec<String>,
-    pub _selected: bool,
-    pub _disabled: bool,
+    pub selected: bool,
+    pub disabled: bool,
 }
 
 impl TableData {
@@ -18,12 +18,12 @@ impl TableData {
         }
     }
 
-    pub fn withselected(mut self, _selected: bool) -> Self {
+    pub fn withselected(mut self, selected: bool) -> Self {
         self.selected = selected;
         self
     }
 
-    pub fn withdisabled(mut self, _disabled: bool) -> Self {
+    pub fn withdisabled(mut self, disabled: bool) -> Self {
         self.disabled = disabled;
         self
     }

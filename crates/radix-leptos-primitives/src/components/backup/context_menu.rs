@@ -28,7 +28,7 @@ pub fn ContextMenu(
     size: ContextMenuSize,
     /// Whether the context menu is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -117,7 +117,7 @@ pub fn ContextMenu(
 pub fn ContextMenuTrigger(
     /// Whether the trigger is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -148,7 +148,7 @@ pub fn ContextMenuTrigger(
 pub fn ContextMenuContent(
     /// Whether the content is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -191,10 +191,10 @@ pub fn ContextMenuItem(
     variant: ContextMenuItemVariant,
     /// Whether the item is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Whether the item is selected
     #[prop(optional, default = false)]
-    _selected: bool,
+    selected: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -315,10 +315,10 @@ pub fn ContextMenuLabel(
 pub fn ContextMenuCheckboxItem(
     /// Whether the checkbox is checked
     #[prop(optional, default = false)]
-    _checked: bool,
+    checked: bool,
     /// Whether the item is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -393,10 +393,10 @@ pub fn ContextMenuRadioItem(
     value: String,
     /// Whether the radio is checked
     #[prop(optional, default = false)]
-    _checked: bool,
+    checked: bool,
     /// Whether the item is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,

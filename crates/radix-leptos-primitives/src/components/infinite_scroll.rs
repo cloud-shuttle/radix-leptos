@@ -1,5 +1,5 @@
 use wasm_bindgen::JsCast;
-use crate::utils::{merge_optional_classes, generate_id};
+use crate::utils::merge_optional_classes;
 
 /// Infinite Scroll component for infinite scrolling functionality
 #[component]

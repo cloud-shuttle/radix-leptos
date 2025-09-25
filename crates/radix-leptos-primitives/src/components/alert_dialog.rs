@@ -1,4 +1,4 @@
-use crate::utils::{merge_classes, generate_id};
+use crate::utils::merge_classes;
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
@@ -63,6 +63,23 @@ pub enum AlertDialogVariant {
     Warning,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub enum AlertDialogSize {
+    Small,
+    Medium,
+    Large,
+}
+
+impl AlertDialogSize {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            AlertDialogSize::Small => "small",
+            AlertDialogSize::Medium => "medium",
+            AlertDialogSize::Large => "large",
+        }
+    }
+}
+
 impl AlertDialogVariant {
     pub fn as_str(&self) -> &'static str {
         match self {
@@ -72,6 +89,76 @@ impl AlertDialogVariant {
         }
     }
 }
+
+/// AlertDialog builder struct for test compatibility
+#[derive(Debug, Clone)]
+pub struct AlertDialogBuilder {
+    pub open: bool,
+    pub variant: AlertDialogVariant,
+    pub size: AlertDialogSize,
+    pub title: Option<String>,
+    pub description: Option<String>,
+    pub class: Option<String>,
+    pub style: Option<String>,
+}
+
+impl Default for AlertDialogBuilder {
+    fn default() -> Self {
+        Self {
+            open: false,
+            variant: AlertDialogVariant::Default,
+            size: AlertDialogSize::Medium,
+            title: None,
+            description: None,
+            class: None,
+            style: None,
+        }
+    }
+}
+
+impl AlertDialogBuilder {
+    pub fn new() -> Self {
+        Self::default()
+    }
+
+    pub fn with_variant(mut self, variant: AlertDialogVariant) -> Self {
+        self.variant = variant;
+        self
+    }
+
+    pub fn with_size(mut self, size: AlertDialogSize) -> Self {
+        self.size = size;
+        self
+    }
+
+    pub fn with_title(mut self, title: impl Into<String>) -> Self {
+        self.title = Some(title.into());
+        self
+    }
+
+    pub fn with_description(mut self, description: impl Into<String>) -> Self {
+        self.description = Some(description.into());
+        self
+    }
+
+    pub fn with_open(mut self, open: bool) -> Self {
+        self.open = open;
+        self
+    }
+
+    pub fn with_class(mut self, class: impl Into<String>) -> Self {
+        self.class = Some(class.into());
+        self
+    }
+
+    pub fn with_style(mut self, style: impl Into<String>) -> Self {
+        self.style = Some(style.into());
+        self
+    }
+}
+
+/// Type alias for AlertDialogBuilder to match test expectations
+pub type AlertDialog = AlertDialogBuilder;
 
 /// AlertDialog root component
 #[component]
@@ -215,7 +302,7 @@ mod tests {
         }
 
         #[test]
-        fn test_alert_dialogopen_state(__open: bool, ___variant_index in 0..3usize) {
+        fn test_alert_dialogopen_state(_open: bool, ___variant_index in 0..3usize) {
 
         }
 

@@ -1,4 +1,4 @@
-use crate::utils::{merge_classes, generate_id};
+use crate::utils::merge_classes;
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
@@ -16,10 +16,10 @@ pub fn FileUpload(
     #[prop(optional)] max_files: Option<usize>,
     #[prop(optional)] disabled: Option<bool>,
     #[prop(optional)] drag_drop_enabled: Option<bool>,
-    #[prop(optional)] on_files_select: Option<Callback<Vec<FileInfo>>>,
-    #[prop(optional)] on_upload_progress: Option<Callback<UploadProgress>>,
-    #[prop(optional)] on_upload_complete: Option<Callback<Vec<FileInfo>>>,
-    #[prop(optional)] on_upload_error: Option<Callback<String>>,
+    #[prop(optional)] _on_files_select: Option<Callback<Vec<FileInfo>>>,
+    #[prop(optional)] _on_upload_progress: Option<Callback<UploadProgress>>,
+    #[prop(optional)] _on_upload_complete: Option<Callback<Vec<FileInfo>>>,
+    #[prop(optional)] _on_upload_error: Option<Callback<String>>,
 ) -> impl IntoView {
     let _multiple = multiple.unwrap_or(false);
     let _accept = accept.unwrap_or_default();
@@ -153,7 +153,7 @@ pub fn FileUploadDropZone(
                     event.prevent_default();
                     if let Some(callback) = on_drop {
                         // File handling logic would be implemented here
-                        callback.run(vec![]);
+                        callback.run(Vec::new());
                     }
                 }
             }
@@ -173,9 +173,9 @@ pub fn FileUploadList(
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] files: Option<Vec<FileInfo>>,
-    #[prop(optional)] on_file_remove: Option<Callback<String>>,
+    #[prop(optional)] _on_file_remove: Option<Callback<String>>,
 ) -> impl IntoView {
-    let files = files.unwrap_or_default();
+    let _files = files.unwrap_or_default();
 
     let class = merge_classes(vec!["file-upload-list", class.as_deref().unwrap_or("")]);
 

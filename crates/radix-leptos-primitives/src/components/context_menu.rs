@@ -1,4 +1,4 @@
-use crate::utils::{merge_classes, generate_id};
+use crate::utils::merge_classes;
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
@@ -87,7 +87,7 @@ pub struct ContextMenuItem {
     pub id: String,
     pub label: String,
     pub icon: Option<String>,
-    pub _disabled: bool,
+    pub disabled: bool,
     pub separator: bool,
     pub submenu: Option<Vec<ContextMenuItem>>,
 }
@@ -98,7 +98,7 @@ impl Default for ContextMenuItem {
             id: "item".to_string(),
             label: "Item".to_string(),
             icon: None,
-            _disabled: false,
+            disabled: false,
             separator: false,
             submenu: None,
         }
@@ -117,7 +117,7 @@ pub fn ContextMenuItem(
 ) -> impl IntoView {
     let _item = item.unwrap_or_default();
     let item_for_callback = _item.clone();
-    let _selected = selected.unwrap_or(false);
+    let selected = selected.unwrap_or(false);
 
     let _class = merge_classes(vec!["context-menu-item"]);
 
@@ -126,7 +126,7 @@ pub fn ContextMenuItem(
             class=_class
             style=style
             role="menuitem"
-            aria-disabled=_item._disabled
+            aria-disabled=_item.disabled
             on:click=move |_| {
                 if let Some(callback) = on_click {
                     callback.run(item_for_callback.clone());
@@ -154,7 +154,7 @@ pub fn ContextMenuTrigger(
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] disabled: Option<bool>,
 ) -> impl IntoView {
-    let _disabled = disabled.unwrap_or(false);
+    let disabled = disabled.unwrap_or(false);
 
     let _class = merge_classes(vec!["context-menu-trigger"]);
 
@@ -163,7 +163,7 @@ pub fn ContextMenuTrigger(
             class=_class
             style=style
             role="button"
-            aria-disabled=_disabled
+            aria-disabled=disabled
         >
             {children.map(|c| c())}
         </div>

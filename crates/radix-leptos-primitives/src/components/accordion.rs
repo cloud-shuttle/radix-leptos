@@ -95,13 +95,13 @@ impl AccordionSize {
 pub fn Accordion(
     /// Open sections (values)
     #[prop(optional)]
-    value: Option<Vec<String>>,
+    _value: Option<Vec<String>>,
     /// Whether multiple sections can be open
     #[prop(optional, default = false)]
     _allow_multiple: bool,
     /// Whether the accordion is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Accordion styling variant
     #[prop(optional, default = AccordionVariant::Default)]
     variant: AccordionVariant,
@@ -116,7 +116,7 @@ pub fn Accordion(
     style: Option<String>,
     /// Value change event handler
     #[prop(optional)]
-    on_value_change: Option<Callback<Vec<String>>>,
+    _on_value_change: Option<Callback<Vec<String>>>,
     /// Child content
     children: Children,
 ) -> impl IntoView {
@@ -157,7 +157,7 @@ pub fn Accordion(
             data-variant=data_variant
             data-size=data_size
             data-allow-multiple=_allow_multiple
-            data-disabled=_disabled
+            data-disabled=disabled
             on:keydown=handle_keydown
         >
             {children()}
@@ -172,7 +172,7 @@ pub fn AccordionItem(
     value: String,
     /// Whether the item is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -193,7 +193,7 @@ pub fn AccordionItem(
             class=combined_class
             style=style
             data-value=value
-            data-disabled=_disabled
+            data-disabled=disabled
         >
             {children()}
         </div>
@@ -493,13 +493,13 @@ use crate::utils::{merge_optional_classes, generate_id};
         run_test(|| {
             // Test accessibility logic
             let role = "region";
-            let aria_expanded = "false";
+            let ariaexpanded = "false";
             let aria_controls = "accordion-content";
             let aria_labelledby = "accordion-trigger";
 
             // Accordion should have proper accessibility attributes
             assert_eq!(role, "region");
-            assert_eq!(aria_expanded, "false");
+            assert_eq!(ariaexpanded, "false");
             assert_eq!(aria_controls, "accordion-content");
             assert_eq!(aria_labelledby, "accordion-trigger");
         });

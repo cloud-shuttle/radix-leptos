@@ -1,4 +1,4 @@
-use crate::utils::{merge_classes, generate_id};
+use crate::utils::merge_classes;
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
@@ -58,19 +58,19 @@ pub fn Menubar(
 /// Menubar Menu component
 #[component]
 pub fn MenubarMenu(
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)] _class: Option<String>,
     #[prop(optional)] style: Option<String>,
-    #[prop(optional)] children: Option<Children>,
-    #[prop(optional)] value: Option<String>,
+    #[prop(optional)] _children: Option<Children>,
+    #[prop(optional)] _value: Option<String>,
     #[prop(optional)] disabled: Option<bool>,
     #[prop(optional)] on_select: Option<Callback<()>>,
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
-    let value = value.unwrap_or_default();
+    let _value = _value.unwrap_or_default();
 
     let class = merge_classes(vec!["menubar-menu"]);
 
-    let handle_keydown = move |ev: web_sys::KeyboardEvent| {
+    let _handle_keydown = move |ev: web_sys::KeyboardEvent| {
         if !disabled && (ev.key() == "Enter" || ev.key() == " ") {
             ev.prevent_default();
             if let Some(on_select) = on_select {
@@ -92,7 +92,7 @@ pub fn MenubarMenu(
 /// Menubar Trigger component
 #[component]
 pub fn MenubarTrigger(
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)] _class: Option<String>,
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] disabled: Option<bool>,
@@ -170,9 +170,9 @@ pub fn MenubarContent(
 /// Menubar Item component
 #[component]
 pub fn MenubarItem(
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)] _class: Option<String>,
     #[prop(optional)] style: Option<String>,
-    #[prop(optional)] children: Option<Children>,
+    #[prop(optional)] _children: Option<Children>,
     #[prop(optional)] disabled: Option<bool>,
     #[prop(optional)] on_select: Option<Callback<()>>,
 ) -> impl IntoView {
@@ -180,7 +180,7 @@ pub fn MenubarItem(
 
     let class = merge_classes(vec!["menubar-item"]);
 
-    let handle_keydown = move |ev: web_sys::KeyboardEvent| {
+    let _handle_keydown = move |ev: web_sys::KeyboardEvent| {
         if !disabled && (ev.key() == "Enter" || ev.key() == " ") {
             ev.prevent_default();
             if let Some(on_select) = on_select {

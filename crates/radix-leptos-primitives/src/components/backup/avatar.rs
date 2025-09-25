@@ -35,7 +35,7 @@ pub fn Avatar(
     _interactive: bool,
     /// Whether the avatar is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,

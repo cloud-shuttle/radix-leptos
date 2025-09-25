@@ -1,4 +1,4 @@
-use crate::utils::{merge_classes, generate_id};
+use crate::utils::merge_classes;
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
@@ -17,15 +17,15 @@ pub fn Search(
     #[prop(optional)] suggestions: Option<Vec<SearchSuggestion>>,
     #[prop(optional)] max_suggestions: Option<usize>,
     #[prop(optional)] debounce_ms: Option<u64>,
-    #[prop(optional)] on_search: Option<Callback<String>>,
-    #[prop(optional)] on_suggestion_select: Option<Callback<SearchSuggestion>>,
-    #[prop(optional)] on_clear: Option<Callback<()>>,
+    #[prop(optional)] _on_search: Option<Callback<String>>,
+    #[prop(optional)] _on_suggestion_select: Option<Callback<SearchSuggestion>>,
+    #[prop(optional)] _on_clear: Option<Callback<()>>,
 ) -> impl IntoView {
-    let value = value.unwrap_or_default();
-    let placeholder = placeholder.unwrap_or_else(|| "Search...".to_string());
+    let _value = value.unwrap_or_default();
+    let _placeholder = placeholder.unwrap_or_else(|| "Search...".to_string());
     let disabled = disabled.unwrap_or(false);
-    let required = required.unwrap_or(false);
-    let suggestions = suggestions.unwrap_or_default();
+    let _required = required.unwrap_or(false);
+    let _suggestions = suggestions.unwrap_or_default();
     let max_suggestions = max_suggestions.unwrap_or(10);
     let debounce_ms = debounce_ms.unwrap_or(300);
 
@@ -59,10 +59,10 @@ pub fn SearchInput(
     #[prop(optional)] on_blur: Option<Callback<()>>,
     #[prop(optional)] on_keydown: Option<Callback<web_sys::KeyboardEvent>>,
 ) -> impl IntoView {
-    let value = value.unwrap_or_default();
-    let placeholder = placeholder.unwrap_or_else(|| "Search...".to_string());
+    let _value = value.clone().unwrap_or_default();
+    let _placeholder = placeholder.clone().unwrap_or_else(|| "Search...".to_string());
     let disabled = disabled.unwrap_or(false);
-    let required = required.unwrap_or(false);
+    let _required = required.unwrap_or(false);
 
     let class = merge_classes(vec!["search-input", class.as_deref().unwrap_or("")]);
 
@@ -124,9 +124,9 @@ pub fn SearchSuggestions(
     #[prop(optional)] suggestions: Option<Vec<SearchSuggestion>>,
     #[prop(optional)] visible: Option<bool>,
     #[prop(optional)] selected_index: Option<usize>,
-    #[prop(optional)] on_suggestion_select: Option<Callback<SearchSuggestion>>,
+    #[prop(optional)] _on_suggestion_select: Option<Callback<SearchSuggestion>>,
 ) -> impl IntoView {
-    let suggestions = suggestions.unwrap_or_default();
+    let _suggestions = suggestions.unwrap_or_default();
     let visible = visible.unwrap_or(false);
     let selected_index = selected_index.unwrap_or(0);
 

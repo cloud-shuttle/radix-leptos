@@ -41,7 +41,7 @@ pub fn Accordion(
     accordion_type: AccordionType,
     /// Whether the accordion is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -79,7 +79,7 @@ pub fn AccordionItem(
     value: String,
     /// Whether this item is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,
@@ -114,7 +114,7 @@ pub fn AccordionItem(
 pub fn AccordionTrigger(
     /// Whether this trigger is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// CSS classes
     #[prop(optional)]
     class: Option<String>,

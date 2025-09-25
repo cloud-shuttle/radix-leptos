@@ -472,7 +472,7 @@ mod tests {
 
     #[test]
     fn test_combobox_multiple_selection() {
-        proptest!(|(___selected_count in 0..10usize)| {
+        proptest!(|(selected_count in 0..10usize)| {
 
         });
     }

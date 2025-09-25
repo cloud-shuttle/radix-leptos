@@ -248,8 +248,8 @@ mod responsive_tests {
         assert!(responsive_utils::validate_breakpoint_system(&valid_system));
 
         let invalid_system = BreakpointSystem {
-            breakpoints: vec![],
-            container_max_widths: vec![],
+            breakpoints: Vec::new(),
+            container_max_widths: Vec::new(),
         };
         assert!(!responsive_utils::validate_breakpoint_system(&invalid_system));
     }

@@ -1,4 +1,4 @@
-use crate::utils::{merge_classes, generate_id};
+use crate::utils::merge_classes;
 use leptos::children::Children;
 use leptos::prelude::*;
 
@@ -14,7 +14,7 @@ pub fn ScrollArea(
     #[prop(optional)] scroll_hidden: Option<bool>,
 ) -> impl IntoView {
     let orientation = orientation.unwrap_or_default();
-    let scroll_hidden = scroll_hidden.unwrap_or(false);
+    let _scroll_hidden = scroll_hidden.unwrap_or(false);
 
     let class = merge_classes(vec![
         "scroll-area",
@@ -62,7 +62,7 @@ pub fn ScrollAreaScrollbar(
     #[prop(optional)] force_mount: Option<bool>,
 ) -> impl IntoView {
     let orientation = orientation.unwrap_or_default();
-    let force_mount = force_mount.unwrap_or(false);
+    let _force_mount = force_mount.unwrap_or(false);
 
     let class = merge_classes(vec![
         "scroll-area-scrollbar",
@@ -142,7 +142,7 @@ impl ScrollAreaOrientation {
 
 #[cfg(test)]
 mod tests {
-    use crate::utils::{merge_classes, generate_id};
+    use crate::utils::merge_classes;
     use crate::ScrollAreaOrientation;
     use wasm_bindgen_test::*;
 

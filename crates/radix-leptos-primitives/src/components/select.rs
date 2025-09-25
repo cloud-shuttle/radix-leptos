@@ -98,7 +98,7 @@ impl SelectSize {
 pub fn Select(
     /// Selected value
     #[prop(optional)]
-    value: Option<String>,
+    _value: Option<String>,
     /// Whether the select is open
     #[prop(optional, default = false)]
     open: bool,
@@ -119,7 +119,7 @@ pub fn Select(
     style: Option<String>,
     /// Value change event handler
     #[prop(optional)]
-    on_value_change: Option<Callback<String>>,
+    _on_value_change: Option<Callback<String>>,
     /// Open change event handler
     #[prop(optional)]
     onopen_change: Option<Callback<bool>>,
@@ -276,14 +276,14 @@ pub fn SelectItem(
     #[prop(optional)]
     style: Option<String>,
     /// Child content
-    children: Children,
+    _children: Children,
 ) -> impl IntoView {
     let base_classes = "radix-select-item";
     let combined_class = merge_optional_classes(Some(base_classes), class.as_deref())
         .unwrap_or_else(|| base_classes.to_string());
 
     // Handle item click
-    let handle_click = move |e: web_sys::MouseEvent| {
+    let _handle_click = move |e: web_sys::MouseEvent| {
         e.prevent_default();
         // In a real implementation, this would trigger value change
     };
@@ -469,14 +469,14 @@ use crate::utils::{merge_optional_classes, generate_id};
             let open = true;
             let disabled = false;
             let role = "combobox";
-            let aria_expanded = "true";
+            let ariaexpanded = "true";
             let aria_haspopup = "listbox";
 
             // Select should have proper accessibility attributes
             assert!(open);
             assert!(!disabled);
             assert_eq!(role, "combobox");
-            assert_eq!(aria_expanded, "true");
+            assert_eq!(ariaexpanded, "true");
             assert_eq!(aria_haspopup, "listbox");
         });
     }

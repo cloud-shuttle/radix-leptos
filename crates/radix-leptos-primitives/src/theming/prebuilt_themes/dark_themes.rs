@@ -1,12 +1,12 @@
 use super::color_schemes::{ThemeCategory, ThemeColors, ThemeInfo};
-use super::theme_builder::{create_dark_theme, create_ecommerce_theme, create_gaming_theme, create_minimal_theme, create_vibrant_theme, create_elegant_theme};
+use super::theme_builder::{createdark_theme, create_ecommerce_theme, create_gaming_theme, create_minimal_theme, create_vibrant_theme, create_elegant_theme};
 
 /// Dark theme variants and configurations
 pub struct DarkThemes;
 
 impl DarkThemes {
     /// Get all dark theme variants
-    pub fn get_dark_themes() -> Vec<ThemeInfo> {
+    pub fn getdark_themes() -> Vec<ThemeInfo> {
         vec![
             ThemeInfo {
                 name: "Dark".to_string(),
@@ -31,7 +31,7 @@ impl DarkThemes {
                     "modern".to_string(),
                 ]
                 .to_vec(),
-                css_variables: create_dark_theme(),
+                css_variables: createdark_theme(),
             },
             ThemeInfo {
                 name: "Ecommerce".to_string(),
@@ -162,22 +162,22 @@ impl DarkThemes {
     }
 
     /// Get dark themes by category
-    pub fn get_dark_themes_by_category(category: ThemeCategory) -> Vec<ThemeInfo> {
-        Self::get_dark_themes()
+    pub fn getdark_themes_by_category(category: ThemeCategory) -> Vec<ThemeInfo> {
+        Self::getdark_themes()
             .into_iter()
             .filter(|theme| theme.category == category)
             .collect()
     }
 
     /// Check if a theme is a dark theme
-    pub fn is_dark_theme(theme_name: &str) -> bool {
-        let dark_themes = Self::get_dark_themes();
+    pub fn isdark_theme(theme_name: &str) -> bool {
+        let dark_themes = Self::getdark_themes();
         dark_themes.iter().any(|theme| theme.name == theme_name)
     }
 
     /// Get all dark theme names
-    pub fn get_dark_theme_names() -> Vec<String> {
-        Self::get_dark_themes()
+    pub fn getdark_theme_names() -> Vec<String> {
+        Self::getdark_themes()
             .into_iter()
             .map(|theme| theme.name)
             .collect()
@@ -189,8 +189,8 @@ mod dark_themes_tests {
     use super::*;
 
     #[test]
-    fn test_get_dark_themes() {
-        let themes = DarkThemes::get_dark_themes();
+    fn test_getdark_themes() {
+        let themes = DarkThemes::getdark_themes();
         assert!(!themes.is_empty());
         
         // Check that all themes have dark backgrounds
@@ -204,10 +204,10 @@ mod dark_themes_tests {
     }
 
     #[test]
-    fn test_get_dark_themes_by_category() {
-        let basic_themes = DarkThemes::get_dark_themes_by_category(ThemeCategory::Basic);
-        let industry_themes = DarkThemes::get_dark_themes_by_category(ThemeCategory::Industry);
-        let style_themes = DarkThemes::get_dark_themes_by_category(ThemeCategory::Style);
+    fn test_getdark_themes_by_category() {
+        let basic_themes = DarkThemes::getdark_themes_by_category(ThemeCategory::Basic);
+        let industry_themes = DarkThemes::getdark_themes_by_category(ThemeCategory::Industry);
+        let style_themes = DarkThemes::getdark_themes_by_category(ThemeCategory::Style);
         
         assert!(!basic_themes.is_empty());
         assert!(!industry_themes.is_empty());
@@ -226,25 +226,25 @@ mod dark_themes_tests {
     }
 
     #[test]
-    fn test_is_dark_theme() {
-        assert!(DarkThemes::is_dark_theme("Dark"));
-        assert!(DarkThemes::is_dark_theme("Gaming"));
-        assert!(DarkThemes::is_dark_theme("Elegant Dark"));
-        assert!(!DarkThemes::is_dark_theme("Light"));
-        assert!(!DarkThemes::is_dark_theme("Nonexistent"));
+    fn test_isdark_theme() {
+        assert!(DarkThemes::isdark_theme("Dark"));
+        assert!(DarkThemes::isdark_theme("Gaming"));
+        assert!(DarkThemes::isdark_theme("Elegant Dark"));
+        assert!(!DarkThemes::isdark_theme("Light"));
+        assert!(!DarkThemes::isdark_theme("Nonexistent"));
     }
 
     #[test]
-    fn test_get_dark_theme_names() {
-        let names = DarkThemes::get_dark_theme_names();
+    fn test_getdark_theme_names() {
+        let names = DarkThemes::getdark_theme_names();
         assert!(!names.is_empty());
         assert!(names.contains(&"Dark".to_string()));
         assert!(names.contains(&"Gaming".to_string()));
     }
 
     #[test]
-    fn test_dark_theme_properties() {
-        let themes = DarkThemes::get_dark_themes();
+    fn testdark_theme_properties() {
+        let themes = DarkThemes::getdark_themes();
         
         for theme in &themes {
             // Dark themes should have dark backgrounds

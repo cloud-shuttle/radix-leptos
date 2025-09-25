@@ -10,6 +10,8 @@ pub mod list_examples;
 pub mod pagination_examples;
 pub mod timeline_examples;
 pub mod toast_examples;
+pub mod real_demo;
+pub mod simple_test;
 // Note: test_components, avatar, image, video, audio, carousel, context_menu, menubar, scroll_area are not in core feature
 
 use pagination_examples::PaginationExamples;

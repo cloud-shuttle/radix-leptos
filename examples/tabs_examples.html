@@ -4,174 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabs Component Examples</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Custom styles for better tabs appearance */
-        .tabs-container {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-        
-        /* Focus styles */
-        .focus\:outline-none:focus {
-            outline: none;
-        }
-        
-        .focus\:ring-2:focus {
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
-        }
-        
-        .focus\:ring-ring:focus {
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
-        }
-        
-        .focus\:ring-offset-2:focus {
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5), 0 0 0 4px rgba(255, 255, 255, 0.8);
-        }
-        
-        /* Data state styles */
-        [data-state="active"] {
-            background-color: #ffffff;
-            color: #111827;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-        }
-        
-        [data-state="active"].border-primary {
-            border-color: #3b82f6;
-        }
-        
-        /* Transition styles */
-        .transition-all {
-            transition: all 0.2s ease-in-out;
-        }
-        
-        /* Disabled styles */
-        .disabled\:pointer-events-none:disabled {
-            pointer-events: none;
-        }
-        
-        .disabled\:opacity-50:disabled {
-            opacity: 0.5;
-        }
-        
-        /* Custom animations */
-        .animate-fade-in {
-            animation: fadeIn 0.3s ease-in-out;
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Tab content transitions */
-        .tab-content-enter {
-            opacity: 0;
-            transform: translateY(10px);
-        }
-        
-        .tab-content-enter-active {
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-        }
-        
-        .tab-content-exit {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .tab-content-exit-active {
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-        }
-        
-        /* Responsive design */
-        @media (max-width: 768px) {
-            .tabs-mobile {
-                flex-direction: column;
-            }
-            
-            .tabs-list-mobile {
-                width: 100%;
-                flex-direction: row;
-            }
-        }
-        
-        /* Custom tab variants */
-        .tabs-pills [data-state="active"] {
-            background-color: #ffffff;
-            color: #111827;
-            border-radius: 0.5rem;
-        }
-        
-        .tabs-underlined [data-state="active"] {
-            border-bottom-color: #3b82f6;
-            color: #111827;
-        }
-        
-        /* Vertical tabs specific styles */
-        .tabs-vertical .tabs-list {
-            flex-direction: column;
-            width: auto;
-        }
-        
-        .tabs-vertical .tabs-trigger {
-            justify-content: flex-start;
-            text-align: left;
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+        .tabs { border-bottom: 1px solid #e5e7eb; margin-bottom: 20px; }
+        .tab-list { display: flex; list-style: none; margin: 0; padding: 0; }
+        .tab-item { margin-right: 20px; }
+        .tab-button { padding: 10px 16px; border: none; background: none; cursor: pointer; border-bottom: 2px solid transparent; font-weight: 500; color: #6b7280; transition: all 0.2s; }
+        .tab-button.active { color: #3b82f6; border-bottom-color: #3b82f6; }
+        .tab-content { padding: 20px 0; }
     </style>
 </head>
-<body class="tabs-container">
-    <div id="app">
-        <div class="flex items-center justify-center min-h-screen bg-gray-100">
-            <div class="text-center">
-                <h1 class="text-2xl font-bold text-gray-800 mb-4">Loading Tabs Examples...</h1>
-                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+<body>
+    <div class="container">
+        <h1>Tabs Component Examples</h1>
+        <div class="tabs">
+            <ul class="tab-list">
+                <li class="tab-item">
+                    <button class="tab-button active" onclick="switchTab('overview')">Overview</button>
+                </li>
+                <li class="tab-item">
+                    <button class="tab-button" onclick="switchTab('features')">Features</button>
+                </li>
+                <li class="tab-item">
+                    <button class="tab-button" onclick="switchTab('examples')">Examples</button>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div id="tab-overview" class="tab-panel">
+                <h3>Tab Component Overview</h3>
+                <p>This demonstrates the Radix-Leptos Tabs component with interactive functionality.</p>
+            </div>
+            <div id="tab-features" class="tab-panel" style="display: none;">
+                <h3>Tab Features</h3>
+                <ul>
+                    <li>Keyboard navigation</li>
+                    <li>Accessibility support</li>
+                    <li>Custom styling</li>
+                </ul>
+            </div>
+            <div id="tab-examples" class="tab-panel" style="display: none;">
+                <h3>Tab Examples</h3>
+                <p>Various tab implementations and use cases.</p>
             </div>
         </div>
     </div>
-
-    <script type="module">
-        // Import the WASM module
-        import init, { start_tabs_examples } from './pkg/radix_leptos_examples.js';
-
-        async function run() {
-            try {
-                // Initialize the WASM module
-                await init();
-                
-                // Start the tabs examples
-                start_tabs_examples();
-                
-                console.log('Tabs examples started successfully!');
-            } catch (error) {
-                console.error('Failed to start tabs examples:', error);
-                
-                // Show error message to user
-                const app = document.getElementById('app');
-                app.innerHTML = `
-                    <div class="flex items-center justify-center min-h-screen bg-gray-100">
-                        <div class="text-center">
-                            <h1 class="text-2xl font-bold text-red-600 mb-4">Failed to Load Tabs Examples</h1>
-                            <p class="text-gray-600 mb-4">Please check the console for more details.</p>
-                            <button onclick="location.reload()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                Reload Page
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }
+    <script>
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-panel').forEach(panel => panel.style.display = 'none');
+            document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
+            document.getElementById(`tab-${tabName}`).style.display = 'block';
+            event.target.classList.add('active');
         }
-
-        // Run the application
-        run();
     </script>
 </body>
 </html>

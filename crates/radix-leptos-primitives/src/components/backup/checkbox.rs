@@ -43,7 +43,7 @@ pub fn Checkbox(
     state: CheckboxState,
     /// Whether the checkbox is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Whether the checkbox is required
     #[prop(optional, default = false)]
     _required: bool,
@@ -177,7 +177,7 @@ pub fn CheckboxWithLabel(
     state: CheckboxState,
     /// Whether the checkbox is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Whether the checkbox is required
     #[prop(optional, default = false)]
     _required: bool,

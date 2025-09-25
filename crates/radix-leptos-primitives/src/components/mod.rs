@@ -96,7 +96,7 @@ pub mod skeleton;
 pub mod time_picker; // TDD: GREEN phase - enabling component
 // #[cfg(feature = "experimental")]
 // pub mod range_slider;  // TDD: Need to fix tests first
-pub mod form_validation;  // TDD: GREEN phase - enabling component
+pub mod form_validation;
 
 // Test modules - temporarily disabled
 // #[cfg(test)]
@@ -199,4 +199,8 @@ pub use skeleton::*;
 pub use time_picker::*; // TDD: GREEN phase - enabling component
 // #[cfg(feature = "experimental")]
 // pub use range_slider::*;  // TDD: Need to fix tests first
-pub use form_validation::*;  // TDD: GREEN phase - enabling component
+// Form validation components - specific exports to avoid conflicts
+pub use form_validation::{
+    ValidationEngine, ValidationRule, ValidationRuleType, ValidationResult,
+    FormValidationProvider, FormFieldError, FormErrorSummary
+};

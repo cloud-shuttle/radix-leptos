@@ -1,6 +1,3 @@
-use crate::utils::merge_classes;
-use leptos::callback::Callback;
-use leptos::prelude::*;
 use serde::{Deserialize, Serialize};
 
 use super::input_variants::{SizeVariant, StyleVariant};

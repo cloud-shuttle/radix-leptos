@@ -66,8 +66,8 @@ pub fn Switch(
     /// Child content
     children: Children,
 ) -> impl IntoView {
-    let switch_id = generate_id("switch");
-    let thumb_id = generate_id("switch-thumb");
+    let _switch_id = generate_id("switch");
+    let _thumb_id = generate_id("switch-thumb");
 
     // Build data attributes for styling
     let data_variant = variant.as_str();
@@ -79,7 +79,7 @@ pub fn Switch(
         .unwrap_or_else(|| base_classes.to_string());
 
     // Handle keyboard navigation
-    let handle_keydown = move |e: web_sys::KeyboardEvent| match e.key().as_str() {
+    let _handle_keydown = move |e: web_sys::KeyboardEvent| match e.key().as_str() {
         " " | "Enter" => {
             e.prevent_default();
             if !disabled {
@@ -92,7 +92,7 @@ pub fn Switch(
     };
 
     // Handle click
-    let handle_click = move |e: web_sys::MouseEvent| {
+    let _handle_click = move |e: web_sys::MouseEvent| {
         e.prevent_default();
         if !disabled {
             if let Some(onchecked_change) = onchecked_change {

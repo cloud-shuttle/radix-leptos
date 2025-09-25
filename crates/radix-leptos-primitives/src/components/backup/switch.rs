@@ -41,7 +41,7 @@ pub fn Switch(
     state: SwitchState,
     /// Whether the switch is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Whether the switch is required
     #[prop(optional, default = false)]
     _required: bool,
@@ -170,7 +170,7 @@ pub fn SwitchWithLabel(
     state: SwitchState,
     /// Whether the switch is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Whether the switch is required
     #[prop(optional, default = false)]
     _required: bool,

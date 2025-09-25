@@ -117,7 +117,7 @@ pub fn DarkModeProvider(
     };
 
     // Save preference
-    let save_preference = move |_dark: bool| {
+    let save_preference = move |dark: bool| {
         if persist {
             // In a real implementation, this would save to localStorage
             // For now, we'll just store the state
@@ -194,7 +194,7 @@ pub fn usedark_mode() -> Option<DarkModeContext> {
     use_context::<DarkModeContext>()
 }
 
-/// Hook for toggling dark mode
+/// Hook for toggling dark mode (dark mode context)
 pub fn use_toggledark_mode() -> Option<Callback<()>> {
     usedark_mode().map(|ctx| ctx.toggledark_mode)
 }
@@ -204,7 +204,7 @@ pub fn use_isdark_mode() -> Option<ReadSignal<bool>> {
     usedark_mode().map(|ctx| ctx.isdark)
 }
 
-/// Hook for setting dark mode
+/// Hook for setting dark mode (dark mode context)
 pub fn use_setdark_mode() -> Option<Callback<bool>> {
     usedark_mode().map(|ctx| ctx.setdark_mode)
 }

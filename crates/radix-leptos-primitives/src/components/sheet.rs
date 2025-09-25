@@ -1,4 +1,4 @@
-use crate::utils::{merge_classes, generate_id};
+use crate::utils::merge_classes;
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
@@ -294,7 +294,7 @@ mod tests {
         }
 
         #[test]
-        fn test_sheetopen_state(__open: bool, ___position_index in 0..4usize, ___size_index in 0..5usize) {
+        fn test_sheetopen_state(_open: bool, ___position_index in 0..4usize, ___size_index in 0..5usize) {
 
         }
 

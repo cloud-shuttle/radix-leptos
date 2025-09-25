@@ -24,7 +24,7 @@ pub fn RadioGroup(
     value: Option<String>,
     /// Whether the radio group is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Whether the radio group is required
     #[prop(optional, default = false)]
     _required: bool,
@@ -70,7 +70,7 @@ pub fn RadioGroupItem(
     value: String,
     /// Whether this radio option is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Whether this radio option is required
     #[prop(optional, default = false)]
     _required: bool,
@@ -153,7 +153,7 @@ pub fn RadioGroupItemWithLabel(
     value: String,
     /// Whether this radio option is disabled
     #[prop(optional, default = false)]
-    _disabled: bool,
+    disabled: bool,
     /// Whether this radio option is required
     #[prop(optional, default = false)]
     _required: bool,

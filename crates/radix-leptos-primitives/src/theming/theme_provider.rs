@@ -181,9 +181,9 @@ pub fn ThemeToggle(
     }
 }
 
-/// Theme selector component
+/// Theme provider selector component
 #[component]
-pub fn ThemeSelector(
+pub fn ThemeProviderSelector(
     /// Available themes
     #[prop(optional)]
     themes: Option<Vec<(String, CSSVariables)>>,

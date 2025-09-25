@@ -1,4 +1,4 @@
-use crate::utils::{merge_classes, generate_id};
+use crate::utils::merge_classes;
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::html;
@@ -726,7 +726,7 @@ mod tests {
     fn test_dropdown_menu_trigger_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(____class in ".*", __style in ".*", _disabled: bool)| {
+        proptest!(|(____class in ".*", __style in ".*", disabled: bool)| {
             // Test that the trigger component can be created with various properties
 
         });
@@ -736,7 +736,7 @@ mod tests {
     fn test_dropdown_menu_item_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(____class in ".*", __style in ".*", _disabled: bool)| {
+        proptest!(|(____class in ".*", __style in ".*", disabled: bool)| {
             // Test that the item component can be created with various properties
 
         });
@@ -746,7 +746,7 @@ mod tests {
     fn test_dropdown_menu_checkbox_item_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(____class in ".*", __style in ".*", _checked: bool, _disabled: bool)| {
+        proptest!(|(____class in ".*", __style in ".*", checked: bool, disabled: bool)| {
             // Test that the checkbox item component can be created with various properties
 
         });
@@ -756,7 +756,7 @@ mod tests {
     fn test_dropdown_menu_radio_item_property_based() {
         use proptest::prelude::*;
 
-        proptest!(|(____class in ".*", __style in ".*", __value in ".*", _checked: bool, _disabled: bool)| {
+        proptest!(|(____class in ".*", __style in ".*", __value in ".*", checked: bool, disabled: bool)| {
             // Test that the radio item component can be created with various properties
 
         });

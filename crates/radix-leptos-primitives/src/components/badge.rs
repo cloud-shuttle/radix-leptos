@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use crate::utils::{merge_classes, generate_id};
+use crate::utils::merge_classes;
 
 /// Badge variant for different status types
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]

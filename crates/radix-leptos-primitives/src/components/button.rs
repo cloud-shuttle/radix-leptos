@@ -79,6 +79,92 @@ impl ButtonSize {
     }
 }
 
+/// Button builder struct for test compatibility
+#[derive(Debug, Clone)]
+pub struct ButtonBuilder {
+    pub variant: ButtonVariant,
+    pub size: ButtonSize,
+    pub disabled: bool,
+    pub loading: bool,
+    pub button_type: Option<String>,
+    pub class: Option<String>,
+    pub style: Option<String>,
+    pub id: Option<String>,
+    pub aria_described_by: Option<String>,
+    pub aria_label: Option<String>,
+}
+
+impl Default for ButtonBuilder {
+    fn default() -> Self {
+        Self {
+            variant: ButtonVariant::Default,
+            size: ButtonSize::Default,
+            disabled: false,
+            loading: false,
+            button_type: None,
+            class: None,
+            style: None,
+            id: None,
+            aria_described_by: None,
+            aria_label: None,
+        }
+    }
+}
+
+impl ButtonBuilder {
+    pub fn new() -> Self {
+        Self::default()
+    }
+
+    pub fn with_variant(mut self, variant: ButtonVariant) -> Self {
+        self.variant = variant;
+        self
+    }
+
+    pub fn with_size(mut self, size: ButtonSize) -> Self {
+        self.size = size;
+        self
+    }
+
+    pub fn with_disabled(mut self, disabled: bool) -> Self {
+        self.disabled = disabled;
+        self
+    }
+
+    pub fn with_loading(mut self, loading: bool) -> Self {
+        self.loading = loading;
+        self
+    }
+
+    pub fn with_id(mut self, id: impl Into<String>) -> Self {
+        self.id = Some(id.into());
+        self
+    }
+
+    pub fn with_class(mut self, class: impl Into<String>) -> Self {
+        self.class = Some(class.into());
+        self
+    }
+
+    pub fn with_style(mut self, style: impl Into<String>) -> Self {
+        self.style = Some(style.into());
+        self
+    }
+
+    pub fn with_aria_described_by(mut self, aria_described_by: impl Into<String>) -> Self {
+        self.aria_described_by = Some(aria_described_by.into());
+        self
+    }
+
+    pub fn with_aria_label(mut self, aria_label: impl Into<String>) -> Self {
+        self.aria_label = Some(aria_label.into());
+        self
+    }
+}
+
+/// Type alias for ButtonBuilder to match test expectations
+pub type Button = ButtonBuilder;
+
 /// Button component with accessibility and variant support
 #[component]
 pub fn Button(

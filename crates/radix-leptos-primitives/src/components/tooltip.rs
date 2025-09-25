@@ -143,8 +143,8 @@ pub fn Tooltip(
     children: Children,
 ) -> impl IntoView {
     let __tooltip_id = generate_id("tooltip");
-    let trigger_id = generate_id("tooltip-trigger");
-    let content_id = generate_id("tooltip-content");
+    let _trigger_id = generate_id("tooltip-trigger");
+    let _content_id = generate_id("tooltip-content");
 
     // Build data attributes for styling
     let data_variant = variant.as_str();

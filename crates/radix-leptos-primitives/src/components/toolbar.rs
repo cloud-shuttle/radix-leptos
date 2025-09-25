@@ -1,4 +1,4 @@
-use crate::utils::{merge_classes, generate_id};
+use crate::utils::merge_classes;
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
@@ -95,7 +95,7 @@ pub fn ToolbarToggleGroup(
 /// Toolbar Toggle Item component
 #[component]
 pub fn ToolbarToggleItem(
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)] _class: Option<String>,
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] value: Option<String>,
@@ -167,7 +167,7 @@ pub fn ToolbarSeparator(
 /// Toolbar Button component
 #[component]
 pub fn ToolbarButton(
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional)] _class: Option<String>,
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] variant: Option<ToolbarButtonVariant>,
@@ -370,7 +370,7 @@ impl ToolbarButtonSize {
 
 #[cfg(test)]
 mod tests {
-    use crate::utils::{merge_classes, generate_id};
+    use crate::utils::merge_classes;
     use crate::{
         ToolbarButtonSize, ToolbarButtonVariant, ToolbarOrientation, ToolbarSeparatorOrientation,
         ToolbarToggleGroupSize, ToolbarToggleGroupType, ToolbarToggleGroupVariant,

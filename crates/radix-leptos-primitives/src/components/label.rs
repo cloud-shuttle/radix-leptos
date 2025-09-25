@@ -1,4 +1,4 @@
-use crate::utils::{merge_classes, generate_id};
+use crate::utils::merge_classes;
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
@@ -82,7 +82,7 @@ pub fn LabelDescription(
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] description: Option<String>,
 ) -> impl IntoView {
-    let description = description.unwrap_or_default();
+    let _description = description.unwrap_or_default();
 
     let class = merge_classes(vec!["label-description", class.as_deref().unwrap_or("")]);
 
@@ -394,7 +394,7 @@ mod tests {
 
     #[test]
     fn test_label_accessibility_validation() {
-        proptest!(|(__for_id in ".*", _required: bool, _disabled: bool)| {
+        proptest!(|(__for_id in ".*", _required: bool, disabled: bool)| {
 
         });
     }

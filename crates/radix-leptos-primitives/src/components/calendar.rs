@@ -1,4 +1,4 @@
-use crate::utils::{merge_classes, generate_id};
+use crate::utils::merge_classes;
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
@@ -16,12 +16,12 @@ pub fn Calendar(
     #[prop(optional)] locale: Option<String>,
     #[prop(optional)] first_day_of_week: Option<u8>,
     #[prop(optional)] show_week_numbers: Option<bool>,
-    #[prop(optional)] on_date_select: Option<Callback<String>>,
-    #[prop(optional)] on_month_change: Option<Callback<String>>,
+    #[prop(optional)] _on_date_select: Option<Callback<String>>,
+    #[prop(optional)] _on_month_change: Option<Callback<String>>,
 ) -> impl IntoView {
-    let value = value.unwrap_or_default();
-    let min_date = min_date.unwrap_or_default();
-    let max_date = max_date.unwrap_or_default();
+    let _value = value.unwrap_or_default();
+    let _min_date = min_date.unwrap_or_default();
+    let _max_date = max_date.unwrap_or_default();
     let disabled_dates = disabled_dates.unwrap_or_default();
     let locale = locale.unwrap_or_else(|| "en-US".to_string());
     let first_day_of_week = first_day_of_week.unwrap_or(0);
@@ -52,11 +52,11 @@ pub fn CalendarHeader(
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] month: Option<String>,
     #[prop(optional)] year: Option<i32>,
-    #[prop(optional)] on_previous_month: Option<Callback<()>>,
-    #[prop(optional)] on_next_month: Option<Callback<()>>,
+    #[prop(optional)] _on_previous_month: Option<Callback<()>>,
+    #[prop(optional)] _on_next_month: Option<Callback<()>>,
 ) -> impl IntoView {
-    let month = month.unwrap_or_else(|| "January".to_string());
-    let year = year.unwrap_or(2024);
+    let _month = month.unwrap_or_else(|| "January".to_string());
+    let _year = year.unwrap_or(2024);
 
     let class = merge_classes(vec!["calendar-header", class.as_deref().unwrap_or("")]);
 
@@ -139,8 +139,8 @@ pub fn CalendarGrid(
     #[prop(optional)] month: Option<String>,
     #[prop(optional)] year: Option<i32>,
 ) -> impl IntoView {
-    let month = month.unwrap_or_else(|| "January".to_string());
-    let year = year.unwrap_or(2024);
+    let _month = month.clone().unwrap_or_else(|| "January".to_string());
+    let _year = year.unwrap_or(2024);
 
     let class = merge_classes(vec!["calendar-grid", class.as_deref().unwrap_or("")]);
 
@@ -149,7 +149,7 @@ pub fn CalendarGrid(
             class=class
             style=style
             role="grid"
-            aria-label=format!("Calendar for {} {}", month, year)
+            aria-label=format!("Calendar for {} {}", month.as_deref().unwrap_or(""), year.unwrap_or(0))
         >
             {children.map(|c| c())}
         </div>
@@ -172,10 +172,10 @@ pub fn CalendarDay(
 ) -> impl IntoView {
     let date = date.unwrap_or_default();
     let day = day.unwrap_or(1);
-    let is_today = is_today.unwrap_or(false);
+    let _is_today = is_today.unwrap_or(false);
     let isselected = isselected.unwrap_or(false);
     let isdisabled = isdisabled.unwrap_or(false);
-    let is_other_month = is_other_month.unwrap_or(false);
+    let _is_other_month = is_other_month.unwrap_or(false);
 
     let class = merge_classes(vec!["calendar-day", class.as_deref().unwrap_or("")]);
 
