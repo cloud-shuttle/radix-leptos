@@ -171,16 +171,27 @@ pub fn Skeleton(
     let lines = lines.unwrap_or(1);
     let animated = animated.unwrap_or(true);
 
-    let class = merge_classes(vec!["skeleton", variant.as_str(), size.as_str()]);
+    let class = merge_classes(vec![
+        "skeleton",
+        variant.as_str(),
+        size.as_str(),
+        class.as_deref().unwrap_or(""),
+    ]);
 
     let mut style_attr = String::new();
     if let Some(h) = height {
         style_attr = format!("{}height: {};", style_attr, h);
     }
+    if let Some(w) = width {
+        style_attr = format!("{}width: {};", style_attr, w);
+    }
+    if let Some(style) = style {
+        style_attr = format!("{}{}", style_attr, style);
+    }
 
     match variant {
         SkeletonVariant::Text => view! {
-            <div class=class style=style_attr>
+            <div class=class style=style_attr data-animated=animated>
                 {if lines > 1 {
                     (0..lines).map(|i| {
                         let line_class = if i == lines - 1 {
@@ -204,6 +215,7 @@ pub fn Skeleton(
                 style=style_attr
                 role="img"
                 aria-label="Loading"
+                data-animated=animated
             ></div>
         }
         .into_any(),
@@ -213,6 +225,7 @@ pub fn Skeleton(
                 style=style_attr
                 role="img"
                 aria-label="Loading"
+                data-animated=animated
             ></div>
         }
         .into_any(),

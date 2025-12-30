@@ -1,7 +1,7 @@
+use crate::utils::{generate_id, merge_optional_classes};
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
-use crate::utils::{merge_optional_classes, generate_id};
 
 /// Radio Group component with proper accessibility and styling variants
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -37,8 +37,6 @@ impl RadioGroupSize {
         }
     }
 }
-
-/// Generate a simple unique ID for components
 
 /// Radio Group root component
 #[component]

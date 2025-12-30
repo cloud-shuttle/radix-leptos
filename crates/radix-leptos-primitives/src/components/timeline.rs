@@ -1,4 +1,4 @@
-use crate::utils::{merge_classes, generate_id};
+use crate::utils::merge_classes;
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
@@ -22,6 +22,7 @@ pub fn Timeline(
     let orientation = orientation.unwrap_or_default();
     let show_dates = show_dates.unwrap_or(true);
     let show_icons = show_icons.unwrap_or(true);
+    let _ = (&config, &on_event_click, &on_event_hover);
 
     let class = merge_classes(vec![
         "timeline",
@@ -170,6 +171,7 @@ pub fn TimelineItem(
 ) -> impl IntoView {
     let event = event.unwrap_or_default();
     let position = position.unwrap_or(0.0);
+    let _ = &on_click;
 
     let class = merge_classes(vec!["timeline-item", class.as_deref().unwrap_or("")]);
 
@@ -235,7 +237,20 @@ pub fn TimelineDot(
     let color = color.unwrap_or_default();
     let filled = filled.unwrap_or(true);
 
-    let class = merge_classes(vec!["timeline-dot"]);
+    let class = merge_classes(vec!["timeline-dot", class.as_deref().unwrap_or("")]);
+
+    view! {
+        <span
+            class=class
+            style=style
+            role="presentation"
+            data-size=size
+            data-color=color
+            data-filled=filled
+        >
+            {children.map(|c| c())}
+        </span>
+    }
 }
 
 /// Helper function to merge CSS classes

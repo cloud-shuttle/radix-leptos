@@ -15,8 +15,8 @@ pub fn ContextMenu(
     #[prop(optional)] on_close: Option<Callback<()>>,
 ) -> impl IntoView {
     let items = items.unwrap_or_default();
-    let isopen = create_rw_signal(false);
-    let selected_index = create_rw_signal(0);
+    let isopen = RwSignal::new(false);
+    let selected_index = RwSignal::new(0usize);
 
     let class = merge_classes(vec!["context-menu", class.as_deref().unwrap_or("")]);
 
@@ -119,7 +119,7 @@ pub fn ContextMenuItem(
     let item_for_callback = _item.clone();
     let selected = selected.unwrap_or(false);
 
-    let _class = merge_classes(vec!["context-menu-item"]);
+    let _class = merge_classes(vec!["context-menu-item", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -127,6 +127,7 @@ pub fn ContextMenuItem(
             style=style
             role="menuitem"
             aria-disabled=_item.disabled
+            aria-selected=selected
             on:click=move |_| {
                 if let Some(callback) = on_click {
                     callback.run(item_for_callback.clone());
@@ -156,7 +157,7 @@ pub fn ContextMenuTrigger(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let _class = merge_classes(vec!["context-menu-trigger"]);
+    let _class = merge_classes(vec!["context-menu-trigger", class.as_deref().unwrap_or("")]);
 
     view! {
         <div

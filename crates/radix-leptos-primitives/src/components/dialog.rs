@@ -1,8 +1,8 @@
+use crate::utils::{generate_id, merge_optional_classes};
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
 use wasm_bindgen::JsCast;
-use crate::utils::{merge_optional_classes, generate_id};
 
 /// Dialog component with proper accessibility and styling variants
 ///
@@ -32,7 +32,7 @@ use crate::utils::{merge_optional_classes, generate_id};
 ///         <Button on_click=move |_| set_isopen.set(true)>
 ///             "Open Dialog"
 ///         </Button>
-///         
+///
 ///         <Dialog
 ///             open=isopen
 ///             onopen_change=move |open| set_isopen.set(open)
@@ -94,7 +94,6 @@ impl DialogSize {
         }
     }
 }
-
 
 /// Dialog root component
 #[component]
@@ -161,6 +160,7 @@ pub fn Dialog(
             style=style
             data-variant=data_variant
             data-size=data_size
+            data-open=open
             on:keydown=handle_keydown
             on:click=handle_backdrop_click
         >
@@ -286,9 +286,9 @@ pub fn DialogFooter(
 
 #[cfg(test)]
 mod tests {
+    use crate::utils::{generate_id, merge_optional_classes};
     use crate::{DialogSize, DialogVariant};
     use proptest::prelude::*;
-use crate::utils::{merge_optional_classes, generate_id};
 
     // 1. Basic Rendering Tests
     #[test]

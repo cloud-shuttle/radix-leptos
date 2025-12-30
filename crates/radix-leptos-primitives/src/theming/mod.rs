@@ -36,4 +36,7 @@ pub use layout_system::*;
 pub use prebuilt_themes::*;
 pub use size_variants::*;
 pub use theme_customization::*;
-pub use theme_provider::*;
+pub use theme_provider::{
+    use_isdark, use_set_theme, use_theme, usecurrent_theme, ThemeContext, ThemeProvider,
+    ThemeProviderSelector, ThemeToggle,
+};

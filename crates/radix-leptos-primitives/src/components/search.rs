@@ -21,8 +21,8 @@ pub fn Search(
     #[prop(optional)] _on_suggestion_select: Option<Callback<SearchSuggestion>>,
     #[prop(optional)] _on_clear: Option<Callback<()>>,
 ) -> impl IntoView {
-    let _value = value.unwrap_or_default();
-    let _placeholder = placeholder.unwrap_or_else(|| "Search...".to_string());
+    let value = value.unwrap_or_default();
+    let placeholder = placeholder.unwrap_or_else(|| "Search...".to_string());
     let disabled = disabled.unwrap_or(false);
     let _required = required.unwrap_or(false);
     let _suggestions = suggestions.unwrap_or_default();
@@ -37,6 +37,9 @@ pub fn Search(
             style=style
             role="search"
             aria-label="Search"
+            aria-disabled=disabled
+            data-value=value
+            data-placeholder=placeholder
             data-max-suggestions=max_suggestions
             data-debounce-ms=debounce_ms
         >
@@ -59,10 +62,12 @@ pub fn SearchInput(
     #[prop(optional)] on_blur: Option<Callback<()>>,
     #[prop(optional)] on_keydown: Option<Callback<web_sys::KeyboardEvent>>,
 ) -> impl IntoView {
-    let _value = value.clone().unwrap_or_default();
-    let _placeholder = placeholder.clone().unwrap_or_else(|| "Search...".to_string());
+    let value = value.clone().unwrap_or_default();
+    let placeholder = placeholder
+        .clone()
+        .unwrap_or_else(|| "Search...".to_string());
     let disabled = disabled.unwrap_or(false);
-    let _required = required.unwrap_or(false);
+    let required = required.unwrap_or(false);
 
     let class = merge_classes(vec!["search-input", class.as_deref().unwrap_or("")]);
 
@@ -126,11 +131,33 @@ pub fn SearchSuggestions(
     #[prop(optional)] selected_index: Option<usize>,
     #[prop(optional)] _on_suggestion_select: Option<Callback<SearchSuggestion>>,
 ) -> impl IntoView {
-    let _suggestions = suggestions.unwrap_or_default();
+    let suggestions = suggestions.unwrap_or_default();
     let visible = visible.unwrap_or(false);
     let selected_index = selected_index.unwrap_or(0);
 
-    let class = merge_classes(vec!["search-suggestions"]);
+    let class = merge_classes(vec!["search-suggestions", class.as_deref().unwrap_or("")]);
+    let suggestion_count = suggestions.len();
+    let _ = &_on_suggestion_select;
+
+    if !visible {
+        return {
+            let _: () = view! { <></> };
+            ().into_any()
+        };
+    }
+
+    view! {
+        <div
+            class=class
+            style=style
+            role="listbox"
+            data-suggestion-count=suggestion_count
+            data-selected-index=selected_index
+        >
+            {children.map(|c| c())}
+        </div>
+    }
+    .into_any()
 }
 
 /// Search Suggestion Item component
@@ -146,7 +173,10 @@ pub fn SearchSuggestionItem(
     let suggestion = suggestion.unwrap_or_default();
     let selected = selected.unwrap_or(false);
 
-    let class = merge_classes(vec!["search-suggestion-item"]);
+    let class = merge_classes(vec![
+        "search-suggestion-item",
+        class.as_deref().unwrap_or(""),
+    ]);
 
     view! {
         <div
@@ -177,7 +207,7 @@ pub fn SearchClearButton(
 ) -> impl IntoView {
     let visible = visible.unwrap_or(false);
 
-    let class = merge_classes(vec!["search-clear-button"]);
+    let class = merge_classes(vec!["search-clear-button", class.as_deref().unwrap_or("")]);
 
     view! {
         <button
@@ -185,6 +215,7 @@ pub fn SearchClearButton(
             style=style
             type="button"
             aria-label="Clear search"
+            data-visible=visible
             on:click=move |_| {
                 if let Some(callback) = on_click {
                     callback.run(());
@@ -232,6 +263,9 @@ pub fn SearchFilter(
 ) -> impl IntoView {
     let filters = filters.unwrap_or_default();
     let selected_filters = selected_filters.unwrap_or_default();
+    let filter_count = filters.len();
+    let selected_count = selected_filters.len();
+    let _ = &on_filter_change;
 
     let class = merge_classes(vec!["search-filter", class.as_deref().unwrap_or("")]);
 
@@ -241,6 +275,8 @@ pub fn SearchFilter(
             style=style
             role="group"
             aria-label="Search filters"
+            data-filter-count=filter_count
+            data-selected-count=selected_count
         >
             {children.map(|c| c())}
         </div>

@@ -82,7 +82,7 @@ pub mod spacing_utils {
     /// Get spacing value for a specific direction
     pub fn get_direction_spacing(
         spacing_system: &SpacingSystem,
-        direction: SpacingDirection,
+        _direction: SpacingDirection,
         scale_index: usize,
     ) -> f64 {
         calculate_spacing(spacing_system, scale_index)
@@ -140,7 +140,7 @@ mod spacing_tests {
     fn test_get_spacing_values() {
         let spacing_system = SpacingSystem::default();
         let values = spacing_utils::get_spacing_values(&spacing_system);
-        
+
         assert_eq!(values.len(), spacing_system.scale.len());
         assert_eq!(values[0], 0.0);
         assert_eq!(values[1], 1.0);
@@ -150,12 +150,9 @@ mod spacing_tests {
     #[test]
     fn test_get_direction_spacing() {
         let spacing_system = SpacingSystem::default();
-        let spacing = spacing_utils::get_direction_spacing(
-            &spacing_system,
-            SpacingDirection::Top,
-            4,
-        );
-        
+        let spacing =
+            spacing_utils::get_direction_spacing(&spacing_system, SpacingDirection::Top, 4);
+
         assert_eq!(spacing, 4.0);
     }
 
@@ -176,7 +173,7 @@ mod spacing_tests {
     #[test]
     fn test_spacing_direction_property_based() {
         use proptest::prelude::*;
-        
+
         proptest!(|(direction in prop::sample::select(&[
             SpacingDirection::All,
             SpacingDirection::Horizontal,

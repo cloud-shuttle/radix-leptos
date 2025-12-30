@@ -1,7 +1,7 @@
+use crate::utils::{generate_id, merge_optional_classes};
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
-use crate::utils::{merge_optional_classes, generate_id};
 
 /// Alert component with proper accessibility and styling variants
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -129,7 +129,7 @@ pub fn Alert(
                     </button>
                 }.into_any()
             } else {
-                let _: () = view! {};
+                let _: () = view! { <></> };
                 ().into_any()
             }}
         </div>
@@ -191,9 +191,9 @@ pub fn AlertDescription(
 
 #[cfg(test)]
 mod tests {
+    use crate::utils::{generate_id, merge_optional_classes};
     use crate::{AlertSize, AlertVariant};
     use proptest::prelude::*;
-use crate::utils::{merge_optional_classes, generate_id};
 
     // 1. Basic Rendering Tests
     #[test]

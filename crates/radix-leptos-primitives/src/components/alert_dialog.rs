@@ -30,7 +30,7 @@ use leptos::prelude::*;
 ///         <Button on_click=move |_| set_show_dialog.set(true)>
 ///             "Delete Item"
 ///         </Button>
-///         
+///
 ///         <AlertDialog
 ///             open=show_dialog
 ///             onopen_change=move |open| set_show_dialog.set(open)
@@ -174,7 +174,23 @@ pub fn AlertDialog(
     let variant = variant.unwrap_or(AlertDialogVariant::Default);
     let onopen_change = onopen_change.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes(vec!["alert-dialog", variant.as_str()]);
+    let class = merge_classes(vec![
+        "alert-dialog",
+        variant.as_str(),
+        class.as_deref().unwrap_or(""),
+    ]);
+    let _ = &onopen_change;
+
+    view! {
+        <div
+            class=class
+            style=style
+            role="alertdialog"
+            data-open=open
+        >
+            {children.map(|c| c())}
+        </div>
+    }
 }
 
 /// AlertDialog title component
@@ -204,8 +220,10 @@ pub fn AlertDialogDescription(
     #[prop(optional)] style: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let class =
-        merge_classes(vec!["alert-dialog-description", class.as_deref().unwrap_or("")]);
+    let class = merge_classes(vec![
+        "alert-dialog-description",
+        class.as_deref().unwrap_or(""),
+    ]);
 
     view! {
         <p

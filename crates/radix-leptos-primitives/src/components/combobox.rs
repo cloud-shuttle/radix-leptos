@@ -1,4 +1,4 @@
-use crate::utils::{merge_classes, generate_id};
+use crate::utils::merge_classes;
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
@@ -29,6 +29,8 @@ pub fn Combobox(
     let multiple = multiple.unwrap_or(false);
     let searchable = searchable.unwrap_or(true);
     let clearable = clearable.unwrap_or(true);
+    let option_count = options.len();
+    let _ = (&on_change, &on_search);
 
     let class = merge_classes(vec!["combobox", class.as_deref().unwrap_or("")]);
 
@@ -37,6 +39,14 @@ pub fn Combobox(
             class=class
             style=style
             role="combobox"
+            data-value=value
+            data-placeholder=placeholder
+            data-disabled=disabled
+            data-required=required
+            data-option-count=option_count
+            data-multiple=multiple
+            data-searchable=searchable
+            data-clearable=clearable
         >
             {children.map(|c| c())}
         </div>
@@ -127,6 +137,8 @@ pub fn ComboboxOptions(
     let options = options.unwrap_or_default();
     let visible = visible.unwrap_or(false);
     let selected_index = selected_index.unwrap_or(0);
+    let option_count = options.len();
+    let _ = &on_option_select;
 
     let class = merge_classes(vec!["combobox-options", class.as_deref().unwrap_or("")]);
 
@@ -142,6 +154,8 @@ pub fn ComboboxOptions(
             class=class
             style=style
             role="listbox"
+            data-option-count=option_count
+            data-selected-index=selected_index
         >
             {children.map(|c| c())}
         </div>
@@ -201,7 +215,7 @@ pub fn ComboboxTrigger(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes(vec!["combobox-trigger"]);
+    let class = merge_classes(vec!["combobox-trigger", class.as_deref().unwrap_or("")]);
 
     view! {
         <button
@@ -234,7 +248,10 @@ pub fn ComboboxClearButton(
 ) -> impl IntoView {
     let visible = visible.unwrap_or(false);
 
-    let class = merge_classes(vec!["combobox-clear-button"]);
+    let class = merge_classes(vec![
+        "combobox-clear-button",
+        class.as_deref().unwrap_or(""),
+    ]);
 
     view! {
         <button
@@ -242,6 +259,7 @@ pub fn ComboboxClearButton(
             style=style
             type="button"
             aria-label="Clear selection"
+            data-visible=visible
             on:click=move |_| {
                 if let Some(callback) = on_click {
                     callback.run(());

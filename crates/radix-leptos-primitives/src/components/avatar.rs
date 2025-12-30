@@ -1,7 +1,8 @@
-use crate::utils::{merge_classes, generate_id};
+use crate::utils::merge_classes;
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
+use std::fmt;
 
 /// Avatar component - User profile images with fallbacks
 #[component]
@@ -24,6 +25,7 @@ pub fn Avatar(
     let size = size.unwrap_or_default();
     let shape = shape.unwrap_or_default();
     let loading = loading.unwrap_or_default();
+    let _ = (&on_load, &on_error);
 
     let class = merge_classes(vec![
         "avatar",
@@ -100,6 +102,9 @@ pub fn AvatarFallback(
     let text = text.unwrap_or_else(|| "?".to_string());
 
     let class = merge_classes(vec!["avatar-fallback", class.as_deref().unwrap_or("")]);
+    let fallback_view = children
+        .map(|c| c())
+        .unwrap_or_else(|| view! { {text.clone()} }.into_any());
 
     view! {
         <div
@@ -108,7 +113,7 @@ pub fn AvatarFallback(
             role="img"
             aria-label="Avatar fallback"
         >
-            {children.map(|c| c())}
+            {fallback_view}
         </div>
     }
 }
@@ -166,15 +171,18 @@ impl AvatarSize {
             AvatarSize::Custom(_) => "size-custom",
         }
     }
+}
 
-    pub fn to_string(&self) -> String {
-        match self {
+impl fmt::Display for AvatarSize {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let value = match self {
             AvatarSize::Small => "small".to_string(),
             AvatarSize::Medium => "medium".to_string(),
             AvatarSize::Large => "large".to_string(),
             AvatarSize::ExtraLarge => "extra-large".to_string(),
             AvatarSize::Custom(size) => format!("custom-{}", size),
-        }
+        };
+        f.write_str(&value)
     }
 }
 

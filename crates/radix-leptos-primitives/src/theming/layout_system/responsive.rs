@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
 use super::container::ContainerMaxWidth;
+use serde::{Deserialize, Serialize};
 
 /// Breakpoint system configuration
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -74,9 +74,12 @@ pub mod responsive_utils {
     use super::*;
 
     /// Get breakpoint for a given width
-    pub fn get_breakpoint_for_width(breakpoint_system: &BreakpointSystem, width: f64) -> Breakpoint {
+    pub fn get_breakpoint_for_width(
+        breakpoint_system: &BreakpointSystem,
+        width: f64,
+    ) -> Breakpoint {
         let mut current_breakpoint = Breakpoint::ExtraSmall;
-        
+
         for &breakpoint in &breakpoint_system.breakpoints {
             if width >= breakpoint.min_width() {
                 current_breakpoint = breakpoint;
@@ -84,7 +87,7 @@ pub mod responsive_utils {
                 break;
             }
         }
-        
+
         current_breakpoint
     }
 
@@ -95,7 +98,7 @@ pub mod responsive_utils {
 
     /// Get container max width for breakpoint
     pub fn get_container_max_width_for_breakpoint(
-        breakpoint_system: &BreakpointSystem,
+        _breakpoint_system: &BreakpointSystem,
         breakpoint: Breakpoint,
     ) -> Option<ContainerMaxWidth> {
         // Simple mapping logic - can be made more sophisticated
@@ -116,7 +119,8 @@ pub mod responsive_utils {
 
     /// Validate breakpoint system
     pub fn validate_breakpoint_system(breakpoint_system: &BreakpointSystem) -> bool {
-        !breakpoint_system.breakpoints.is_empty() && !breakpoint_system.container_max_widths.is_empty()
+        !breakpoint_system.breakpoints.is_empty()
+            && !breakpoint_system.container_max_widths.is_empty()
     }
 }
 
@@ -175,7 +179,7 @@ mod responsive_tests {
     #[test]
     fn test_get_breakpoint_for_width() {
         let breakpoint_system = BreakpointSystem::default();
-        
+
         assert_eq!(
             responsive_utils::get_breakpoint_for_width(&breakpoint_system, 0.0),
             Breakpoint::ExtraSmall
@@ -204,16 +208,28 @@ mod responsive_tests {
 
     #[test]
     fn test_matches_breakpoint() {
-        assert!(responsive_utils::matches_breakpoint(Breakpoint::ExtraSmall, 0.0));
-        assert!(responsive_utils::matches_breakpoint(Breakpoint::Small, 640.0));
-        assert!(responsive_utils::matches_breakpoint(Breakpoint::Small, 700.0));
-        assert!(!responsive_utils::matches_breakpoint(Breakpoint::Small, 500.0));
+        assert!(responsive_utils::matches_breakpoint(
+            Breakpoint::ExtraSmall,
+            0.0
+        ));
+        assert!(responsive_utils::matches_breakpoint(
+            Breakpoint::Small,
+            640.0
+        ));
+        assert!(responsive_utils::matches_breakpoint(
+            Breakpoint::Small,
+            700.0
+        ));
+        assert!(!responsive_utils::matches_breakpoint(
+            Breakpoint::Small,
+            500.0
+        ));
     }
 
     #[test]
     fn test_get_container_max_width_for_breakpoint() {
         let breakpoint_system = BreakpointSystem::default();
-        
+
         assert_eq!(
             responsive_utils::get_container_max_width_for_breakpoint(
                 &breakpoint_system,
@@ -251,14 +267,16 @@ mod responsive_tests {
             breakpoints: Vec::new(),
             container_max_widths: Vec::new(),
         };
-        assert!(!responsive_utils::validate_breakpoint_system(&invalid_system));
+        assert!(!responsive_utils::validate_breakpoint_system(
+            &invalid_system
+        ));
     }
 
     // Property-based tests
     #[test]
     fn test_breakpoint_property_based() {
         use proptest::prelude::*;
-        
+
         proptest!(|(breakpoint in prop::sample::select(&[
             Breakpoint::ExtraSmall,
             Breakpoint::Small,

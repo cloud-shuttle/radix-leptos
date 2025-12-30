@@ -1,4 +1,4 @@
-use crate::utils::{merge_classes, generate_id};
+use crate::utils::merge_classes;
 use leptos::callback::Callback;
 use leptos::children::Children;
 use leptos::prelude::*;
@@ -18,7 +18,7 @@ pub fn Collapsible(
     let disabled = disabled.unwrap_or(false);
     let animated = animated.unwrap_or(true);
 
-    let class = merge_classes(vec!["collapsible"]);
+    let class = merge_classes(vec!["collapsible", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -27,6 +27,7 @@ pub fn Collapsible(
             role="button"
             aria-expanded=open.get()
             aria-disabled=disabled
+            data-animated=animated
             on:click=move |_| {
                 if !disabled {
                     let newopen = !open.get();
@@ -53,7 +54,19 @@ pub fn CollapsibleTrigger(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes(vec!["collapsible-trigger"]);
+    let class = merge_classes(vec!["collapsible-trigger", class.as_deref().unwrap_or("")]);
+
+    view! {
+        <button
+            class=class
+            style=style
+            type="button"
+            aria-disabled=disabled
+            disabled=disabled
+        >
+            {children.map(|c| c())}
+        </button>
+    }
 }
 
 /// Collapsible Content component
@@ -77,6 +90,7 @@ pub fn CollapsibleContent(
             id="collapsible-content"
             role="region"
             aria-hidden=!open
+            data-animated=animated
         >
             {children.map(|c| c())}
         </div>
@@ -123,6 +137,8 @@ pub fn CollapsibleIcon(
             class=class
             style=style
             aria-hidden="true"
+            data-open=open
+            data-animated=animated
         >
             {children.map(|c| c())}
         </span>

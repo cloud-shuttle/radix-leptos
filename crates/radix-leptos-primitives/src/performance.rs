@@ -1,5 +1,5 @@
 //! Performance optimization utilities for Radix-Leptos components
-//! 
+//!
 //! This module provides performance-focused utilities including:
 //! - String interning and caching
 //! - Component memoization
@@ -9,7 +9,6 @@
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
 use std::time::{Duration, Instant};
-use leptos::prelude::*;
 
 /// String interning cache for frequently used strings
 #[derive(Debug, Clone)]
@@ -30,14 +29,15 @@ impl StringCache {
     /// Get or insert a string into the cache
     pub fn get_or_insert(&self, key: &str) -> String {
         let mut cache = self.cache.lock().unwrap();
-        
+
         if let Some(cached) = cache.get(key) {
             return cached.clone();
         }
 
         // If cache is full, remove oldest entries
         if cache.len() >= self.max_size {
-            let keys_to_remove: Vec<String> = cache.keys().take(self.max_size / 2).cloned().collect();
+            let keys_to_remove: Vec<String> =
+                cache.keys().take(self.max_size / 2).cloned().collect();
             for key in keys_to_remove {
                 cache.remove(&key);
             }
@@ -114,7 +114,7 @@ impl PerformanceMonitor {
     /// Record a measurement
     pub fn record(&self, name: String, duration: Duration) {
         let mut measurements = self.measurements.lock().unwrap();
-        
+
         if measurements.len() >= self.max_measurements {
             measurements.drain(0..self.max_measurements / 2);
         }
@@ -129,18 +129,18 @@ impl PerformanceMonitor {
     /// Get performance statistics
     pub fn get_stats(&self) -> PerformanceStats {
         let measurements = self.measurements.lock().unwrap();
-        
+
         if measurements.is_empty() {
             return PerformanceStats::default();
         }
 
         let total_duration: Duration = measurements.iter().map(|m| m.duration).sum();
         let avg_duration = total_duration / measurements.len() as u32;
-        
+
         let mut durations: Vec<Duration> = measurements.iter().map(|m| m.duration).collect();
         durations.sort();
-        
-        let median_duration = if durations.len() % 2 == 0 {
+
+        let median_duration = if durations.len().is_multiple_of(2) {
             let mid = durations.len() / 2;
             (durations[mid - 1] + durations[mid]) / 2
         } else {
@@ -174,7 +174,8 @@ pub struct PerformanceStats {
 }
 
 /// Global performance monitor
-static GLOBAL_PERFORMANCE_MONITOR: std::sync::OnceLock<PerformanceMonitor> = std::sync::OnceLock::new();
+static GLOBAL_PERFORMANCE_MONITOR: std::sync::OnceLock<PerformanceMonitor> =
+    std::sync::OnceLock::new();
 
 /// Get the global performance monitor
 pub fn get_global_performance_monitor() -> &'static PerformanceMonitor {
@@ -257,14 +258,18 @@ where
     /// Get a memoized value
     pub fn get(&mut self, key: &str) -> T {
         let mut cache = self.cache.lock().unwrap();
-        
+
         if let Some(cached) = cache.get(key) {
             return cached.clone();
         }
 
         // If cache is full, remove oldest entries
         if cache.len() >= self.max_cache_size {
-            let keys_to_remove: Vec<String> = cache.keys().take(self.max_cache_size / 2).cloned().collect();
+            let keys_to_remove: Vec<String> = cache
+                .keys()
+                .take(self.max_cache_size / 2)
+                .cloned()
+                .collect();
             for key in keys_to_remove {
                 cache.remove(&key);
             }
@@ -303,7 +308,7 @@ pub fn generate_id_cached(prefix: &str) -> String {
     use std::sync::atomic::{AtomicUsize, Ordering};
     static COUNTER: AtomicUsize = AtomicUsize::new(0);
     let id = COUNTER.fetch_add(1, Ordering::Relaxed);
-    
+
     let cache = get_global_string_cache();
     let key = format!("{}-{}", prefix, id);
     cache.get_or_insert(&key)
@@ -316,10 +321,10 @@ mod tests {
     #[test]
     fn test_string_cache() {
         let cache = StringCache::new(10);
-        
+
         let result1 = cache.get_or_insert("test");
         let result2 = cache.get_or_insert("test");
-        
+
         assert_eq!(result1, result2);
         assert_eq!(cache.stats().size, 1);
     }
@@ -327,10 +332,10 @@ mod tests {
     #[test]
     fn test_performance_monitor() {
         let monitor = PerformanceMonitor::new(10);
-        
+
         monitor.record("test".to_string(), Duration::from_millis(100));
         monitor.record("test".to_string(), Duration::from_millis(200));
-        
+
         let stats = monitor.get_stats();
         assert_eq!(stats.total_measurements, 2);
         assert_eq!(stats.average_duration, Duration::from_millis(150));
@@ -339,24 +344,27 @@ mod tests {
     #[test]
     fn test_memory_pool() {
         let pool = MemoryPool::new(5);
-        
+
         let item = pool.get(|| "test".to_string());
         assert_eq!(item, "test");
-        
+
         pool.return_item("test".to_string());
     }
 
     #[test]
     fn test_memoized_component() {
         let mut call_count = 0;
-        let mut memoized = MemoizedComponent::new(move || {
-            call_count += 1;
-            "expensive_result".to_string()
-        }, 10);
-        
+        let mut memoized = MemoizedComponent::new(
+            move || {
+                call_count += 1;
+                "expensive_result".to_string()
+            },
+            10,
+        );
+
         let result1 = memoized.get("key1");
         let result2 = memoized.get("key1");
-        
+
         assert_eq!(result1, result2);
         assert_eq!(call_count, 1); // Should only call factory once
     }
@@ -366,7 +374,7 @@ mod tests {
         let classes = vec!["class1", "class2", "class3"];
         let result = merge_classes_optimized(&classes);
         assert_eq!(result, "class1 class2 class3");
-        
+
         let empty: Vec<&str> = Vec::new();
         let result = merge_classes_optimized(&empty);
         assert_eq!(result, "");
@@ -376,7 +384,7 @@ mod tests {
     fn test_generate_id_cached() {
         let id1 = generate_id_cached("test");
         let id2 = generate_id_cached("test");
-        
+
         assert_ne!(id1, id2); // Should be different IDs
         assert!(id1.starts_with("test-"));
         assert!(id2.starts_with("test-"));

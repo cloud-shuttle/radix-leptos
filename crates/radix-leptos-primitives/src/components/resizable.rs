@@ -65,17 +65,18 @@ pub fn Resizable(
     let _aspect_ratio = aspect_ratio.unwrap_or(1.0);
 
     let class = format!(
-        "resizable {} {} {} {} {} {} {}",
+        "resizable {} {} {} {} {} {} {} {}",
         width,
         height,
         min_width,
         min_height,
         max_width,
         max_height,
-        style.as_ref().unwrap_or(&String::new())
+        style.as_ref().unwrap_or(&String::new()),
+        class.clone().unwrap_or_default()
     );
 
-    let handle_resize_start = move |event: web_sys::MouseEvent| {
+    let _handle_resize_start = move |_event: web_sys::MouseEvent| {
         if enabled {
             let resize_event = ResizeEvent {
                 width,
@@ -90,7 +91,7 @@ pub fn Resizable(
         }
     };
 
-    let handle_resize = move |event: web_sys::MouseEvent| {
+    let _handle_resize = move |event: web_sys::MouseEvent| {
         if enabled {
             let resize_event = ResizeEvent {
                 width: width + event.client_x() as f64,
@@ -105,7 +106,7 @@ pub fn Resizable(
         }
     };
 
-    let handle_resize_end = move |event: web_sys::MouseEvent| {
+    let _handle_resize_end = move |event: web_sys::MouseEvent| {
         if enabled {
             let resize_event = ResizeEvent {
                 width: width + event.client_x() as f64,
@@ -289,7 +290,7 @@ pub fn ResizablePanel(
     let collapsible = collapsible.unwrap_or(false);
     let collapsed = collapsed.unwrap_or(false);
 
-    let class = "resizable-panel".to_string();
+    let class = format!("resizable-panel {}", class.unwrap_or_default());
 
     let style = style.unwrap_or_default();
 
@@ -396,7 +397,7 @@ pub fn ResizableSplitter(
         style.unwrap_or_default()
     );
 
-    let handle_drag = move |event: web_sys::MouseEvent| {
+    let handle_drag = move |_event: web_sys::MouseEvent| {
         let new_position: f64 = match orientation {
             SplitterOrientation::Horizontal => {
                 // Simplified calculation for horizontal splitter
@@ -433,8 +434,8 @@ pub enum SplitterOrientation {
 
 #[cfg(test)]
 mod tests {
+    use crate::utils::merge_optional_classes;
     use crate::{ResizeEvent, ResizeHandle, SplitterOrientation};
-use crate::utils::merge_optional_classes;
 
     // Component structure tests
     #[test]

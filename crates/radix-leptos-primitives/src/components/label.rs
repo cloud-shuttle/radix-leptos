@@ -63,7 +63,7 @@ pub fn LabelText(
     let text = text.unwrap_or_default();
     let required = required.unwrap_or(false);
 
-    let class = merge_classes(vec!["label-text"]);
+    let class = merge_classes(vec!["label-text", class.as_deref().unwrap_or("")]);
 
     view! {
         <span class=class style=style>
@@ -82,7 +82,7 @@ pub fn LabelDescription(
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] description: Option<String>,
 ) -> impl IntoView {
-    let _description = description.unwrap_or_default();
+    let description = description.unwrap_or_default();
 
     let class = merge_classes(vec!["label-description", class.as_deref().unwrap_or("")]);
 
@@ -92,6 +92,7 @@ pub fn LabelDescription(
             style=style
             role="text"
             aria-label="Label description"
+            data-description=description
         >
             {children.map(|c| c())}
         </div>
@@ -110,7 +111,7 @@ pub fn LabelError(
     let error = error.unwrap_or_default();
     let visible = visible.unwrap_or(false);
 
-    let class = merge_classes(vec!["label-error"]);
+    let class = merge_classes(vec!["label-error", class.as_deref().unwrap_or("")]);
 
     view! {
         <div class=class style=style aria-live="polite">

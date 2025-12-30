@@ -24,6 +24,7 @@ pub fn Toast(
     let position = position.unwrap_or_default();
     let duration = duration.unwrap_or(5000);
     let dismissible = dismissible.unwrap_or(true);
+    let _ = (&on_dismiss, &on_action);
 
     let class = merge_classes(
         [
@@ -50,6 +51,9 @@ pub fn Toast(
             data-duration=duration
             data-position=position.to_string()
             data-variant=variant.to_string()
+            data-title=title
+            data-description=description
+            data-dismissible=dismissible
         >
             {children.map(|c| c())}
         </div>
@@ -105,6 +109,9 @@ pub fn ToastTitle(
     let title = title.unwrap_or_default();
 
     let class = merge_classes(["toast-title", class.as_deref().unwrap_or("")].to_vec());
+    let title_view = children
+        .map(|c| c())
+        .unwrap_or_else(|| view! { {title.clone()} }.into_any());
 
     view! {
         <div
@@ -113,7 +120,7 @@ pub fn ToastTitle(
             role="heading"
             data-level="3"
         >
-            {children.map(|c| c())}
+            {title_view}
         </div>
     }
 }
@@ -129,6 +136,9 @@ pub fn ToastDescription(
     let description = description.unwrap_or_default();
 
     let class = merge_classes(["toast-description", class.as_deref().unwrap_or("")].to_vec());
+    let description_view = children
+        .map(|c| c())
+        .unwrap_or_else(|| view! { {description.clone()} }.into_any());
 
     view! {
         <div
@@ -136,7 +146,7 @@ pub fn ToastDescription(
             style=style
             role="text"
         >
-            {children.map(|c| c())}
+            {description_view}
         </div>
     }
 }

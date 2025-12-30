@@ -3,7 +3,7 @@ use leptos::callback::Callback;
 use leptos::prelude::*;
 use std::collections::HashMap;
 
-use super::validation::{FormValidationState, FormError, ValidationMode, FieldError};
+use super::validation::{FieldError, FormError, FormValidationState, ValidationMode};
 
 /// Form Validation System - Comprehensive validation with real-time feedback
 #[component]
@@ -15,7 +15,7 @@ pub fn FormValidationProvider(
     #[prop(optional)] on_validation_change: Option<Callback<FormValidationState>>,
 ) -> impl IntoView {
     let validation_mode = validation_mode.unwrap_or(ValidationMode::OnChange);
-    
+
     let (validation_state, set_validation_state) = signal(FormValidationState::default());
     let (field_errors, set_field_errors) = signal(HashMap::<String, FieldError>::new());
     let (form_errors, set_form_errors) = signal(Vec::<FormError>::new());
@@ -32,6 +32,15 @@ pub fn FormValidationProvider(
             callback.run(new_state);
         }
     };
+    let _ = (
+        &validation_state,
+        &set_validation_state,
+        &field_errors,
+        &set_field_errors,
+        &form_errors,
+        &set_form_errors,
+        &handle_validation_change,
+    );
 
     view! {
         <div
@@ -58,10 +67,7 @@ pub fn FormErrorSummary(
     let show_field_errors = show_field_errors.unwrap_or(true);
     let show_form_errors = show_form_errors.unwrap_or(true);
 
-    let class = merge_classes(vec![
-        "form-error-summary",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(vec!["form-error-summary", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -70,6 +76,8 @@ pub fn FormErrorSummary(
             role="alert"
             aria-live="polite"
             aria-label="Form errors"
+            data-show-field-errors=show_field_errors
+            data-show-form-errors=show_form_errors
         >
             {if !errors.is_empty() {
                 view! {
@@ -109,13 +117,11 @@ mod controls_tests {
     #[test]
     fn test_form_error_summary_creation() {
         // Test component creation without runtime
-        let errors = vec![
-            FormError {
-                field: "email".to_string(),
-                message: "Invalid email format".to_string(),
-                error_type: ErrorType::Validation,
-            }
-        ];
+        let errors = vec![FormError {
+            field: "email".to_string(),
+            message: "Invalid email format".to_string(),
+            error_type: ErrorType::Validation,
+        }];
         assert!(!errors.is_empty());
     }
 }

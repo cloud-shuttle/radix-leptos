@@ -23,6 +23,7 @@ pub fn Calendar(
     let _min_date = min_date.unwrap_or_default();
     let _max_date = max_date.unwrap_or_default();
     let disabled_dates = disabled_dates.unwrap_or_default();
+    let disabled_dates_count = disabled_dates.len();
     let locale = locale.unwrap_or_else(|| "en-US".to_string());
     let first_day_of_week = first_day_of_week.unwrap_or(0);
     let show_week_numbers = show_week_numbers.unwrap_or(false);
@@ -38,6 +39,7 @@ pub fn Calendar(
             data-locale=locale
             data-first-day-of-week=first_day_of_week
             data-show-week-numbers=show_week_numbers
+            data-disabled-dates-count=disabled_dates_count
         >
             {children.map(|c| c())}
         </div>

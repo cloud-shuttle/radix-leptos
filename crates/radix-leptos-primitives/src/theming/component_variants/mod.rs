@@ -5,17 +5,17 @@ use serde::{Deserialize, Serialize};
 
 // Module declarations
 mod button_variants;
+mod data_variants;
+mod feedback_variants;
 mod input_variants;
 mod layout_variants;
-mod feedback_variants;
-mod data_variants;
 
 // Re-export all types and functions from sub-modules
 pub use button_variants::*;
+pub use data_variants::*;
+pub use feedback_variants::*;
 pub use input_variants::*;
 pub use layout_variants::*;
-pub use feedback_variants::*;
-pub use data_variants::*;
 
 /// Component variant system for consistent styling
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
@@ -53,6 +53,7 @@ pub fn VariantBuilder(
             style=style
             role="form"
             aria-label="Component variant builder"
+            data-component-type=component_type
         >
             <div class="variant-builder-header">
                 <h3>"Component Variants"</h3>

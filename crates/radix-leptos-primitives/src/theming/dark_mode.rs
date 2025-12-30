@@ -28,6 +28,7 @@ pub fn DarkModeToggle(
 
     let (isdark, set_isdark) = signal(enabled);
     let (system_preference, set_system_preference) = signal(false);
+    let _ = &system_preference;
 
     // Detect system preference
     let detect_system_preference = move || {
@@ -48,7 +49,7 @@ pub fn DarkModeToggle(
             CSSVariables::light_theme()
         };
 
-        let css_vars = theme.to_css_string();
+        let _css_vars = theme.to_css_string();
         // In a real implementation, this would apply the CSS to the document
         // For now, we'll just store the state
     };
@@ -76,6 +77,19 @@ pub fn DarkModeToggle(
         class.as_deref().unwrap_or(""),
         style.as_deref().unwrap_or("")
     );
+
+    view! {
+        <button
+            class=class
+            style=style
+            type="button"
+            data-enabled=enabled
+            data-use-system=use_system
+            on:click=move |_| toggledark_mode(())
+        >
+            {move || if isdark.get() { "Dark" } else { "Light" }}
+        </button>
+    }
 }
 
 /// Dark mode provider component
@@ -117,7 +131,7 @@ pub fn DarkModeProvider(
     };
 
     // Save preference
-    let save_preference = move |dark: bool| {
+    let save_preference = move |_dark: bool| {
         if persist {
             // In a real implementation, this would save to localStorage
             // For now, we'll just store the state
@@ -143,7 +157,7 @@ pub fn DarkModeProvider(
             CSSVariables::light_theme()
         };
 
-        let css_vars = theme.to_css_string();
+        let _css_vars = theme.to_css_string();
         // In a real implementation, this would apply the CSS to the document
         // For now, we'll just store the state
 
@@ -178,6 +192,18 @@ pub fn DarkModeProvider(
     });
 
     let class = "dark-mode-provider".to_string();
+
+    view! {
+        <div
+            class=class
+            data-default-dark=defaultdark
+            data-use-system=use_system
+            data-persist=persist
+            data-storage-key=storage_key
+        >
+            {children.map(|c| c())}
+        </div>
+    }
 }
 
 /// Dark mode context
@@ -292,16 +318,21 @@ pub fn DarkModeIndicator(
     let isdark = dark_mode_context
         .as_ref()
         .map(|ctx| ctx.isdark)
-        .unwrap_or_else(|| create_signal(false).0);
+        .unwrap_or_else(|| signal(false).0);
     let system_preference = dark_mode_context
         .as_ref()
         .map(|ctx| ctx.system_preference)
-        .unwrap_or_else(|| create_signal(false).0);
+        .unwrap_or_else(|| signal(false).0);
 
     let class = format!("dark-mode-indicator {}", class.unwrap_or_default());
 
     view! {
-        <div class=class style=style>
+        <div
+            class=class
+            style=style
+            data-isdark=move || isdark.get()
+            data-system-preference=move || system_preference.get()
+        >
                 {if show_mode {
                     view! {
                         <div class="current-mode">

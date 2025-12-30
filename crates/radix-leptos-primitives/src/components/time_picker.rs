@@ -27,19 +27,14 @@ pub fn TimePicker(
     let disabled = disabled.unwrap_or(false);
     let required = required.unwrap_or(false);
     let format = format.unwrap_or(TimeFormat::TwentyFourHour);
-    let _step = step.unwrap_or(1);
+    let step = step.unwrap_or(1);
 
     let class = format!(
         "time-picker {} {}",
         format.as_str(),
         class.as_deref().unwrap_or("")
     );
-
-    let handle_change = move |new_value: String| {
-        if let Some(callback) = on_change {
-            callback.run(new_value);
-        }
-    };
+    let _ = (&on_change, &on_validation);
 
     view! {
         <div
@@ -47,10 +42,14 @@ pub fn TimePicker(
             style=style
             role="combobox"
             aria-label="Time picker"
+            aria-disabled=disabled
             data-format=format.as_str()
             data-step=step
             data-min-time=min_time
             data-max-time=max_time
+            data-value=value
+            data-placeholder=placeholder
+            data-required=required
         >
             {children.map(|c| c())}
         </div>
@@ -77,7 +76,7 @@ pub fn TimePickerInput(
     let disabled = disabled.unwrap_or(false);
     let required = required.unwrap_or(false);
     let format = format.unwrap_or(TimeFormat::TwentyFourHour);
-    let _step = step.unwrap_or(1);
+    let step = step.unwrap_or(1);
 
     let class = format!(
         "time-picker-input {} {}",
@@ -501,9 +500,9 @@ mod time_picker_tests {
     use crate::time_picker::{
         generate_time_options, is_time_in_range, parse_12hour_time, parse_24hour_time,
     };
+    use crate::utils::merge_optional_classes;
     use crate::{validate_time, TimeFormat, TimeValidation};
     use proptest::prelude::*;
-use crate::utils::merge_optional_classes;
 
     #[test]
     fn test_time_picker_component_creation() {

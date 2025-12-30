@@ -32,9 +32,10 @@ pub fn ThemeProvider(
     let (current_theme, setcurrent_theme) = signal(theme.clone());
     let (isdark, set_isdark) = signal(dark_mode);
     let (system_preference, set_system_preference) = signal(false);
+    let _ = &set_system_preference;
 
     // Apply theme changes
-    let apply_theme = move |new_theme: CSSVariables, dark: bool| {
+    let apply_theme = move |_new_theme: CSSVariables, dark: bool| {
         let css_vars = if dark {
             CSSVariables::dark_theme()
         } else {
@@ -45,7 +46,7 @@ pub fn ThemeProvider(
         set_isdark.set(dark);
 
         // Apply CSS variables to document root
-        let css_string = css_vars.to_css_string();
+        let _css_string = css_vars.to_css_string();
         // In a real implementation, this would apply the CSS to the document
         // For now, we'll just store the theme state
     };
@@ -77,13 +78,18 @@ pub fn ThemeProvider(
     });
 
     let class = format!(
-        "theme-provider {} {}",
+        "theme-provider {} {} {}",
         current_theme.get().to_css_string(),
-        style.as_ref().unwrap_or(&String::new())
+        style.as_ref().unwrap_or(&String::new()),
+        class.as_deref().unwrap_or("")
     );
 
     view! {
-        <div class=class style=style.unwrap_or_default()>
+        <div
+            class=class
+            style=style.unwrap_or_default()
+            data-system-theme=system_theme
+        >
             {children.map(|c| c())}
         </div>
     }

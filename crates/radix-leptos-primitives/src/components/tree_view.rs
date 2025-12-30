@@ -48,13 +48,25 @@ pub fn TreeView(
     let checkable = checkable.unwrap_or(false);
     let show_lines = show_lines.unwrap_or(false);
     let show_node_icons = show_node_icons.unwrap_or(true);
+    let node_count = data.len();
+    let _ = (&on_select, &on_expand, &on_check);
 
-    let class = "tree-view".to_string();
+    let class = format!("tree-view {}", class.unwrap_or_default());
 
     let style = style.unwrap_or_default();
 
     view! {
-        <div class=class style=style role="tree">
+        <div
+            class=class
+            style=style
+            role="tree"
+            data-node-count=node_count
+            data-show-icons=show_icons
+            data-multiple=multiple
+            data-checkable=checkable
+            data-show-lines=show_lines
+            data-show-node-icons=show_node_icons
+        >
             {children.map(|c| c())}
         </div>
     }
@@ -122,7 +134,7 @@ pub fn TreeNode(
     let show_node_icons = show_node_icons.unwrap_or(true);
 
     let class = format!(
-        "tree-node {} {} {} {} {}",
+        "tree-node {} {} {} {} {} {}",
         if node.expanded {
             "expanded"
         } else {
@@ -133,13 +145,10 @@ pub fn TreeNode(
         } else {
             "unselected"
         },
-        if node.disabled {
-            "disabled"
-        } else {
-            "enabled"
-        },
+        if node.disabled { "disabled" } else { "enabled" },
         node.level * 20,
-        style.clone().unwrap_or_default()
+        style.clone().unwrap_or_default(),
+        class.clone().unwrap_or_default()
     );
 
     let node_clone = node.clone();
@@ -152,7 +161,7 @@ pub fn TreeNode(
     };
 
     let node_clone = node.clone();
-    let handle_expand = move |_: ()| {
+    let handle_expand = move |_| {
         if !node_clone.disabled {
             if let Some(callback) = on_expand {
                 callback.run(node_clone.clone());
@@ -170,13 +179,21 @@ pub fn TreeNode(
     };
 
     view! {
-        <div class=class style=style role="treeitem" aria-expanded=node.expanded aria-selected=node.selected>
+        <div
+            class=class
+            style=style
+            role="treeitem"
+            aria-expanded=node.expanded
+            aria-selected=node.selected
+            data-show-lines=show_lines
+        >
             <div class="tree-node-content">
                 {if show_icons && node.children.is_some() {
                     view! {
                         <button
                             class="tree-expand-icon"
                             type="button"
+                            on:click=handle_expand
                         >
                         </button>
                     }.into_any()
@@ -273,6 +290,7 @@ pub fn TreeViewSearch(
     let value = value.unwrap_or_default();
     let placeholder = placeholder.unwrap_or_else(|| "Search tree...".to_string());
     let disabled = disabled.unwrap_or(false);
+    let _ = (&on_clear, &children);
     let class = format!(
         "tree-search {} {}",
         class.as_deref().unwrap_or(""),
@@ -323,6 +341,12 @@ pub fn TreeViewActions(
 ) -> impl IntoView {
     let class = format!("tree-actions {}", class.unwrap_or_default());
     let style = style.unwrap_or_default();
+    let _ = (
+        &on_expand_all,
+        &on_collapse_all,
+        &on_select_all,
+        &on_deselect_all,
+    );
 
     view! {
         <div class=class style=style>
@@ -333,8 +357,8 @@ pub fn TreeViewActions(
 
 #[cfg(test)]
 mod tests {
+    use crate::utils::merge_optional_classes;
     use crate::TreeNode;
-use crate::utils::merge_optional_classes;
 
     // Component structure tests
     #[test]

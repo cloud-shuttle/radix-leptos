@@ -1,6 +1,7 @@
 use crate::utils::merge_classes;
 use leptos::children::Children;
 use leptos::prelude::*;
+use std::fmt;
 
 /// Separator component - Visual dividers with orientation support
 #[component]
@@ -18,7 +19,12 @@ pub fn Separator(
     let thickness = thickness.unwrap_or_default();
     let color = color.unwrap_or_default();
 
-    let class = merge_classes(vec!["separator", orientation.to_class(), thickness.to_class()]);
+    let class = merge_classes(vec![
+        "separator",
+        orientation.to_class(),
+        thickness.to_class(),
+        class.as_deref().unwrap_or(""),
+    ]);
     let aria_orientation = orientation.to_aria_orientation();
 
     view! {
@@ -156,14 +162,17 @@ impl SeparatorThickness {
             SeparatorThickness::Custom(_) => "thickness-custom",
         }
     }
+}
 
-    pub fn to_string(&self) -> String {
-        match self {
+impl fmt::Display for SeparatorThickness {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let value = match self {
             SeparatorThickness::Thin => "thin".to_string(),
             SeparatorThickness::Medium => "medium".to_string(),
             SeparatorThickness::Thick => "thick".to_string(),
             SeparatorThickness::Custom(thickness) => format!("custom-{}", thickness),
-        }
+        };
+        f.write_str(&value)
     }
 }
 

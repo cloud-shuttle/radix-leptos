@@ -29,6 +29,7 @@ pub fn Toolbar(
             style=style
             role="toolbar"
             aria-orientation=orientation.to_aria()
+            aria-disabled=disabled
         >
             {children.map(|c| c())}
         </div>
@@ -86,6 +87,7 @@ pub fn ToolbarToggleGroup(
             class=class
             style=style
             role="group"
+            aria-disabled=disabled
         >
             {children.map(|c| c())}
         </div>

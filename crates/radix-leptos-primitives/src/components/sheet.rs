@@ -31,7 +31,7 @@ use leptos::prelude::*;
 ///         <Button on_click=move |_| set_show_sheet.set(true)>
 ///             "Open Sheet"
 ///         </Button>
-///         
+///
 ///         <Sheet
 ///             open=show_sheet
 ///             onopen_change=move |open| set_show_sheet.set(open)
@@ -136,7 +136,26 @@ pub fn Sheet(
     let size = size.unwrap_or(SheetSize::Medium);
     let onopen_change = onopen_change.unwrap_or_else(|| Callback::new(|_| {}));
 
-    let class = merge_classes(vec!["sheet", position.as_str(), size.as_str()]);
+    let class = merge_classes(vec![
+        "sheet",
+        position.as_str(),
+        size.as_str(),
+        class.as_deref().unwrap_or(""),
+    ]);
+    let _ = &onopen_change;
+
+    view! {
+        <div
+            class=class
+            style=style
+            role="dialog"
+            data-open=open
+            data-position=position.as_str()
+            data-size=size.as_str()
+        >
+            {children.map(|c| c())}
+        </div>
+    }
 }
 
 /// Sheet content component

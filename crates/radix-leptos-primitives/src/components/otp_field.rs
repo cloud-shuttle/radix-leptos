@@ -59,6 +59,7 @@ pub fn OtpField(
     let _auto_focus = auto_focus.unwrap_or(true);
     let _auto_submit = auto_submit.unwrap_or(true);
     let input_type = input_type.unwrap_or_default();
+    let _ = &on_complete;
 
     let class = format!("otp-field {}", class.unwrap_or_default());
 
@@ -190,7 +191,7 @@ pub fn OtpFieldWithValidation(
 
     let validation = validate_otp(&value, length, &input_type);
     let class = format!(
-        "otp-field-with-validation {} {}",
+        "otp-field-with-validation {} {} {}",
         if validation.is_valid {
             "valid"
         } else {
@@ -200,8 +201,10 @@ pub fn OtpFieldWithValidation(
             "complete"
         } else {
             "incomplete"
-        }
+        },
+        class.unwrap_or_default()
     );
+    let _ = &on_validation;
 
     let style = style.unwrap_or_default();
 
@@ -396,8 +399,8 @@ fn validate_otp(value: &str, expected_length: usize, input_type: &OtpInputType) 
 
 #[cfg(test)]
 mod tests {
+    use crate::utils::merge_optional_classes;
     use crate::{OtpInputType, OtpValidation};
-use crate::utils::merge_optional_classes;
 
     // Component structure tests
     #[test]

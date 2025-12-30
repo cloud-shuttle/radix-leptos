@@ -124,7 +124,10 @@ pub fn FileUploadDropZone(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes(vec!["file-upload-drop-zone"]);
+    let class = merge_classes(vec![
+        "file-upload-drop-zone",
+        class.as_deref().unwrap_or(""),
+    ]);
 
     let handle_drag_enter = move |_| {
         if !disabled {
@@ -214,6 +217,7 @@ pub fn FileUploadItem(
             callback.run(file_id.clone());
         }
     };
+    let _ = handle_remove;
 
     view! {
         <div

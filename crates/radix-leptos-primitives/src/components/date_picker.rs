@@ -44,6 +44,7 @@ pub fn DatePicker(
             style=style
             role="combobox"
             aria-label="Date picker"
+            aria-disabled=disabled
             data-format=format
             data-locale=locale
             data-min-date=_min_date
@@ -128,7 +129,7 @@ pub fn DatePickerTrigger(
 ) -> impl IntoView {
     let disabled = disabled.unwrap_or(false);
 
-    let class = merge_classes(vec!["date-picker-trigger"]);
+    let class = merge_classes(vec!["date-picker-trigger", class.as_deref().unwrap_or("")]);
 
     view! {
         <button

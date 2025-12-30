@@ -133,6 +133,7 @@ pub fn SpacingLayoutSection(
     let layout_type = layout_type.unwrap_or_default();
     let layout = layout.unwrap_or_default();
     let on_change = on_change.unwrap_or_else(|| Callback::new(|_| {}));
+    let _ = &on_change;
     let layout_clone = layout.clone();
 
     let class = merge_classes(
@@ -191,7 +192,7 @@ pub fn BreakpointLayoutSection(
     let layout_type = layout_type.unwrap_or_default();
     let layout = layout.unwrap_or_default();
     let on_change = on_change.unwrap_or_else(|| Callback::new(|_| {}));
-    let layout_clone = layout.clone();
+    let _ = &on_change;
 
     let class = merge_classes(
         [
@@ -233,9 +234,9 @@ pub fn LayoutOptionGroup(
 ) -> impl IntoView {
     let title = title.unwrap_or_default();
     let value = value.unwrap_or(0.0);
-    let _values = values.clone().unwrap_or_default();
     let on_change = on_change.unwrap_or_else(|| Callback::new(|_| {}));
     let on_values_change = on_values_change.unwrap_or_else(|| Callback::new(|_| {}));
+    let _ = (&on_change, &on_values_change);
 
     let class = merge_classes(["layout-option-group", class.as_deref().unwrap_or("")].to_vec());
 
@@ -243,6 +244,7 @@ pub fn LayoutOptionGroup(
         <div
             class=class
             style=style
+            data-value=value
         >
             <h5 class="option-group-title">{title}</h5>
             <div class="option-list">

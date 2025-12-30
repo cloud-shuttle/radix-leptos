@@ -178,19 +178,12 @@ pub enum ErrorType {
 }
 
 /// Validation Engine
+#[derive(Default)]
 pub struct ValidationEngine {
     rules: HashMap<String, Vec<ValidationRule>>,
     custom_validators: HashMap<String, CustomValidator>,
 }
 
-impl Default for ValidationEngine {
-    fn default() -> Self {
-        Self {
-            rules: HashMap::new(),
-            custom_validators: HashMap::new(),
-        }
-    }
-}
 
 impl ValidationEngine {
     pub fn new() -> Self {
@@ -198,7 +191,7 @@ impl ValidationEngine {
     }
 
     pub fn add_rule(&mut self, field_name: String, rule: ValidationRule) {
-        self.rules.entry(field_name).or_insert_with(Vec::new).push(rule);
+        self.rules.entry(field_name).or_default().push(rule);
     }
 
     pub fn add_custom_validator(&mut self, name: String, validator: CustomValidator) {
@@ -465,7 +458,7 @@ pub fn is_valid_date(date: &str) -> bool {
     let day: u32 = parts[2].parse().unwrap_or(0);
     
     // Basic validation
-    if year < 1 || month < 1 || month > 12 || day < 1 || day > 31 {
+    if year < 1 || !(1..=12).contains(&month) || !(1..=31).contains(&day) {
         return false;
     }
     

@@ -66,6 +66,7 @@ pub fn MultiSelect(
             class=_class
             role="combobox"
             aria-multiselectable=true
+            aria-disabled=disabled
         >
             {children.map(|c| c())}
         </div>
@@ -236,6 +237,7 @@ pub fn MultiSelectSearch(
     let value = value.unwrap_or_default();
     let placeholder = placeholder.unwrap_or_else(|| "Search options...".to_string());
     let disabled = disabled.unwrap_or(false);
+    let _ = &on_clear;
     let class = format!(
         "multi-select-search {} {}",
         class.as_deref().unwrap_or(""),
@@ -301,8 +303,8 @@ pub fn MultiSelectTag(
 
 #[cfg(test)]
 mod tests {
+    use crate::utils::merge_optional_classes;
     use crate::MultiSelectOption;
-use crate::utils::merge_optional_classes;
 
     // Component structure tests
     #[test]

@@ -67,7 +67,7 @@ pub fn PasswordToggleField(
     let _max_length = max_length.unwrap_or(usize::MAX);
     let _strength_requirements = strength_requirements.unwrap_or_default();
 
-    let class = "password-toggle-field".to_string();
+    let class = format!("password-toggle-field {}", class.unwrap_or_default());
 
     let style = style.unwrap_or_default();
 
@@ -101,10 +101,11 @@ pub fn PasswordToggleField(
     };
 
     view! {
-        <div class=class style=style>
+        <div class=class style=style aria-disabled=disabled>
             <div class="password-field-container">
                 <input
                     class="password-input"
+                    disabled=disabled
                     on:click=handle_visibility_toggle
                 />
             </div>
@@ -392,8 +393,8 @@ fn validate_password(
 #[cfg(test)]
 mod tests {
 
+    use crate::utils::merge_optional_classes;
     use crate::{PasswordStrengthLevel, PasswordStrengthRequirements, PasswordValidation};
-use crate::utils::merge_optional_classes;
 
     // Component structure tests
     #[test]

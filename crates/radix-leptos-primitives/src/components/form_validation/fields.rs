@@ -2,7 +2,7 @@ use crate::utils::merge_classes;
 use leptos::callback::Callback;
 use leptos::prelude::*;
 
-use super::validation::{ValidationRule, FieldValidationResult};
+use super::validation::{FieldValidationResult, ValidationRule};
 
 /// Form Field with Validation
 #[component]
@@ -20,11 +20,10 @@ pub fn FormField(
     let label = label.unwrap_or_default();
     let required = required.unwrap_or(false);
     let validation_rules = validation_rules.unwrap_or_default();
+    let validation_rules_count = validation_rules.len();
+    let _ = &on_validation;
 
-    let class = merge_classes(vec![
-        "form-field",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(vec!["form-field", class.as_deref().unwrap_or("")]);
 
     view! {
         <div
@@ -32,6 +31,7 @@ pub fn FormField(
             style=style
             data-field-name=name
             data-required=required
+            data-validation-rules=validation_rules_count
         >
             {if !label.is_empty() {
                 view! {
@@ -61,10 +61,7 @@ pub fn FormLabel(
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] for_id: Option<String>,
 ) -> impl IntoView {
-    let class = merge_classes(vec![
-        "form-label",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(vec!["form-label", class.as_deref().unwrap_or("")]);
 
     view! {
         <label
@@ -86,10 +83,7 @@ pub fn FormFieldError(
 ) -> impl IntoView {
     let name = name.unwrap_or_default();
 
-    let class = merge_classes(vec![
-        "form-field-error",
-        class.as_deref().unwrap_or(""),
-    ]);
+    let class = merge_classes(vec!["form-field-error", class.as_deref().unwrap_or("")]);
 
     view! {
         <div

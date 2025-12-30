@@ -60,6 +60,7 @@ pub fn ToggleGroup(
             style=style
             role="group"
             aria-orientation=orientation.to_aria()
+            aria-disabled=disabled
         >
             {children.map(|c| c())}
         </div>

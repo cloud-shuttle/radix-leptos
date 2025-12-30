@@ -44,6 +44,8 @@ pub fn HoverCard(
         <div
             class=class
             style=style
+            data-open-delay=open_delay
+            data-close-delay=_close_delay
         >
         </div>
     }

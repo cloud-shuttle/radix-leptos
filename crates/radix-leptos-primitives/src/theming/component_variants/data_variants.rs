@@ -2,7 +2,7 @@ use crate::utils::merge_classes;
 use leptos::callback::Callback;
 use leptos::prelude::*;
 
-use super::input_variants::{SizeVariant, StyleVariant, StateVariant};
+use super::input_variants::{SizeVariant, StateVariant, StyleVariant};
 
 /// Size variant option group component
 #[component]
@@ -16,6 +16,7 @@ pub fn SizeVariantOptionGroup(
     let title = title.unwrap_or_default();
     let options = options.unwrap_or_default();
     let on_change = on_change.unwrap_or_else(|| Callback::new(|_| {}));
+    let _ = &on_change;
 
     let class = merge_classes(["variant-option-group", class.as_deref().unwrap_or("")].to_vec());
 
@@ -52,6 +53,7 @@ pub fn StyleVariantOptionGroup(
     let title = title.unwrap_or_default();
     let options = options.unwrap_or_default();
     let on_change = on_change.unwrap_or_else(|| Callback::new(|_| {}));
+    let _ = &on_change;
 
     let class = merge_classes(["variant-option-group", class.as_deref().unwrap_or("")].to_vec());
 
@@ -88,6 +90,7 @@ pub fn StateVariantOptionGroup(
     let title = title.unwrap_or_default();
     let options = options.unwrap_or_default();
     let on_change = on_change.unwrap_or_else(|| Callback::new(|_| {}));
+    let _ = &on_change;
 
     let class = merge_classes(["variant-option-group", class.as_deref().unwrap_or("")].to_vec());
 
@@ -130,7 +133,11 @@ mod data_variants_tests {
     #[test]
     fn test_style_variant_option_group_component() {
         // Test logic without runtime
-        let styles = [StyleVariant::Default, StyleVariant::Primary, StyleVariant::Secondary];
+        let styles = [
+            StyleVariant::Default,
+            StyleVariant::Primary,
+            StyleVariant::Secondary,
+        ];
         // Test component logic
         let title = "Button Variants";
         let component_type = "button";
@@ -141,7 +148,11 @@ mod data_variants_tests {
     #[test]
     fn test_state_variant_option_group_component() {
         // Test logic without runtime
-        let states = [StateVariant::Default, StateVariant::Hover, StateVariant::Active];
+        let states = [
+            StateVariant::Default,
+            StateVariant::Hover,
+            StateVariant::Active,
+        ];
         // Test component logic
         let title = "Button Variants";
         let component_type = "button";
