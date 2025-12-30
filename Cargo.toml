@@ -2,7 +2,7 @@
 resolver = "2"
 members = [
     "crates/radix-leptos-core",
-    "crates/radix-leptos-primitives", 
+    "crates/radix-leptos-primitives",
     "crates/radix-leptos",
     "examples",
 ]
@@ -21,7 +21,7 @@ categories = ["web-programming", "gui", "wasm"]
 readme = "README.md"
 
 [workspace.dependencies]
-leptos = { version = "0.8.8", features = ["ssr", "csr"] }
+leptos = { version = "0.8.8", default-features = false }
 leptos_meta = "0.8.8"
 leptos_router = "0.8.6"
 # leptos-use = "0.11" # Temporarily disabled due to version conflicts

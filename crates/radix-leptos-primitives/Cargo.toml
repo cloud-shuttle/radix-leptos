@@ -19,6 +19,7 @@ rustdoc-args = ["--cfg", "docsrs"]
 [features]
 default = []
 docsrs = []
+csr = ["leptos/csr", "radix-leptos-core/csr"]
 ssr = ["leptos/ssr", "radix-leptos-core/ssr"]
 hydrate = ["leptos/hydrate", "radix-leptos-core/hydrate"]
 
